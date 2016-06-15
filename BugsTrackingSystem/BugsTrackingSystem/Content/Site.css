@@ -40,7 +40,7 @@ textarea {
 
 .navbar-nav > li > a {
     padding: 10px;
-    color: white;
+    color: white!important;
 }
 
 .linkItemMenu > li > a:hover {
@@ -100,6 +100,8 @@ textarea {
     padding: 5px;
 }
 
+/* Search form */
+
 .input-group {
     max-width: 200px;
     margin: 5px;
@@ -140,4 +142,18 @@ textarea {
 
 .input-group-addon button:active {
     border: none;
+}
+
+/* Content */
+
+.MyProjects {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border: 1px;
+    margin: 30px;
+    height: 100px;
+}
+
+h1 {
+    margin-left: 30px;
 }
