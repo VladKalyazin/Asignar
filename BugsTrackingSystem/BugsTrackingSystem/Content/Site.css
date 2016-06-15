@@ -1,6 +1,5 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-color: #F8FEFE;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +20,124 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Menu */
+.menu {
+    background-color: #4D868D;
+    border: 0;
+    font-size: 16px;
+}
+
+.navbar {
+    min-height: 35px;
+    color: white;
+}
+.navbar-nav > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navbar-nav > li > a {
+    padding: 10px;
+    color: white;
+}
+
+.linkItemMenu > li > a:hover {
+    color:white!important;
+}
+
+.linkItemMenu > li > a:visited {
+    color:white!important;
+}
+
+.linkItemMenu :hover {
+    background-color: #92C1BA;
+}
+
+.navbar-form {
+    margin: 0px;
+}
+
+#mainLogo > a {
+    padding: 4px;
+    padding-bottom: 6px;
+}
+
+.navbar {
+    margin: 0px;
+}
+
+.menuButton {
+    border: none;
+    margin: 7px;
+    padding: 0px;
+    color: white;
+    background-color: #92C1BA;
+}
+
+.menuButton > span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.fa-plus {
+    margin-right: 7px;
+    margin-left: 0px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 20px;
+}
+
+.userMenuInfo > img {
+    max-height: 30px;
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.userMenuInfo {
+    padding: 5px;
+}
+
+.input-group {
+    max-width: 200px;
+    margin: 5px;
+}
+
+.form-control {
+    background-color: transparent;
+    color: white;
+    padding: 2px;
+    max-height: 30px;
+}
+
+.input-group-addon {
+    border-radius: 0px;
+    border-color: white;
+    padding: 2px;
+}
+
+.input-group-addon:last-child {
+    background-color: transparent;
+}
+
+.stylish-input-group .form-control {
+	border-right:0; 
+    border-radius: 0px;
+    border-color: white;
+}
+
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+#searchTool {
+    font-size: 18px; 
+    color: white;
+}
+
+.input-group-addon button:active {
+    border: none;
 }
