@@ -151,7 +151,6 @@ textarea {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border: 1px;
     margin: 30px;
-    height: 100px;
 }
 
 h1 {
@@ -258,4 +257,47 @@ li {
 
 .forgotText {
     color: #E3F0F2;
+}
+
+/*Project*/
+
+.glyphicon {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.icons {
+    margin-left: 15px;
+}
+
+hr {
+    margin: 0 15px 0 15px;
+}
+
+.projectIcon {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.project_todo {
+    border: solid 1px #4D868D;
+    color: #4D868D;
+    padding: 3px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px; 
+}
+
+.project_progress {
+    border: solid 1px #F69C00;
+    color: #F69C00;
+    padding: 3px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.projLine {
+    padding: 10px;
+    height: 70px;
 }
