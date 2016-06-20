@@ -157,3 +157,78 @@ textarea {
 h1 {
     margin-left: 30px;
 }
+
+.top-buffer {
+    margin-top: 30px;
+}
+
+.top {
+    margin-top: 50px;
+}
+
+.loginPage {
+    background-color: #4D868D;
+}
+
+.authInput {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    border: 0;
+    margin: 0 auto;
+}
+
+input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+ 
+input:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+ 
+input::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+ 
+input:-ms-input-placeholder {  
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+
+a.forgotPass {
+     color: #333333; text-underline: #333333;
+}
+a.forgotPass:active {
+     color: #A3C2C6; text-underline: #A3C2C6;
+}
+a.forgotPass:link {
+     color: #A3C2C6; text-underline: #A3C2C6;
+}
+a.forgotPass:visited {
+     color: #CCCCCC; text-underline: #CCCCCC;
+}
+
+li {
+    margin: 0 0 3px 0;
+}
+
+.btn {
+    border-radius: 0;
+    background-color: #E3F0F2;
+    border: 0;
+    color: #4d868d;
+    font-size: small;
+    width: 150px;
+    height: 35px;
+}
+
+.btn:hover {
+    background-color: #D3EEF2;
+    color: #4d868d;
+}
+
+.remember {
+    color: #A3C2C6;
+}
