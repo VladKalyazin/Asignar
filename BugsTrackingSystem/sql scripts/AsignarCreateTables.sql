@@ -21,9 +21,12 @@ go
 
 create table [dbo].[Projects] (
 	[ProjectID] int identity(1, 1) primary key not null,
+	[UserID] int,
 	[ProjectName] nvarchar(100),
 	[Prefix] nvarchar(100),
-	[CreationDate] datetime
+	[CreationDate] datetime,
+	CONSTRAINT FK_Projects_Users FOREIGN KEY ([UserID])     
+		REFERENCES [Users] ([UserID])    
 )
 
 go
@@ -88,11 +91,11 @@ go
 
 create table [dbo].[Comments] (
 	[CommentID] int identity(1, 1) primary key not null,
-	[ProjectID] int,
+	[DefectID] int,
 	[UserID] int,
 	[CommentText] nvarchar(1000),
-	CONSTRAINT FK_Comments_Projects FOREIGN KEY ([ProjectID])     
-		REFERENCES [Projects] ([ProjectID]),
+	CONSTRAINT FK_Comments_Defects FOREIGN KEY ([DefectID])     
+		REFERENCES [Defects] ([DefectID]),
 	CONSTRAINT FK_Comments_Users FOREIGN KEY ([UserID])     
 		REFERENCES [Users] ([UserID])   
 )
