@@ -1,17 +1,21 @@
-create table [dbo].[Roles] (
+create database [AsignarDB]
+
+go
+
+create table [AsignarDB].[dbo].[Roles] (
 	[RoleID] int identity(1, 1) primary key not null,
-	[Role] nvarchar(100)
+	[Role] nvarchar(15)
 )
 
 go
 
-create table [dbo].[Users] (
+create table [AsignarDB].[dbo].[Users] (
 	[UserID] int identity(1, 1) primary key not null,
-	[FirstName] nvarchar(100),
-	[Surname] nvarchar(100),
-	[Login] nvarchar(100),
-	[Email] nvarchar(100),
-	[Password] nvarchar(100),
+	[FirstName] nvarchar(30),
+	[Surname] nvarchar(30),
+	[Login] nvarchar(20),
+	[Email] nvarchar(35),
+	[Password] nvarchar(20),
 	[RoleID] int,
 	CONSTRAINT FK_Users_Roles FOREIGN KEY ([RoleID])     
 		REFERENCES [Roles] ([RoleID])      
@@ -19,19 +23,16 @@ create table [dbo].[Users] (
 
 go
 
-create table [dbo].[Projects] (
+create table [AsignarDB].[dbo].[Projects] (
 	[ProjectID] int identity(1, 1) primary key not null,
-	[UserID] int,
-	[ProjectName] nvarchar(100),
-	[Prefix] nvarchar(100),
-	[CreationDate] datetime,
-	CONSTRAINT FK_Projects_Users FOREIGN KEY ([UserID])     
-		REFERENCES [Users] ([UserID])    
+	[ProjectName] nvarchar(30),
+	[Prefix] nvarchar(3),
+	[CreationDate] datetime
 )
 
 go
 
-create table [dbo].[ProjectsToUsersBindings] (
+create table [AsignarDB].[dbo].[ProjectsToUsersBindings] (
 	[BindingID] int identity(1, 1) primary key not null,
 	[ProjectID] int,
 	[UserID] int,
@@ -43,30 +44,30 @@ create table [dbo].[ProjectsToUsersBindings] (
 
 go
 
-create table [dbo].[DefectPriorities] (
+create table [AsignarDB].[dbo].[DefectPriorities] (
 	[DefectPriorityID] int identity(1, 1) primary key not null,
-	[PriorityName] nvarchar(100)
+	[PriorityName] nvarchar(15)
 )
 
 go
 
-create table [dbo].[DefectStatuses] (
+create table [AsignarDB].[dbo].[DefectStatuses] (
 	[DefectStatusID] int identity(1, 1) primary key not null,
-	[StatusName] nvarchar(100)
+	[StatusName] nvarchar(15)
 )
 
 go
 
-create table [dbo].[Defects] (
+create table [AsignarDB].[dbo].[Defects] (
 	[DefectID] int identity(1, 1) primary key not null,
-	[Subject] nvarchar(100),
+	[Subject] nvarchar(50),
 	[ProjectID] int,
 	[AssigneeUserID] int,
 	[DefectPriorityID] int,
 	[DefectStatusID] int,
 	[CreationDate] datetime,
 	[ModificationDate] datetime,
-	[Description] nvarchar(1000),
+	[Description] nvarchar(500),
 	CONSTRAINT FK_Defects_Projects FOREIGN KEY ([ProjectID])     
 		REFERENCES [Projects] ([ProjectID]),
 	CONSTRAINT FK_Defects_Users FOREIGN KEY ([AssigneeUserID])     
@@ -79,9 +80,9 @@ create table [dbo].[Defects] (
 
 go
 
-create table [dbo].[DefectAttachments] (
+create table [AsignarDB].[dbo].[DefectAttachments] (
 	[AttachmentID] int identity(1, 1) primary key not null,
-	[AttachmentLink] nvarchar(200),
+	[AttachmentLink] nvarchar(100),
 	[DefectID] int,
 	CONSTRAINT FK_DefectAttachments_Defects FOREIGN KEY ([DefectID])     
 		REFERENCES [Defects] ([DefectID])   
@@ -89,22 +90,22 @@ create table [dbo].[DefectAttachments] (
 
 go
 
-create table [dbo].[Comments] (
+create table [AsignarDB].[dbo].[Comments] (
 	[CommentID] int identity(1, 1) primary key not null,
-	[DefectID] int,
+	[ProjectID] int,
 	[UserID] int,
 	[CommentText] nvarchar(1000),
-	CONSTRAINT FK_Comments_Defects FOREIGN KEY ([DefectID])     
-		REFERENCES [Defects] ([DefectID]),
+	CONSTRAINT FK_Comments_Projects FOREIGN KEY ([ProjectID])     
+		REFERENCES [Projects] ([ProjectID]),
 	CONSTRAINT FK_Comments_Users FOREIGN KEY ([UserID])     
 		REFERENCES [Users] ([UserID])   
 )
 
 go
 
-create table [dbo].[Filters] (
+create table [AsignarDB].[dbo].[Filters] (
 	[FilterID] int identity(1, 1) primary key not null,
-	[Search] nvarchar(100),
+	[Search] nvarchar(30),
 	[ProjectID] int,
 	[AssigneeUserID] int,
 	[DefectPriorityID] int,

@@ -1,0 +1,828 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AsignarDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CommentText" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="DefectAttachments">
+          <Key>
+            <PropertyRef Name="AttachmentID" />
+          </Key>
+          <Property Name="AttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentLink" Type="nvarchar" MaxLength="100" />
+          <Property Name="DefectID" Type="int" />
+        </EntityType>
+        <EntityType Name="DefectPriorities">
+          <Key>
+            <PropertyRef Name="DefectPriorityID" />
+          </Key>
+          <Property Name="DefectPriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriorityName" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Defects">
+          <Key>
+            <PropertyRef Name="DefectID" />
+          </Key>
+          <Property Name="DefectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="AssigneeUserID" Type="int" />
+          <Property Name="DefectPriorityID" Type="int" />
+          <Property Name="DefectStatusID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="DefectStatuses">
+          <Key>
+            <PropertyRef Name="DefectStatusID" />
+          </Key>
+          <Property Name="DefectStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Filters">
+          <Key>
+            <PropertyRef Name="FilterID" />
+          </Key>
+          <Property Name="FilterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Search" Type="nvarchar" MaxLength="30" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="AssigneeUserID" Type="int" />
+          <Property Name="DefectPriorityID" Type="int" />
+          <Property Name="DefectStatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="30" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="3" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProjectsToUsersBindings">
+          <Key>
+            <PropertyRef Name="BindingID" />
+          </Key>
+          <Property Name="BindingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="30" />
+          <Property Name="Login" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="35" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Bindings_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="ProjectsToUsersBindings" Type="Self.ProjectsToUsersBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectsToUsersBindings">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bindings_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ProjectsToUsersBindings" Type="Self.ProjectsToUsersBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ProjectsToUsersBindings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectAttachments_Defects">
+          <End Role="Defects" Type="Self.Defects" Multiplicity="0..1" />
+          <End Role="DefectAttachments" Type="Self.DefectAttachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Defects">
+              <PropertyRef Name="DefectID" />
+            </Principal>
+            <Dependent Role="DefectAttachments">
+              <PropertyRef Name="DefectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Priorities">
+          <End Role="DefectPriorities" Type="Self.DefectPriorities" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectPriorities">
+              <PropertyRef Name="DefectPriorityID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="DefectPriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Statuses">
+          <End Role="DefectStatuses" Type="Self.DefectStatuses" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectStatuses">
+              <PropertyRef Name="DefectStatusID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="DefectStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="AssigneeUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Priorities">
+          <End Role="DefectPriorities" Type="Self.DefectPriorities" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectPriorities">
+              <PropertyRef Name="DefectPriorityID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="DefectPriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Statuses">
+          <End Role="DefectStatuses" Type="Self.DefectStatuses" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectStatuses">
+              <PropertyRef Name="DefectStatusID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="DefectStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="AssigneeUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AsignarDBModelContainer">
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DefectAttachments" EntityType="Self.DefectAttachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DefectPriorities" EntityType="Self.DefectPriorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Defects" EntityType="Self.Defects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DefectStatuses" EntityType="Self.DefectStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filters" EntityType="Self.Filters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectsToUsersBindings" EntityType="Self.ProjectsToUsersBindings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bindings_Projects" Association="Self.FK_Bindings_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectsToUsersBindings" EntitySet="ProjectsToUsersBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bindings_Users" Association="Self.FK_Bindings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ProjectsToUsersBindings" EntitySet="ProjectsToUsersBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Projects" Association="Self.FK_Comments_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectAttachments_Defects" Association="Self.FK_DefectAttachments_Defects">
+            <End Role="Defects" EntitySet="Defects" />
+            <End Role="DefectAttachments" EntitySet="DefectAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Priorities" Association="Self.FK_Defects_Priorities">
+            <End Role="DefectPriorities" EntitySet="DefectPriorities" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Projects" Association="Self.FK_Defects_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Statuses" Association="Self.FK_Defects_Statuses">
+            <End Role="DefectStatuses" EntitySet="DefectStatuses" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Users" Association="Self.FK_Defects_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Priorities" Association="Self.FK_Filters_Priorities">
+            <End Role="DefectPriorities" EntitySet="DefectPriorities" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Projects" Association="Self.FK_Filters_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Statuses" Association="Self.FK_Filters_Statuses">
+            <End Role="DefectStatuses" EntitySet="DefectStatuses" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Users" Association="Self.FK_Filters_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AsignarDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CommentText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Comments_Projects" FromRole="Comments" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="DefectAttachment">
+          <Key>
+            <PropertyRef Name="AttachmentID" />
+          </Key>
+          <Property Name="AttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DefectID" Type="Int32" />
+          <NavigationProperty Name="Defect" Relationship="Self.FK_DefectAttachments_Defects" FromRole="DefectAttachments" ToRole="Defects" />
+        </EntityType>
+        <EntityType Name="DefectPriority">
+          <Key>
+            <PropertyRef Name="DefectPriorityID" />
+          </Key>
+          <Property Name="DefectPriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Defects" Relationship="Self.FK_Defects_Priorities" FromRole="DefectPriorities" ToRole="Defects" />
+          <NavigationProperty Name="Filters" Relationship="Self.FK_Filters_Priorities" FromRole="DefectPriorities" ToRole="Filters" />
+        </EntityType>
+        <EntityType Name="Defect">
+          <Key>
+            <PropertyRef Name="DefectID" />
+          </Key>
+          <Property Name="DefectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="AssigneeUserID" Type="Int32" />
+          <Property Name="DefectPriorityID" Type="Int32" />
+          <Property Name="DefectStatusID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DefectAttachments" Relationship="Self.FK_DefectAttachments_Defects" FromRole="Defects" ToRole="DefectAttachments" />
+          <NavigationProperty Name="DefectPriority" Relationship="Self.FK_Defects_Priorities" FromRole="Defects" ToRole="DefectPriorities" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Defects_Projects" FromRole="Defects" ToRole="Projects" />
+          <NavigationProperty Name="DefectStatus" Relationship="Self.FK_Defects_Statuses" FromRole="Defects" ToRole="DefectStatuses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Defects_Users" FromRole="Defects" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="DefectStatus">
+          <Key>
+            <PropertyRef Name="DefectStatusID" />
+          </Key>
+          <Property Name="DefectStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Defects" Relationship="Self.FK_Defects_Statuses" FromRole="DefectStatuses" ToRole="Defects" />
+          <NavigationProperty Name="Filters" Relationship="Self.FK_Filters_Statuses" FromRole="DefectStatuses" ToRole="Filters" />
+        </EntityType>
+        <EntityType Name="Filter">
+          <Key>
+            <PropertyRef Name="FilterID" />
+          </Key>
+          <Property Name="FilterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Search" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="AssigneeUserID" Type="Int32" />
+          <Property Name="DefectPriorityID" Type="Int32" />
+          <Property Name="DefectStatusID" Type="Int32" />
+          <NavigationProperty Name="DefectPriority" Relationship="Self.FK_Filters_Priorities" FromRole="Filters" ToRole="DefectPriorities" />
+          <NavigationProperty Name="DefectStatus" Relationship="Self.FK_Filters_Statuses" FromRole="Filters" ToRole="DefectStatuses" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Filters_Projects" FromRole="Filters" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Filters_Users" FromRole="Filters" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Prefix" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Projects" FromRole="Projects" ToRole="Comments" />
+          <NavigationProperty Name="Defects" Relationship="Self.FK_Defects_Projects" FromRole="Projects" ToRole="Defects" />
+          <NavigationProperty Name="Filters" Relationship="Self.FK_Filters_Projects" FromRole="Projects" ToRole="Filters" />
+          <NavigationProperty Name="ProjectsToUsersBindings" Relationship="Self.FK_Bindings_Projects" FromRole="Projects" ToRole="ProjectsToUsersBindings" />
+        </EntityType>
+        <EntityType Name="ProjectsToUsersBinding">
+          <Key>
+            <PropertyRef Name="BindingID" />
+          </Key>
+          <Property Name="BindingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Bindings_Projects" FromRole="ProjectsToUsersBindings" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Bindings_Users" FromRole="ProjectsToUsersBindings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Defects" Relationship="Self.FK_Defects_Users" FromRole="Users" ToRole="Defects" />
+          <NavigationProperty Name="Filters" Relationship="Self.FK_Filters_Users" FromRole="Users" ToRole="Filters" />
+          <NavigationProperty Name="ProjectsToUsersBindings" Relationship="Self.FK_Bindings_Users" FromRole="Users" ToRole="ProjectsToUsersBindings" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Comments_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectAttachments_Defects">
+          <End Role="Defects" Type="Self.Defect" Multiplicity="0..1" />
+          <End Role="DefectAttachments" Type="Self.DefectAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Defects">
+              <PropertyRef Name="DefectID" />
+            </Principal>
+            <Dependent Role="DefectAttachments">
+              <PropertyRef Name="DefectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Priorities">
+          <End Role="DefectPriorities" Type="Self.DefectPriority" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectPriorities">
+              <PropertyRef Name="DefectPriorityID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="DefectPriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Priorities">
+          <End Role="DefectPriorities" Type="Self.DefectPriority" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectPriorities">
+              <PropertyRef Name="DefectPriorityID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="DefectPriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Statuses">
+          <End Role="DefectStatuses" Type="Self.DefectStatus" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectStatuses">
+              <PropertyRef Name="DefectStatusID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="DefectStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Defects_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Defects" Type="Self.Defect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Defects">
+              <PropertyRef Name="AssigneeUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Statuses">
+          <End Role="DefectStatuses" Type="Self.DefectStatus" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefectStatuses">
+              <PropertyRef Name="DefectStatusID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="DefectStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filters_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Filters" Type="Self.Filter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Filters">
+              <PropertyRef Name="AssigneeUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bindings_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="ProjectsToUsersBindings" Type="Self.ProjectsToUsersBinding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectsToUsersBindings">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bindings_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ProjectsToUsersBindings" Type="Self.ProjectsToUsersBinding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ProjectsToUsersBindings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AsignarDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="DefectAttachments" EntityType="Self.DefectAttachment" />
+          <EntitySet Name="DefectPriorities" EntityType="Self.DefectPriority" />
+          <EntitySet Name="Defects" EntityType="Self.Defect" />
+          <EntitySet Name="DefectStatuses" EntityType="Self.DefectStatus" />
+          <EntitySet Name="Filters" EntityType="Self.Filter" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectsToUsersBindings" EntityType="Self.ProjectsToUsersBinding" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Comments_Projects" Association="Self.FK_Comments_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectAttachments_Defects" Association="Self.FK_DefectAttachments_Defects">
+            <End Role="Defects" EntitySet="Defects" />
+            <End Role="DefectAttachments" EntitySet="DefectAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Priorities" Association="Self.FK_Defects_Priorities">
+            <End Role="DefectPriorities" EntitySet="DefectPriorities" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Priorities" Association="Self.FK_Filters_Priorities">
+            <End Role="DefectPriorities" EntitySet="DefectPriorities" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Projects" Association="Self.FK_Defects_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Statuses" Association="Self.FK_Defects_Statuses">
+            <End Role="DefectStatuses" EntitySet="DefectStatuses" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Defects_Users" Association="Self.FK_Defects_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Defects" EntitySet="Defects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Statuses" Association="Self.FK_Filters_Statuses">
+            <End Role="DefectStatuses" EntitySet="DefectStatuses" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Projects" Association="Self.FK_Filters_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filters_Users" Association="Self.FK_Filters_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Filters" EntitySet="Filters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bindings_Projects" Association="Self.FK_Bindings_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectsToUsersBindings" EntitySet="ProjectsToUsersBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bindings_Users" Association="Self.FK_Bindings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ProjectsToUsersBindings" EntitySet="ProjectsToUsersBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AsignarDBModelContainer" CdmEntityContainer="AsignarDBEntities">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="AsignarDBModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DefectAttachments">
+            <EntityTypeMapping TypeName="AsignarDBModel.DefectAttachment">
+              <MappingFragment StoreEntitySet="DefectAttachments">
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="AttachmentLink" ColumnName="AttachmentLink" />
+                <ScalarProperty Name="DefectID" ColumnName="DefectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DefectPriorities">
+            <EntityTypeMapping TypeName="AsignarDBModel.DefectPriority">
+              <MappingFragment StoreEntitySet="DefectPriorities">
+                <ScalarProperty Name="DefectPriorityID" ColumnName="DefectPriorityID" />
+                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Defects">
+            <EntityTypeMapping TypeName="AsignarDBModel.Defect">
+              <MappingFragment StoreEntitySet="Defects">
+                <ScalarProperty Name="DefectID" ColumnName="DefectID" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="AssigneeUserID" ColumnName="AssigneeUserID" />
+                <ScalarProperty Name="DefectPriorityID" ColumnName="DefectPriorityID" />
+                <ScalarProperty Name="DefectStatusID" ColumnName="DefectStatusID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DefectStatuses">
+            <EntityTypeMapping TypeName="AsignarDBModel.DefectStatus">
+              <MappingFragment StoreEntitySet="DefectStatuses">
+                <ScalarProperty Name="DefectStatusID" ColumnName="DefectStatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filters">
+            <EntityTypeMapping TypeName="AsignarDBModel.Filter">
+              <MappingFragment StoreEntitySet="Filters">
+                <ScalarProperty Name="FilterID" ColumnName="FilterID" />
+                <ScalarProperty Name="Search" ColumnName="Search" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="AssigneeUserID" ColumnName="AssigneeUserID" />
+                <ScalarProperty Name="DefectPriorityID" ColumnName="DefectPriorityID" />
+                <ScalarProperty Name="DefectStatusID" ColumnName="DefectStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="AsignarDBModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectsToUsersBindings">
+            <EntityTypeMapping TypeName="AsignarDBModel.ProjectsToUsersBinding">
+              <MappingFragment StoreEntitySet="ProjectsToUsersBindings">
+                <ScalarProperty Name="BindingID" ColumnName="BindingID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="AsignarDBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AsignarDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
