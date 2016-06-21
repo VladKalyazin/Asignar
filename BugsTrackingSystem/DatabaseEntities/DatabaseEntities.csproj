@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A10EF975-4FAB-41FC-9EDE-59392F0A5441}</ProjectGuid>
+    <ProjectGuid>{D061A2C2-708C-4F6B-BECF-1FEC62065F20}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DatabaseEntities</RootNamespace>
@@ -51,76 +51,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsignarDBEntity.Context.cs">
+    <Compile Include="AsignarDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AsignarDBEntity.Context.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="AsignarDBEntity.cs">
+    <Compile Include="AsignarDBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AsignarDBEntity.Designer.cs">
+    <Compile Include="AsignarDBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AsignarDBEntity.edmx</DependentUpon>
+      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Comment.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Defect.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DefectAttachment.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DefectPriority.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DefectStatus.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Filter.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Project.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectsToUsersBinding.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>AsignarDBEntity.tt</DependentUpon>
+      <DependentUpon>AsignarDBModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="AsignarDBEntity.edmx">
+    <EntityDeploy Include="AsignarDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AsignarDBEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>AsignarDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="AsignarDBEntity.edmx.diagram">
-      <DependentUpon>AsignarDBEntity.edmx</DependentUpon>
+    <None Include="AsignarDBModel.edmx.diagram">
+      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AsignarDBEntity.Context.tt">
+    <Content Include="AsignarDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AsignarDBEntity.edmx</DependentUpon>
-      <LastGenOutput>AsignarDBEntity.Context.cs</LastGenOutput>
+      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
+      <LastGenOutput>AsignarDBModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="AsignarDBEntity.tt">
+    <Content Include="AsignarDBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AsignarDBEntity.edmx</DependentUpon>
-      <LastGenOutput>AsignarDBEntity.cs</LastGenOutput>
+      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
+      <LastGenOutput>AsignarDBModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

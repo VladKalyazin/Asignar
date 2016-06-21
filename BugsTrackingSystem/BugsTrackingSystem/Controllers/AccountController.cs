@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugsTrackingSystem.Models;
 
-
 namespace BugsTrackingSystem.Controllers
 {
     [Authorize]

@@ -317,7 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DatabaseEntities\DatabaseEntities.csproj">
-      <Project>{a10ef975-4fab-41fc-9ede-59392f0a5441}</Project>
+      <Project>{d061a2c2-708c-4f6b-becf-1fec62065f20}</Project>
       <Name>DatabaseEntities</Name>
     </ProjectReference>
   </ItemGroup>
