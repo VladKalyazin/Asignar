@@ -151,9 +151,153 @@ textarea {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border: 1px;
     margin: 30px;
-    height: 100px;
 }
 
 h1 {
     margin-left: 30px;
+}
+
+/*Login Page*/
+
+.top-buffer {
+    margin-top: 20px;
+}
+
+.top {
+    margin-top: 50px;
+}
+
+.loginPage {
+    background-color: #4D868D;
+}
+
+.authInput {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    border: 0;
+    margin: 0 auto;
+}
+
+input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+ 
+input:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+ 
+input::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+ 
+input:-ms-input-placeholder {  
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: small;
+}
+
+a.forgotPass {
+     color: #333333; text-underline: #333333;
+}
+a.forgotPass:active {
+     color: #A3C2C6; text-underline: #A3C2C6;
+}
+a.forgotPass:link {
+     color: #A3C2C6; text-underline: #A3C2C6;
+}
+a.forgotPass:visited {
+     color: #CCCCCC; text-underline: #CCCCCC;
+}
+
+li {
+    margin: 0 0 3px 0;
+}
+
+.btn {
+    border-radius: 0;
+    background-color: #E3F0F2;
+    border: #A3C2C6;
+    color: #4d868d;
+    font-size: small;
+    width: 150px;
+    height: 35px;
+}
+
+.btn:hover {
+    background-color: #D3EEF2;
+    color: #4d868d;
+}
+
+.btn:active {
+    background-color: #E3F0F2;
+    color: #4d868d;
+}
+
+.btn:visited {
+    background-color: #E3F0F2;
+    color: #4d868d;
+}
+
+.btn:link {
+    background-color: #E3F0F2;
+    color: #4d868d;
+}
+
+.remember {
+    color: #A3C2C6;
+}
+
+.text-validation {
+    color: #EDAA95;
+}
+
+/*Forgot page*/
+
+.forgotText {
+    color: #E3F0F2;
+}
+
+/*Project*/
+
+.glyphicon {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.icons {
+    margin-left: 15px;
+}
+
+hr {
+    margin: 0 15px 0 15px;
+}
+
+.projectIcon {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.project_todo {
+    border: solid 1px #4D868D;
+    color: #4D868D;
+    padding: 3px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px; 
+}
+
+.project_progress {
+    border: solid 1px #F69C00;
+    color: #F69C00;
+    padding: 3px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.projLine {
+    padding: 10px;
+    height: 70px;
 }

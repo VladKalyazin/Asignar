@@ -333,9 +333,14 @@ namespace BugsTrackingSystem.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
+		[AllowAnonymous]
+		public ActionResult Project()
+		{
+			return View();
+		}
+		#region Helpers
+		// Used for XSRF protection when adding external logins
+		private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
