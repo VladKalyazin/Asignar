@@ -26,7 +26,7 @@ go
 create table [AsignarDB].[dbo].[Projects] (
 	[ProjectID] int identity(1, 1) primary key not null,
 	[ProjectName] nvarchar(30),
-	[Prefix] nvarchar(3),
+	[Prefix] nchar(3),
 	[CreationDate] datetime
 )
 
@@ -67,7 +67,7 @@ create table [AsignarDB].[dbo].[Defects] (
 	[DefectStatusID] int,
 	[CreationDate] datetime,
 	[ModificationDate] datetime,
-	[Description] nvarchar(500),
+	[Description] nvarchar(200),
 	CONSTRAINT FK_Defects_Projects FOREIGN KEY ([ProjectID])     
 		REFERENCES [Projects] ([ProjectID]),
 	CONSTRAINT FK_Defects_Users FOREIGN KEY ([AssigneeUserID])     
@@ -94,9 +94,9 @@ create table [AsignarDB].[dbo].[Comments] (
 	[CommentID] int identity(1, 1) primary key not null,
 	[ProjectID] int,
 	[UserID] int,
-	[CommentText] nvarchar(1000),
-	CONSTRAINT FK_Comments_Projects FOREIGN KEY ([ProjectID])     
-		REFERENCES [Projects] ([ProjectID]),
+	[CommentText] nvarchar(500),
+	CONSTRAINT FK_Comments_Defects FOREIGN KEY ([DefectID])     
+		REFERENCES [Defects] ([DefectID]),
 	CONSTRAINT FK_Comments_Users FOREIGN KEY ([UserID])     
 		REFERENCES [Users] ([UserID])   
 )
