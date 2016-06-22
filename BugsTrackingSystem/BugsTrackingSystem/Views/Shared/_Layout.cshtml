@@ -24,7 +24,7 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav linkItemMenu">
-                            <li id="mainLogo" class="menuLink"><a href="#"><img src="~/images/logo.png"></a></li>
+                            <li id="mainLogo" class="menuLink"><a href="~/Manage/Home"><img src="~/images/logo.png"></a></li>
                             <li><a href="/Manage/Projects">Projects</a></li>
                             <li><a href="#">Filters</a></li>
                         </ul>
@@ -44,8 +44,17 @@
                             </div>
                             <div class="navbar-right">
                                 <div class="userMenuInfo">
-                                    <img class="img-responsive img-circle" src="~/images/stiv-jobs.jpg" />
-                                    George Orwell
+                                    <a id="profileLink" href="/Manage/Profile">
+                                        <ul class="list-inline">
+                                            <li>
+                                                <img class="img-circle" src="~/images/orwell.jpg" width="30" height="30"/>
+                                            </li>
+                                            <li>
+                                                <p id="profileName">George Orwell</p>
+                                            </li>
+                                        </ul>
+
+                                    </a>
                                 </div>
                             </div>
                         </div>
