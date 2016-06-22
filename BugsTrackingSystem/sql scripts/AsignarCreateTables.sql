@@ -92,7 +92,7 @@ go
 
 create table [AsignarDB].[dbo].[Comments] (
 	[CommentID] int identity(1, 1) primary key not null,
-	[ProjectID] int,
+	[DefectID] int,
 	[UserID] int,
 	[CommentText] nvarchar(500),
 	CONSTRAINT FK_Comments_Defects FOREIGN KEY ([DefectID])     
