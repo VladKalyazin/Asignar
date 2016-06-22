@@ -303,6 +303,7 @@
     <Content Include="scss\_stacked.scss" />
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\Manage\Project.cshtml" />
+    <Content Include="Views\Manage\Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

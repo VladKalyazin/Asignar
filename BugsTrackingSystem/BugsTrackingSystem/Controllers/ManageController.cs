@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugsTrackingSystem.Models;
+using DatabaseEntities;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -332,6 +334,12 @@ namespace BugsTrackingSystem.Controllers
 
             base.Dispose(disposing);
         }
+
+		[AllowAnonymous]
+		public ActionResult Projects()
+		{
+			return View();
+		}
 
 		[AllowAnonymous]
 		public ActionResult Project()

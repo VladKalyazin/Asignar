@@ -151,6 +151,9 @@ textarea {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border: 1px;
     margin: 30px;
+    height: 110px;
+    width: 300px;
+    padding: 10px;
 }
 
 h1 {
@@ -211,10 +214,6 @@ a.forgotPass:visited {
      color: #CCCCCC; text-underline: #CCCCCC;
 }
 
-li {
-    margin: 0 0 3px 0;
-}
-
 .btn {
     border-radius: 0;
     background-color: #E3F0F2;
@@ -259,18 +258,43 @@ li {
     color: #E3F0F2;
 }
 
+/*Projects Page*/
+
+.projectsPage {
+    color: black;
+}
+
+.MyProjects:hover {
+    border: solid 2px #A3C2C6;
+}
+
+.projName {
+    font-size: 20px;
+}
+
+.projPref {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.projPlus {
+    font-size: 30px;
+    color: #4D868D;   
+}
+
 /*Project*/
 
-.glyphicon {
+i {
     color: rgba(0, 0, 0, 0.25);
+}
+
+.ProjTasks {
+    font-size: 20px;
 }
 
 .icons {
     margin-left: 15px;
-}
-
-hr {
-    margin: 0 15px 0 15px;
 }
 
 .projectIcon {
@@ -297,7 +321,22 @@ hr {
     padding-right: 10px;
 }
 
-.projLine {
+.project_done {
+    border: solid 1px #55B924;
+    color: #55B924;
+    padding: 3px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.projectTable {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border: 1px;
     padding: 10px;
-    height: 70px;
+}
+
+.projText {
+    color: rgba(0, 0, 0, 0.5);
 }
