@@ -336,6 +336,18 @@ namespace BugsTrackingSystem.Controllers
         }
 
 		[AllowAnonymous]
+		public ActionResult Profile()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public ActionResult Home()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
 		public ActionResult Projects()
 		{
 			return View();
@@ -397,6 +409,12 @@ namespace BugsTrackingSystem.Controllers
             Error
         }
 
-#endregion
-    }
+		#endregion
+
+		[AllowAnonymous]
+		public ActionResult Task()
+		{
+			return View();
+		}
+	}
 }

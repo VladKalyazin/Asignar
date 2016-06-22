@@ -304,6 +304,9 @@
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\Manage\Project.cshtml" />
     <Content Include="Views\Manage\Projects.cshtml" />
+    <Content Include="Views\Manage\Home.cshtml" />
+    <Content Include="Views\Manage\Task.cshtml" />
+    <Content Include="Views\Manage\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
