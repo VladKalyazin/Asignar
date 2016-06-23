@@ -218,17 +218,17 @@ input:-ms-input-placeholder {
     font-size: small;
 }
 
-a.forgotPass {
-     color: #333333; text-decoration: #333333;
+.forgotPass {
+     color: #333333; text-decoration: underline;
 }
-a.forgotPass:active {
-     color: #A3C2C6; text-decoration: #A3C2C6;
+.forgotPass:active {
+     color: #A3C2C6; text-decoration: underline;
 }
-a.forgotPass:link {
-     color: #A3C2C6; text-decoration: #A3C2C6;
+.forgotPass:link {
+     color: #A3C2C6; text-decoration: underline;
 }
-a.forgotPass:visited {
-     color: #CCCCCC; text-decoration: #CCCCCC;
+.forgotPass:visited {
+     color: #CCCCCC; text-decoration: underline;
 }
 
 .btn {
@@ -455,7 +455,7 @@ i {
     margin: 15px;
     height: 200px;
     width: 240px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .MyProjectsProfile {
@@ -472,4 +472,28 @@ i {
     font-size: 15px;
     color: #4D868D;
     text-decoration: underline;
+}
+
+.profName {
+    margin-top: -10px;
+}
+
+.persInfo {
+    margin-left: -20px;
+}
+
+/*Filters*/
+
+.MyFilters {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    margin: 15px;
+    height: 130px;
+    width: 300px;
+    padding: 10px;
+}
+
+.filtersStat {
+    margin-left: -5px;
 }
