@@ -44,6 +44,10 @@ textarea {
     color: white!important;
 }
 
+.menuButton > span > i {
+    color: white!important;
+}
+
 .linkItemMenu > li > a:hover {
     color:white!important;
 }
