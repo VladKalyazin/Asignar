@@ -8,42 +8,102 @@
 <div class="container">
     <ul class="list-inline">
         <li>
-            <h2>The Titan</h2>
+            <h1><b>The Titan</b></h1>
         </li>
         <li>
-            <img src="~/images/project_plus.png"/>
+            <a href="#"><i class="fa fa-plus-circle projPlus" aria-hidden="true"></i></a>
         </li>
     </ul>
     <ul class="list-inline icons">
         <li>
-            <span class="glyphicon glyphicon-edit"> 67</span>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"> 67</i>
         </li>
         <li>
-            <span class="glyphicon glyphicon-user"> 7</span>
+            <i class="fa fa-users" aria-hidden="true"> 7</i>
         </li>
     </ul>
-    <div class="row">
-        <div class="col col-lg-12">
-            <div class="MyProjects">
-                <div class="projLine">
-                    <div class="col-sm-1">
-                        <img class="projectIcon" src="~/images/icon_down.png">
-                    </div>
-                    <label>TDT-67</label>
-                    <span class="project_todo">To do</span>
-                    <p>Font for password is different from other labels font on 'Login' screen</p>
-                </div>
-                <hr/>
-                <div class="projLine">
-                    <div class="col-sm-1">
-                        <img class="projectIcon" src="~/images/icon_up.png">
-                    </div>
-                    <label>TDT-67</label>
-                    <span class="project_progress">In progress</span>
-                    <p>The error message is displayed after tapping on the 'Get Link' button on the volume's 'Information' screen</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <table class="table projectTable">
+        <tbody>
+        <tr class="clickable-row" data-href="/Manage/Task">
+            <td>
+                <img class="projectIcon" src="~/images/icon_down.png">
+            </td>
+            <td>
+                <label>TDT-67</label>
+                <span class="project_todo">To do</span>
+                <p>Font for password is different from other labels font on 'Login' screen</p>
+            </td>
+            <td>
+                <p>
+                    <span class="projText">Created:</span> 10/10/16
+                </p>
+                <p>
+                    <span class="projText">Updated:</span> 10/10/16
+                </p>
+            </td>
+            <td>
+                <img class="img-responsive img-circle" height="50" width="50" src="~/images/orwell.jpg">
+            </td>
+            <td>
+                <p>George Orwell</p>
+            </td>
+        </tr>
+
+        <tr class="clickable-row" data-href="/Manage/Task">
+            <td>
+                <img class="projectIcon" src="~/images/icon_up.png">
+            </td>
+            <td>
+                <label>TDT-66</label>
+                <span class="project_progress">In progress</span>
+                <p>The error message is displayed after tapping on the 'Get Link' button on the volume's 'Information' screen</p>
+            </td>
+            <td>
+                <p>
+                    <span class="projText">Created:</span> 10/10/16
+                </p>
+                <p>
+                    <span class="projText">Updated:</span> 10/10/16
+                </p>
+            </td>
+            <td>
+                <img class="img-responsive img-circle" height="50" width="50" alt="no image" src="~/images/agatha.jpg">
+            </td>
+            <td>
+                <p>Agatha Clarissa</p>
+            </td>
+        </tr>
+
+        <tr class="clickable-row" data-href="/Manage/Task">
+            <td>
+                <img class="projectIcon" src="~/images/icon_mark.png">
+            </td>
+            <td>
+                <label>TDT-15</label>
+                <span class="project_done">Done</span>
+                <p>Account activation link in Registration email is invalid</p>
+            </td>
+            <td>
+                <p>
+                    <span class="projText">Created:</span> 10/10/16
+                </p>
+                <p>
+                    <span class="projText">Updated:</span> 10/10/16
+                </p>
+            </td>
+            <td>
+                <img class="img-responsive img-circle" height="50" width="50" alt="no image" src="~/images/ernest.jpg">
+            </td>
+            <td>
+                <p>Ernest Hemingway</p>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> Tasks: 67</i>
+
 </div>
 

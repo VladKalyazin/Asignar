@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-xs-12">
+
+            <h1><b>My Projects</b></h1>
+
+            <a href="/Manage/Project" class="projectsPage">
+                <div class="col-md-3 col-xs-6 MyProjectsHome">
+                    <h3 class="projName">The Titan</h3>
+                    <p class="projPref">TDF</p>
+                    <div class="text-right">
+                        <ul class="list-inline icons">
+                            <li>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 67</i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users" aria-hidden="true"> 7</i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/Manage/Project">
+                <div class="col-md-3 col-xs-6 MyProjectsHome">
+                    <h3 class="projName">The Financier</h3>
+                    <p class="projPref">TDF</p>
+                    <div class="text-right">
+                        <ul class="list-inline icons">
+                            <li>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 127</i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users" aria-hidden="true"> 6</i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/Manage/Project">
+                <div class="col-md-3 col-xs-6 MyProjectsHome">
+                    <h3 class="projName">The Stoic</h3>
+                    <p class="projPref">TDS</p>
+                    <div class="text-right">
+                        <ul class="list-inline icons">
+                            <li>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 432</i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users" aria-hidden="true"> 5</i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+
+            <div id="showAll">
+                <a href="/Manage/Projects">Show all
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-md-9 col-xs-12">
+
+            <h1><b>Assigned to me</b></h1>
+
+            <table class="table projectTableHome">
+                <tbody>
+                <tr class="clickable-row" data-href="/Manage/Task">
+                    <td>
+                        <img class="projectIcon" src="~/images/icon_down.png">
+                    </td>
+                    <td>
+                        <label>TDT-67</label>
+                        <span class="project_todo">To do</span>
+                        <p>Font for password is different from other labels font on 'Login' screen</p>
+                    </td>
+                </tr>
+                <tr class="clickable-row" data-href="/Manage/Task">
+                    <td>
+                        <img class="projectIcon" src="~/images/icon_up.png">
+                    </td>
+                    <td>
+                        <label>TDT-66</label>
+                        <span class="project_progress">In progress</span>
+                        <p>The error message is displayed after tapping on the 'Get Link' button on the volume's 'Information' screen</p>
+                    </td>
+                </tr>
+                <tr class="clickable-row" data-href="/Manage/Task">
+                    <td>
+                        <img class="projectIcon" src="~/images/icon_mark.png">
+                    </td>
+                    <td>
+                        <label>TDT-15</label>
+                        <span class="project_done">Done</span>
+                        <p>Account activation link in Registration email is invalid</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> All my tasks: 41</i>
+        </div>
+    </div>
+</div>

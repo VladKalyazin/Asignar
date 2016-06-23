@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -334,6 +335,36 @@ namespace BugsTrackingSystem.Controllers
         }
 
 		[AllowAnonymous]
+		public ActionResult Profile()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public ActionResult Home()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public ActionResult Projects()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public ActionResult Users()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public ActionResult Filters()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
 		public ActionResult Project()
 		{
 			return View();
@@ -389,6 +420,12 @@ namespace BugsTrackingSystem.Controllers
             Error
         }
 
-#endregion
-    }
+		#endregion
+
+		[AllowAnonymous]
+		public ActionResult Task()
+		{
+			return View();
+		}
+	}
 }

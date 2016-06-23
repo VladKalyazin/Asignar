@@ -95,10 +95,26 @@ textarea {
     display: inline;
     padding-left: 10px;
     padding-right: 10px;
+    position: absolute;
 }
 
 .userMenuInfo {
     padding: 5px;
+    height: 40px;
+}
+
+#profileLink {
+    text-decoration: none;
+    color: white;
+}
+
+#profileLink:hover {
+    text-decoration: none;
+    color: #D3EEF2;
+}
+
+#profileName {
+    margin-bottom: -20px;
 }
 
 /* Search form */
@@ -149,9 +165,12 @@ textarea {
 
 .MyProjects {
     background-color:white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
     border: 1px;
-    margin: 30px;
+    margin: 15px;
+    height: 110px;
+    width: 300px;
+    padding: 10px;
 }
 
 h1 {
@@ -200,20 +219,16 @@ input:-ms-input-placeholder {
 }
 
 a.forgotPass {
-     color: #333333; text-underline: #333333;
+     color: #333333; text-decoration: #333333;
 }
 a.forgotPass:active {
-     color: #A3C2C6; text-underline: #A3C2C6;
+     color: #A3C2C6; text-decoration: #A3C2C6;
 }
 a.forgotPass:link {
-     color: #A3C2C6; text-underline: #A3C2C6;
+     color: #A3C2C6; text-decoration: #A3C2C6;
 }
 a.forgotPass:visited {
-     color: #CCCCCC; text-underline: #CCCCCC;
-}
-
-li {
-    margin: 0 0 3px 0;
+     color: #CCCCCC; text-decoration: #CCCCCC;
 }
 
 .btn {
@@ -260,18 +275,73 @@ li {
     color: #E3F0F2;
 }
 
+/*Home*/
+
+.MyProjectsHome {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    margin: 15px;
+    height: 110px;
+    width: 220px;
+    padding: 10px;
+}
+
+.MyProjectsHome:hover {
+    border: solid 2px #A3C2C6;
+}
+
+#showAll {
+    margin-left: 30px;
+}
+
+.projectTableHome {
+    margin-top: 25px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    padding: 10px;
+}
+
+/*Projects Page*/
+
+.projectsPage {
+    color: black;
+}
+
+.MyProjects:hover {
+    border: solid 2px #A3C2C6;
+}
+
+.projName {
+    margin-top: 5px;
+    font-size: 20px;
+    color: black;
+}
+
+.projPref {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.projPlus {
+    font-size: 30px;
+    color: #4D868D;   
+}
+
 /*Project*/
 
-.glyphicon {
-    color: rgba(0, 0, 0, 0.25);
+i {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.ProjTasks {
+    font-size: 20px;
 }
 
 .icons {
     margin-left: 15px;
-}
-
-hr {
-    margin: 0 15px 0 15px;
 }
 
 .projectIcon {
@@ -298,7 +368,108 @@ hr {
     padding-right: 10px;
 }
 
-.projLine {
+.project_done {
+    border: solid 1px #55B924;
+    color: #55B924;
+    padding: 3px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.projectTable {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
     padding: 10px;
-    height: 70px;
+}
+
+.projText {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/*Task*/
+
+.taskIcon {
+    margin-right: 10px;
+    color: #4D868D;
+    font-size: 20px;
+    border: solid 2px #4D868D;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+#currentTask {
+    background-color: white;
+    height: 350px;
+    margin-right: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    padding: 10px;
+}
+
+#currentProfile {
+    background-color: white;
+    height: 350px;
+    margin-left: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    padding: 10px;
+}
+
+.taskPriority {
+    font-size: 15px;   
+}
+
+#statusMajor {
+    color: #F69C00;
+}
+
+.btnDrop {
+    background-color: white;
+    border: solid 1px;
+    text-align: left;
+    border-radius: 0;
+}
+
+.taskText {
+    padding: 10px;
+}
+
+.taskAssignee {
+    color: #4D868D;
+    text-decoration: underline;
+}
+
+.taskCalend {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 15px;
+}
+
+/*Profile*/
+
+.MyProfile {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    margin: 15px;
+    height: 200px;
+    width: 240px;
+    padding: 10px;
+}
+
+.MyProjectsProfile {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    margin: 15px;
+    height: 150px;
+    width: 240px;
+    padding: 10px;
+}
+
+.linkMyProject {
+    font-size: 15px;
+    color: #4D868D;
+    text-decoration: underline;
 }
