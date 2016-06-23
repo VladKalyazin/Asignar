@@ -307,6 +307,8 @@
     <Content Include="Views\Manage\Home.cshtml" />
     <Content Include="Views\Manage\Task.cshtml" />
     <Content Include="Views\Manage\Profile.cshtml" />
+    <Content Include="Views\Manage\Users.cshtml" />
+    <Content Include="Views\Manage\Filters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

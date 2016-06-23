@@ -354,6 +354,18 @@ namespace BugsTrackingSystem.Controllers
 		}
 
 		[AllowAnonymous]
+		public ActionResult Users()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public ActionResult Filters()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
 		public ActionResult Project()
 		{
 			return View();
