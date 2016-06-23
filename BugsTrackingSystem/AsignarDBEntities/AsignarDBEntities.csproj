@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D061A2C2-708C-4F6B-BECF-1FEC62065F20}</ProjectGuid>
+    <ProjectGuid>{190CE266-51B2-409C-A801-0ADE9EB55357}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DatabaseEntities</RootNamespace>
-    <AssemblyName>DatabaseEntities</AssemblyName>
+    <RootNamespace>AsignarDBEntities</RootNamespace>
+    <AssemblyName>AsignarDBEntities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,80 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsignarDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AsignarDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AsignarDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AsignarDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Comment.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Defect.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DefectAttachment.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DefectPriority.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DefectStatus.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Filter.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Project.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectsToUsersBinding.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="AsignarDatabaseModel.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="Defect.cs" />
+    <Compile Include="DefectAttachment.cs" />
+    <Compile Include="DefectPriority.cs" />
+    <Compile Include="DefectStatus.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="ProjectsToUsersBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>AsignarDBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Role.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="AsignarDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AsignarDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="AsignarDBModel.edmx.diagram">
-      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AsignarDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
-      <LastGenOutput>AsignarDBModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="AsignarDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AsignarDBModel.edmx</DependentUpon>
-      <LastGenOutput>AsignarDBModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
