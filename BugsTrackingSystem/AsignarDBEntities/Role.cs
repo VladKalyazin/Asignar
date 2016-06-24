@@ -18,7 +18,7 @@ namespace AsignarDBEntities
 
         [Column("Role")]
         [StringLength(15)]
-        public string Role1 { get; set; }
+        public string RoleName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }

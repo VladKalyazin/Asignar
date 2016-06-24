@@ -4,11 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class AsignarTestings
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Test()
         {
+
         }
     }
 }
