@@ -19,9 +19,9 @@ namespace BugsTrackingSystem.Controllers
 
         }
 
-		public ActionResult Profile()
+		public ActionResult UserProfile()
 		{
-			return View();
+			return View("Profile");
 		}
 
 		public ActionResult Home()

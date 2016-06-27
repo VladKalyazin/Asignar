@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\RoleProviderContext.cs" />
-    <Compile Include="Account\UserAction.cs" />
+    <Compile Include="Account\UserHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
