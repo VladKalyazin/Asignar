@@ -2,6 +2,26 @@
 @{
     ViewBag.Title = "Task";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var items = new List<SelectListItem>
+    {
+        new SelectListItem
+        {
+            Text = "In progress",
+            Value = "0"
+        },
+        new SelectListItem
+        {
+            Text = "To do",
+            Value = "1"
+        },
+        new SelectListItem
+        {
+            Text = "Done",
+            Value = "3",
+            Selected = true
+        }
+    };
 }
 
 <div class="container">
@@ -24,15 +44,7 @@
                     </div>
                     <div class="col-md-4 text-right">
                         <span class="taskPriority"><b>Status:</b></span>
-                        <button class="btn btn-default dropdown-toggle btnDrop" type="button" data-toggle="dropdown">
-                            In progress
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu btnDrop">
-                            <li><a href="#">Done</a></li>
-                            <li><a href="#">To do</a></li>
-                            <li><a href="#">Closed</a></li>
-                        </ul>
+                        @Html.DropDownList("drop-down", items, new { @class = "btnDrop" })
                     </div>
                     <br><hr>
                     <div class="taskText">
