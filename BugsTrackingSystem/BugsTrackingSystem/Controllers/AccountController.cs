@@ -54,9 +54,9 @@ namespace BugsTrackingSystem.Controllers
 
         //
         // GET: /Account/ResetPassword
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword()
         {
-            return code == null ? View("Error") : View();
+            return View();
         }
 
 
