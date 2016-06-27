@@ -17,6 +17,8 @@ namespace BugsTrackingSystem.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly UserHelper _userHelper = new UserHelper();
+
         public AccountController()
         {
 
@@ -63,17 +65,14 @@ namespace BugsTrackingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var validator = new UserAction())
+                if (_userHelper.ValidateUser(model.Email, model.Password))
                 {
-                    if (validator.ValidateUser(model.Email, model.Password))
-                    {
-                        FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                        return RedirectToAction("Home", "Manage");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Incorrect login or password.");
-                    }
+                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                    return RedirectToAction("Home", "Manage");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Incorrect login or password.");
                 }
             }
 

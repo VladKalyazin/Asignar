@@ -7,7 +7,7 @@ using AsignarDBEntities;
 
 namespace BusinessLogic.Account
 {
-    public class UserAction : IDisposable
+    public class UserHelper : IDisposable
     {
         private readonly AsignarDatabaseModel _databaseModel = new AsignarDatabaseModel();
 
