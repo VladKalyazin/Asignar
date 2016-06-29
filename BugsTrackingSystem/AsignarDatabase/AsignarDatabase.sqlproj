@@ -61,8 +61,6 @@
     <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Comments.sql" />
-    <Build Include="dbo\Tables\DefectAttachments.sql" />
     <Build Include="dbo\Tables\DefectPriorities.sql" />
     <Build Include="dbo\Tables\Defects.sql" />
     <Build Include="dbo\Tables\DefectStatuses.sql" />

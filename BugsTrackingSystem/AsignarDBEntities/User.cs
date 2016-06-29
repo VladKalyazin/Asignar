@@ -11,10 +11,9 @@ namespace AsignarDBEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            Comments = new HashSet<Comment>();
             Defects = new HashSet<Defect>();
             Filters = new HashSet<Filter>();
-            ProjectsToUsersBindings = new HashSet<ProjectsToUsersBinding>();
+            Projects = new HashSet<Project>();
         }
 
         public int UserID { get; set; }
@@ -36,8 +35,7 @@ namespace AsignarDBEntities
 
         public int RoleID { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
+        public DateTime? RegistrationDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Defect> Defects { get; set; }
@@ -45,9 +43,9 @@ namespace AsignarDBEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Filter> Filters { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectsToUsersBinding> ProjectsToUsersBindings { get; set; }
-
         public virtual Role Role { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }
