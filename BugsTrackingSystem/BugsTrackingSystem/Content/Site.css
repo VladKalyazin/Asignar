@@ -16,11 +16,11 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 /* Menu */
 .menu {
@@ -132,7 +132,6 @@ textarea {
     background-color: transparent;
     color: white;
     padding: 2px;
-    max-height: 30px;
 }
 
 .input-group-addon {
@@ -200,6 +199,7 @@ h1 {
     border-radius: 0;
     border: 0;
     margin: 0 auto;
+    width: 400px;
 }
 
 input::-webkit-input-placeholder {
@@ -235,7 +235,7 @@ input:-ms-input-placeholder {
      color: #CCCCCC; text-decoration: underline;
 }
 
-.btn {
+.btn-log {
     border-radius: 0;
     background-color: #E3F0F2;
     border: #A3C2C6;
@@ -245,22 +245,22 @@ input:-ms-input-placeholder {
     height: 35px;
 }
 
-.btn:hover {
+.btn-log:hover {
     background-color: #D3EEF2;
     color: #4d868d;
 }
 
-.btn:active {
+.btn-log:active {
     background-color: #E3F0F2;
     color: #4d868d;
 }
 
-.btn:visited {
+.btn-log:visited {
     background-color: #E3F0F2;
     color: #4d868d;
 }
 
-.btn:link {
+.btn-log:link {
     background-color: #E3F0F2;
     color: #4d868d;
 }
@@ -529,5 +529,65 @@ i {
 }
 
 .ui-dialog-content, .ui-widget-content {
-    background-color: white;
+    background-color: #F8FEFE;
+}
+
+.btn-pop {
+    border-radius: 0;
+    background-color: #4d868d;
+    border: #A3C2C6;
+    color: #E3F0F2;
+    font-size: small;
+    width: 100px;
+    height: 35px;
+    margin-right: 20px; 
+}
+
+.btn-pop:hover {
+    background-color: #4d868d;
+    color: #D3EEF2;
+}
+
+.btn-pop:active {
+    background-color: #4d868d;
+    color: #D3EEF2;
+}
+
+.btn-pop:visited {
+    background-color: #4d868d;
+    color: #D3EEF2;
+}
+
+.btn-pop:link {
+    background-color: #4d868d;
+    color: #D3EEF2;
+}
+
+.projInput {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    border: 0;
+    margin: 0 auto;
+    margin-left: 30px;
+    color: black;
+}
+
+.projInput::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.4) !important;
+    font-size: small;
+}
+
+.descInput {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    border: 0;
+    margin: 0 auto;
+    margin-left: 30px;
+    height: 100px;
+    color: black;
+}
+
+.descInput::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.4) !important;
+    font-size: small;
 }
