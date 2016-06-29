@@ -16,19 +16,39 @@ namespace AsignarServices.Project
         {
             var result = new ProjectsViewModel();
 
-            foreach (var project in _databaseModel.Projects)
+            try
             {
-                var projectView = new ProjectViewModel
+                foreach (var project in _databaseModel.Projects)
                 {
-                    ProjectId = project.ProjectID,
-                    Name = project.ProjectName,
-                    Prefix = project.Prefix,
-                    UsersCount = project.Users.Count
-                };
-                result.Add(projectView);
+                    var projectView = new ProjectViewModel
+                    {
+                        ProjectId = project.ProjectID,
+                        Name = project.ProjectName,
+                        Prefix = project.Prefix,
+                        UsersCount = project.Users.Count
+                    };
+                    result.Add(projectView);
+                }
+            }
+            catch
+            {
+                return null;
             }
 
             return result;
+        }
+
+        public void AddProject(ProjectViewModel projectModel)
+        {
+            var newProject = new AsignarDBEntities.Project
+            {
+                ProjectName = projectModel.Name,
+                Prefix = projectModel.Prefix,
+                CreationDate = DateTime.Now
+            };
+
+            _databaseModel.Projects.Add(newProject);
+            _databaseModel.SaveChanges();
         }
 
         public void Dispose()
