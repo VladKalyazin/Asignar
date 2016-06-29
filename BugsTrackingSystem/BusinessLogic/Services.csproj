@@ -91,12 +91,17 @@
   <ItemGroup>
     <Compile Include="Account\UserService.cs" />
     <Compile Include="AzureStorage\BlobStorageHelper.cs" />
+    <Compile Include="Project\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AsignarDBEntities\AsignarDBEntities.csproj">
       <Project>{190ce266-51b2-409c-a801-0ade9eb55357}</Project>
       <Name>AsignarDBEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{8e4c2495-56d8-484f-a787-59fb597d632d}</Project>
+      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

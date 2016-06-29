@@ -16,7 +16,6 @@ namespace AsignarDBEntities
 
         public int RoleID { get; set; }
 
-        [Column("Role")]
         [StringLength(15)]
         public string RoleName { get; set; }
 

@@ -13,7 +13,7 @@ namespace AsignarDBEntities
         {
             Defects = new HashSet<Defect>();
             Filters = new HashSet<Filter>();
-            ProjectsToUsersBindings = new HashSet<ProjectsToUsersBinding>();
+            Users = new HashSet<User>();
         }
 
         public int ProjectID { get; set; }
@@ -33,6 +33,6 @@ namespace AsignarDBEntities
         public virtual ICollection<Filter> Filters { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectsToUsersBinding> ProjectsToUsersBindings { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
