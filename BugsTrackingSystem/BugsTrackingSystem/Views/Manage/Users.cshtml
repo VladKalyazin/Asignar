@@ -1,4 +1,5 @@
-﻿
+﻿@model List<string>
+
 @{
     ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,7 +18,7 @@
         <a href="#" class="projectsPage">
             <div class="col-md-3 col-xs-6 MyProjects">
                 <div class="col-md-3">
-                    <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
+                    <img class="img-circle" src=@Model[0] width="50" height="50"/>
                 </div>
                 <div class="col-md-8">
                     <span>George Orwell</span><br>
@@ -43,7 +44,7 @@
         <a href="#" class="projectsPage">
             <div class="col-md-3 col-xs-6 MyProjects">
                 <div class="col-md-3">
-                    <img class="img-circle" src="~/images/agatha.jpg" width="50" height="50" />
+                    <img class="img-circle" src=@Model[1] width="50" height="50" />
                 </div>
                 <div class="col-md-8">
                     <span>Agatha Clarissa</span><br>
@@ -66,7 +67,7 @@
         <a href="#" class="projectsPage">
             <div class="col-md-3 col-xs-6 MyProjects">
                 <div class="col-md-3">
-                    <img class="img-circle" src="~/images/ernest.jpg" width="50" height="50" />
+                    <img class="img-circle" src=@Model[2] width="50" height="50" />
                 </div>
                 <div class="col-md-8">
                     <span>Ernest Hemingway</span><br>

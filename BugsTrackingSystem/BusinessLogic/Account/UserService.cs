@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AsignarDBEntities;
 
-namespace BusinessLogic.Account
+namespace AsignarServices.Account
 {
-    public class UserHelper : IDisposable
+    public class UserService : IDisposable
     {
         private readonly AsignarDatabaseModel _databaseModel = new AsignarDatabaseModel();
 

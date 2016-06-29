@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsignarDBEntities", "AsignarDBEntities\AsignarDBEntities.csproj", "{190CE266-51B2-409C-A801-0ADE9EB55357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{833A0241-91AA-4D9F-8D73-84E23BDC8757}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "BusinessLogic\Services.csproj", "{833A0241-91AA-4D9F-8D73-84E23BDC8757}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

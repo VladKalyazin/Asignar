@@ -10,14 +10,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugsTrackingSystem.Models;
-using BusinessLogic.Account;
+using AsignarServices.Account;
 
 namespace BugsTrackingSystem.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly UserHelper _userHelper = new UserHelper();
+        private readonly UserService _userHelper = new UserService();
 
         public AccountController()
         {

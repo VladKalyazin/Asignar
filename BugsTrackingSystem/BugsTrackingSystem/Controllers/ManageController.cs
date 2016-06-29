@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using BugsTrackingSystem.Providers;
+using AsignarServices.AzureStorage;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -36,7 +36,7 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Users()
 		{
-			return View();
+			return View(BlobStorageHelper.GetPhotoUrls());
 		}
 
 		public ActionResult Filters()
