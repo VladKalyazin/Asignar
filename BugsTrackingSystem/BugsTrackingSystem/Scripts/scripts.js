@@ -4,16 +4,27 @@
     });
 });
 
-$("#add_project")
-    .dialog({
+$(function () {
+    $("#add_project").dialog
+    ({
         modal: true,
-        draggable: false,
-        resizable: false,
-        position: ['center', 'top'],
-        width: 400,
-        buttons: {
-            "Add": function() {
-                $(this).dialog("close");
-            }
+        width: 600,
+        height: 300,
+        draggable: true,
+        resizable: true,
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "puff",
+            duration: 500
         }
+    });
+});
+
+$("#opener").click(function () {
+    $("#add_project").css({ 'display': "inline" });
+    $("#add_project").dialog("open");
 });

@@ -501,3 +501,33 @@ i {
 .filtersStat {
     margin-left: -5px;
 }
+
+/*PopUp*/
+
+#add_project {
+    display: none;
+}
+
+.ui-widget-header,.ui-state-default, ui-button{
+            background:#4D868D;
+            border: 1px solid #4D868D;
+            color: #FFFFFF;
+            font-weight: bold;
+         }
+
+.ui-dialog-titlebar-close {
+    background-color: #4d868d;
+    border: none;
+}
+
+.ui-widget-overlay.ui-front
+{
+    background-color: black;
+    background-image: none;
+    opacity: 0.9;
+    z-index: 1040;    
+}
+
+.ui-dialog-content, .ui-widget-content {
+    background-color: white;
+}
