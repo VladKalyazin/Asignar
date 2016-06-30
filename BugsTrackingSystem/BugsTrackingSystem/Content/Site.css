@@ -125,7 +125,7 @@ textarea {
 
 .input-group {
     max-width: 200px;
-    margin: 5px;
+    margin-top: 3px;
 }
 
 .form-control {
@@ -504,8 +504,9 @@ i {
 
 /*PopUp*/
 
-#add_project {
+#add_project, #add_task {
     display: none;
+    font-size: 15px;
 }
 
 .ui-widget-header,.ui-state-default, ui-button{
@@ -515,10 +516,11 @@ i {
             font-weight: bold;
          }
 
-.ui-dialog-titlebar-close {
+/*.ui-dialog-titlebar-close {
     background-color: #4d868d;
     border: none;
-}
+    color: white;
+}*/
 
 .ui-widget-overlay.ui-front
 {
@@ -563,26 +565,36 @@ i {
     color: #D3EEF2;
 }
 
-.projInput {
-    background-color: rgba(255, 255, 255, 0.5);
+.projInput1 {
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 0;
     border: 0;
     margin: 0 auto;
-    margin-left: 30px;
+    margin-left: 50px;
     color: black;
 }
 
-.projInput::-webkit-input-placeholder {
+.projInput2 {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0;
+    border: 0;
+    margin: 0 auto;
+    margin-left: 50px;
+    width: 240px;
+    color: black;
+}
+
+.projInput1, .projInput2::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4) !important;
     font-size: small;
 }
 
 .descInput {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 0;
     border: 0;
     margin: 0 auto;
-    margin-left: 30px;
+    margin-left: 50px;
     height: 100px;
     color: black;
 }
@@ -590,4 +602,9 @@ i {
 .descInput::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4) !important;
     font-size: small;
+}
+
+.underContent {
+    font-size: 20px;
+    margin-left: 20px;
 }

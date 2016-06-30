@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AsignarServices.AzureStorage;
+using AsignarServices.Project;
+using BugsTrackingSystem.Models;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -26,12 +29,16 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Home()
 		{
-			return View();
-		}
+            var projectService = new ProjectService();
+
+            return View(projectService.GetProjects());
+        }
 
 		public ActionResult Projects()
 		{
-			return View();
+            var projectService = new ProjectService();
+             
+			return View(projectService.GetProjects());
 		}
 
 		public ActionResult Users()

@@ -1,8 +1,5 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Project";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 <div class="container">
@@ -17,19 +14,19 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-xs-10">
-                                @Html.TextBox("Title", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Title" })
+                                @Html.TextBox("Title", null, "", htmlAttributes: new { @class = "form-control projInput1", placeholder = "Title" })
                             </div>
                             <div class="col-xs-5">
-                                @Html.TextBox("Project", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Project" })
+                                @Html.TextBox("Project", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Project" })
                             </div>
                             <div class="col-xs-5">
-                                @Html.TextBox("Owner", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Owner" })
+                                @Html.TextBox("Owner", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Owner" })
                             </div>
                             <div class="col-xs-5">
-                                @Html.TextBox("Property", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Property" })
+                                @Html.TextBox("Property", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Property" })
                             </div>
                             <div class="col-xs-5">
-                                @Html.TextBox("Status", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Status"})
+                                @Html.TextBox("Status", null, "", htmlAttributes: new {@class = "form-control projInput2", placeholder = "Status"})
                             </div>
                             <div class="col-xs-10">
                                 @Html.TextBox("Description", null, "", htmlAttributes: new {@class = "form-control descInput", placeholder = "Description"})

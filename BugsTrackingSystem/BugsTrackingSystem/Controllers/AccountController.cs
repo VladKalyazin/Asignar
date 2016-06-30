@@ -32,22 +32,8 @@ namespace BugsTrackingSystem.Controllers
         }
 
         //
-        // GET: /Account/Register
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
         // GET: /Account/ForgotPassword
         public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }

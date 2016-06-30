@@ -1,7 +1,7 @@
-﻿
+﻿@model BugsTrackingSystem.Models.ProjectsViewModel
+
 @{
     ViewBag.Title = "Home";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
@@ -10,57 +10,25 @@
 
             <h1><b>My Projects</b></h1>
 
+            @foreach(var project in Model.Take(3))
+            {
             <a href="/Manage/Project" class="projectsPage">
                 <div class="col-md-3 col-xs-6 MyProjectsHome">
-                    <h3 class="projName">The Titan</h3>
-                    <p class="projPref">TDF</p>
+                    <h3 class="projName">@project.Name</h3>
+                    <p class="projPref">@project.Prefix</p>
                     <div class="text-right">
                         <ul class="list-inline icons">
                             <li>
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"> 67</i>
                             </li>
                             <li>
-                                <i class="fa fa-users" aria-hidden="true"> 7</i>
+                                <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
                             </li>
                         </ul>
                     </div>
                 </div>
             </a>
-
-            <a href="/Manage/Project">
-                <div class="col-md-3 col-xs-6 MyProjectsHome">
-                    <h3 class="projName">The Financier</h3>
-                    <p class="projPref">TDF</p>
-                    <div class="text-right">
-                        <ul class="list-inline icons">
-                            <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 127</i>
-                            </li>
-                            <li>
-                                <i class="fa fa-users" aria-hidden="true"> 6</i>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </a>
-
-            <a href="/Manage/Project">
-                <div class="col-md-3 col-xs-6 MyProjectsHome">
-                    <h3 class="projName">The Stoic</h3>
-                    <p class="projPref">TDS</p>
-                    <div class="text-right">
-                        <ul class="list-inline icons">
-                            <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 432</i>
-                            </li>
-                            <li>
-                                <i class="fa fa-users" aria-hidden="true"> 5</i>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </a>
-
+            }
             <div id="showAll">
                 <a href="/Manage/Projects">Show all
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>

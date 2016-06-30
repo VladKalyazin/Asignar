@@ -1,101 +1,49 @@
-﻿
+﻿@using AsignarDBEntities
+@using Microsoft.Data.OData.Query.SemanticAst
+@model BugsTrackingSystem.Models.ProjectsViewModel
+
 @{
     ViewBag.Title = "Projects";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
     <div class="col-md-12 col-xs-12">
         <ul class="list-inline">
             <li>
-                <h1><b>Projects</b>
+                <h1>
+                    <b>Projects</b>
                 </h1>
             </li>
             <li>
-                <div id="add_project" title="Create new project">
-                    @using (Html.BeginForm("Projects", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-                    {
-                        <div class="row">
-                            <div class="form-group">
-                                @Html.TextBox("Title", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Title"})
-                            </div>
-                            <div class="form-group">
-                                @Html.TextBox("Key", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Key"})
-                            </div>
-                        </div>
-                        <div class="text-right"><input type="submit" class="btn-pop btn-default" vlaue="Create"/></div>
-                    }
-                </div>
                 <i id="opener" class="fa fa-plus-circle projPlus" aria-hidden="true"></i>
             </li>
         </ul>
-        <a href="/Manage/Project" class="projectsPage">
-            <div class="col-md-3 col-xs-6 MyProjects">
-                <h3 class="projName">The Titan</h3>
-                <p class="projPref">TDF</p>
-                <div class="text-right">
-                    <ul class="list-inline icons">
-                        <li>
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"> 67</i>
-                        </li>
-                        <li>
-                            <i class="fa fa-users" aria-hidden="true"> 7</i>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </a>
 
-        <a href="/Manage/Project">
-            <div class="col-md-3 col-xs-6 MyProjects">
-                <h3 class="projName">The Financier</h3>
-                <p class="projPref">TDF</p>
-                <div class="text-right">
-                    <ul class="list-inline icons">
-                        <li>
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"> 127</i>
-                        </li>
-                        <li>
-                            <i class="fa fa-users" aria-hidden="true"> 6</i>
-                        </li>
-                    </ul>
+        @foreach (var project in Model)
+        {
+            <a href="/Manage/Project" class="projectsPage">
+                <div class="col-md-3 col-xs-6 MyProjects">
+                    <h3 class="projName">@project.Name</h3>
+                    <p class="projPref">@project.Prefix</p>
+                    <div class="text-right">
+                        <ul class="list-inline icons">
+                            <li>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 67</i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </a>
-
-        <a href="/Manage/Project">
-            <div class="col-md-3 col-xs-6 MyProjects">
-                <h3 class="projName">The Stoic</h3>
-                <p class="projPref">TDS</p>
-                <div class="text-right">
-                    <ul class="list-inline icons">
-                        <li>
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"> 432</i>
-                        </li>
-                        <li>
-                            <i class="fa fa-users" aria-hidden="true"> 5</i>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </a>
-
-        <a href="/Manage/Project">
-            <div class="col-md-3 col-xs-6 MyProjects">
-                <h3 class="projName">I, robot</h3>
-                <p class="projPref">IAI</p>
-                <div class="text-right">
-                    <ul class="list-inline icons">
-                        <li>
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"> 12</i>
-                        </li>
-                        <li>
-                            <i class="fa fa-users" aria-hidden="true"> 3</i>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </a>
+            </a>
+        }
     </div>
-    @*<br><p><span class="glyphicon glyphicon-th-list" /> 35 </p>*@
+</div>
+<div class="container">
+    <div class="col-xs-6">
+        <br>
+        <p><i class="underContent fa fa-th-list" aria-hidden="true"> @Html.Encode(Model.Count())</i>
+        </p>
+    </div>
 </div>
