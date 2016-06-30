@@ -566,7 +566,7 @@ i {
 }
 
 .projInput1 {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(255, 255, 255);
     border-radius: 0;
     border: 0;
     margin: 0 auto;
@@ -575,7 +575,7 @@ i {
 }
 
 .projInput2 {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(255, 255, 255);
     border-radius: 0;
     border: 0;
     margin: 0 auto;
@@ -590,7 +590,7 @@ i {
 }
 
 .descInput {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(255, 255, 255);
     border-radius: 0;
     border: 0;
     margin: 0 auto;
@@ -607,4 +607,9 @@ i {
 .underContent {
     font-size: 20px;
     margin-left: 20px;
+}
+
+.popUpText {
+    color: rgba(0, 0, 0, 0.4);
+    margin-left: 30px;
 }

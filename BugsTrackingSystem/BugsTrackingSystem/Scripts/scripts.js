@@ -24,7 +24,12 @@ $(function () {
     });
 });
 
-$("#opener, .open").click(function () {
-    $("#add_project, #add_task").css({ 'display': "inline" });
-    $("#add_project, #add_task").dialog("open");
+$(".open").click(function () {
+    $("#add_task").css({ 'display': "inline" });
+    $("#add_task").dialog("open");
+});
+
+$("#opener").click(function () {
+    $("#add_project").css({ 'display': "inline" });
+    $("#add_project").dialog("open");
 });

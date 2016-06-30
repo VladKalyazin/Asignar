@@ -64,8 +64,8 @@
         </div>
     </div>
 
-    <div id="add_project" title="Create new project" class="popUpTitle">
-        @using (Html.BeginForm("Projects", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    <div id="add_task" title="Create new project">
+        @using (Html.BeginForm("Project", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             <div class="row">
                 <div class="form-group">
@@ -75,17 +75,31 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-5">
-                        @Html.TextBox("Key", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Key" })
+                        @Html.TextBox("Project", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Project" })
+                    </div>
+                    <div class="col-xs-5">
+                        @Html.TextBox("Owner", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Owner" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-5">
+                        @Html.TextBox("Property", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Property" })
+                    </div>
+                    <div class="col-xs-5">
+                        @Html.TextBox("Status", null, "", htmlAttributes: new { @class = "form-control projInput2", placeholder = "Status" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-10">
+                        @Html.TextBox("Description", null, "", htmlAttributes: new { @class = "form-control descInput", placeholder = "Description" })
                     </div>
                 </div>
             </div>
-            <div class="text-right">
-                <input type="submit" class="btn-pop btn-default" vlaue="Create" />
-            </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn-pop btn-default" vlaue="Create" />
+                    </div>
         }
     </div>
-
-
 
 <div class="container body-content">
     @RenderBody()
