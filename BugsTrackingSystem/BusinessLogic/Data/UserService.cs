@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AsignarDBEntities;
 
-namespace AsignarServices.Account
+namespace AsignarServices.Data
 {
-    public class UserService : IDisposable
+    public partial class AsignarDataService : IDisposable
     {
-        private readonly AsignarDatabaseModel _databaseModel = new AsignarDatabaseModel();
-
         public bool ValidateUser(string email, string password)
         {
             bool isValid = false;
@@ -21,11 +19,6 @@ namespace AsignarServices.Account
                 isValid = true;
 
             return isValid;
-        }
-
-        public void Dispose()
-        {
-            _databaseModel.Dispose();
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AsignarServices.AzureStorage;
-using AsignarServices.Project;
+using AsignarServices.Data;
 using BugsTrackingSystem.Models;
 
 namespace BugsTrackingSystem.Controllers
@@ -17,6 +17,8 @@ namespace BugsTrackingSystem.Controllers
     [AllowAnonymous]
     public class ManageController : Controller
     {
+        private readonly AsignarDataService _dataService = new AsignarDataService();
+
         public ManageController()
         {
 
@@ -29,19 +31,29 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Home()
 		{
-            var projectService = new ProjectService();
-
-            return View(projectService.GetProjects());
+            return View(_dataService.GetAllProjects());
         }
 
 		public ActionResult Projects()
 		{
-            var projectService = new ProjectService();
-             
-			return View(projectService.GetProjects());
+			return View(_dataService.GetAllProjects());
 		}
 
-		public ActionResult Users()
+        [HttpPost]
+        public ActionResult RecieveForm()
+        {
+            var newProject = new ProjectViewModel
+            {
+                Name = Request.Form["Title"],
+                Prefix = Request.Form["Key"]
+            };
+
+            _dataService.AddProject(newProject);
+
+            return RedirectToAction("Projects");
+        }
+
+        public ActionResult Users()
 		{
 			return View(BlobStorageHelper.GetPhotoUrls());
 		}
@@ -60,5 +72,11 @@ namespace BugsTrackingSystem.Controllers
 		{
 			return View();
 		}
+
+        public new void Dispose()
+        {
+            base.Dispose();
+            _dataService.Dispose();
+        }
 	}
 }

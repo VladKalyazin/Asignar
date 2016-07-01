@@ -10,14 +10,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugsTrackingSystem.Models;
-using AsignarServices.Account;
+using AsignarServices.Data;
 
 namespace BugsTrackingSystem.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly UserService _userHelper = new UserService();
+        private readonly AsignarDataService _dataService = new AsignarDataService();
 
         public AccountController()
         {
@@ -49,9 +49,11 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            Lazy<bool> isUserValid = new Lazy<bool>( () => _dataService.ValidateUser(model.Email, model.Password) );
+
             if (ModelState.IsValid)
             {
-                if (_userHelper.ValidateUser(model.Email, model.Password))
+                if (isUserValid.Value)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
                     return RedirectToAction("Home", "Manage");
@@ -63,6 +65,12 @@ namespace BugsTrackingSystem.Controllers
             }
 
             return View(model);
+        }
+
+        public new void Dispose()
+        {
+            base.Dispose();
+            _dataService.Dispose();
         }
 
     }

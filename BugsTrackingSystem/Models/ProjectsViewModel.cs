@@ -15,10 +15,8 @@ namespace BugsTrackingSystem.Models
         public string Prefix { get; set; }
 
         public int UsersCount { get; set; }
+        
+        public int DefectsCount { get; set; }
     }
 
-    public class ProjectsViewModel : List<ProjectViewModel>
-    {
-
-    }
 }

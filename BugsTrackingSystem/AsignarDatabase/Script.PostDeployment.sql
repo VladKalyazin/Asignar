@@ -18,6 +18,15 @@ values
 
 go
 
+insert into [dbo].[DefectPriorities] ([PriorityName])
+values
+	('Immediate'),
+	('High'),
+	('Medium'),
+	('Low')
+
+go
+
 insert into [dbo].[Users] (
 	[FirstName],
 	[Surname],
@@ -61,5 +70,34 @@ values
 	('Lightning', 'LGH', SYSDATETIME()),
 	('The Past Times', 'TPT', SYSDATETIME()),
 	('Mistery', 'MST', SYSDATETIME())
+
+go
+
+insert into [dbo].[ProjectsToUsersBindings] ([ProjectID], [UserID])
+	select top 25 p.[ProjectID], u.[UserID]
+	from [dbo].[Projects] as p cross join
+		[dbo].[Users] as u
+	order by NEWID()
+
+go
+
+insert into [dbo].[Defects] (
+	[Subject],
+	[CreationDate],
+	[Description],
+	[DefectStatusID],
+	[DefectPriorityID],
+	[AssigneeUserID],
+	[ProjectID]
+)
+values
+	('The error message is displayed when commit changes',
+	SYSDATETIME(),
+	'Desc',
+	(select [DefectStatusID] from [dbo].[DefectStatuses] where [StatusName] = 'Open'),
+	(select top 1 [DefectPriorityID] from [dbo].[DefectPriorities] order by NEWID()),
+	(select top 1 [ProjectID] from [dbo].[Projects] order by NEWID()),
+	(select top 1 [UserID] from [dbo].[Users] order by NEWID())
+	)
 
 go
