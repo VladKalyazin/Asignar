@@ -37,9 +37,25 @@ namespace BugsTrackingSystem.Controllers
 		public ActionResult Projects()
 		{
             var projectService = new ProjectService();
-             
-			return View(projectService.GetProjects());
+
+
+            return View(projectService.GetProjects());
 		}
+
+        [HttpPost]
+        public ActionResult RecieveForm()
+        {
+            var newProject = new ProjectViewModel
+            {
+                Name = Request.Form["Title"],
+                Prefix = Request.Form["Key"]
+            };
+
+            var projectService = new ProjectService();
+            projectService.AddProject(newProject);
+            
+            return RedirectToAction("Projects");
+        }
 
 		public ActionResult Users()
 		{
