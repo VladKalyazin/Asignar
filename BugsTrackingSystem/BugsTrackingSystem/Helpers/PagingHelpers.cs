@@ -20,14 +20,12 @@ namespace BugsTrackingSystem.Helpers
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
-                // если текущая страница, то выделяем ее,
-                // например, добавляя класс
+                
                 if (i == pageInfo.PageNumber)
                 {
-                    tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
+                    tag.AddCssClass("btn-pagin-selected");
                 }
-                tag.AddCssClass("btn btn-default");
+                tag.AddCssClass("btn-pagin");
                 result.Append(tag.ToString());
             }
             return MvcHtmlString.Create(result.ToString());

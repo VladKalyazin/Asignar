@@ -37,8 +37,8 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Projects(int page = 1)
 		{
-            var projectService = new ProjectService();
-		    var projects = projectService.GetProjects();
+            var projectService = new AsignarDataService();
+		    var projects = projectService.GetAllProjects();
 
             int pageSize = 9;
 

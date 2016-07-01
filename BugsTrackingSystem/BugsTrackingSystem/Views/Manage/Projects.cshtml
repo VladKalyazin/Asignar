@@ -42,29 +42,30 @@
                 <i id="opener" class="fa fa-plus-circle projPlus" aria-hidden="true"></i>
             </li>
         </ul>
+        <div class="text-right col-md-12 col-xs-12">
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new {page = x}))
+        </div>
 
-        @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new { page = x }))
-
-        @foreach (var project in Model.projectViewModel)
-        {
-            <a href="/Manage/Project" class="projectsPage">
-                <div class="col-md-3 col-xs-6 MyProjects">
-                    <h3 class="projName">@project.Name</h3>
-                    <p class="projPref">@project.Prefix</p>
-                    <div class="text-right">
-                        <ul class="list-inline icons">
-                            <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 0</i>
-                            </li>
-                            <li>
-                                <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
-                            </li>
-                        </ul>
+            @foreach (var project in Model.projectViewModel)
+            {
+                <a href="/Manage/Project" class="projectsPage">
+                    <div class="col-md-3 col-xs-6 MyProjects">
+                        <h3 class="projName">@project.Name</h3>
+                        <p class="projPref">@project.Prefix</p>
+                        <div class="text-right">
+                            <ul class="list-inline icons">
+                                <li>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"> 0</i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </a>
-        }
-    </div>
+                </a>
+            }
+        </div>
 </div>
 <div class="container">
     <div class="col-xs-6">
