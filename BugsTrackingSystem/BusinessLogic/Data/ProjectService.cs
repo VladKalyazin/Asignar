@@ -25,9 +25,12 @@ namespace AsignarServices.Data
             return result;
         }
 
+        public int GetCountOfProjects() =>
+            _databaseModel.Projects.Count();
+
         public List<ProjectViewModel> GetSetOfProjects(int countOfSet, int page)
         {
-            var result = (from project in _databaseModel.Projects.Skip(page * countOfSet).Take(countOfSet)
+            var result = (from project in _databaseModel.Projects.OrderBy( (p) => p.CreationDate).Skip(page * countOfSet).Take(countOfSet)
                           select new ProjectViewModel
                           {
                               ProjectId = project.ProjectID,

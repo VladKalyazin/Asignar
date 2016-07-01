@@ -22,6 +22,7 @@ $(function () {
             duration: 500
         }
     });
+    $(".ui-dialog-titlebar-close").append("<i class=\"fa fa-times\" aria-hidden=\"true\"></i>")
 });
 
 $(".open").click(function () {

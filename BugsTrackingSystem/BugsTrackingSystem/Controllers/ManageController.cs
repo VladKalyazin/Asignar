@@ -18,6 +18,7 @@ namespace BugsTrackingSystem.Controllers
     [AllowAnonymous]
     public class ManageController : Controller
     {
+        private readonly int _pageSize = 9;
         private readonly AsignarDataService _dataService = new AsignarDataService();
 
         public ManageController()
@@ -37,13 +38,13 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Projects(int page = 1)
 		{
-            var projectService = new AsignarDataService();
-		    var projects = projectService.GetAllProjects();
-
-            int pageSize = 9;
-
-            var projectsPerPages = projects.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = projects.Count };
+            var projectsPerPages = _dataService.GetSetOfProjects(_pageSize, page - 1);
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = _pageSize,
+                TotalItems = _dataService.GetCountOfProjects()
+            };
             IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, projectViewModel = projectsPerPages };
 
             return View(ivm);

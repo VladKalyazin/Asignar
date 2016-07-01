@@ -335,7 +335,7 @@ input:-ms-input-placeholder {
 }
 
 .btn-pagin-selected {
-    color: #4d868d;
+    color: #4d868d!important;
     font-size: 20px;
     padding: 5px;
 }
