@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using AsignarServices.AzureStorage;
 using AsignarServices.Project;
 using BugsTrackingSystem.Models;
+using PagedList;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -34,12 +35,18 @@ namespace BugsTrackingSystem.Controllers
             return View(projectService.GetProjects());
         }
 
-		public ActionResult Projects()
+		public ActionResult Projects(int page = 1)
 		{
             var projectService = new ProjectService();
+		    var projects = projectService.GetProjects();
 
+            int pageSize = 9;
 
-            return View(projectService.GetProjects());
+            var projectsPerPages = projects.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = projects.Count };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, projectViewModel = projectsPerPages };
+
+            return View(ivm);
 		}
 
         [HttpPost]
