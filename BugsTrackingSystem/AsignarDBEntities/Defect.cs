@@ -10,7 +10,7 @@ namespace AsignarDBEntities
     {
         public int DefectID { get; set; }
 
-        [StringLength(50)]
+        [StringLength(200)]
         public string Subject { get; set; }
 
         public int ProjectID { get; set; }
@@ -25,7 +25,7 @@ namespace AsignarDBEntities
 
         public DateTime? ModificationDate { get; set; }
 
-        [StringLength(200)]
+        [StringLength(500)]
         public string Description { get; set; }
 
         public virtual DefectPriority DefectPriority { get; set; }
