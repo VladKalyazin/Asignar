@@ -96,8 +96,8 @@ values
 	'Desc',
 	(select [DefectStatusID] from [dbo].[DefectStatuses] where [StatusName] = 'Open'),
 	(select top 1 [DefectPriorityID] from [dbo].[DefectPriorities] order by NEWID()),
-	(select top 1 [ProjectID] from [dbo].[Projects] order by NEWID()),
-	(select top 1 [UserID] from [dbo].[Users] order by NEWID())
+	(select top 1 [UserID] from [dbo].[Users] order by NEWID()),
+	(select top 1 [ProjectID] from [dbo].[Projects] order by NEWID())
 	)
 
 go

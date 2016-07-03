@@ -73,7 +73,7 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Users()
 		{
-			return View(BlobStorageHelper.GetPhotoUrls());
+			return View();
 		}
 
 		public ActionResult Filters()
