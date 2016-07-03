@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BugsTrackingSystem.Models
 {
-    public class ProjectExtendedViewModel : IEnumerable
+    public class ProjectExtendedViewModel
     {
         public int ProjectId { get; set; }
 
@@ -20,9 +20,5 @@ namespace BugsTrackingSystem.Models
         public int DefectsCount { get; set; }
 
         public IEnumerable<DefectViewModel> Defects { get; set; }
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

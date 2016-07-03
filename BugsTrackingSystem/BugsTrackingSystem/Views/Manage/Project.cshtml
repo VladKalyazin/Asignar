@@ -26,16 +26,16 @@
 
     <table class="table projectTable">
         <tbody>
-        @foreach (var project in Model)
-        {
-            <tr class="clickable-row" data-href="/Manage/Task">
+         @foreach(var data in Model.Defects)
+         {
+               <tr class="clickable-row" data-href="/Manage/Task">
                 <td>
-                    <img class="projectIcon" src="~/images/icon_down.png">
+                    <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
                 <td>
-                    <label>@Model.Prefix</label>
-                    <span class="project_todo">To do</span>
-                    <p> Font for password is different from other labels font on 'Login' screen</p>
+                    <label>TDD</label>
+                    <span class="project_todo">@data.Status</span>
+                    <p> @data.Subject</p>
                 </td>
                 <td>
                     <p>
@@ -46,17 +46,17 @@
                     </p>
                 </td>
                 <td>
-                    <img class="img-responsive img-circle" height="50" width="50" src="~/images/orwell.jpg">
+                    <img class="img-responsive img-circle" height="50" width="50" src="@data.AssigneeUserPhoto">
                 </td>
                 <td>
-                    <p>@Model.Name</p>
+                    <p>@data.AssigneeUserName</p>
                 </td>
             </tr>
         }
         </tbody>
     </table>
 
-    <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> Tasks: 67</i>
+    <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> Tasks: @Html.Encode(Model.DefectsCount)</i>
 
 </div>
 
