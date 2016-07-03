@@ -77,5 +77,39 @@ namespace AsignarServices.Data
             }
         }
 
+        public ProjectExtendedViewModel GetFullProjectInfo(int projectId)
+        {
+            try
+            {
+                return (from project in _databaseModel.Projects
+                        where project.ProjectID == projectId
+                        select new ProjectExtendedViewModel
+                        {
+                            ProjectId = project.ProjectID,
+                            Name = project.ProjectName,
+                            Prefix = project.Prefix,
+                            UsersCount = project.Users.Count,
+                            DefectsCount = project.Defects.Count,
+                            Defects = (from defect in _databaseModel.Defects
+                                       where defect.ProjectID == projectId
+                                       select new DefectViewModel
+                                       {
+                                           DefectId = defect.DefectID,
+                                           Subject = defect.Subject,
+                                           AssigneeUserName = $"{defect.User.FirstName} {defect.User.Surname}",
+                                           AssigneeUserPhoto = null, // TODO Blob Storage
+                                           PriorityId = defect.DefectPriorityID,
+                                           Status = defect.DefectStatus.StatusName
+                                       }).ToList()
+                       }).FirstOrDefault();
+            }
+            catch
+            {
+                //TODO exceptions
+            }
+
+            return null;
+        }
+
     }
 }

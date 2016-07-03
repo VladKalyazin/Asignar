@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefectViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="PageInfo.cs" />
+    <Compile Include="ProjectExtendedViewModel.cs" />
     <Compile Include="ProjectsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetPasswordViewModel.cs" />

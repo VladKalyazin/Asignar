@@ -18,14 +18,10 @@ namespace BugsTrackingSystem.Models
         }
     }
 
-    public class IndexViewModel : IEnumerable
+    public class IndexViewModel
     {
-        public IEnumerable<ProjectViewModel> projectViewModel { get; set; }
+        public IEnumerable<ProjectViewModel> Projects { get; set; }
         public PageInfo PageInfo { get; set; }
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

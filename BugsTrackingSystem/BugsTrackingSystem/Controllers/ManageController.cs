@@ -17,6 +17,7 @@ namespace BugsTrackingSystem.Controllers
     [AllowAnonymous]
     public class ManageController : Controller
     {
+        private const int _projectsCountOnHomePage = 3;
         private const int _pageSize = 9;
 
         public ManageController()
@@ -33,7 +34,7 @@ namespace BugsTrackingSystem.Controllers
 		{
             using (AsignarDataService _dataService = new AsignarDataService())
             {
-                return View(_dataService.GetAllProjects());
+                return View(_dataService.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList());
             }
         }
 
@@ -41,14 +42,14 @@ namespace BugsTrackingSystem.Controllers
 		{
             using (AsignarDataService _dataService = new AsignarDataService())
             {
-                var projectsPerPages = _dataService.GetSetOfProjects(_pageSize, page - 1);
+                var projectsPerPages = _dataService.GetSetOfProjects(_pageSize, page - 1).ToList();
                 PageInfo pageInfo = new PageInfo
                 {
                     PageNumber = page,
                     PageSize = _pageSize,
                     TotalItems = _dataService.GetCountOfProjects()
                 };
-                IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, projectViewModel = projectsPerPages };
+                IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Projects = projectsPerPages };
                 return View(ivm);
             }
         }
