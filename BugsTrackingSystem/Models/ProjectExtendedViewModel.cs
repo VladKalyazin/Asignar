@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BugsTrackingSystem.Models
 {
-    public class ProjectExtendedViewModel
+    public class ProjectExtendedViewModel : IEnumerable
     {
         public int ProjectId { get; set; }
 
@@ -19,5 +20,9 @@ namespace BugsTrackingSystem.Models
         public int DefectsCount { get; set; }
 
         public IEnumerable<DefectViewModel> Defects { get; set; }
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

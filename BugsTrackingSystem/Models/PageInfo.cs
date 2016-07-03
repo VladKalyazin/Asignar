@@ -22,6 +22,5 @@ namespace BugsTrackingSystem.Models
     {
         public IEnumerable<ProjectViewModel> Projects { get; set; }
         public PageInfo PageInfo { get; set; }
-
     }
 }

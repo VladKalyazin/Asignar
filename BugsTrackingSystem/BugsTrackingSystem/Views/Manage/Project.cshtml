@@ -1,11 +1,15 @@
-﻿@{
+﻿@using BugsTrackingSystem.Models
+@model BugsTrackingSystem.Models.ProjectExtendedViewModel
+
+@{
     ViewBag.Title = "Project";
 }
 
 <div class="container">
     <ul class="list-inline">
         <li>
-            <h1><b>The Titan</b></h1>
+            <h1><b>@Model.Name</b>
+            </h1>
         </li>
         <li>
             <i class="open fa fa-plus-circle projPlus" aria-hidden="true"></i>
@@ -13,90 +17,42 @@
     </ul>
     <ul class="list-inline icons">
         <li>
-            <i class="fa fa-pencil-square-o" aria-hidden="true"> 67</i>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"> @Model.DefectsCount</i>
         </li>
         <li>
-            <i class="fa fa-users" aria-hidden="true"> 7</i>
+            <i class="fa fa-users" aria-hidden="true"> @Model.UsersCount</i>
         </li>
     </ul>
 
     <table class="table projectTable">
         <tbody>
-        <tr class="clickable-row" data-href="/Manage/Task">
-            <td>
-                <img class="projectIcon" src="~/images/icon_down.png">
-            </td>
-            <td>
-                <label>TDT-67</label>
-                <span class="project_todo">To do</span>
-                <p>Font for password is different from other labels font on 'Login' screen</p>
-            </td>
-            <td>
-                <p>
-                    <span class="projText">Created:</span> 10/10/16
-                </p>
-                <p>
-                    <span class="projText">Updated:</span> 10/10/16
-                </p>
-            </td>
-            <td>
-                <img class="img-responsive img-circle" height="50" width="50" src="~/images/orwell.jpg">
-            </td>
-            <td>
-                <p>George Orwell</p>
-            </td>
-        </tr>
-
-        <tr class="clickable-row" data-href="/Manage/Task">
-            <td>
-                <img class="projectIcon" src="~/images/icon_up.png">
-            </td>
-            <td>
-                <label>TDT-66</label>
-                <span class="project_progress">In progress</span>
-                <p>The error message is displayed after tapping on the 'Get Link' button on the volume's 'Information' screen</p>
-            </td>
-            <td>
-                <p>
-                    <span class="projText">Created:</span> 10/10/16
-                </p>
-                <p>
-                    <span class="projText">Updated:</span> 10/10/16
-                </p>
-            </td>
-            <td>
-                <img class="img-responsive img-circle" height="50" width="50" alt="no image" src="~/images/agatha.jpg">
-            </td>
-            <td>
-                <p>Agatha Clarissa</p>
-            </td>
-        </tr>
-
-        <tr class="clickable-row" data-href="/Manage/Task">
-            <td>
-                <img class="projectIcon" src="~/images/icon_mark.png">
-            </td>
-            <td>
-                <label>TDT-15</label>
-                <span class="project_done">Done</span>
-                <p>Account activation link in Registration email is invalid</p>
-            </td>
-            <td>
-                <p>
-                    <span class="projText">Created:</span> 10/10/16
-                </p>
-                <p>
-                    <span class="projText">Updated:</span> 10/10/16
-                </p>
-            </td>
-            <td>
-                <img class="img-responsive img-circle" height="50" width="50" alt="no image" src="~/images/ernest.jpg">
-            </td>
-            <td>
-                <p>Ernest Hemingway</p>
-            </td>
-        </tr>
-
+        @foreach (var project in Model)
+        {
+            <tr class="clickable-row" data-href="/Manage/Task">
+                <td>
+                    <img class="projectIcon" src="~/images/icon_down.png">
+                </td>
+                <td>
+                    <label>@Model.Prefix</label>
+                    <span class="project_todo">To do</span>
+                    <p> Font for password is different from other labels font on 'Login' screen</p>
+                </td>
+                <td>
+                    <p>
+                        <span class="projText">Created:</span> 10/10/16
+                    </p>
+                    <p>
+                        <span class="projText">Updated:</span> 10/10/16
+                    </p>
+                </td>
+                <td>
+                    <img class="img-responsive img-circle" height="50" width="50" src="~/images/orwell.jpg">
+                </td>
+                <td>
+                    <p>@Model.Name</p>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 
