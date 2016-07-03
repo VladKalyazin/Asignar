@@ -1,4 +1,5 @@
-﻿@using BugsTrackingSystem.Models
+﻿@using System.Data.Entity.Core.Mapping
+@using BugsTrackingSystem.Models
 @model BugsTrackingSystem.Models.ProjectExtendedViewModel
 
 @{
@@ -34,15 +35,33 @@
                 </td>
                 <td>
                     <label>TDD</label>
-                    <span class="project_todo">@data.Status</span>
+                    @if (data.Status == "Open")
+                    {
+                        <span class="project_todo">@data.Status</span>
+                    }
+                    else if (data.Status == "In Progress")
+                    {
+                        <span class="project_progress">@data.Status</span>
+                    }
+                    else
+                    {
+                        <span class="project_done">@data.Status</span>
+                    }
                     <p> @data.Subject</p>
                 </td>
                 <td>
                     <p>
-                        <span class="projText">Created:</span> 10/10/16
+                        <span class="projText">Created:</span> @data.CreationDate
                     </p>
                     <p>
-                        <span class="projText">Updated:</span> 10/10/16
+                        @if(@data.ModificationDate != null)
+                        { 
+                            <span class="projText">Updated:</span> @data.CreationDate
+                        }
+                        else
+                        {
+                            <span class="projText">Updated:</span> @Html.Label("--/--/--")
+                        }
                     </p>
                 </td>
                 <td>
