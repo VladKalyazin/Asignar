@@ -80,11 +80,15 @@ namespace BugsTrackingSystem.Controllers
 		{
 			return View();
 		}
-
-		public ActionResult Project()
-		{
-			return View();
-		}
+        
+		public ActionResult Project(int id)
+        {
+            int projId = id;
+            using (AsignarDataService _dataService = new AsignarDataService())
+            {
+                return View(_dataService.GetFullProjectInfo(projId));
+            }
+        }
 	
 		public ActionResult Task()
 		{

@@ -22,6 +22,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-xs-10">
+                                    @*@Html.TextBoxFor(m => m.Title, new { @class = "form-control projInput1", @placeholder = "Title" })*@
                                     @Html.TextBox("Title", null, "", htmlAttributes: new {@class = "form-control projInput1", placeholder = "Title"})
                                 </div>
                             </div>
@@ -46,10 +47,11 @@
             @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new {page = x}))
         </div>
 
-            @foreach (var project in Model.projectViewModel)
+            @foreach (var project in Model.Projects)
             {
-                <a href="/Manage/Project" class="projectsPage">
+                <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
                     <div class="col-md-3 col-xs-6 MyProjects">
+                        @Html.Hidden("Id", project.ProjectId)
                         <h3 class="projName">@project.Name</h3>
                         <p class="projPref">@project.Prefix</p>
                         <div class="text-right">
