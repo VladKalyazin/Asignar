@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AsignarDBEntities;
+using AsignarServices.AzureStorage;
 using BugsTrackingSystem.Models;
 
 namespace AsignarServices.Data
@@ -81,27 +82,39 @@ namespace AsignarServices.Data
         {
             try
             {
-                return (from project in _databaseModel.Projects
-                        where project.ProjectID == projectId
-                        select new ProjectExtendedViewModel
-                        {
-                            ProjectId = project.ProjectID,
-                            Name = project.ProjectName,
-                            Prefix = project.Prefix,
-                            UsersCount = project.Users.Count,
-                            DefectsCount = project.Defects.Count,
-                            Defects = (from defect in _databaseModel.Defects
-                                       where defect.ProjectID == projectId
-                                       select new DefectViewModel
-                                       {
-                                           DefectId = defect.DefectID,
-                                           Subject = defect.Subject,
-                                           AssigneeUserName = $"{defect.User.FirstName} {defect.User.Surname}",
-                                           AssigneeUserPhoto = null, // TODO Blob Storage
-                                           PriorityId = defect.DefectPriorityID,
-                                           Status = defect.DefectStatus.StatusName
-                                       }).ToList()
-                       }).FirstOrDefault();
+                BlobStorageHelper blobHelper = new BlobStorageHelper();
+                var priorityPhotos = blobHelper.GetDefectPriorityPhotos();
+                var userPhotos = blobHelper.GetUserPhotos();
+
+                var result = (from project in _databaseModel.Projects
+                              where project.ProjectID == projectId
+                              select new ProjectExtendedViewModel
+                              {
+                                  ProjectId = project.ProjectID,
+                                  Name = project.ProjectName,
+                                  Prefix = project.Prefix,
+                                  UsersCount = project.Users.Count,
+                                  DefectsCount = project.Defects.Count,
+                                  Defects = (from defect in _databaseModel.Defects
+                                             where defect.ProjectID == projectId
+                                             select new DefectViewModel
+                                             {
+                                                 DefectId = defect.DefectID,
+                                                 Subject = defect.Subject,
+                                                 AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                                                 Status = defect.DefectStatus.StatusName,
+                                                 PriorityId = defect.DefectPriorityID,
+                                                 UserId = defect.AssigneeUserID
+                                             }).ToList()
+                              }).FirstOrDefault();
+
+                foreach (var defect in result.Defects)
+                {
+                    defect.AssigneeUserPhoto = userPhotos[defect.UserId];
+                    defect.PriorityPhoto = priorityPhotos[defect.PriorityId];
+                }
+
+                return result;
             }
             catch
             {
