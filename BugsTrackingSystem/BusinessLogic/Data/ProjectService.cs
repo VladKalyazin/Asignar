@@ -104,7 +104,9 @@ namespace AsignarServices.Data
                                                  AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                                  Status = defect.DefectStatus.StatusName,
                                                  PriorityId = defect.DefectPriorityID,
-                                                 UserId = defect.AssigneeUserID
+                                                 UserId = defect.AssigneeUserID,
+                                                 CreationDate = defect.CreationDate,
+                                                 ModificationDate = defect.ModificationDate
                                              }).ToList()
                               }).FirstOrDefault();
 
