@@ -46,7 +46,7 @@
             @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new {page = x}))
         </div>
 
-            @foreach (var project in Model.projectViewModel)
+            @foreach (var project in Model.Projects)
             {
                 <a href="/Manage/Project" class="projectsPage">
                     <div class="col-md-3 col-xs-6 MyProjects">
