@@ -13,7 +13,7 @@ namespace AsignarServices.Data
         {
             bool isValid = false;
 
-            var currentUser = (from user in _databaseModel.Users where user.Email == email && user.Password == password select user).FirstOrDefault();
+            var currentUser = (from user in _databaseModel.Users where user.Email.ToUpper() == email.ToUpper() && user.Password == password select user).FirstOrDefault();
 
             if (currentUser != null)
                 isValid = true;

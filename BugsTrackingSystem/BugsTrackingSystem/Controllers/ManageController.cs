@@ -11,15 +11,13 @@ using Microsoft.Owin.Security;
 using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
-using PagedList;
 
 namespace BugsTrackingSystem.Controllers
 {
     [AllowAnonymous]
     public class ManageController : Controller
     {
-        private readonly int _pageSize = 9;
-        private readonly AsignarDataService _dataService = new AsignarDataService();
+        private const int _pageSize = 9;
 
         public ManageController()
         {
@@ -33,22 +31,27 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Home()
 		{
-            return View(_dataService.GetAllProjects());
+            using (AsignarDataService _dataService = new AsignarDataService())
+            {
+                return View(_dataService.GetAllProjects());
+            }
         }
 
 		public ActionResult Projects(int page = 1)
 		{
-            var projectsPerPages = _dataService.GetSetOfProjects(_pageSize, page - 1);
-            PageInfo pageInfo = new PageInfo
+            using (AsignarDataService _dataService = new AsignarDataService())
             {
-                PageNumber = page,
-                PageSize = _pageSize,
-                TotalItems = _dataService.GetCountOfProjects()
-            };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, projectViewModel = projectsPerPages };
-
-            return View(ivm);
-		}
+                var projectsPerPages = _dataService.GetSetOfProjects(_pageSize, page - 1);
+                PageInfo pageInfo = new PageInfo
+                {
+                    PageNumber = page,
+                    PageSize = _pageSize,
+                    TotalItems = _dataService.GetCountOfProjects()
+                };
+                IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, projectViewModel = projectsPerPages };
+                return View(ivm);
+            }
+        }
 
         [HttpPost]
         public ActionResult RecieveForm()
@@ -59,7 +62,10 @@ namespace BugsTrackingSystem.Controllers
                 Prefix = Request.Form["Key"]
             };
 
-            _dataService.AddProject(newProject);
+            using (AsignarDataService _dataService = new AsignarDataService())
+            {
+                _dataService.AddProject(newProject);
+            }
 
             return RedirectToAction("Projects");
         }
@@ -84,10 +90,5 @@ namespace BugsTrackingSystem.Controllers
 			return View();
 		}
 
-        public new void Dispose()
-        {
-            base.Dispose();
-            _dataService.Dispose();
-        }
 	}
 }
