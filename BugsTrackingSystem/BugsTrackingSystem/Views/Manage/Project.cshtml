@@ -21,15 +21,37 @@
             <i class="fa fa-pencil-square-o" aria-hidden="true"> @Model.DefectsCount</i>
         </li>
         <li>
-            <i class="fa fa-users" aria-hidden="true"> @Model.UsersCount</i>
+            <div class="dropdown">
+                <i class="fa fa-users" aria-hidden="true" data-toggle="dropdown" type="button"> @Model.UsersCount</i>
+                <table class="dropdown-menu list_users_project">
+                    <tbody>
+                        @*<i class="fa fa-caret-up" aria-hidden="true"></i>*@
+                    @foreach (var user in Model.Defects)
+                    {
+                        <tr class="hovering">
+                            <td class="col-md-2">
+                                <img class="img-responsive img-circle" height="60" width="60" src="@user.AssigneeUserPhoto"/>
+                            </td>
+                            <td class="col-md-4">
+                                <p>@user.AssigneeUserName</p>
+                                <p>oleksandra.email@@gmaik.com</p>
+                            </td>
+                            <td class="col-md-1 text-right">
+                                <i class="fa fa-times close_user hide_cross" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
         </li>
     </ul>
 
     <table class="table projectTable">
         <tbody>
-         @foreach(var data in Model.Defects)
-         {
-               <tr class="clickable-row" data-href="/Manage/Task">
+        @foreach (var data in Model.Defects)
+        {
+            <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new {id = data.DefectId})">
                 <td>
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
@@ -37,7 +59,7 @@
                     <label>TDD</label>
                     @if (data.Status == "Open")
                     {
-                        <span class="project_todo">@data.Status</span>
+                        <span class="project_done">@data.Status</span>
                     }
                     else if (data.Status == "In Progress")
                     {
@@ -45,7 +67,7 @@
                     }
                     else
                     {
-                        <span class="project_done">@data.Status</span>
+                        <span class="project_todo">@data.Status</span>
                     }
                     <p> @data.Subject</p>
                 </td>
@@ -54,13 +76,15 @@
                         <span class="projText">Created:</span> @data.CreationDate
                     </p>
                     <p>
-                        @if(@data.ModificationDate != null)
-                        { 
-                            <span class="projText">Updated:</span> @data.CreationDate
+                        @if (@data.ModificationDate != null)
+                        {
+                            <span class="projText">Updated:</span>
+                            @data.CreationDate
                         }
                         else
                         {
-                            <span class="projText">Updated:</span> @Html.Label("--/--/--")
+                            <span class="projText">Updated:</span>
+                            @Html.Label("--/--/--")
                         }
                     </p>
                 </td>

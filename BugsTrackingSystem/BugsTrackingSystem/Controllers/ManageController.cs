@@ -59,7 +59,7 @@ namespace BugsTrackingSystem.Controllers
         {
             var newProject = new ProjectViewModel
             {
-                Name = Request.Form["Title"],
+                Name = Request.Form["Name"],
                 Prefix = Request.Form["Key"]
             };
 

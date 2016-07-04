@@ -360,6 +360,10 @@ i {
     margin-left: 15px;
 }
 
+.clickable-row {
+    cursor: pointer;
+}
+
 .projectIcon {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -402,6 +406,33 @@ i {
 
 .projText {
     color: rgba(0, 0, 0, 0.5);
+}
+
+.list_users_project {
+    width: 400px;
+    background-color: #92C1BA;
+    color: #F2F8F8;
+    font-size: 15px;
+}
+
+table {
+    max-width: none;
+}
+tr {
+    width: 100%;
+}
+
+.close_user {
+    color: #F2F8F8;
+    font-size: 25px;
+}
+
+.hide_cross {
+    display: none;
+}
+
+.hide_cross:hover {
+    display: block;
 }
 
 /*Task*/
@@ -528,11 +559,16 @@ i {
             font-weight: bold;
          }
 
-/*.ui-dialog-titlebar-close {
+.ui-dialog-titlebar-close {
     background-color: #4d868d;
     border: none;
     color: white;
-}*/
+}
+
+.close_popup {
+    color: #d3d3d3;
+    font-size: 20px;
+}
 
 .ui-widget-overlay.ui-front
 {
@@ -596,7 +632,7 @@ i {
     color: black;
 }
 
-.projInput1, .projInput2::-webkit-input-placeholder {
+.projInput1::-webkit-input-placeholder, .projInput2::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4) !important;
     font-size: small;
 }

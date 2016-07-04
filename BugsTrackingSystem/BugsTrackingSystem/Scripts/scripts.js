@@ -22,8 +22,10 @@ $(function () {
             duration: 500
         }
     });
-    $(".ui-dialog-titlebar-close").append("<i class=\"fa fa-times\" aria-hidden=\"true\"></i>")
+    $(".ui-dialog-title").html("<i class=\"fa fa-th-list close_popup\" aria-hidden=\"true\"><span class=\"\"> Create new</span></i>");
+    $(".ui-dialog-titlebar-close").append("<i class=\"fa fa-times close_popup\" aria-hidden=\"true\"></i>");
 });
+
 
 $(".open").click(function () {
     $("#add_task").css({ 'display': "inline" });
