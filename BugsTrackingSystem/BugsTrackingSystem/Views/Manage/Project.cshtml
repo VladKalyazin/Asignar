@@ -26,15 +26,15 @@
                 <table class="dropdown-menu list_users_project">
                     <tbody>
                         @*<i class="fa fa-caret-up" aria-hidden="true"></i>*@
-                    @foreach (var user in Model.Defects)
+                    @foreach (var user in Model.Users)
                     {
                         <tr class="hovering">
                             <td class="col-md-2">
-                                <img class="img-responsive img-circle" height="60" width="60" src="@user.AssigneeUserPhoto"/>
+                                <img class="img-responsive img-circle" height="50" width="50" src="@user.UserPhoto"/>
                             </td>
                             <td class="col-md-4">
-                                <p>@user.AssigneeUserName</p>
-                                <p>oleksandra.email@@gmaik.com</p>
+                                <p>@user.FirstName @user.Surname</p>
+                                <p>@user.Email</p>
                             </td>
                             <td class="col-md-1 text-right">
                                 <i class="fa fa-times close_user hide_cross" aria-hidden="true"></i>

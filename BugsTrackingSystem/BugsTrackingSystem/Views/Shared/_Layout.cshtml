@@ -44,17 +44,24 @@
                             </div>
                             <div class="navbar-right">
                                 <div class="userMenuInfo">
-                                    <a id="profileLink" href="/Manage/UserProfile">
-                                        <ul class="list-inline">
-                                            <li>
-                                                <img class="img-circle" src="~/images/orwell.jpg" width="30" height="30"/>
-                                            </li>
-                                            <li>
-                                                <p id="profileName">George Orwell</p>
-                                            </li>
-                                        </ul>
-
-                                    </a>
+                                    <ul class="list-inline" data-toggle="dropdown" type="button">
+                                        <li>
+                                            <img class="img-circle" src="~/images/orwell.jpg" width="30" height="30"/>
+                                        </li>
+                                        <li>
+                                            <p id="profileName">George Orwell</p>
+                                        </li>
+                                    </ul>
+                                    <table class="dropdown-menu list_profile">
+                                        <tbody>
+                                        <tr class="profile_row">
+                                            <td><a href="/Manage/UserProfile" class="profile_link">Profile</a></td>
+                                        </tr>
+                                        <tr class="profile_row">
+                                            <td><a href="#"  class="profile_link">Sign out</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

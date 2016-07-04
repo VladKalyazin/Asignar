@@ -73,7 +73,11 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Users()
 		{
-			return View();
+            using (AsignarDataService _dataService = new AsignarDataService())
+            {
+                //return View(_dataService.GetFullProjectInfo());
+            }
+            return null;
 		}
 
 		public ActionResult Filters()

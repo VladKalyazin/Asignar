@@ -346,6 +346,27 @@ input:-ms-input-placeholder {
     color: #BBBBBB;
 }
 
+.list_profile {
+    background-color: #92C1BA;
+    color: #F2F8F8;
+    font-size: 15px;
+}
+
+.profile_link {
+    font-size: 15px;
+    margin-left: 10px;
+    color: #F2F8F8;
+}
+
+.profile_link:hover {
+    text-decoration: none;
+    color: #F2F8F8;
+}
+
+.profile_row:hover {
+    background-color: #ABCFCA;
+} 
+
 /*Project*/
 
 i {
@@ -432,7 +453,7 @@ tr {
 }
 
 .hide_cross:hover {
-    display: block;
+    display:inline;
 }
 
 /*Task*/
