@@ -27,6 +27,7 @@ namespace BugsTrackingSystem
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
                       "~/Content/site.css",
+                      "~/Content/DefectComments.css",
                       "~/Content/jquery*"));
         }
     }

@@ -92,7 +92,9 @@ namespace BugsTrackingSystem.Controllers
 	
 		public ActionResult Task()
 		{
-			return View();
+            var tableHelper = new TableStorageHelper();
+            var comments = tableHelper.GetDefectComments(1);
+			return View(comments);
 		}
 
 	}

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentViewModel.cs" />
     <Compile Include="DefectViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="PageInfo.cs" />
