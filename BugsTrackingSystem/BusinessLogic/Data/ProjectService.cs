@@ -95,7 +95,7 @@ namespace AsignarServices.Data
                                   Prefix = project.Prefix,
                                   UsersCount = project.Users.Count,
                                   DefectsCount = project.Defects.Count,
-                                  Defects = (from defect in _databaseModel.Defects
+                                  Defects = from defect in _databaseModel.Defects
                                              where defect.ProjectID == projectId
                                              select new DefectViewModel
                                              {
@@ -107,13 +107,28 @@ namespace AsignarServices.Data
                                                  UserId = defect.AssigneeUserID,
                                                  CreationDate = defect.CreationDate,
                                                  ModificationDate = defect.ModificationDate
-                                             }).ToList()
+                                             },
+                                  Users = from user in project.Users
+                                          select new UserSimpleViewModel
+                                          {
+                                              UserId = user.UserID,
+                                              FirstName = user.FirstName,
+                                              Surname = user.Surname,
+                                              Email = user.Email,
+                                              DefectsCount = user.Defects.Count,
+                                              ProjectsCount = user.Projects.Count
+                                          }
                               }).FirstOrDefault();
 
                 foreach (var defect in result.Defects)
                 {
                     defect.AssigneeUserPhoto = userPhotos[defect.UserId];
                     defect.PriorityPhoto = priorityPhotos[defect.PriorityId];
+                }
+
+                foreach (var user in result.Users)
+                {
+                    user.UserPhoto = userPhotos[user.UserId];
                 }
 
                 return result;

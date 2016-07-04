@@ -19,6 +19,8 @@ namespace BugsTrackingSystem.Models
 
         public int DefectsCount { get; set; }
 
+        public IEnumerable<UserSimpleViewModel> Users { get; set; }
+
         public IEnumerable<DefectViewModel> Defects { get; set; }
     }
 }
