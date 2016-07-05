@@ -459,7 +459,7 @@ tr {
 /*Task*/
 
 .taskIcon {
-    margin-right: 10px;
+    cursor: pointer;
     color: #4D868D;
     font-size: 20px;
     border: solid 2px #4D868D;
@@ -568,7 +568,7 @@ tr {
 
 /*PopUp*/
 
-#add_project, #add_task, #add_user {
+#add_project, #add_task, #add_user, #edit_project {
     display: none;
     font-size: 15px;
 }
@@ -645,12 +645,12 @@ tr {
 }
 
 .projInput {
-    background-color: rgb(255, 255, 255);
+    background-color: #F8FEFE;
     border-radius: 0;
     border: 0;
     margin: 0 auto;
     margin-left: 50px;
-    color: black;
+    color: #3F4747;
 }
 
 .projInput::-webkit-input-placeholder {
@@ -658,14 +658,45 @@ tr {
     font-size: small;
 }
 
+.btnDropTaskPage {
+    font-size: small;
+    border-color: #D9DDDD;
+    margin-left: 15px;
+    height: 35px;
+    width: 100px;
+    color: #3F4747;
+}
+
 .btnDropRole {
+    background-color: #F8FEFE;
+    font-size: small;
     border-color: #D9DDDD;
     margin-left: 45px;
     height: 35px;
+    width: 180px;
+    color: #3F4747;
+}
+
+.attachments {
+    margin-left: 50px;
+}
+
+.circle_attach {
+    color: #4d868d;
+}
+
+.btnDropTask {
+    background-color: #F8FEFE;
+    font-size: small;
+    border-color: #D9DDDD;
+    margin-left: 45px;
+    height: 35px;
+    width: 250px;
+    color: #3F4747;
 }
 
 .descInput {
-    background-color: rgb(255, 255, 255);
+    background-color: #F8FEFE;
     border-radius: 0;
     border: 0;
     margin: 0 auto;

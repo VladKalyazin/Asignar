@@ -9,112 +9,179 @@
 </head>
 <body>
 
-    <div class="menu">
-        <div class="container">
-            <nav class="navbar navbar-default menu">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav linkItemMenu">
-                            <li id="mainLogo" class="menuLink"><a href="~/Manage/Home"><img src="~/images/logo.png"></a></li>
-                            <li><a href="/Manage/Projects">Projects</a></li>
-                            <li><a href="/Manage/Users">Users</a></li>
-                            <li><a href="/Manage/Filters">Filters</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><button class="open menuButton"><span><i class="fa fa-plus"></i>Create task</span></button></li>
-                        </ul>
-                        <div class="nav navbar-nav navbar-right">
-                            <div class="navbar-left">
-                                <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control" id="searchText" placeholder="Search">
-                                    <span class="input-group-addon">
+<div class="menu">
+    <div class="container">
+        <nav class="navbar navbar-default menu">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav linkItemMenu">
+                        <li id="mainLogo" class="menuLink"><a href="~/Manage/Home"><img src="~/images/logo.png"></a></li>
+                        <li><a href="/Manage/Projects">Projects</a></li>
+                        <li><a href="/Manage/Users">Users</a></li>
+                        <li><a href="/Manage/Filters">Filters</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><button class="open menuButton"><span><i class="fa fa-plus"></i>Create task</span></button></li>
+                    </ul>
+                    <div class="nav navbar-nav navbar-right">
+                        <div class="navbar-left">
+                            <div class="input-group stylish-input-group">
+                                <input type="text" class="form-control" id="searchText" placeholder="Search">
+                                <span class="input-group-addon">
                                         <button type="submit">
                                             <span class="glyphicon glyphicon-search" id="searchTool"></span>
                                         </button>
                                     </span>
-                                </div>
                             </div>
-                            <div class="navbar-right">
-                                <div class="userMenuInfo">
-                                    <ul class="list-inline" data-toggle="dropdown" type="button">
-                                        <li>
-                                            <img class="img-circle" src="~/images/orwell.jpg" width="30" height="30"/>
-                                        </li>
-                                        <li>
-                                            <p id="profileName">George Orwell</p>
-                                        </li>
-                                    </ul>
-                                    <table class="dropdown-menu list_profile">
-                                        <tbody>
-                                        <tr class="profile_row">
-                                            <td><a href="/Manage/UserProfile" class="profile_link">Profile</a></td>
-                                        </tr>
-                                        <tr class="profile_row">
-                                            <td><a href="#"  class="profile_link">Sign out</a></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        </div>
+                        <div class="navbar-right">
+                            <div class="userMenuInfo">
+                                <ul class="list-inline" data-toggle="dropdown" type="button">
+                                    <li>
+                                        <img class="img-circle" src="~/images/orwell.jpg" width="30" height="30"/>
+                                    </li>
+                                    <li>
+                                        <p id="profileName">George Orwell</p>
+                                    </li>
+                                </ul>
+                                <table class="dropdown-menu list_profile">
+                                    <tbody>
+                                    <tr class="profile_row">
+                                        <td><a href="/Manage/UserProfile" class="profile_link">Profile</a></td>
+                                    </tr>
+                                    <tr class="profile_row">
+                                        <td><a href="#" class="profile_link">Sign out</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
-    </div>
-
-    <div id="add_task" title="Create new project">
-        @using (Html.BeginForm("Project", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-xs-10">
-                        @Html.TextBox("Name", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Task name" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-5">
-                        @Html.TextBox("Project", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Project" })
-                    </div>
-                    <div class="col-xs-5">
-                        @Html.TextBox("Owner", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Owner" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-5">
-                        @Html.TextBox("Property", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Property" })
-                    </div>
-                    <div class="col-xs-5">
-                        @Html.TextBox("Status", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Status" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-10">
-                        @Html.TextBox("Description", null, "", htmlAttributes: new { @class = "form-control descInput", placeholder = "Description" })
-                    </div>
-                </div>
             </div>
-                    <div class="text-right">
-                        <input type="submit" class="btn-pop btn-default" vlaue="Create" />
-                    </div>
-        }
+        </nav>
     </div>
-
-<div class="container body-content">
-    @RenderBody()
 </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/scripts.js")
-    @RenderSection("scripts", required: false)
+    @{
+        var projects = new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "project1",
+                Value = "0"
+            },
+            new SelectListItem
+            {
+                Text = "project2",
+                Value = "1"
+            }
+        };
+
+        var users = new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "user1",
+                Value = "0"
+            },
+            new SelectListItem
+            {
+                Text = "user2",
+                Value = "1"
+            }
+        };
+
+        var priority = new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "Minor",
+                Value = "0"
+            },
+            new SelectListItem
+            {
+                Text = "Major",
+                Value = "1"
+            }
+        };
+
+        var status = new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "To do",
+                Value = "0",
+                Selected = true
+            },
+            new SelectListItem
+            {
+                Text = "Done",
+                Value = "1"
+            },
+            new SelectListItem
+            {
+                Text = "In Process",
+                Value = "2"
+            }
+        };
+    }
+        <div id="add_task" title="Create new project">
+            @using (Html.BeginForm("Project", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-10">
+                            @Html.TextBox("Name", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Task name" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-5">
+                            @Html.DropDownList("Project", projects, new { @class = "btnDropTask", placeholder = "Project" })
+                        </div>
+                        <div class="col-xs-5">
+                            @Html.DropDownList("Owner", users, new { @class = "btnDropTask", placeholder = "Owner" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-5">
+                            @Html.DropDownList("Priority", priority, new { @class = "btnDropTask", placeholder = "Priority" })
+                        </div>
+                        <div class="col-xs-5">
+                            @Html.DropDownList("Status", status, new { @class = "btnDropTask", placeholder = "Status" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-10">
+                            @Html.TextBox("Description", null, "", htmlAttributes: new {@class = "form-control descInput", placeholder = "Description"})
+                        </div>
+                    </div>
+                    <div class="attachments">
+                        @Html.Label("Attachments")
+                        <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
+                    </div>
+                    </div>
+                <div class="text-right">
+                    <input type="submit" class="btn-pop btn-default" vlaue="Create" />
+                </div>
+            }
+        </div>
+
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/Scripts/scripts.js")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

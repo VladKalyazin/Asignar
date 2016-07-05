@@ -12,14 +12,15 @@
 
             @foreach(var project in Model)
             {
-            <a href="/Manage/Project" class="projectsPage">
+            <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
                 <div class="col-md-3 col-xs-6 MyProjectsHome">
+                    @Html.Hidden("Id", project.ProjectId)
                     <h3 class="projName">@project.Name</h3>
                     <p class="projPref">@project.Prefix</p>
                     <div class="text-right">
                         <ul class="list-inline icons">
                             <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"> 0</i>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
                             </li>
                             <li>
                                 <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
