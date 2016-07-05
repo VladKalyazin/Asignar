@@ -568,7 +568,7 @@ tr {
 
 /*PopUp*/
 
-#add_project, #add_task {
+#add_project, #add_task, #add_user {
     display: none;
     font-size: 15px;
 }
@@ -603,6 +603,16 @@ tr {
     background-color: #F8FEFE;
 }
 
+.ui-corner-all {
+    border-radius: 0;
+}
+
+.ui-dialog-titlebar {
+    width: 600px;
+    margin-left: -4px;
+    margin-top: -4px;
+}
+
 .btn-pop {
     border-radius: 0;
     background-color: #4d868d;
@@ -634,7 +644,7 @@ tr {
     color: #D3EEF2;
 }
 
-.projInput1 {
+.projInput {
     background-color: rgb(255, 255, 255);
     border-radius: 0;
     border: 0;
@@ -643,19 +653,15 @@ tr {
     color: black;
 }
 
-.projInput2 {
-    background-color: rgb(255, 255, 255);
-    border-radius: 0;
-    border: 0;
-    margin: 0 auto;
-    margin-left: 50px;
-    width: 240px;
-    color: black;
-}
-
-.projInput1::-webkit-input-placeholder, .projInput2::-webkit-input-placeholder {
+.projInput::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4) !important;
     font-size: small;
+}
+
+.btnDropRole {
+    border-color: #D9DDDD;
+    margin-left: 45px;
+    height: 35px;
 }
 
 .descInput {

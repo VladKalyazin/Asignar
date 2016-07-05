@@ -34,8 +34,8 @@ namespace AsignarServices.Data
                            Surname = user.Surname,
                            Email = user.Email,
                            DefectsCount = user.Defects.Count,
-                           ProjectsCount = user.Projects.Count
-                           //UserPhoto = user.Photo
+                           ProjectsCount = user.Projects.Count,
+                           UserPhoto = user.PhotoLink
                        };
             }
             catch

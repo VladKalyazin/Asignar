@@ -75,9 +75,20 @@ namespace BugsTrackingSystem.Controllers
 		{
             using (AsignarDataService _dataService = new AsignarDataService())
             {
-                return View((UserSimpleViewModel) _dataService.GetAllProjects());
+                return View(_dataService.GetAllUsers().ToList());
             }
 		}
+
+        [HttpPost]
+        public ActionResult AddUser()
+        {
+            var Name = Request.Form["Name"];
+            var Surname = Request.Form["Surname"];
+            var Email = Request.Form["Email"];
+            var Password = Request.Form["Confirmation"];
+            var Role = Request.Form["Role"];
+            return null;
+        }
 
 		public ActionResult Filters()
 		{
