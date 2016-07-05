@@ -75,9 +75,8 @@ namespace BugsTrackingSystem.Controllers
 		{
             using (AsignarDataService _dataService = new AsignarDataService())
             {
-                //return View(_dataService.GetFullProjectInfo());
+                return View((UserSimpleViewModel) _dataService.GetAllProjects());
             }
-            return null;
 		}
 
 		public ActionResult Filters()
