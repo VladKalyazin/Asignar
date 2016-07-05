@@ -18,6 +18,7 @@ namespace AsignarDBEntities
 
         public int DefectStatusID { get; set; }
 
+        [Required]
         [StringLength(15)]
         public string StatusName { get; set; }
 

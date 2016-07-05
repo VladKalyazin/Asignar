@@ -18,24 +18,28 @@ namespace AsignarDBEntities
 
         public int UserID { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string FirstName { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string Surname { get; set; }
 
-        [StringLength(20)]
-        public string Login { get; set; }
-
+        [Required]
         [StringLength(35)]
         public string Email { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string Password { get; set; }
 
         public int RoleID { get; set; }
 
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
+
+        [StringLength(10)]
+        public string PhotoLink { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Defect> Defects { get; set; }

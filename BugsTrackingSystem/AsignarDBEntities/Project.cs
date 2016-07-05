@@ -18,13 +18,17 @@ namespace AsignarDBEntities
 
         public int ProjectID { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string ProjectName { get; set; }
 
+        [Required]
         [StringLength(3)]
         public string Prefix { get; set; }
 
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
+
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Defect> Defects { get; set; }

@@ -10,6 +10,7 @@ namespace AsignarDBEntities
     {
         public int DefectID { get; set; }
 
+        [Required]
         [StringLength(200)]
         public string Subject { get; set; }
 
@@ -21,7 +22,7 @@ namespace AsignarDBEntities
 
         public int DefectStatusID { get; set; }
 
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public DateTime? ModificationDate { get; set; }
 

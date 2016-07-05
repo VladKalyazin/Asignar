@@ -20,10 +20,9 @@ go
 
 insert into [dbo].[DefectPriorities] ([PriorityName])
 values
-	('Immediate'),
-	('High'),
-	('Medium'),
-	('Low')
+	('Critical'),
+	('Major'),
+	('Minor')
 
 go
 
@@ -31,73 +30,54 @@ insert into [dbo].[Users] (
 	[FirstName],
 	[Surname],
 	[Email],
-	[Login],
 	[Password],
 	[RoleID],
 	[RegistrationDate]
 )
 values
-	('Vlad', 'Kalyazin', '999vlad@gmail.com', 'admin', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'admin'), SYSDATETIME()),
-	('George', 'Orwell', 'orwell444@gmail.com', 'orw', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME()),
-	('Daniel', 'Brown', 'danielbrown@gmail.com', 'dan', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME()),
-	('John', 'Miller', 'jmiller@gmail.com', 'mill', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME()),
-	('Steven', 'Wilson', 'wilsteve@gmail.com', 'steve', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME())
+	('Vlad', 'Kalyazin', '999vlad@gmail.com', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'admin'), SYSDATETIME()),
+	('George', 'Orwell', 'orwell444@gmail.com', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME()),
+	('Daniel', 'Brown', 'danielbrown@gmail.com', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME()),
+	('John', 'Miller', 'jmiller@gmail.com', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME()),
+	('Steven', 'Wilson', 'wilsteve@gmail.com', '123', (select [RoleID] from [dbo].[Roles] where [RoleName] = 'common'), SYSDATETIME())
 
 go
 
 insert into [dbo].[Projects] (
 	[ProjectName],
 	[Prefix],
-	[CreationDate]
+	[CreationDate],
+	[Deleted]
 )
 values
-	('The Titan', 'TTD', SYSDATETIME()),
-	('The Financier', 'TDF', SYSDATETIME()),
-	('The Stoic', 'TSD', SYSDATETIME()),
-	('The Property', 'TPR', SYSDATETIME()),
-	('Hobbit', 'JTH', SYSDATETIME()),
-	('Cloak', 'CLK', SYSDATETIME()),
-	('Switcher', 'SWR', SYSDATETIME()),
-	('Wrapper', 'WRP', SYSDATETIME()),
-	('Book', 'BUK', SYSDATETIME()),
-	('Customer', 'CST', SYSDATETIME()),
-	('Crop', 'CRP', SYSDATETIME()),
-	('Smile', 'SML', SYSDATETIME()),
-	('Bridge', 'BRG', SYSDATETIME()),
-	('Film', 'FLM', SYSDATETIME()),
-	('Implementation', 'IMP', SYSDATETIME()),
-	('Risk', 'Rsk', SYSDATETIME()),
-	('Lightning', 'LGH', SYSDATETIME()),
-	('The Past Times', 'TPT', SYSDATETIME()),
-	('Mistery', 'MST', SYSDATETIME())
+	('The Titan', 'TTD', SYSDATETIME(), 0),
+	('The Financier', 'TDF', SYSDATETIME(), 0),
+	('The Stoic', 'TSD', SYSDATETIME(), 0),
+	('The Property', 'TPR', SYSDATETIME(), 0),
+	('Hobbit', 'JTH', SYSDATETIME(), 0),
+	('Cloak', 'CLK', SYSDATETIME(), 0),
+	('Switcher', 'SWR', SYSDATETIME(), 0),
+	('Wrapper', 'WRP', SYSDATETIME(), 0),
+	('Book', 'BUK', SYSDATETIME(), 0),
+	('Customer', 'CST', SYSDATETIME(), 0),
+	('Crop', 'CRP', SYSDATETIME(), 0),
+	('Smile', 'SML', SYSDATETIME(), 0),
+	('Bridge', 'BRG', SYSDATETIME(), 0),
+	('Film', 'FLM', SYSDATETIME(), 0),
+	('Implementation', 'IMP', SYSDATETIME(), 0),
+	('Risk', 'Rsk', SYSDATETIME(), 0),
+	('Lightning', 'LGH', SYSDATETIME(), 0),
+	('The Past Times', 'TPT', SYSDATETIME(), 0),
+	('Mistery', 'MST', SYSDATETIME(), 0),
+	('Test', 'TST', SYSDATETIME(), 0),
+	('Mitt', 'MIT', SYSDATETIME(), 0)
 
 go
 
 insert into [dbo].[ProjectsToUsersBindings] ([ProjectID], [UserID])
-	select top 25 p.[ProjectID], u.[UserID]
+	select top 40 p.[ProjectID], u.[UserID]
 	from [dbo].[Projects] as p cross join
 		[dbo].[Users] as u
 	order by NEWID()
-
-go
-
-insert into [dbo].[Defects] (
-	[Subject],
-	[CreationDate],
-	[Description],
-	[DefectStatusID],
-	[DefectPriorityID],
-	[AssigneeUserID],
-	[ProjectID]
-)
-values
-	('The error message is displayed when commit changes',
-	SYSDATETIME(),
-	'Desc',
-	(select [DefectStatusID] from [dbo].[DefectStatuses] where [StatusName] = 'Open'),
-	(select top 1 [DefectPriorityID] from [dbo].[DefectPriorities] order by NEWID()),
-	(select top 1 [UserID] from [dbo].[Users] order by NEWID()),
-	(select top 1 [ProjectID] from [dbo].[Projects] order by NEWID())
-	)
 
 go

@@ -10,16 +10,17 @@ namespace AsignarDBEntities
     {
         public int FilterID { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string Title { get; set; }
 
-        public int? ProjectID { get; set; }
+        public int ProjectID { get; set; }
 
-        public int? AssigneeUserID { get; set; }
+        public int AssigneeUserID { get; set; }
 
-        public int? DefectPriorityID { get; set; }
+        public int DefectPriorityID { get; set; }
 
-        public int? DefectStatusID { get; set; }
+        public int DefectStatusID { get; set; }
 
         public virtual DefectPriority DefectPriority { get; set; }
 

@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [dbo].[Defects] (
     [DefectID]         INT            IDENTITY (1, 1) NOT NULL,
-    [Subject]          NVARCHAR (200)  NULL,
+    [Subject]          NVARCHAR (200)  NOT NULL,
     [ProjectID]        INT            NOT NULL,
     [AssigneeUserID]   INT            NOT NULL,
     [DefectPriorityID] INT            NOT NULL,
     [DefectStatusID]   INT            NOT NULL,
-    [CreationDate]     DATETIME       NULL,
+    [CreationDate]     DATETIME       NOT NULL,
     [ModificationDate] DATETIME       NULL,
     [Description]      NVARCHAR (500) NULL,
     PRIMARY KEY CLUSTERED ([DefectID] ASC),

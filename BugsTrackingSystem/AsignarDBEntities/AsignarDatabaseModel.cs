@@ -27,8 +27,18 @@ namespace AsignarDBEntities
                 .WithRequired(e => e.DefectPriority)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<DefectPriority>()
+                .HasMany(e => e.Filters)
+                .WithRequired(e => e.DefectPriority)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<DefectStatus>()
                 .HasMany(e => e.Defects)
+                .WithRequired(e => e.DefectStatus)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DefectStatus>()
+                .HasMany(e => e.Filters)
                 .WithRequired(e => e.DefectStatus)
                 .WillCascadeOnDelete(false);
 
@@ -38,6 +48,11 @@ namespace AsignarDBEntities
 
             modelBuilder.Entity<Project>()
                 .HasMany(e => e.Defects)
+                .WithRequired(e => e.Project)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Project>()
+                .HasMany(e => e.Filters)
                 .WithRequired(e => e.Project)
                 .WillCascadeOnDelete(false);
 
@@ -52,6 +67,10 @@ namespace AsignarDBEntities
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
+                .Property(e => e.PhotoLink)
+                .IsFixedLength();
+
+            modelBuilder.Entity<User>()
                 .HasMany(e => e.Defects)
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.AssigneeUserID)
@@ -59,8 +78,9 @@ namespace AsignarDBEntities
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Filters)
-                .WithOptional(e => e.User)
-                .HasForeignKey(e => e.AssigneeUserID);
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.AssigneeUserID)
+                .WillCascadeOnDelete(false);
         }
     }
 }
