@@ -6,7 +6,7 @@
     [Password]  NVARCHAR (20) NOT NULL,
     [RoleID]    INT           NOT NULL,
     [RegistrationDate] DATETIME NOT NULL, 
-    [PhotoLink] NCHAR(10) NULL, 
+    [PhotoLink] NVARCHAR(250) NULL, 
     PRIMARY KEY CLUSTERED ([UserID] ASC),
     CONSTRAINT [FK_Users_Roles] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[Roles] ([RoleID])
 );
