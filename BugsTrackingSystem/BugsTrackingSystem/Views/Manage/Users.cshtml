@@ -1,4 +1,4 @@
-﻿@model BugsTrackingSystem.Models.ProjectExtendedViewModel
+﻿@model BugsTrackingSystem.Models.UserSimpleViewModel
 
 @{
     ViewBag.Title = "Users";
@@ -16,7 +16,7 @@
             </li>
         </ul>
 
-        @foreach (var user in Model.Users)
+        @foreach (var user in Model)
         {
             <a href="@Url.Action("Project", "Manage")" class="projectsPage">
                 <div class="col-md-3 col-xs-6 MyProjects">
@@ -24,8 +24,8 @@
                         <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
                     </div>
                     <div class="col-md-8">
-                        <span>George Orwell</span><br>
-                        <span>george@@email.com</span>
+                        <span>@user.FirstName @user.Surname</span><br>
+                        <span>@user.Email</span>
                     </div>
                     <br><br><br>
                     <div class="col-md-3">
@@ -49,5 +49,5 @@
    
 </div>
 <div class="container">
-    <i class="fa fa-users" aria-hidden="true"> Users: @Html.Encode(Model.Users)</i>
+    <i class="fa fa-users" aria-hidden="true"> Users: @Html.Encode(Model.UsersCount)</i>
 </div>

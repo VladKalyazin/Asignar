@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AsignarDBEntities;
+using BugsTrackingSystem.Models;
 
 namespace AsignarServices.Data
 {
@@ -19,6 +20,30 @@ namespace AsignarServices.Data
                 isValid = true;
 
             return isValid;
+        }
+
+        public IEnumerable<UserSimpleViewModel> GetAllUsers()
+        {
+            try
+            {
+                return from user in _databaseModel.Users
+                       select new UserSimpleViewModel
+                       {
+                           UserId = user.UserID,
+                           FirstName = user.FirstName,
+                           Surname = user.Surname,
+                           Email = user.Email,
+                           DefectsCount = user.Defects.Count,
+                           ProjectsCount = user.Projects.Count
+                           //UserPhoto = user.Photo
+                       };
+            }
+            catch
+            {
+                //TODO exceptions
+            }
+
+            return null;
         }
     }
 }
