@@ -20,6 +20,8 @@ namespace BugsTrackingSystem.Controllers
         private const int _projectsCountOnHomePage = 3;
         private const int _pageSize = 9;
 
+        private readonly Lazy<AsignarDataService> _dataService = new Lazy<AsignarDataService>(() => new AsignarDataService());
+
         public ManageController()
         {
 
@@ -32,26 +34,20 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Home()
 		{
-            using (AsignarDataService _dataService = new AsignarDataService())
-            {
-                return View(_dataService.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList());
-            }
+            return View(_dataService.Value.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList());
         }
 
 		public ActionResult Projects(int page = 1)
-		{
-            using (AsignarDataService _dataService = new AsignarDataService())
+	    {
+            var projectsPerPages = _dataService.Value.GetSetOfProjects(_pageSize, page - 1).ToList();
+            PageInfo pageInfo = new PageInfo
             {
-                var projectsPerPages = _dataService.GetSetOfProjects(_pageSize, page - 1).ToList();
-                PageInfo pageInfo = new PageInfo
-                {
-                    PageNumber = page,
-                    PageSize = _pageSize,
-                    TotalItems = _dataService.GetCountOfProjects()
-                };
-                IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Projects = projectsPerPages };
-                return View(ivm);
-            }
+                PageNumber = page,
+                PageSize = _pageSize,
+                TotalItems = _dataService.Value.GetCountOfProjects()
+            };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Projects = projectsPerPages };
+            return View(ivm);
         }
 
         [HttpPost]
@@ -63,20 +59,14 @@ namespace BugsTrackingSystem.Controllers
                 Prefix = Request.Form["Key"]
             };
 
-            using (AsignarDataService _dataService = new AsignarDataService())
-            {
-                _dataService.AddProject(newProject);
-            }
+            _dataService.Value.AddProject(newProject);
 
             return RedirectToAction("Projects");
         }
 
         public ActionResult Users()
 		{
-            using (AsignarDataService _dataService = new AsignarDataService())
-            {
-                return View((UserSimpleViewModel) _dataService.GetAllProjects());
-            }
+            return View((UserSimpleViewModel) _dataService.Value.GetAllProjects());
 		}
 
 		public ActionResult Filters()
@@ -87,10 +77,7 @@ namespace BugsTrackingSystem.Controllers
 		public ActionResult Project(int id)
         {
             int projId = id;
-            using (AsignarDataService _dataService = new AsignarDataService())
-            {
-                return View(_dataService.GetFullProjectInfo(projId));
-            }
+            return View(_dataService.Value.GetFullProjectInfo(projId));
         }
 	
 		public ActionResult Task()
@@ -100,5 +87,12 @@ namespace BugsTrackingSystem.Controllers
 			return View(comments);
 		}
 
-	}
+        protected override void Dispose(bool disposing)
+        {
+            _dataService.Value.Dispose();
+            base.Dispose(disposing);
+        }
+
+
+    }
 }

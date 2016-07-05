@@ -4,19 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using AsignarDBEntities;
+using AsignarServices.AzureStorage;
 
 namespace ScheduleWorker
 {
-    // To learn more about Microsoft Azure WebJobs SDK, please see http://go.microsoft.com/fwlink/?LinkID=320976
     class Program
     {
-        // Please set the following connection strings in app.config for this WebJob to run:
-        // AzureWebJobsDashboard and AzureWebJobsStorage
-        static void Main()
+
+        static void Main(string[] args)
         {
-            var host = new JobHost();
-            // The following code ensures that the WebJob will be running continuously
-            host.RunAndBlock();
+            JobHost host = new JobHost();
+            host.Call(typeof(Program).GetMethod("RefreshDatabaseLinks"));
+        }
+
+        [NoAutomaticTrigger]
+        public static void RefreshDatabaseLinks()
+        {
+            using (var databaseModel = new AsignarDatabaseModel())
+            {
+                var blobHelper = new BlobStorageHelper();
+
+                var priorityPhotos = blobHelper.GetDefectPriorityPhotos();
+                foreach (var photo in priorityPhotos)
+                {
+                    databaseModel.DefectPriorities.Where((dp) => dp.DefectPriorityID == photo.Key).Single().PhotoLink = photo.Value;
+                }
+
+                var userPhotos = blobHelper.GetUserPhotos();
+                foreach (var photo in userPhotos)
+                {
+                    databaseModel.Users.Where((u) => u.UserID == photo.Key).Single().PhotoLink = photo.Value;
+                }
+
+                databaseModel.SaveChanges();
+            }
         }
     }
 }

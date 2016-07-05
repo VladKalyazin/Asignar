@@ -16,6 +16,8 @@ namespace AsignarServices.AzureStorage
         private const string _containerWithUserPhotosName = "userphotos";
         private const string _containerWithPriorityPhotosName = "defectpriorities";
 
+        private const int BlobLiveTimeInHours = 25;
+
         private readonly CloudStorageAccount _storageAccount;
         private readonly CloudBlobClient _blobClient;
 
@@ -26,21 +28,11 @@ namespace AsignarServices.AzureStorage
             _blobClient = _storageAccount.CreateCloudBlobClient();
         }
 
-        private static string GetContainerSasUri(CloudBlobContainer container)
-        {
-            var sasPolicy = new SharedAccessBlobPolicy();
-            sasPolicy.SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24);
-            sasPolicy.Permissions = SharedAccessBlobPermissions.List;
-            string sasContainerToken = container.GetSharedAccessSignature(sasPolicy);
-
-            return container.Uri + sasContainerToken;
-        }
-
         private static string GetBlobSasUri(CloudBlobContainer container, string blobName)
         {
             CloudBlockBlob blob = container.GetBlockBlobReference(blobName);
             var sasConstraints = new SharedAccessBlobPolicy();
-            sasConstraints.SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24);
+            sasConstraints.SharedAccessExpiryTime = DateTime.UtcNow.AddHours(BlobLiveTimeInHours);
             sasConstraints.Permissions = SharedAccessBlobPermissions.Read;
             string sasBlobToken = blob.GetSharedAccessSignature(sasConstraints);
 
