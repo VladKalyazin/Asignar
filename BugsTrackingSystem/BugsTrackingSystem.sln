@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "BusinessLogic\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{8E4C2495-56D8-484F-A787-59FB597D632D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleWorker", "ScheduleWorker\ScheduleWorker.csproj", "{223270C9-B878-4009-811B-A15D89914084}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsignarWorker", "AsignarWorker\AsignarWorker.csproj", "{06158DB2-FAF5-443B-9A9E-6240B09E618E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{8E4C2495-56D8-484F-A787-59FB597D632D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E4C2495-56D8-484F-A787-59FB597D632D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E4C2495-56D8-484F-A787-59FB597D632D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{223270C9-B878-4009-811B-A15D89914084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{223270C9-B878-4009-811B-A15D89914084}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{223270C9-B878-4009-811B-A15D89914084}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{223270C9-B878-4009-811B-A15D89914084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06158DB2-FAF5-443B-9A9E-6240B09E618E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06158DB2-FAF5-443B-9A9E-6240B09E618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06158DB2-FAF5-443B-9A9E-6240B09E618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06158DB2-FAF5-443B-9A9E-6240B09E618E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

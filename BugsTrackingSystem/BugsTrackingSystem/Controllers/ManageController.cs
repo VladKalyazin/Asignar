@@ -73,17 +73,16 @@ namespace BugsTrackingSystem.Controllers
 		}
 
         [HttpPost]
-        public ActionResult AddUser()
+        public ActionResult AddUser(UserRegistrationViewModel newUser)
         {
-            var Name = Request.Form["Name"];
-            var Surname = Request.Form["Surname"];
-            var Email = Request.Form["Email"];
-            var Password = Request.Form["Confirmation"];
-            var Role = Request.Form["Role"];
-            return null;
+            if (ModelState.IsValid)
+            {
+                _dataService.Value.AddUser(newUser);
+            }
+            return RedirectToAction("Users");
         }
 
-		public ActionResult Filters()
+        public ActionResult Filters()
 		{
 			return View();
 		}
