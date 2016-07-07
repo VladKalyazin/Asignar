@@ -161,9 +161,10 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-10">
-                            @Html.TextBox("Description", null, "", htmlAttributes: new {@class = "form-control descInput", placeholder = "Description"})
+                            @Html.TextArea("Description", new {rows = 5, @class = "form-control descInput", placeholder = "Description"})
                         </div>
                     </div>
+                    <hr style="width: 500px">
                     <div class="attachments">
                         @Html.Label("Attachments")
                         <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>

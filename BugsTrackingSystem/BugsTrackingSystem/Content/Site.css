@@ -88,7 +88,7 @@ textarea {
 
 .fa-plus {
     margin-right: 7px;
-    margin-left: 0px;
+    margin-left: 0;
     margin-top: 3px;
     margin-bottom: 3px;
     font-size: 20px;
@@ -330,6 +330,7 @@ input:-ms-input-placeholder {
 }
 
 .projPlus {
+    margin-right: 0;
     font-size: 30px;
     color: #4D868D;   
 }
@@ -464,7 +465,7 @@ tr {
     font-size: 20px;
     border: solid 2px #4D868D;
     border-radius: 50%;
-    padding: 7px;
+    padding: 4px 7px;
 }
 
 #currentTask {
@@ -647,7 +648,7 @@ tr {
 .projInput {
     background-color: #F8FEFE;
     border-radius: 0;
-    border: 0;
+    border: 1px solid #D9DDDD;
     margin: 0 auto;
     margin-left: 50px;
     color: #3F4747;
@@ -689,25 +690,27 @@ tr {
     background-color: #F8FEFE;
     font-size: small;
     border-color: #D9DDDD;
-    margin-left: 45px;
+    margin-left: 50px;
     height: 35px;
-    width: 250px;
+    width: 240px;
     color: #3F4747;
 }
 
 .descInput {
     background-color: #F8FEFE;
     border-radius: 0;
-    border: 0;
+    border: 1px solid #D9DDDD;
     margin: 0 auto;
     margin-left: 50px;
     height: 100px;
     color: black;
+    padding-left: 0;
+    padding-top: 0;
 }
 
 .descInput::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4) !important;
-    font-size: small;
+    font-size: 15px;
 }
 
 .underContent {
