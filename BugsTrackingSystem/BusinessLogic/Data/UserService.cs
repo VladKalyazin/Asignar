@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AsignarDBEntities;
 using BugsTrackingSystem.Models;
+using AsignarServices.AzureStorage;
 
 namespace AsignarServices.Data
 {
@@ -20,6 +21,36 @@ namespace AsignarServices.Data
                 isValid = true;
 
             return isValid;
+        }
+
+        public void AddUser(UserRegistrationViewModel newUser)
+        {
+            try
+            {
+                _databaseModel.Users.Add(new User
+                {
+                    FirstName = newUser.FirstName,
+                    Surname = newUser.Surname,
+                    Email = newUser.Email,
+                    Password = newUser.Password,
+                    RoleID = _databaseModel.Roles.Where((r) => r.RoleName == "common").Select((role) => role.RoleID).Single(),
+                    RegistrationDate = DateTime.UtcNow
+                });
+
+                _databaseModel.SaveChanges();
+
+                var queueService = new QueueStorageHelper();
+                queueService.SendNewUserMessage(new UserQueueModel
+                {
+                    FirstName = newUser.FirstName,
+                    Surname = newUser.Surname,
+                    Email = newUser.Email
+                });
+            }
+            catch
+            {
+                //TODO exceptions
+            }
         }
 
         public IEnumerable<UserSimpleViewModel> GetAllUsers()
