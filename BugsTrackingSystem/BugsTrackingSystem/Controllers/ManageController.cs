@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Web.Security;
 using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
