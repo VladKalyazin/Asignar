@@ -11,10 +11,12 @@ using Microsoft.Owin.Security;
 using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
+using BugsTrackingSystem.Filters;
 
 namespace BugsTrackingSystem.Controllers
 {
-    [AllowAnonymous]
+    [AsignarAuthenticate]
+    [AsignarAuthorize]
     public class ManageController : Controller
     {
         private const int _projectsCountOnHomePage = 3;
@@ -105,7 +107,6 @@ namespace BugsTrackingSystem.Controllers
             _dataService.Value.Dispose();
             base.Dispose(disposing);
         }
-
 
     }
 }
