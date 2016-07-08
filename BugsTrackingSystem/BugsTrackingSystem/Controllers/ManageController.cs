@@ -13,6 +13,7 @@ using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
 using BugsTrackingSystem.Filters;
+using System.Web.Security;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -22,6 +23,7 @@ namespace BugsTrackingSystem.Controllers
     {
         private const int _projectsCountOnHomePage = 3;
         private const int _pageSize = 9;
+        private const int _pageSizeHome = 8;
 
         private readonly Lazy<AsignarDataService> _dataService = new Lazy<AsignarDataService>(() => new AsignarDataService());
 
@@ -35,9 +37,29 @@ namespace BugsTrackingSystem.Controllers
 			return View("Profile");
 		}
 
-		public ActionResult Home()
+		public ActionResult Home(int page = 1)
 		{
-            return View(_dataService.Value.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList());
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            int UserId = id;
+
+            var defectsPerPages = _dataService.Value.GetUserSetOfDefects(UserId, _pageSizeHome, page - 1).ToList();
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = _pageSizeHome,
+                TotalItems = _dataService.Value.GetCountUserDefects(UserId)
+            };
+
+            var model = new GetHomePageViewModel()
+            {
+                Projects = _dataService.Value.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList(),
+                Defects = defectsPerPages,
+                Paged = pageInfo
+        };
+            return View(model);
         }
 
 		public ActionResult Projects(int page = 1)

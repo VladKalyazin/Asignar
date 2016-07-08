@@ -46,5 +46,33 @@ namespace AsignarServices.Data
                     }).ToList();
         }
 
+        public int GetCountUserDefects(int userId) =>
+            _databaseModel.Defects.Where((d) => d.AssigneeUserID == userId).Count();
+
+        public IEnumerable<DefectViewModel> GetUserSetOfDefects(int userId, int countOfSet, int page)
+        {
+            try
+            {
+                return (from defect in _databaseModel.Defects.OrderBy((p) => p.CreationDate)
+                        where defect.AssigneeUserID == userId
+                        select new DefectViewModel
+                        {
+                            DefectId = defect.DefectID,
+                            Subject = defect.Subject,
+                            AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                            Status = defect.DefectStatus.StatusName,
+                            PriorityPhoto = defect.DefectPriority.PhotoLink,
+                            AssigneeUserPhoto = defect.User.PhotoLink,
+                            CreationDate = defect.CreationDate,
+                            ModificationDate = defect.ModificationDate
+                        }).Skip(page * countOfSet).Take(countOfSet).ToList();
+            }
+            catch (Exception)
+            {
+                //TODO exceptions
+            }
+
+            return null;
+        }
     }
 }

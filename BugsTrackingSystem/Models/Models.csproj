@@ -44,6 +44,7 @@
     <Compile Include="AddNewUserToProjectViewModel.cs" />
     <Compile Include="CommentViewModel.cs" />
     <Compile Include="DefectViewModel.cs" />
+    <Compile Include="GetHomePageViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="PageInfo.cs" />
     <Compile Include="ProjectExtendedViewModel.cs" />

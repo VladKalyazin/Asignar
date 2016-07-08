@@ -100,31 +100,6 @@ namespace AsignarServices.Data
             }
         }
 
-        public IEnumerable<UserSimpleViewModel> GetUsersNotSignedToProject(int projectId)
-        {
-            try
-            {
-                return from user in _databaseModel.Users
-                       where !user.Projects.Any(u => u.ProjectID == projectId)
-                       select new UserSimpleViewModel
-                       {
-                           UserId = user.UserID,
-                           FirstName = user.FirstName,
-                           Surname = user.Surname,
-                           Email = user.Email,
-                           DefectsCount = user.Defects.Count,
-                           ProjectsCount = user.Projects.Count,
-                           UserPhoto = user.PhotoLink
-                       };
-            }
-            catch
-            {
-                //TODO exceptions
-            }
-
-            return null;
-        }
-
         public ProjectExtendedViewModel GetFullProjectInfo(int projectId)
         {
             try

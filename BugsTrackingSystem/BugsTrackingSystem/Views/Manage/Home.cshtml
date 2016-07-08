@@ -1,4 +1,5 @@
-﻿@model System.Collections.Generic.List<BugsTrackingSystem.Models.ProjectViewModel>
+﻿@using BugsTrackingSystem.Helpers
+@model BugsTrackingSystem.Models.GetHomePageViewModel
 
 @{
     ViewBag.Title = "Home";
@@ -10,7 +11,7 @@
 
             <h1><b>My Projects</b></h1>
 
-            @foreach(var project in Model)
+            @foreach(var project in Model.Projects)
             {
             <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
                 <div class="col-md-3 col-xs-6 MyProjectsHome">
@@ -42,41 +43,28 @@
 
             <h1><b>Assigned to me</b></h1>
 
+            <div class="text-right col-md-12 col-xs-12">
+                @Html.PageLinks(Model.Paged, x => Url.Action("Home", new { page = x }))
+            </div>
+
             <table class="table projectTableHome">
                 <tbody>
-                <tr class="clickable-row" data-href="/Manage/Task">
-                    <td>
-                        <img class="projectIcon" src="~/images/icon_down.png">
-                    </td>
-                    <td>
-                        <label>TDT-67</label>
-                        <span class="project_todo">To do</span>
-                        <p>Font for password is different from other labels font on 'Login' screen</p>
-                    </td>
-                </tr>
-                <tr class="clickable-row" data-href="/Manage/Task">
-                    <td>
-                        <img class="projectIcon" src="~/images/icon_up.png">
-                    </td>
-                    <td>
-                        <label>TDT-66</label>
-                        <span class="project_progress">In progress</span>
-                        <p>The error message is displayed after tapping on the 'Get Link' button on the volume's 'Information' screen</p>
-                    </td>
-                </tr>
-                <tr class="clickable-row" data-href="/Manage/Task">
-                    <td>
-                        <img class="projectIcon" src="~/images/icon_mark.png">
-                    </td>
-                    <td>
-                        <label>TDT-15</label>
-                        <span class="project_done">Done</span>
-                        <p>Account activation link in Registration email is invalid</p>
-                    </td>
-                </tr>
+                @foreach (var defect in Model.Defects)
+                {
+                    <tr class="clickable-row" data-href="/Manage/Task">
+                        <td class="col-xs-1">
+                            <img class="projectIcon" src="@defect.PriorityPhoto">
+                        </td>
+                        <td>
+                            <label>TDT-67</label>
+                            <span class="project_todo">@defect.Status</span>
+                            <p>@defect.Subject</p>
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
-            <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> All my tasks: 41</i>
-        </div>
+            <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> All my tasks: @Html.Encode(Model.Paged.TotalItems)</i>
+        </div>  
     </div>
 </div>
