@@ -6,21 +6,33 @@ using System.Threading.Tasks;
 using AsignarDBEntities;
 using BugsTrackingSystem.Models;
 using AsignarServices.AzureStorage;
+using System.Security.Cryptography;
 
 namespace AsignarServices.Data
 {
     public partial class AsignarDataService : IDisposable
     {
-        public bool ValidateUser(string email, string password)
+        private const string _hashSalt = "wFZXS7z35VAh9NwfyBoM";
+
+        public int? ValidateUser(LoginViewModel user)
         {
-            bool isValid = false;
+            try
+            {
+                var currentUser = (from u in _databaseModel.Users
+                                   where u.Email.ToUpper() == user.Email.ToUpper() && u.Password == CalculateMD5HashWithSalt(user.Password)
+                                   select u).SingleOrDefault();
 
-            var currentUser = (from user in _databaseModel.Users where user.Email.ToUpper() == email.ToUpper() && user.Password == password select user).FirstOrDefault();
+                if (currentUser != null)
+                    return currentUser.UserID;
 
-            if (currentUser != null)
-                isValid = true;
+                return null;
+            }
+            catch
+            {
+                // TODO
+            }
 
-            return isValid;
+            return null;
         }
 
         public void AddUser(UserRegistrationViewModel newUser)
@@ -32,7 +44,7 @@ namespace AsignarServices.Data
                     FirstName = newUser.FirstName,
                     Surname = newUser.Surname,
                     Email = newUser.Email,
-                    Password = newUser.Password,
+                    Password = CalculateMD5Hash(newUser.Password),
                     RoleID = _databaseModel.Roles.Where((r) => r.RoleName == "common").Select((role) => role.RoleID).Single(),
                     RegistrationDate = DateTime.UtcNow
                 });
@@ -76,5 +88,23 @@ namespace AsignarServices.Data
 
             return null;
         }
+
+        public static string CalculateMD5HashWithSalt(string input)
+            => CalculateMD5Hash(CalculateMD5Hash(input) + _hashSalt);
+
+        private static string CalculateMD5Hash(string input)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+
     }
 }
