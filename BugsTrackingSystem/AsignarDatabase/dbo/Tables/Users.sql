@@ -3,7 +3,7 @@
     [FirstName] NVARCHAR (30) NOT NULL,
     [Surname]   NVARCHAR (30) NOT NULL,
     [Email]     NVARCHAR (35) NOT NULL unique,
-    [Password]  NVARCHAR (20) NOT NULL,
+    [Password]  NVARCHAR (100) NOT NULL,
     [RoleID]    INT           NOT NULL,
     [RegistrationDate] DATETIME NOT NULL DEFAULT SYSUTCDATETIME(), 
     [PhotoLink] NVARCHAR(250) NULL, 

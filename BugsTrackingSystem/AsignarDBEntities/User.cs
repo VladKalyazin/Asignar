@@ -31,7 +31,7 @@ namespace AsignarDBEntities
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(100)]
         public string Password { get; set; }
 
         public int RoleID { get; set; }

@@ -23,5 +23,8 @@ namespace BugsTrackingSystem.Models
 
         [Required]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public int RoleId { get; set; }
     }
 }

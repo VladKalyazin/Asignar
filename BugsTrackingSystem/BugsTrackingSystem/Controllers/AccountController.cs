@@ -17,45 +17,49 @@ namespace BugsTrackingSystem.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly AsignarDataService _dataService = new AsignarDataService();
+        private readonly Lazy<AsignarDataService> _dataService = new Lazy<AsignarDataService>(() => new AsignarDataService());
 
         public AccountController()
         {
 
         }
 
-        //
-        // GET: /Account/Login
         public ActionResult Login()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ForgotPassword
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
         public ActionResult ResetPassword()
         {
             return View();
         }
 
-
         [HttpPost]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            Lazy<int?> userId = new Lazy<int?>( () => _dataService.ValidateUser(model) );
-
             if (ModelState.IsValid)
             {
-                if (userId.Value != null)
+                int? userId = _dataService.Value.ValidateUser(model);
+                if (userId != null)
                 {
-                    return RedirectToAction("Home", "Manage");
+                    var userToken = new FormsAuthenticationTicket(1, userId.Value.ToString(), DateTime.Now, DateTime.Now.AddMinutes(10),
+                        false, _dataService.Value.GetRoleByUserId(userId.Value));
+                    var headerToken = FormsAuthentication.Encrypt(userToken);
+
+                    if (!string.IsNullOrEmpty(headerToken))
+                    {
+                        Response.Cookies.Add(new HttpCookie("Auth", headerToken));
+                        return RedirectToAction("Home", "Manage");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "failed to create token");
+                    }
                 }
                 else
                 {
@@ -66,10 +70,10 @@ namespace BugsTrackingSystem.Controllers
             return View(model);
         }
 
-        public new void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            base.Dispose();
-            _dataService.Dispose();
+            _dataService.Value.Dispose();
+            base.Dispose(disposing);
         }
 
     }

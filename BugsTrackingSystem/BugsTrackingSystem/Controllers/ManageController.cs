@@ -8,13 +8,16 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Web.Security;
 using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
+using BugsTrackingSystem.Filters;
 
 namespace BugsTrackingSystem.Controllers
 {
-    [AllowAnonymous]
+    [AsignarAuthenticate]
+    [AsignarAuthorize]
     public class ManageController : Controller
     {
         private const int _projectsCountOnHomePage = 3;
@@ -110,7 +113,6 @@ namespace BugsTrackingSystem.Controllers
             _dataService.Value.Dispose();
             base.Dispose(disposing);
         }
-
 
     }
 }
