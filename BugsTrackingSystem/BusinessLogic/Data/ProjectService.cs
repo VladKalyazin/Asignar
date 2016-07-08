@@ -33,6 +33,29 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public IEnumerable<ProjectViewModel> GetUserProjects(int userId)
+        {
+            try
+            {
+                return from project in _databaseModel.Projects
+                       where project.Users.Any((u) => u.UserID == userId)
+                       select new ProjectViewModel
+                       {
+                           ProjectId = project.ProjectID,
+                           Name = project.ProjectName,
+                           Prefix = project.Prefix,
+                           UsersCount = project.Users.Count,
+                           DefectsCount = project.Defects.Count
+                       };
+            }
+            catch
+            {
+                //TODO exceptions
+            }
+
+            return null;
+        }
+
         public int GetCountOfProjects() =>
             _databaseModel.Projects.Count();
 
@@ -64,7 +87,6 @@ namespace AsignarServices.Data
             {
                 ProjectName = projectModel.Name,
                 Prefix = projectModel.Prefix,
-                CreationDate = DateTime.Now
             };
 
             try
@@ -82,10 +104,6 @@ namespace AsignarServices.Data
         {
             try
             {
-                BlobStorageHelper blobHelper = new BlobStorageHelper();
-                var priorityPhotos = blobHelper.GetDefectPriorityPhotos();
-                var userPhotos = blobHelper.GetUserPhotos();
-
                 var result = (from project in _databaseModel.Projects
                               where project.ProjectID == projectId
                               select new ProjectExtendedViewModel
@@ -96,18 +114,18 @@ namespace AsignarServices.Data
                                   UsersCount = project.Users.Count,
                                   DefectsCount = project.Defects.Count,
                                   Defects = from defect in _databaseModel.Defects
-                                             where defect.ProjectID == projectId
-                                             select new DefectViewModel
-                                             {
-                                                 DefectId = defect.DefectID,
-                                                 Subject = defect.Subject,
-                                                 AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
-                                                 Status = defect.DefectStatus.StatusName,
-                                                 PriorityId = defect.DefectPriorityID,
-                                                 UserId = defect.AssigneeUserID,
-                                                 CreationDate = defect.CreationDate,
-                                                 ModificationDate = defect.ModificationDate
-                                             },
+                                            where defect.ProjectID == projectId
+                                            select new DefectViewModel
+                                            {
+                                                DefectId = defect.DefectID,
+                                                Subject = defect.Subject,
+                                                AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                                                Status = defect.DefectStatus.StatusName,
+                                                PriorityPhoto = defect.DefectPriority.PhotoLink,
+                                                AssigneeUserPhoto = defect.User.PhotoLink,
+                                                CreationDate = defect.CreationDate,
+                                                ModificationDate = defect.ModificationDate
+                                            },
                                   Users = from user in project.Users
                                           select new UserSimpleViewModel
                                           {
@@ -116,20 +134,10 @@ namespace AsignarServices.Data
                                               Surname = user.Surname,
                                               Email = user.Email,
                                               DefectsCount = user.Defects.Count,
-                                              ProjectsCount = user.Projects.Count
+                                              ProjectsCount = user.Projects.Count,
+                                              UserPhoto = user.PhotoLink
                                           }
                               }).FirstOrDefault();
-
-                foreach (var defect in result.Defects)
-                {
-                    defect.AssigneeUserPhoto = userPhotos[defect.UserId];
-                    defect.PriorityPhoto = priorityPhotos[defect.PriorityId];
-                }
-
-                foreach (var user in result.Users)
-                {
-                    user.UserPhoto = userPhotos[user.UserId];
-                }
 
                 return result;
             }

@@ -22,11 +22,28 @@ namespace AsignarServices.Data
                         Subject = defect.Subject,
                         AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                         Status = defect.DefectStatus.StatusName,
-                        PriorityId = defect.DefectPriorityID,
-                        UserId = defect.AssigneeUserID,
+                        PriorityPhoto = defect.DefectPriority.PhotoLink,
+                        AssigneeUserPhoto = defect.User.PhotoLink,
                         CreationDate = defect.CreationDate,
                         ModificationDate = defect.ModificationDate
                     }).SingleOrDefault();
+        }
+
+        public IEnumerable<DefectViewModel> GetUserDefects(int userId)
+        {
+            return (from defect in _databaseModel.Defects
+                    where defect.AssigneeUserID == userId
+                    select new DefectViewModel
+                    {
+                        DefectId = defect.DefectID,
+                        Subject = defect.Subject,
+                        AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                        Status = defect.DefectStatus.StatusName,
+                        PriorityPhoto = defect.DefectPriority.PhotoLink,
+                        AssigneeUserPhoto = defect.User.PhotoLink,
+                        CreationDate = defect.CreationDate,
+                        ModificationDate = defect.ModificationDate
+                    }).ToList();
         }
 
     }

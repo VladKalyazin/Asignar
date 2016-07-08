@@ -13,8 +13,6 @@ namespace BugsTrackingSystem.Models
         public string Subject { get; set; }
 
         public string AssigneeUserName { get; set; }
-        
-        public int UserId { get; set; }
 
         public string AssigneeUserPhoto { get; set; }
 

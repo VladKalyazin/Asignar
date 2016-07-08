@@ -49,13 +49,12 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            Lazy<bool> isUserValid = new Lazy<bool>( () => _dataService.ValidateUser(model.Email, model.Password) );
+            Lazy<int?> userId = new Lazy<int?>( () => _dataService.ValidateUser(model) );
 
             if (ModelState.IsValid)
             {
-                if (isUserValid.Value)
+                if (userId.Value != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
                     return RedirectToAction("Home", "Manage");
                 }
                 else
