@@ -2,6 +2,21 @@
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var roles = new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "Common User",
+                Value = "0",
+                Selected = true
+            },
+            new SelectListItem
+            {
+                Text = "Admin",
+                Value = "1"
+            }
+        };
 }
 
 <div class="container">
@@ -21,7 +36,7 @@
                 <ul class="persInfo" style="list-style-type:none">
                     <li>
                         <p class="projText">Email:</p>
-                        <p>george-orwell@@email.com
+                        <p>george-orwell@@email.com</p>
                     </li>
                     <li>
                         <p class="projText">Role:</p>
@@ -31,8 +46,68 @@
             </div>
 
             <div class="text-right">
-                <i class="fa fa-key taskIcon" aria-hidden="true"></i>
-                <i class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+                <div id="change_password">
+                    @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-5">
+                                    @Html.TextBox("Password", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Password", required=true})
+                                </div>
+                                <div class="col-xs-5">
+                                    @Html.TextBox("RepeatPassword", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Repeat password", required = true })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <input type="submit" class="btn-pop btn-default" value="Change" />
+                        </div>
+                    }
+                </div>
+                <i id="open_change" class="fa fa-key taskIcon" aria-hidden="true"></i>
+                <div id="edit_user">
+                    @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <div style="margin-left: 40px">
+                                    <div class="col-xs-3">
+                                        <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <ul class="list-inline">
+                                            <li style="width: 100px"><a href="#">Edit photo</a></li>
+                                            <li style="width: 100px"><a href="#">Change photo</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                @Html.DropDownList("Role", roles, new { @class = "btnDropRole" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-4">
+                                @Html.TextBox("Name", null, "George", htmlAttributes: new { @class = "form-control projInput", placeholder = "Name", required = true })
+                            </div>
+                            <div class="col-xs-6">
+                                @Html.TextBox("Surname", null, "Orwell", htmlAttributes: new { @class = "form-control projInput", placeholder = "Surname", required = true })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-10">
+                                @Html.TextBox("Email", null, "george-orwell@email.com", htmlAttributes: new { @class = "form-control projInput", placeholder = "Email", required = true })
+                            </div>
+                        </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn-pop btn-default" vlaue="Save" />
+                    </div>
+                    }
+                </div>
+                <i id="open_edit_user" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
             </div>
 
             <h1><b>My Projects</b>

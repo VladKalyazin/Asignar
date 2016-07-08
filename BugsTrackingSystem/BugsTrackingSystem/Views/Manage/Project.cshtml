@@ -16,7 +16,7 @@
             <i class="open fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
         </li>
         <li>
-            <div id="edit_project" class="popUpTitle">
+            <div id="edit_project">
                 @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                 {
                     <div class="row">
@@ -49,7 +49,7 @@
                 <i class="fa fa-users" aria-hidden="true" data-toggle="dropdown" type="button"> @Model.UsersCount</i>
                 <table class="dropdown-menu list_users_project">
                     <tbody>
-                        @*<i class="fa fa-caret-up" aria-hidden="true"></i>*@
+                    @*<i class="fa fa-caret-up" aria-hidden="true"></i>*@
                     @foreach (var user in Model.Users)
                     {
                         <tr class="hovering">
@@ -69,13 +69,53 @@
                 </table>
             </div>
         </li>
+        <li>
+            <div id="add_user_to_project">
+                @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-10 users_to_project">
+                                @foreach (var user in Model.Users)
+                                {
+                                    <div class="user_line">
+                                        <ul class="list-inline">
+                                            <input type="checkbox" value="@user.UserId"/>
+                                            <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50" /></li>
+                                            <li>
+                                                <div class="col-xs-4 user_line_data">
+                                                    <ul class="list-inline">
+                                                        <li style="width: 100px">@user.FirstName @user.Surname</li>
+                                                        <li style="width: 100px">@user.Email</li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="user_line_top">
+                                                Role
+                                            </li>
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                        <div class="text-right">
+                            <input type="submit" class="btn-pop btn-default" value="Add user" />
+                        </div>
+                }
+            </div>
+            <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
+        </li>
     </ul>
 
     <table class="table projectTable">
         <tbody>
         @foreach (var data in Model.Defects)
         {
-            <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new {id = data.DefectId})">
+            <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new { id = data.DefectId })">
                 <td>
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
@@ -119,7 +159,7 @@
                     <p>@data.AssigneeUserName</p>
                 </td>
             </tr>
-        }
+            }
         </tbody>
     </table>
 

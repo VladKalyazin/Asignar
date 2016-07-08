@@ -431,10 +431,41 @@ i {
 }
 
 .list_users_project {
+    overflow-y: scroll;
     width: 400px;
+    height: 200px;
     background-color: #92C1BA;
     color: #F2F8F8;
     font-size: 15px;
+}
+
+.users_to_project {
+    overflow-y: scroll;
+    width: 550px;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin-left: 50px;
+}
+
+.user_line {
+    margin-top: 10px;
+}
+
+.user_line_data {
+    margin-bottom: 5px;
+}
+
+.user_line_top {
+    position: absolute;
+    margin-top: 15px
+}
+
+.background_change {
+    background-color: #F2FAFA;
+    margin-left: -20px;
+    padding-left: 20px;
+    margin-right: -15px;
+    padding-right: 15px;
 }
 
 table {
@@ -455,6 +486,15 @@ tr {
 
 .hide_cross:hover {
     display:inline;
+}
+
+.adding_user {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    border: solid 2px rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    padding: 4px 7px;
 }
 
 /*Task*/
@@ -572,6 +612,14 @@ tr {
 #add_project, #add_task, #add_user, #edit_project {
     display: none;
     font-size: 15px;
+}
+
+#open_add_user {
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    padding: 1px 2px;
 }
 
 .ui-widget-header,.ui-state-default, ui-button{
