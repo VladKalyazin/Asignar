@@ -1,6 +1,6 @@
 ﻿@using System.Data.Entity.Core.Mapping
 @using BugsTrackingSystem.Models
-@model BugsTrackingSystem.Models.ProjectExtendedViewModel
+@model BugsTrackingSystem.Models.AddNewUserToProjectViewModel
 
 @{
     ViewBag.Title = "Project";
@@ -9,7 +9,7 @@
 <div class="container">
     <ul class="list-inline">
         <li>
-            <h1><b>@Model.Name</b>
+            <h1><b>@Model.Project.Name</b>
             </h1>
         </li>
         <li>
@@ -42,15 +42,15 @@
     </ul>
     <ul class="list-inline icons">
         <li>
-            <i class="fa fa-pencil-square-o" aria-hidden="true"> @Model.DefectsCount</i>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"> @Model.Project.DefectsCount</i>
         </li>
         <li>
             <div class="dropdown">
-                <i class="fa fa-users" aria-hidden="true" data-toggle="dropdown" type="button"> @Model.UsersCount</i>
+                <i class="fa fa-users" aria-hidden="true" data-toggle="dropdown" type="button"> @Model.Project.UsersCount</i>
                 <table class="dropdown-menu list_users_project">
                     <tbody>
                     @*<i class="fa fa-caret-up" aria-hidden="true"></i>*@
-                    @foreach (var user in Model.Users)
+                    @foreach (var user in Model.Project.Users)
                     {
                         <tr class="hovering">
                             <td class="col-md-2">
@@ -84,12 +84,12 @@
                                     <div class="user_line">
                                         <ul class="list-inline">
                                             <input type="checkbox" value="@user.UserId"/>
-                                            <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50" /></li>
+                                            <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50"/></li>
                                             <li>
                                                 <div class="col-xs-4 user_line_data">
                                                     <ul class="list-inline">
-                                                        <li style="width: 100px">@user.FirstName @user.Surname</li>
-                                                        <li style="width: 100px">@user.Email</li>
+                                                        <li style="width: 150px">@user.FirstName @user.Surname</li>
+                                                        <li style="width: 150px">@user.Email</li>
                                                     </ul>
                                                 </div>
                                             </li>
@@ -102,6 +102,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 user_count"><b>Users: @Model.Users.Count()</b></div>
                         <div class="text-right">
                             <input type="submit" class="btn-pop btn-default" value="Add user" />
                         </div>
@@ -113,14 +114,14 @@
 
     <table class="table projectTable">
         <tbody>
-        @foreach (var data in Model.Defects)
+        @foreach (var data in Model.Project.Defects)
         {
             <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new { id = data.DefectId })">
                 <td>
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
                 <td>
-                    <label>TDD</label>
+                    <label>@Model.Project.Prefix</label>
                     @if (data.Status == "Open")
                     {
                         <span class="project_done">@data.Status</span>
@@ -156,14 +157,14 @@
                     <img class="img-responsive img-circle" height="50" width="50" src="@data.AssigneeUserPhoto">
                 </td>
                 <td>
-                    <p>@data.AssigneeUserName</p>
+                    <p style="margin-top: 15px; position: relative">@data.AssigneeUserName</p>
                 </td>
             </tr>
             }
         </tbody>
     </table>
 
-    <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> Tasks: @Html.Encode(Model.DefectsCount)</i>
+    <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> Tasks: @Html.Encode(Model.Project.DefectsCount)</i>
 
 </div>
 

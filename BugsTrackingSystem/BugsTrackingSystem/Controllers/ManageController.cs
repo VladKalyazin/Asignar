@@ -90,7 +90,12 @@ namespace BugsTrackingSystem.Controllers
 		public ActionResult Project(int id)
         {
             int projId = id;
-            return View(_dataService.Value.GetFullProjectInfo(projId));
+            var model = new AddNewUserToProjectViewModel()
+            {
+               Users = _dataService.Value.GetUsersNotSignedToProject(projId),
+               Project = _dataService.Value.GetFullProjectInfo(projId)
+            };
+            return View(model);
         }
 	
 		public ActionResult Task()
