@@ -11,6 +11,7 @@ $("input[type='checkbox']").change(function () {
         $(this).parent().removeClass("background_change");
     }
 });
+
 $(function () {
     $("#add_project, #add_task, #add_user").dialog
     ({

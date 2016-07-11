@@ -6,40 +6,40 @@
 }
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-3 col-xs-12">
+    <div class="col-md-3 col-xs-12">
+        <div class="row">
 
-            <h1><b>My Projects</b></h1>
+            <h1 style="padding-bottom: 35px"><b>My Projects</b>
+            </h1>
 
-            @foreach(var project in Model.Projects)
+            @foreach (var project in Model.Projects)
             {
-            <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
-                <div class="col-md-3 col-xs-6 MyProjectsHome">
-                    @Html.Hidden("Id", project.ProjectId)
-                    <h3 class="projName">@project.Name</h3>
-                    <p class="projPref">@project.Prefix</p>
-                    <div class="text-right">
-                        <ul class="list-inline icons">
-                            <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
-                            </li>
-                            <li>
-                                <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
-                            </li>
-                        </ul>
+                <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
+                    <div class="col-md-3 col-xs-6 MyProjectsHome">
+                        @Html.Hidden("Id", project.ProjectId)
+                        <h3 class="projName">@project.Name</h3>
+                        <p class="projPref">@project.Prefix</p>
+                        <div class="text-right">
+                            <ul class="list-inline icons">
+                                <li>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
             }
-            <div id="showAll">
-                <a href="/Manage/Projects">Show all
+                <a href="/Manage/Projects" style="margin-left: 20px">Show all
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                 </a>
-            </div>
 
         </div>
-
-        <div class="col-md-9 col-xs-12">
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-xs-11">
 
             <h1><b>Assigned to me</b></h1>
 
@@ -49,22 +49,22 @@
 
             <table class="table projectTableHome">
                 <tbody>
-                @foreach (var defect in Model.Defects)
-                {
-                    <tr class="clickable-row" data-href="/Manage/Task">
-                        <td class="col-xs-1">
-                            <img class="projectIcon" src="@defect.PriorityPhoto">
-                        </td>
-                        <td>
-                            <label>TDT-67</label>
-                            <span class="project_todo">@defect.Status</span>
-                            <p>@defect.Subject</p>
-                        </td>
-                    </tr>
-                }
+                    @foreach (var defect in Model.Defects)
+                    {
+                        <tr class="clickable-row" data-href="/Manage/Task">
+                            <td class="col-xs-1">
+                                <img class="projectIcon" src="@defect.PriorityPhoto">
+                            </td>
+                            <td>
+                                <label>TDT-67</label>
+                                <span class="project_todo">@defect.Status</span>
+                                <p>@defect.Subject</p>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
             <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> All my tasks: @Html.Encode(Model.Paged.TotalItems)</i>
-        </div>  
+        </div>
     </div>
 </div>

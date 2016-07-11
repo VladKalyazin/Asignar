@@ -58,7 +58,7 @@ namespace BugsTrackingSystem.Controllers
                 Projects = _dataService.Value.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList(),
                 Defects = defectsPerPages,
                 Paged = pageInfo
-        };
+            };
             return View(model);
         }
 

@@ -172,12 +172,12 @@ textarea {
     border: 1px;
     margin: 15px;
     height: 110px;
-    width: 300px;
     padding: 10px;
+    min-width: 320px;
 }
 
 h1 {
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 /*Login Page*/
@@ -287,16 +287,12 @@ input:-ms-input-placeholder {
     border: 1px;
     margin: 15px;
     height: 110px;
-    width: 220px;
+    width: 90%;
     padding: 10px;
 }
 
 .MyProjectsHome:hover {
     border: solid 2px #A3C2C6;
-}
-
-#showAll {
-    margin-left: 30px;
 }
 
 .projectTableHome {
@@ -361,7 +357,7 @@ input:-ms-input-placeholder {
 
 .profile_link:hover {
     text-decoration: none;
-    color: #F2F8F8;
+    background-color: #F2F8F8;
 }
 
 .profile_row:hover {
@@ -432,7 +428,7 @@ i {
 
 .list_users_project {
     overflow-y: scroll;
-    width: 400px;
+    width: 320px;
     height: 200px;
     background-color: #92C1BA;
     color: #F2F8F8;
@@ -480,17 +476,18 @@ tr {
 }
 
 .close_user {
+    display: none;
     color: #F2F8F8;
     font-size: 25px;
+    float: right;
+    margin-top: 15px;
+    margin-right: 10px;
 }
 
-.hide_cross {
-    display: none;
+.list_users_project > li:hover .close_user {
+    display: inline-block !important;
 }
 
-.hide_cross:hover {
-    display:inline;
-}
 
 .adding_user {
     cursor: pointer;
@@ -613,7 +610,7 @@ tr {
 
 /*PopUp*/
 
-#add_project, #add_task, #add_user, #edit_project {
+#add_project, #add_task, #add_user, #edit_project, #add_filter, #add_user_to_project {
     display: none;
     font-size: 15px;
 }
@@ -662,7 +659,7 @@ tr {
 
 .ui-dialog-titlebar {
     width: 600px;
-    margin-left: -3px;
+    margin-left: -4px;
     margin-top: -4px;
 }
 
@@ -773,4 +770,41 @@ tr {
 .popUpText {
     color: rgba(0, 0, 0, 0.4);
     margin-left: 30px;
+}
+
+/*Bootstrap Dropdown*/
+.dropdown-menu {
+    background-color: #92C1BA;
+    color: #E7F1F0;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #ABCFCA;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #ABCFCA;
+  outline: 0;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #d2dee0; 
+    border-radius: 0;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 0 6px #6b8e94; 
 }

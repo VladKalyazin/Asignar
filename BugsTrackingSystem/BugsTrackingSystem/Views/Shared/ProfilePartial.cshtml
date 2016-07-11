@@ -1,0 +1,20 @@
+﻿@model BugsTrackingSystem.Models.UserSimpleViewModel
+
+<div class="userMenuInfo">
+    <ul class="list-inline" data-toggle="dropdown" type="button">
+        <li>
+            <img class="img-circle" src="~/images/orwell.jpg" width="30" height="30" />
+        </li>
+        <li>
+            <p id="profileName">@Model.FirstName @Model.Surname</p>
+        </li>
+    </ul>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="/Manage/UserProfile" style="color: #E7F1F0">Profile</a>
+        </li>
+        <li>
+            <a href="#" style="color: #E7F1F0">Sign out</a>
+        </li>
+    </ul>
+</div>

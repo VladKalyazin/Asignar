@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-xs-10">
-                                @Html.TextBox("Name", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Project Name"})
+                                @Html.TextBoxFor(m => m.Project.Name, new {@class = "form-control projInput", placeholder = "Project Name"})
                             </div>
                         </div>
                     </div>
@@ -47,26 +47,25 @@
         <li>
             <div class="dropdown">
                 <i class="fa fa-users" aria-hidden="true" data-toggle="dropdown" type="button"> @Model.Project.UsersCount</i>
-                <table class="dropdown-menu list_users_project">
-                    <tbody>
+                <ul class="dropdown-menu list_users_project">
                     @*<i class="fa fa-caret-up" aria-hidden="true"></i>*@
                     @foreach (var user in Model.Project.Users)
                     {
-                        <tr class="hovering">
-                            <td class="col-md-2">
-                                <img class="img-responsive img-circle" height="50" width="50" src="@user.UserPhoto"/>
-                            </td>
-                            <td class="col-md-4">
-                                <p>@user.FirstName @user.Surname</p>
-                                <p>@user.Email</p>
-                            </td>
-                            <td class="col-md-1 text-right">
-                                <i class="fa fa-times close_user hide_cross" aria-hidden="true"></i>
-                            </td>
-                        </tr>
+                        <li>
+                            <ul class="list-inline" style="width: 100%">
+                                <li>
+                                    <img class="img-responsive img-circle" height="50" width="50" src="@user.UserPhoto"/>
+                                </li>
+                                <li style="width: 180px">
+                                    <p>@user.FirstName @user.Surname</p>
+                                    <p>@user.Email</p>
+                                </li>
+                                <i class="fa fa-times close_user text-right" aria-hidden="true"></i>
+                            </ul>
+                            
+                        </li>
                     }
-                    </tbody>
-                </table>
+                </ul>
             </div>
         </li>
         <li>
