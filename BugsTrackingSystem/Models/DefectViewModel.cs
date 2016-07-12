@@ -18,8 +18,6 @@ namespace BugsTrackingSystem.Models
 
         public string Status { get; set; }
 
-        public int PriorityId { get; set; }
-
         public string PriorityPhoto { get; set; }
 
         public DateTime? CreationDate { get; set; }
