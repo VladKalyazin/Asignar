@@ -47,6 +47,7 @@
     <Compile Include="DropdownItem.cs" />
     <Compile Include="GetHomePageViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
+    <Compile Include="DefectAddEditViewModel.cs" />
     <Compile Include="PageInfo.cs" />
     <Compile Include="ProjectExtendedViewModel.cs" />
     <Compile Include="ProjectsViewModel.cs" />

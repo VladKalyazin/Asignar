@@ -74,5 +74,62 @@ namespace AsignarServices.Data
 
             return null;
         }
+
+        public void AddDefect(DefectAddEditViewModel defect)
+        {
+            try
+            {
+                _databaseModel.Defects.Add(new Defect
+                {
+                    Subject = defect.Name,
+                    ProjectID = defect.ProjectId,
+                    AssigneeUserID = defect.UserId,
+                    DefectPriorityID = defect.PriorityId,
+                    DefectStatusID = defect.StatusId,
+                    Description = defect.Description,
+                    CreationDate = DateTime.UtcNow
+                });
+
+                _databaseModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO exceptions
+            }
+
+        }
+
+        public void EditDefect(DefectAddEditViewModel defect)
+        {
+            try
+            {
+                var editEntity = _databaseModel.Defects.First((d) => d.DefectID == defect.DefectId);
+                editEntity.Subject = defect.Name;
+                editEntity.ProjectID = defect.ProjectId;
+                editEntity.AssigneeUserID = defect.UserId;
+                editEntity.DefectPriorityID = defect.PriorityId;
+                editEntity.DefectStatusID = defect.StatusId;
+                editEntity.Description = defect.Description;
+                editEntity.ModificationDate = DateTime.UtcNow;
+
+                _databaseModel.Defects.Attach(editEntity);
+
+                var entry = _databaseModel.Entry(editEntity);
+                entry.Property((d) => d.Subject).IsModified = true;
+                entry.Property((d) => d.ProjectID).IsModified = true;
+                entry.Property((d) => d.AssigneeUserID).IsModified = true;
+                entry.Property((d) => d.DefectPriorityID).IsModified = true;
+                entry.Property((d) => d.DefectStatusID).IsModified = true;
+                entry.Property((d) => d.Description).IsModified = true;
+                entry.Property((d) => d.ModificationDate).IsModified = true;
+
+                _databaseModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO exceptions
+            }
+        }
+
     }
 }
