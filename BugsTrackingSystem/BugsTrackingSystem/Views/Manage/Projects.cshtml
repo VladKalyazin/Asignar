@@ -5,6 +5,29 @@
 
 @{
     ViewBag.Title = "Projects";
+    var sorting = new List<SelectListItem>
+    {
+        new SelectListItem
+        {
+            Text = "Title",
+            Value = "Title"
+        },
+        new SelectListItem
+        {
+            Text = "Prefix",
+            Value = "Prefix"
+        },
+        new SelectListItem
+        {
+            Text = "Defects",
+            Value = "Defects"
+        },
+        new SelectListItem
+        {
+            Text = "Users",
+            Value = "Users"
+        }
+    };
 }
 
 <div class="container">
@@ -41,12 +64,46 @@
                 </div>
                 <i id="opener" class="fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
             </li>
+            <li style="float: right !important">
+                <div>
+                    @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    {
+                        <div class="input-append">
+                            <input type="text" class="form-control search_field" placeholder="Search"/>
+                            <button type="submit" class="search_btn">
+                                <i class="fa fa-search search_icon"></i>
+                            </button>
+                        </div>
+                    }
+                    @Html.ActionLink("Advanced search", "", "", new {@class = "search_link", style = "float: right !important"})
+                </div>
+            </li>
         </ul>
-        <div class="text-right col-md-12 col-xs-12">
-            @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new {page = x}))
-        </div>
 
-            @foreach (var project in Model.Projects)
+        <ul class="list-inline" style="margin-top: 30px">
+            <li>
+                <div class="col-md-12 col-xs-12">
+                    <ul class="list-inline">
+                        <li>
+                            <span class="sort_by"><b>Sort by: </b></span>
+                        </li>
+                        <li>
+                            @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.DropDownList("drop-down", sorting, "Select", new { @class = "dropdown_sorting", onchange = "this.form.submit()" })
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li style="float: right !important">
+                <div class="text-right col-md-12 col-xs-12">
+                    @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new { page = x }))
+                </div>
+            </li>
+        </ul>
+        
+        @foreach (var project in Model.Projects)
             {
                 <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
                     <div class="col-md-3 col-xs-6 MyProjects">

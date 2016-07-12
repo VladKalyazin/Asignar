@@ -81,11 +81,14 @@ namespace AsignarServices.Data
             }
         }
 
-        public IEnumerable<UserSimpleViewModel> GetAllUsers()
+        public int GetCountOfUsers() =>
+            _databaseModel.Users.Count();
+
+        public IEnumerable<UserSimpleViewModel> GetAllUsers(int countOfSet, int page)
         {
             try
             {
-                return from user in _databaseModel.Users
+                return from user in _databaseModel.Users.OrderBy((p) => p.FirstName).Skip(page * countOfSet).Take(countOfSet)
                        select new UserSimpleViewModel
                        {
                            UserId = user.UserID,

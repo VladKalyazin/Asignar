@@ -20,6 +20,7 @@ namespace BugsTrackingSystem.Models
 
     public class IndexViewModel
     {
+        public IEnumerable<UserSimpleViewModel> Users { get; set; }
         public IEnumerable<DefectViewModel> Defects { get; set; }
         public IEnumerable<ProjectViewModel> Projects { get; set; }
         public PageInfo PageInfo { get; set; }

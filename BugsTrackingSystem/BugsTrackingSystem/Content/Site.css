@@ -631,6 +631,11 @@ tr {
     font-size: 15px;
 }
 
+#change_password, #edit_user {
+    display: none;
+    font-size: 15px;
+}
+
 #open_add_user {
     font-size: 15px;
     cursor: pointer;
@@ -792,6 +797,7 @@ tr {
 .dropdown-menu {
     background-color: #92C1BA;
     color: #E7F1F0;
+    padding: 0;
 }
 
 .dropdown-menu > li > a:hover,
@@ -808,6 +814,11 @@ tr {
   text-decoration: none;
   background-color: #ABCFCA;
   outline: 0;
+}
+
+.drop_profile {
+    height: 35px;
+    font-size: 17px;
 }
 
 /*Scrollbar*/

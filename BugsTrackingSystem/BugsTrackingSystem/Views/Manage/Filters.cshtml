@@ -4,77 +4,102 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var projects = new List<SelectListItem>
+    {
+        new SelectListItem
         {
-            new SelectListItem
-            {
-                Text = "project1",
-                Value = "0"
-            },
-            new SelectListItem
-            {
-                Text = "project2",
-                Value = "1"
-            }
-        };
+            Text = "project1",
+            Value = "0"
+        },
+        new SelectListItem
+        {
+            Text = "project2",
+            Value = "1"
+        }
+    };
 
     var users = new List<SelectListItem>
+    {
+        new SelectListItem
         {
-            new SelectListItem
-            {
-                Text = "user1",
-                Value = "0"
-            },
-            new SelectListItem
-            {
-                Text = "user2",
-                Value = "1"
-            }
-        };
+            Text = "user1",
+            Value = "0"
+        },
+        new SelectListItem
+        {
+            Text = "user2",
+            Value = "1"
+        }
+    };
 
     var priority = new List<SelectListItem>
+    {
+        new SelectListItem
         {
-            new SelectListItem
-            {
-                Text = "Minor",
-                Value = "0"
-            },
-            new SelectListItem
-            {
-                Text = "Major",
-                Value = "1"
-            }
-        };
+            Text = "Minor",
+            Value = "0"
+        },
+        new SelectListItem
+        {
+            Text = "Major",
+            Value = "1"
+        }
+    };
 
     var status = new List<SelectListItem>
+    {
+        new SelectListItem
         {
-            new SelectListItem
-            {
-                Text = "To do",
-                Value = "0",
-                Selected = true
-            },
-            new SelectListItem
-            {
-                Text = "Done",
-                Value = "1"
-            },
-            new SelectListItem
-            {
-                Text = "In Process",
-                Value = "2"
-            }
-        };
+            Text = "To do",
+            Value = "0",
+            Selected = true
+        },
+        new SelectListItem
+        {
+            Text = "Done",
+            Value = "1"
+        },
+        new SelectListItem
+        {
+            Text = "In Process",
+            Value = "2"
+        }
+    };
+
+    var sorting = new List<SelectListItem>
+    {
+        new SelectListItem
+        {
+            Text = "Project",
+            Value = "Project"
+        },
+        new SelectListItem
+        {
+            Text = "Priority",
+            Value = "Priority"
+        },
+        new SelectListItem
+        {
+            Text = "Assignee",
+            Value = "Assignee"
+        },
+        new SelectListItem
+        {
+            Text = "Status",
+            Value = "Status"
+        }
+    };
 }
 
 <div class="container">
     <div class="col-md-12 col-xs-12">
         <ul class="list-inline">
             <li>
-                <h1><b>Filters</b>
+                <h1>
+                    <b>Filters</b>
                 </h1>
             </li>
             <li>
-                
+
                 <div id="add_filter" title="Create new project">
                     @using (Html.BeginForm("Project", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                     {
@@ -86,7 +111,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-10">
-                                    @Html.TextBox("Search", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Search", required = true })
+                                    @Html.TextBox("Search", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Search", required = true})
                                 </div>
                             </div>
                             <div class="form-group">
@@ -99,10 +124,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5">
-                                    @Html.DropDownList("Project", projects, new { @class = "btnDropTask", placeholder = "Project" })
+                                    @Html.DropDownList("Project", projects, new {@class = "btnDropTask", placeholder = "Project"})
                                 </div>
                                 <div class="col-xs-5">
-                                    @Html.DropDownList("Assignee", users, new { @class = "btnDropTask", placeholder = "Assignee" })
+                                    @Html.DropDownList("Assignee", users, new {@class = "btnDropTask", placeholder = "Assignee"})
                                 </div>
                             </div>
                         </div>
@@ -113,7 +138,45 @@
                 </div>
                 <i id="open_filter" class="fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
             </li>
+            <li style="float: right !important">
+                <div>
+                    @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    {
+                        <div class="input-append">
+                            <input type="text" class="form-control search_field" placeholder="Search"/>
+                            <button type="submit" class="search_btn">
+                                <i class="fa fa-search search_icon"></i>
+                            </button>
+                        </div>
+                    }
+                    @Html.ActionLink("Advanced search", "", "", new {@class = "search_link", style = "float: right !important"})
+                </div>
+            </li>
         </ul>
+
+        <ul class="list-inline" style="margin-top: 30px">
+            <li>
+                <div class="col-md-12 col-xs-12">
+                    <ul class="list-inline">
+                        <li>
+                            <span class="sort_by"><b>Sort by: </b></span>
+                        </li>
+                        <li>
+                            @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.DropDownList("drop-down", sorting, "Select", new { @class = "dropdown_sorting", onchange = "this.form.submit()" })
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li style="float: right !important">
+                <div class="text-right col-md-12 col-xs-12">
+                    @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))*@
+                </div>
+            </li>
+        </ul>
+
         <div class="col-md-3 col-xs-6 MyFilters">
             <h3 class="projName">Financier Filter</h3>
             <ul class="list-inline icons filtersStat" style="list-style-type: none">
@@ -139,7 +202,6 @@
                 </li>
             </ul>
         </div>
-
         <div class="col-md-3 col-xs-6 MyFilters">
             <h3 class="projName">Titan Filter</h3>
             <ul class="list-inline icons filtersStat" style="list-style-type: none">

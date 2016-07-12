@@ -107,12 +107,17 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Projects");
         }
 
-        public ActionResult Users()
+        public ActionResult Users(int page = 1)
 		{
-            using (AsignarDataService _dataService = new AsignarDataService())
+            var usersPerPages = _dataService.Value.GetAllUsers(_pageSize, page - 1).ToList();
+            PageInfo pageInfo = new PageInfo
             {
-                return View(_dataService.GetAllUsers().ToList());
-            }
+                PageNumber = page,
+                PageSize = _pageSize,
+                TotalItems = _dataService.Value.GetCountOfUsers()
+            };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Users = usersPerPages };
+            return View(ivm);
 		}
 
         [HttpPost]
