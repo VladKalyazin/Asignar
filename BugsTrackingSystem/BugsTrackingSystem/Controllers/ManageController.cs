@@ -112,18 +112,32 @@ namespace BugsTrackingSystem.Controllers
 			return View();
 		}
         
-		public ActionResult Project(int id)
+		public ActionResult Project(int id, string sortOrder)
         {
             int projId = id;
+            
             var model = new AddNewUserToProjectViewModel()
             {
                Users = _dataService.Value.GetUsersNotSignedToProject(projId),
                Project = _dataService.Value.GetFullProjectInfo(projId)
             };
+            
             return View(model);
         }
-	
-		public ActionResult Task()
+
+        //[HttpPost]
+        //public ActionResult SortProject()
+        //{
+
+        //    string selected = Request.Form["drop-down"];
+        //    int projId = Convert.ToInt32(Request.Form["Id"]);
+        //    string selected = Request.Form["drop-down"];
+
+        //    return RedirectToAction("Project", projId);
+        //}
+
+
+        public ActionResult Task()
 		{
             var tableHelper = new TableStorageHelper();
             var comments = tableHelper.GetDefectComments(1);

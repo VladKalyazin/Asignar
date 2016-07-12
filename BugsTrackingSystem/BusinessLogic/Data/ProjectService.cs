@@ -104,7 +104,7 @@ namespace AsignarServices.Data
         {
             try
             {
-                var result = (from project in _databaseModel.Projects
+                var result = (from project in _databaseModel.Projects//.OrderBy((p) => p.Order)
                               where project.ProjectID == projectId
                               select new ProjectExtendedViewModel
                               {

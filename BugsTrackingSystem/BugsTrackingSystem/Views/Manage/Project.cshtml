@@ -4,6 +4,31 @@
 
 @{
     ViewBag.Title = "Project";
+
+    var sorting = new List<SelectListItem>
+    {
+        new SelectListItem
+        {
+            Text = "Title",
+            Value = "Title",
+            Selected = true
+        },
+        new SelectListItem
+        {
+            Text = "Status",
+            Value = "Status"
+        },
+        new SelectListItem
+        {
+            Text = "Date",
+            Value = "Date"
+        },
+        new SelectListItem
+        {
+            Text = "Users",
+            Value = "Users"
+        }
+    };
 }
 
 <div class="container">
@@ -38,6 +63,11 @@
         </li>
         <li>
             <i class="fa fa-times taskIcon" aria-hidden="true"></i>
+        </li>
+        <li style="float: right !important">
+            <div>
+                @Html.TextBox("Search", null, "", htmlAttributes: new { @class = "form-control search_field", placeholder = "Search"})
+            </div>
         </li>
     </ul>
     <ul class="list-inline icons">
@@ -111,11 +141,27 @@
         </li>
     </ul>
 
+    <div class="col-md-12 col-xs-12">
+        <ul class="list-inline">
+            <li>
+                <span class="sort_by"><b>Sort by: </b></span>
+            </li>
+            <li>
+                @using (Html.BeginForm("Project", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.Hidden("Id", Model.Project.ProjectId)
+
+                    @Html.DropDownList("drop-down", sorting, new {@class = "dropdown_sorting", onchange = "this.form.submit()"})
+                }
+            </li>
+        </ul>
+    </div>
+    
     <table class="table projectTable">
         <tbody>
         @foreach (var data in Model.Project.Defects)
         {
-            <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new { id = data.DefectId })">
+            <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new {id = data.DefectId})">
                 <td>
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
@@ -159,7 +205,7 @@
                     <p style="margin-top: 15px; position: relative">@data.AssigneeUserName</p>
                 </td>
             </tr>
-            }
+        }
         </tbody>
     </table>
 
