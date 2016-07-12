@@ -173,7 +173,9 @@ textarea {
     margin: 15px;
     height: 110px;
     padding: 10px;
-    min-width: 320px;
+    width: 90%;
+    max-width: 320px;
+    min-width: 250px;
 }
 
 h1 {
@@ -514,6 +516,28 @@ tr {
     border: 0;  
 }
 
+input[type=checkbox] {
+    display: none;
+}
+
+
+ input[type='checkbox'] {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    padding-left: 40px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    line-height: 32px;
+    cursor: pointer;
+     color: #F2FAFA;
+}
+
+input[type=checkbox]:checked {
+    background-position: left -32px;
+    color: #4D868D;
+}
+
 /*Task*/
 
 .taskIcon {
@@ -579,9 +603,11 @@ tr {
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     border: 1px;
     margin: 15px;
-    height: 200px;
-    width: 220px;
-    padding: 15px;
+    height: 240px;
+    padding: 10px;
+    width: 90%;
+    max-width: 220px;
+    min-width: 220px;
 }
 
 .MyProjectsProfile {
@@ -590,8 +616,10 @@ tr {
     border: 1px;
     margin: 15px;
     height: 150px;
-    width: 220px;
     padding: 10px;
+    width: 90%;
+    max-width: 220px;
+    min-width: 220px;
 }
 
 .linkMyProject {
@@ -823,7 +851,7 @@ tr {
 
 /*Scrollbar*/
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 15px;
 }
  
 ::-webkit-scrollbar-track {

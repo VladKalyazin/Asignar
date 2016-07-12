@@ -98,6 +98,7 @@ namespace AsignarServices.Data
                            DefectsCount = user.Defects.Count,
                            ProjectsCount = user.Projects.Count,
                            UserPhoto = user.PhotoLink
+                           //Role = user.Role
                        };
             }
             catch

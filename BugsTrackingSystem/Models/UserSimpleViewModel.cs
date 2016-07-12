@@ -21,6 +21,5 @@ namespace BugsTrackingSystem.Models
         public int ProjectsCount { get; set; }
 
         public string UserPhoto { get; set; }
-        
     }
 }

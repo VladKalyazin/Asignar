@@ -90,7 +90,7 @@
                     @foreach (var user in Model.Project.Users)
                     {
                         <li>
-                            <ul class="list-inline" style="width: 100%">
+                            <ul class="list-inline" style="width: 100%; margin-top: 10px;">
                                 <li>
                                     <img class="img-responsive img-circle" height="50" width="50" src="@user.UserPhoto"/>
                                 </li>
@@ -175,11 +175,11 @@
                 </td>
                 <td>
                     <label>@Model.Project.Prefix</label>
-                    @if (data.Status == "Open")
+                    @if (data.Status == "Open" || data.Status == "Done" || data.Status == "Closed")
                     {
                         <span class="project_done">@data.Status</span>
                     }
-                    else if (data.Status == "In Progress")
+                    else if (data.Status == "In Progress" || data.Status == "In Testing")
                     {
                         <span class="project_progress">@data.Status</span>
                     }
