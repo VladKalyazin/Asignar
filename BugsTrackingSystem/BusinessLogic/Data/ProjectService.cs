@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AsignarDBEntities;
@@ -9,8 +10,40 @@ using BugsTrackingSystem.Models;
 
 namespace AsignarServices.Data
 {
+    public static class LINQExtension
+    {
+        public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty,
+                  bool desc)
+        {
+            string command = desc ? "OrderByDescending" : "OrderBy";
+            var type = typeof(TEntity);
+            var property = type.GetProperty(orderByProperty);
+            var parameter = Expression.Parameter(type, "p");
+            var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+            var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+            var resultExpression = Expression.Call(typeof(Queryable), command, new Type[] { type, property.PropertyType },
+                                          source.Expression, Expression.Quote(orderByExpression));
+            return source.Provider.CreateQuery<TEntity>(resultExpression);
+        }
+    }
+
+    public enum DefectSortProperty
+    {
+        Title,
+        Status,
+        Date,
+        Users
+    }
+
+    public enum SortOrder
+    {
+        Ascending,
+        Descending
+    }
+
     public partial class AsignarDataService : IDisposable
     {
+
         public IEnumerable<ProjectViewModel> GetAllProjects()
         {
             try
@@ -87,6 +120,7 @@ namespace AsignarServices.Data
             {
                 ProjectName = projectModel.Name,
                 Prefix = projectModel.Prefix,
+                CreationDate = DateTime.UtcNow
             };
 
             try
@@ -100,11 +134,30 @@ namespace AsignarServices.Data
             }
         }
 
-        public ProjectExtendedViewModel GetFullProjectInfo(int projectId)
+        public ProjectExtendedViewModel GetFullProjectInfo(int projectId, DefectSortProperty sortProp = DefectSortProperty.Title, SortOrder sortOrder = SortOrder.Ascending)
         {
             try
             {
-                var result = (from project in _databaseModel.Projects//.OrderBy((p) => p.Order)
+                string sortPropName = sortProp == DefectSortProperty.Title ? "Subject" :
+                                        sortProp == DefectSortProperty.Status ? "DefectStatusID" :
+                                        sortProp == DefectSortProperty.Date ? "CreationDate" :
+                                        "AssigneeUserID";
+
+                var defects = _databaseModel.Defects.Where((d) => d.ProjectID == projectId).
+                            OrderBy(sortPropName, sortOrder == SortOrder.Descending ? true : false).
+                            Select((defect) => new DefectViewModel
+                            {
+                                DefectId = defect.DefectID,
+                                Subject = defect.Subject,
+                                AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                                Status = defect.DefectStatus.StatusName,
+                                PriorityPhoto = defect.DefectPriority.PhotoLink,
+                                AssigneeUserPhoto = defect.User.PhotoLink,
+                                CreationDate = defect.CreationDate,
+                                ModificationDate = defect.ModificationDate
+                            }).ToList();
+
+                var result = (from project in _databaseModel.Projects
                               where project.ProjectID == projectId
                               select new ProjectExtendedViewModel
                               {
@@ -113,31 +166,20 @@ namespace AsignarServices.Data
                                   Prefix = project.Prefix,
                                   UsersCount = project.Users.Count,
                                   DefectsCount = project.Defects.Count,
-                                  Defects = from defect in _databaseModel.Defects
-                                            where defect.ProjectID == projectId
-                                            select new DefectViewModel
-                                            {
-                                                DefectId = defect.DefectID,
-                                                Subject = defect.Subject,
-                                                AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
-                                                Status = defect.DefectStatus.StatusName,
-                                                PriorityPhoto = defect.DefectPriority.PhotoLink,
-                                                AssigneeUserPhoto = defect.User.PhotoLink,
-                                                CreationDate = defect.CreationDate,
-                                                ModificationDate = defect.ModificationDate
-                                            },
-                                  Users = from user in project.Users
-                                          select new UserSimpleViewModel
-                                          {
-                                              UserId = user.UserID,
-                                              FirstName = user.FirstName,
-                                              Surname = user.Surname,
-                                              Email = user.Email,
-                                              DefectsCount = user.Defects.Count,
-                                              ProjectsCount = user.Projects.Count,
-                                              UserPhoto = user.PhotoLink
-                                          }
+                                  Users = (from user in project.Users
+                                           select new UserSimpleViewModel
+                                           {
+                                               UserId = user.UserID,
+                                               FirstName = user.FirstName,
+                                               Surname = user.Surname,
+                                               Email = user.Email,
+                                               DefectsCount = user.Defects.Count,
+                                               ProjectsCount = user.Projects.Count,
+                                               UserPhoto = user.PhotoLink
+                                           }).ToList()
                               }).FirstOrDefault();
+
+                result.Defects = defects;
 
                 return result;
             }
@@ -148,5 +190,6 @@ namespace AsignarServices.Data
 
             return null;
         }
+
     }
 }
