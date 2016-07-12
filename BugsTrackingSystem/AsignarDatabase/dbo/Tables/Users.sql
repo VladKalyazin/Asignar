@@ -5,7 +5,7 @@
     [Email]     NVARCHAR (35) NOT NULL unique,
     [Password]  NVARCHAR (100) NOT NULL,
     [RoleID]    INT           NOT NULL,
-    [RegistrationDate] DATETIME NOT NULL DEFAULT SYSUTCDATETIME(), 
+    [RegistrationDate] DATETIME2 NOT NULL , 
     [PhotoLink] NVARCHAR(250) NULL, 
     PRIMARY KEY CLUSTERED ([UserID] ASC),
     CONSTRAINT [FK_Users_Roles] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[Roles] ([RoleID])
