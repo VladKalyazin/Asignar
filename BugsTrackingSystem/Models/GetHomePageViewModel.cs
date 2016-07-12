@@ -2,7 +2,7 @@
 
 namespace BugsTrackingSystem.Models
 {
-    public class GetHomePageViewModel
+    public class UserProfileHomeViewModel
     {
         public IEnumerable<ProjectViewModel> Projects { get; set; }
 

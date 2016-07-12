@@ -32,9 +32,27 @@ namespace BugsTrackingSystem.Controllers
 
         }
 
-		public ActionResult UserProfile()
+		public ActionResult Profile(int page = 1)
 		{
-			return View("Profile");
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            var defectsPerPages = _dataService.Value.GetUserSetOfDefects(id, _pageSizeHome, page - 1).ToList();
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = _pageSizeHome,
+                TotalItems = _dataService.Value.GetCountUserDefects(id)
+            };
+            
+            var model = new UserProfileViewModel()
+		    {
+                UserDefects = defectsPerPages,
+                Paged = pageInfo
+            };
+            
+            return View(model);
 		}
 
 		public ActionResult Home(int page = 1)
@@ -53,7 +71,7 @@ namespace BugsTrackingSystem.Controllers
                 TotalItems = _dataService.Value.GetCountUserDefects(UserId)
             };
 
-            var model = new GetHomePageViewModel()
+            var model = new UserProfileHomeViewModel()
             {
                 Projects = _dataService.Value.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList(),
                 Defects = defectsPerPages,

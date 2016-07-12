@@ -1,4 +1,5 @@
-﻿
+﻿@using BugsTrackingSystem.Helpers
+@model BugsTrackingSystem.Models.UserProfileViewModel
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,20 +21,21 @@
 }
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-3 col-xs-12">
+    <div class="col-md-3 col-xs-12">
+        <div class="row">
 
-            <h1><b>My Profile</b></h1>
+            <h1 style="padding-bottom: 38px"><b>My Profile</b>
+            </h1>
 
             <div class="col-md-3 col-xs-6 MyProfile">
                 <div class="col-md-4">
-                    <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50" />
+                    <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
                 </div>
                 <div class="col-md-8 profName">
                     <h4>George</h4>
                     <h4>Orwell</h4>
                 </div>
-                <ul class="persInfo" style="list-style-type:none">
+                <ul class="persInfo" style="list-style-type: none">
                     <li>
                         <p class="projText">Email:</p>
                         <p>george-orwell@@email.com</p>
@@ -45,72 +47,81 @@
                 </ul>
             </div>
 
-            <div class="text-right">
-                <div id="change_password">
-                    @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
 
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-xs-5">
-                                    @Html.TextBox("Password", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Password", required=true})
+            <div class="text-right">
+                <ul class="list-inline col-xs-12" style="width: 220px">
+                    <li>
+                        <div id="change_password">
+                            @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                @Html.ValidationSummary("", new {@class = "text-danger"})
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-5">
+                                            @Html.TextBox("Password", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Password", required = true})
+                                        </div>
+                                        <div class="col-xs-5">
+                                            @Html.TextBox("RepeatPassword", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Repeat password", required = true})
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-xs-5">
-                                    @Html.TextBox("RepeatPassword", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Repeat password", required = true })
+                                <div class="text-right">
+                                    <input type="submit" class="btn-pop btn-default" value="Change"/>
                                 </div>
-                            </div>
+                            }
                         </div>
-                        <div class="text-right">
-                            <input type="submit" class="btn-pop btn-default" value="Change" />
-                        </div>
-                    }
-                </div>
-                <i id="open_change" class="fa fa-key taskIcon" aria-hidden="true"></i>
-                <div id="edit_user">
-                    @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <div style="margin-left: 40px">
-                                    <div class="col-xs-3">
-                                        <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
+                        <i id="open_change" class="fa fa-key taskIcon" aria-hidden="true"></i>
+                    </li>
+                    <li>
+                        <div id="edit_user">
+                            @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                            {
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <div style="margin-left: 40px">
+                                            <div class="col-xs-3">
+                                                <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <ul class="list-inline">
+                                                    <li style="width: 100px"><a href="#">Edit photo</a></li>
+                                                    <li style="width: 100px"><a href="#">Change photo</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-xs-4">
-                                        <ul class="list-inline">
-                                            <li style="width: 100px"><a href="#">Edit photo</a></li>
-                                            <li style="width: 100px"><a href="#">Change photo</a></li>
-                                        </ul>
+                                        @Html.DropDownList("Role", roles, new {@class = "btnDropRole"})
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-4">
-                                @Html.DropDownList("Role", roles, new { @class = "btnDropRole" })
-                            </div>
+                                <div class="form-group">
+                                    <div class="col-xs-4">
+                                        @Html.TextBox("Name", null, "George", htmlAttributes: new {@class = "form-control projInput", placeholder = "Name", required = true})
+                                    </div>
+                                    <div class="col-xs-6">
+                                        @Html.TextBox("Surname", null, "Orwell", htmlAttributes: new {@class = "form-control projInput", placeholder = "Surname", required = true})
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-10">
+                                        @Html.TextBox("Email", null, "george-orwell@email.com", htmlAttributes: new {@class = "form-control projInput", placeholder = "Email", required = true})
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <input type="submit" class="btn-pop btn-default" vlaue="Save"/>
+                                </div>
+                            }
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-4">
-                                @Html.TextBox("Name", null, "George", htmlAttributes: new { @class = "form-control projInput", placeholder = "Name", required = true })
-                            </div>
-                            <div class="col-xs-6">
-                                @Html.TextBox("Surname", null, "Orwell", htmlAttributes: new { @class = "form-control projInput", placeholder = "Surname", required = true })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-10">
-                                @Html.TextBox("Email", null, "george-orwell@email.com", htmlAttributes: new { @class = "form-control projInput", placeholder = "Email", required = true })
-                            </div>
-                        </div>
-                    <div class="text-right">
-                        <input type="submit" class="btn-pop btn-default" vlaue="Save" />
-                    </div>
-                    }
-                </div>
-                <i id="open_edit_user" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+                        <i id="open_edit_user" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+                    </li>
+                </ul>
             </div>
-
-            <h1><b>My Projects</b>
+            </div>
+            <div class="row">
+            <h1>
+                <b>My Projects</b>
             </h1>
             <div class="col-md-3 col-xs-6 MyProjectsProfile">
                 <ul>
@@ -120,49 +131,38 @@
                     <li><a class="linkMyProject" href="/Manage/Project/4">I, robot</a></li>
                 </ul>
             </div>
-
-
         </div>
+    </div>
 
-        <div class="col-md-9 col-xs-12">
 
-            <h1><b>Assigned to me</b></h1>
+    <div class="row">
+        <div class="col-md-8 col-xs-11">
+
+            <h1><b>Assigned to me</b>
+            </h1>
+
+            <div class="text-right col-md-12 col-xs-12">
+                @Html.PageLinks(Model.Paged, x => Url.Action("Profile", new {page = x}))
+            </div>
 
             <table class="table projectTableHome">
                 <tbody>
+                @foreach (var defect in Model.UserDefects)
+                {
                     <tr class="clickable-row" data-href="/Manage/Task">
-                        <td>
-                            <img class="projectIcon" src="~/images/icon_down.png">
+                        <td class="col-xs-1">
+                            <img class="projectIcon" src="@defect.PriorityPhoto">
                         </td>
                         <td>
-                            <label>TDT-67</label>
-                            <span class="project_todo">To do</span>
-                            <p>Font for password is different from other labels font on 'Login' screen</p>
+                            <label>TDT-67</label> @*?????????????????????????????????????????????????????????????*@
+                            <span class="project_todo">@defect.Status</span>
+                            <p>@defect.Subject</p>
                         </td>
                     </tr>
-                    <tr class="clickable-row" data-href="/Manage/Task">
-                        <td>
-                            <img class="projectIcon" src="~/images/icon_up.png">
-                        </td>
-                        <td>
-                            <label>TDT-66</label>
-                            <span class="project_progress">In progress</span>
-                            <p>The error message is displayed after tapping on the 'Get Link' button on the volume's 'Information' screen</p>
-                        </td>
-                    </tr>
-                    <tr class="clickable-row" data-href="/Manage/Task">
-                        <td>
-                            <img class="projectIcon" src="~/images/icon_mark.png">
-                        </td>
-                        <td>
-                            <label>TDT-15</label>
-                            <span class="project_done">Done</span>
-                            <p>Account activation link in Registration email is invalid</p>
-                        </td>
-                    </tr>
+                }
                 </tbody>
             </table>
-            <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> All my tasks: 41</i>
+            <i class="fa fa-pencil-square-o ProjTasks" aria-hidden="true"> All my tasks: @Html.Encode(Model.Paged.TotalItems)</i>
         </div>
     </div>
 </div>

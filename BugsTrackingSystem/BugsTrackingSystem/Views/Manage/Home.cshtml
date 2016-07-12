@@ -1,5 +1,5 @@
 ﻿@using BugsTrackingSystem.Helpers
-@model BugsTrackingSystem.Models.GetHomePageViewModel
+@model BugsTrackingSystem.Models.UserProfileHomeViewModel
 
 @{
     ViewBag.Title = "Home";
@@ -9,7 +9,7 @@
     <div class="col-md-3 col-xs-12">
         <div class="row">
 
-            <h1 style="padding-bottom: 35px"><b>My Projects</b>
+            <h1 style="padding-bottom: 38px"><b>My Projects</b>
             </h1>
 
             @foreach (var project in Model.Projects)
@@ -56,7 +56,7 @@
                                 <img class="projectIcon" src="@defect.PriorityPhoto">
                             </td>
                             <td>
-                                <label>TDT-67</label>
+                                <label>TDT-67</label>            @*?????????????????????????????????????????????????????????????*@
                                 <span class="project_todo">@defect.Status</span>
                                 <p>@defect.Subject</p>
                             </td>
