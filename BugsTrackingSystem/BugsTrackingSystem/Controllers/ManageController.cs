@@ -112,29 +112,48 @@ namespace BugsTrackingSystem.Controllers
 			return View();
 		}
         
-		public ActionResult Project(int id, string sortOrder)
+        public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
             int projId = id;
+            
+            if (string.IsNullOrEmpty(sortOrder))
+            {
+                sortOrder = "Title";
+            }
+            
+            DefectSortProperty sortSelected;
+            sortSelected = (DefectSortProperty) Enum.Parse(typeof(DefectSortProperty), sortOrder, true);
+
+            SortOrder orderSelected;
+
+            if (direction)
+            {
+                orderSelected = (SortOrder)Enum.Parse(typeof(SortOrder), "Ascending", true);
+            }
+            else
+            {
+                orderSelected = (SortOrder)Enum.Parse(typeof(SortOrder), "Descending", true);
+            }
             
             var model = new AddNewUserToProjectViewModel()
             {
                Users = _dataService.Value.GetUsersNotSignedToProject(projId),
-               Project = _dataService.Value.GetFullProjectInfo(projId)
+               Project = _dataService.Value.GetFullProjectInfo(projId, sortSelected, orderSelected),
+               SelectedItem = sortOrder,
+               StraightSort = direction
             };
             
             return View(model);
         }
 
-        //[HttpPost]
-        //public ActionResult SortProject()
-        //{
-
-        //    string selected = Request.Form["drop-down"];
-        //    int projId = Convert.ToInt32(Request.Form["Id"]);
-        //    string selected = Request.Form["drop-down"];
-
-        //    return RedirectToAction("Project", projId);
-        //}
+        [HttpPost]
+        public ActionResult SortProject()
+        {
+            int projId = Convert.ToInt32(Request.Form["Id"]);
+            string selected = Request.Form["drop-down"];
+            
+            return RedirectToAction("Project", new {id = projId, sortOrder = selected});
+        }
 
 
         public ActionResult Task()

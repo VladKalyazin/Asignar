@@ -833,3 +833,25 @@ tr {
     border-radius: 0;
     width: 250px;
 }
+
+.search_link {
+    color: #4D868D;
+    text-decoration: underline;
+}
+
+.search_link:hover {
+    color: #2DA0AE;
+}
+
+.search_icon {
+    font-size: 20px;
+    position: inherit;
+}
+
+.search_btn {
+    float: right;
+    margin-top: -34px;
+    background-color: #F8FEFE;
+    height: 34px;
+    border: 2px solid #D9DDDD;
+}
