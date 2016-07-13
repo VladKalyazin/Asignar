@@ -212,8 +212,7 @@ namespace BugsTrackingSystem.Controllers
         public ActionResult Task(int id)
         {
             DefectExtendedViewModel defectInfo = _dataService.Value.GetDefectExtendedInfo(id);
-
-
+            
             return View(defectInfo);
 		}
 

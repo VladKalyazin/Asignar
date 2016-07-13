@@ -3,28 +3,20 @@
     ViewBag.Title = "Task";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var items = new List<SelectListItem>
+    var items = new List<SelectListItem>();
+    foreach(var status in Model.StatusesList)
     {
-        new SelectListItem
-        {
-            Text = "In progress",
-            Value = "0"
-        },
-        new SelectListItem
-        {
-            Text = "To do",
-            Value = "1"
-        },
-        new SelectListItem
-        {
-            Text = "Done",
-            Value = "3",
-            Selected = true
-        }
-    };
+        items.Add(new SelectListItem() {Text = status.Text, Value = status.Value});
+    }
 }
 
 <div class="container top">
+
+    <div style="margin-left: 20px;">
+        <a href="Manage/Project/" class="project_link">Project</a>
+        <span style="font-size: 15px"> / TDT-13</span>
+        <p style="font-size: 20px"><b>@Model.Subject</b></p>
+    </div>
 
     <div class="row">
 
@@ -43,8 +35,8 @@
                     <div id="currentTask">
                         <div class="col-md-8 text-left">
                             <span class="taskPriority"><b>Priority:</b></span>
-                            <img src="~/images/icon_up.png"/>
-                            <span id="statusMajor">Major</span>
+                            <img src="@Model.PriorityPhoto"/>
+                            <span id="statusMajor"></span>
                         </div>
                         <div class="col-md-4 text-right">
                             <span class="taskPriority"><b>Status:</b></span>
@@ -52,19 +44,7 @@
                         </div>
                         <br><hr>
                         <div class="taskText">
-                            <p>
-                                Steps to reproduce:<br>
-                                1. Log in to the Cloud Universe app<br>
-                                2. Tap on the volume information button<br>
-                                3. Tap the 'Get Link' button on the 'Information' screen<br>
-                                <br>
-                                Actual result:<br>
-                                The 'Request failed: forbidden (403)' error message was displayed (Please see screenshot<br>
-                                attached)<br>
-                                <br>
-                                Expected result:<br>
-                                The 'Get Link' screen is displayed<br>
-                            </p>
+                            <p>@Model.Description</p>
                         </div>
                     </div>
                 </div>
@@ -79,22 +59,28 @@
                                 <li style="float: right !important;">
                                     <a class="taskAssignee" href="#">Assign to me</a>
                                 </li>
+                            </ul>   
+
+                            <ul class="list-inline">
+                                <li>
+                                    <img class="img-circle" src="@Model.AssigneeUserPhoto" width="50" height="50" style="margin-top: -10px;"/>
+                                </li>
+                                <li>
+                                    <span>@Model.AssigneeUserName</span><br>
+                                    <span>@Model.AssigneeUserEmail</span>
+                                </li>
                             </ul>
 
-                            <a href="@Url.Action("Profile", "Manage")" class="projectsPage">
-                                <ul class="list-inline">
-                                    <li>
-                                        <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50" style="margin-top: -10px;"/>
-                                    </li>
-                                    <li>
-                                        <span>@Model.AssigneeUserName</span><br>
-                                        <span>@Model.AssigneeUserEmail</span>
-                                    </li>
-                                </ul>
-                            </a>
-
                             <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: @Model.CreationDate</b></i><br>
-                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: @Model.ModificationDate</b></i>
+                            @if (Model.ModificationDate != null)
+                            {
+                                <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: @Model.ModificationDate</b></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: --/--/--</b></i>
+                            }
+                            
                             <div style="margin-top: 10px;">
                                 @Html.Label("Attachments")
                                 <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>

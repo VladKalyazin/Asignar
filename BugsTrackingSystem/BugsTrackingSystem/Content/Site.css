@@ -597,6 +597,12 @@ input[type=checkbox]:checked {
     font-size: 15px;
 }
 
+.project_link {
+    font-size: 15px;
+    color: #4D868D;
+    text-decoration: underline;
+}
+
 /*Profile*/
 
 .MyProfile {
