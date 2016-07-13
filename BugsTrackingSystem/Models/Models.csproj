@@ -33,6 +33,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +52,7 @@
     <Compile Include="GetHomePageViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="DefectAddEditViewModel.cs" />
+    <Compile Include="NewDefectViewModel.cs" />
     <Compile Include="PageInfo.cs" />
     <Compile Include="ProjectExtendedViewModel.cs" />
     <Compile Include="ProjectsViewModel.cs" />

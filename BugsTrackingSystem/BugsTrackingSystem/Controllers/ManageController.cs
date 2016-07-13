@@ -108,9 +108,34 @@ namespace BugsTrackingSystem.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult MakePartialView()
+        public ActionResult CreateNewTaskView()
         {
-            return PartialView("CreateNewTaskView");
+            var addDefect = new NewDefectViewModel
+            {
+                Projects = _dataService.Value.GetProjectNames(),
+                Users = _dataService.Value.GetUserNames(),
+                Priority = _dataService.Value.GetPrioritiesNames(),
+                Status = _dataService.Value.GetStatusNames()
+            };
+            return PartialView(addDefect);
+        }
+
+        [HttpPost]
+        public ActionResult AddNewTask()
+        {
+            var newTask = new DefectAddEditViewModel
+            {
+                Name = Request.Form["Name"],
+                ProjectId = Convert.ToInt32(Request.Form["Project"]),
+                PriorityId = Convert.ToInt32(Request.Form["Priority"]),
+                StatusId = Convert.ToInt32(Request.Form["Status"]),
+                UserId = Convert.ToInt32(Request.Form["Owner"]),
+                Description = Request.Form["Description"]
+            };
+
+            _dataService.Value.AddDefect(newTask);
+
+            return RedirectToAction("Task");
         }
 
         public ActionResult Users(int page = 1)

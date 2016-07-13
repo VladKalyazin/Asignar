@@ -57,8 +57,7 @@
 </div>
 
 @{
-    var model2 = new DefectAddEditViewModel();
-    @Html.Partial("CreateNewTaskView", model2)
+    Html.RenderAction("CreateNewTaskView", "Manage");
 }
 
 <div class="container body-content">

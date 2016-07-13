@@ -789,7 +789,6 @@ input[type=checkbox]:checked {
     background-color: #F8FEFE;
     font-size: small;
     border-color: #D9DDDD;
-    margin-left: 50px;
     height: 35px;
     width: 240px;
     color: #3F4747;
