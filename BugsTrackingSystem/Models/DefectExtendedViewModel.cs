@@ -29,6 +29,8 @@ namespace BugsTrackingSystem.Models
 
         public string PriorityPhoto { get; set; }
 
+        public string PriorityName { get; set; }
+
         public DateTime? CreationDate { get; set; }
 
         public DateTime? ModificationDate { get; set; }
