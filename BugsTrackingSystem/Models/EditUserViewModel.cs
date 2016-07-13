@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BugsTrackingSystem.Models
 {
-    public class UserSimpleViewModel
+    public class EditUserViewModel
     {
         public int UserId { get; set; }
 
@@ -16,12 +16,6 @@ namespace BugsTrackingSystem.Models
 
         public string Email { get; set; }
 
-        public int DefectsCount { get; set; }
-
-        public int ProjectsCount { get; set; }
-
-        public string UserPhoto { get; set; }
-
-        public string Role { get; set; }
+        public int RoleId { get; set; }
     }
 }
