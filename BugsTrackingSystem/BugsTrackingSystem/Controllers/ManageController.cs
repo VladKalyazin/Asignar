@@ -135,7 +135,7 @@ namespace BugsTrackingSystem.Controllers
 
             _dataService.Value.AddDefect(newTask);
 
-            return RedirectToAction("Task");
+            return RedirectToAction("Task", new { id = newTask.DefectId});
         }
 
         public ActionResult Users(int page = 1)
@@ -210,11 +210,12 @@ namespace BugsTrackingSystem.Controllers
         }
 
 
-        public ActionResult Task()
-		{
-            var tableHelper = new TableStorageHelper();
-            var comments = tableHelper.GetDefectComments(1);
-			return View(comments);
+        public ActionResult Task(int id)
+        {
+            DefectExtendedViewModel defectInfo = _dataService.Value.GetDefectExtendedInfo(id);
+
+
+            return View(defectInfo);
 		}
 
         protected override void Dispose(bool disposing)

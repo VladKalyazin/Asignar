@@ -51,7 +51,7 @@
                 <tbody>
                     @foreach (var defect in Model.Defects)
                     {
-                        <tr class="clickable-row" data-href="/Manage/Task">
+                        <tr class="clickable-row" data-href="/Manage/Task/@defect.DefectId">
                             <td class="col-xs-1">
                                 <img class="projectIcon" src="@defect.PriorityPhoto">
                             </td>

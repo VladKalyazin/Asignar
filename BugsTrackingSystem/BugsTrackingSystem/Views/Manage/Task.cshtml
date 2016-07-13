@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BugsTrackingSystem.Models.CommentViewModel>
+﻿@model BugsTrackingSystem.Models.DefectExtendedViewModel
 @{
     ViewBag.Title = "Task";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -87,14 +87,14 @@
                                         <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50" style="margin-top: -10px;"/>
                                     </li>
                                     <li>
-                                        <span>George Orwell</span><br>
-                                        <span>george-owell@@email.com</span>
+                                        <span>@Model.AssigneeUserName</span><br>
+                                        <span>@Model.AssigneeUserEmail</span>
                                     </li>
                                 </ul>
                             </a>
 
-                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: </b></i><br>
-                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: </b></i>
+                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: @Model.CreationDate</b></i><br>
+                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: @Model.ModificationDate</b></i>
                             <div style="margin-top: 10px;">
                                 @Html.Label("Attachments")
                                 <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
@@ -111,7 +111,7 @@
     <div class="detailBox">
         <div class="actionBox">
             <ul class="commentList">
-                @foreach (var comment in Model)
+                @foreach (var comment in Model.Comments)
             {
                     <li>
                         <div class="commenterImage">
