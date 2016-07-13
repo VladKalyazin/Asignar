@@ -31,7 +31,19 @@ namespace BugsTrackingSystem.Controllers
 
         }
 
-		public ActionResult Profile(int page = 1)
+        [ChildActionOnly]
+        public ActionResult ProfilePartial()
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            UserSimpleViewModel currentUser = _dataService.Value.GetUserInfo(id);
+
+            return PartialView(currentUser);
+        }
+
+        public ActionResult Profile(int page = 1)
 		{
             var authCookie = Request.Cookies["Auth"];
             var enc = authCookie.Value;
@@ -44,11 +56,15 @@ namespace BugsTrackingSystem.Controllers
                 PageSize = _pageSizeHome,
                 TotalItems = _dataService.Value.GetCountUserDefects(id)
             };
-            
+
+            var userProjects = _dataService.Value.GetUserProjects(id);
+
             var model = new UserProfileViewModel()
 		    {
                 UserDefects = defectsPerPages,
-                Paged = pageInfo
+                Paged = pageInfo,
+                User = _dataService.Value.GetUserInfo(id),
+                Projects = userProjects.Take(4)
             };
             
             return View(model);
@@ -195,6 +211,8 @@ namespace BugsTrackingSystem.Controllers
                SelectedItem = sortOrder,
                StraightSort = direction
             };
+
+            ViewBag.sortOrder = sortOrder;
             
             return View(model);
         }

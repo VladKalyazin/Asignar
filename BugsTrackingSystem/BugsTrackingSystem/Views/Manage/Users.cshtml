@@ -148,11 +148,11 @@
 
                     <ul class="list-inline icons">
                         <li style="margin-top: -15px; margin-left: -15px">
-                            @*if ()
-                            {*@
+                            @if (user.Role == "Admin")
+                            {
                                 <h5><span class="project_todo">Admin</span></h5>
-                            @*}
-                            if ()
+                            }
+                            @*if ()
                             {
                                 <h5><span class="project_progress">Me</span></h5>
                             }*@

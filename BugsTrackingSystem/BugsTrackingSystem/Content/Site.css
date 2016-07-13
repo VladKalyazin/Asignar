@@ -283,6 +283,14 @@ input:-ms-input-placeholder {
 
 /*Home*/
 
+#search_icon {
+    color: #F8FEFE;
+    font-size: 25px;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 10px;
+}
+
 .MyProjectsHome {
     background-color:white;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -636,7 +644,7 @@ input[type=checkbox]:checked {
 }
 
 .persInfo {
-    margin-left: -20px;
+    margin-left: -30px;
 }
 
 /*Filters*/

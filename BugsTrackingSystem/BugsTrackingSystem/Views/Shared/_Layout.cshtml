@@ -34,19 +34,13 @@
                     </ul>
                     <div class="nav navbar-nav navbar-right">
                         <div class="navbar-left">
-                            <div class="input-group stylish-input-group">
-                                <input type="text" class="form-control" id="searchText" placeholder="Search">
-                                <span class="input-group-addon">
-                                        <button type="submit">
-                                            <span class="glyphicon glyphicon-search" id="searchTool"></span>
-                                        </button>
-                                    </span>
-                            </div>
+                            <a href="#">
+                                <i id="search_icon" class="fa fa-search" aria-hidden="true"></i>
+                            </a>
                         </div>
                         <div class="navbar-right">
                             @{
-                                var model1 = new UserSimpleViewModel();
-                                @Html.Partial("ProfilePartial", model1)
+                                Html.RenderAction("ProfilePartial", "Manage");
                             }
                         </div>
                     </div>

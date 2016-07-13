@@ -113,9 +113,10 @@
             {
                     <li>
                         <div class="commenterImage">
-                            <img src="http://lorempixel.com/50/50/people/6" />
+                            <img src="@comment.UserPhoto" style="margin-top: 10px;"/>
                         </div>
                         <div class="commentText">
+                            <p><b>@comment.UserName</b></p>
                             <p class="">@comment.CommentText</p> <span class="date sub-text">@comment.CreationDate.ToString("HH:mm:ss dd.MM.yyyy")</span>
                         </div>
                     </li>
@@ -123,7 +124,7 @@
             </ul>
             <form class="form-inline" role="form">
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Your comments" />
+                    <input class="form-control" type="text" placeholder="Your comments" style="color: black"/>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-default">Add</button>

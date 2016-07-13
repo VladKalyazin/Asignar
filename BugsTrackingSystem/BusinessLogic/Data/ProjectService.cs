@@ -32,7 +32,8 @@ namespace AsignarServices.Data
         Title,
         Status,
         Date,
-        Users
+        Users,
+        Priority
     }
 
     public enum SortOrder
@@ -143,6 +144,7 @@ namespace AsignarServices.Data
                 string sortPropName = sortProp == DefectSortProperty.Title ? "Subject" :
                                         sortProp == DefectSortProperty.Status ? "DefectStatusID" :
                                         sortProp == DefectSortProperty.Date ? "CreationDate" :
+                                        sortProp == DefectSortProperty.Priority ? "DefectPriorityID" :
                                         "AssigneeUserID";
 
                 var defects = _databaseModel.Defects.Where((d) => d.ProjectID == projectId).

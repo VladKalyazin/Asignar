@@ -8,10 +8,12 @@ namespace BugsTrackingSystem.Models
 {
     public class UserProfileViewModel
     {
-        public IEnumerable<UserSimpleViewModel> User { get; set; }
+        public UserSimpleViewModel User { get; set; }
 
         public IEnumerable<DefectViewModel> UserDefects { get; set; }
 
         public PageInfo Paged { get; set; }
+        
+        public IEnumerable<ProjectViewModel> Projects { get; set; }
     }
 }

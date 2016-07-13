@@ -28,21 +28,27 @@
             </h1>
 
             <div class="col-md-3 col-xs-6 MyProfile">
-                <div class="col-md-4">
-                    <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
-                </div>
-                <div class="col-md-8 profName">
-                    <h4>George</h4>
-                    <h4>Orwell</h4>
-                </div>
-                <ul class="persInfo" style="list-style-type: none">
+                <ul class="list-inline">
+                    <li>
+                        <img class="img-circle" src="@Model.User.UserPhoto" width="50" height="50" style="margin-top: -10px;" />
+                    </li>
+                    <li>
+                        <span><b>@Model.User.FirstName</b></span><br>
+                        <span><b>@Model.User.Surname</b></span>
+                    </li>
+                </ul>
+                <ul class="persInfo" style="list-style-type: none; margin-top: 10px">
                     <li>
                         <p class="projText">Email:</p>
-                        <p>george-orwell@@email.com</p>
+                    </li>
+                    <li>
+                        <p>@Model.User.Email</p>
                     </li>
                     <li>
                         <p class="projText">Role:</p>
-                        <p>Common User</p>
+                    </li>
+                    <li>
+                        <p>@Model.User.Role</p>
                     </li>
                 </ul>
             </div>
@@ -125,10 +131,10 @@
             </h1>
             <div class="col-md-3 col-xs-6 MyProjectsProfile">
                 <ul>
-                    <li><a class="linkMyProject" href="/Manage/Project/1">The Titan</a></li>
-                    <li><a class="linkMyProject" href="/Manage/Project/2">The Financier</a></li>
-                    <li><a class="linkMyProject" href="/Manage/Project/3">The Stoic</a></li>
-                    <li><a class="linkMyProject" href="/Manage/Project/4">I, robot</a></li>
+                    @foreach(var project in Model.Projects)
+                    {
+                        <li><a class="linkMyProject" href="/Manage/Project/@project.ProjectId">@project.Name</a></li>
+                    }
                 </ul>
             </div>
         </div>
@@ -154,7 +160,7 @@
                             <img class="projectIcon" src="@defect.PriorityPhoto">
                         </td>
                         <td>
-                            <label>TDT-67</label> @*?????????????????????????????????????????????????????????????*@
+                            <label>@defect.Prefix</label>
                             <span class="project_todo">@defect.Status</span>
                             <p>@defect.Subject</p>
                         </td>

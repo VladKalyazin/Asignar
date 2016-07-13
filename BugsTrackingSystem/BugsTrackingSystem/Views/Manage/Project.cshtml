@@ -26,6 +26,11 @@
         {
             Text = "Users",
             Value = "Users"
+        },
+        new SelectListItem
+        {
+            Text = "Priority",
+            Value = "Priority"
         }
     };
 }
@@ -158,8 +163,8 @@
                 @using (Html.BeginForm("SortProject", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.Hidden("Id", Model.Project.ProjectId)
-
-                    @Html.DropDownList("drop-down", sorting, "Select", new {@class = "dropdown_sorting", onchange = "this.form.submit()", selected=Model.SelectedItem})
+                    string sort = ViewBag.sortOrder;
+                    @Html.DropDownList("drop-down", sorting, sort, new {@class = "dropdown_sorting", onchange = "this.form.submit()", selected=Model.SelectedItem})
                 }
             </li>
         </ul>
@@ -170,7 +175,7 @@
         @foreach (var data in Model.Project.Defects)
         {
             <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new {id = data.DefectId})">
-                <td>
+                <td style="width: 5%;">
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
                 <td>
