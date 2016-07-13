@@ -198,6 +198,7 @@ namespace AsignarServices.Data
             try
             {
                 _databaseModel.Users.First((u) => u.UserID == userId).Password = CalculateMD5HashWithSalt(newPassword);
+                _databaseModel.SaveChanges();
             }
             catch
             {
