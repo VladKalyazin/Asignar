@@ -136,7 +136,7 @@
                 <div class="col-md-3 col-xs-6 MyProjects">
                     <ul class="list-inline">
                         <li>
-                            <img class="img-circle" src="@user.UserPhoto" width="50" height="50" />
+                            <img class="img-circle" src="@user.UserPhoto" width="50" height="50" style="margin-top: -10px;" />
                         </li>
                         <li>
                             <span>@user.FirstName @user.Surname</span><br>
@@ -171,7 +171,7 @@
 </div>
 
 <div class="container">
-    <div class="col-xs-6">
+    <div class="col-xs-12">
         <br>
         <p>
             <i class="fa fa-users underContent" aria-hidden="true"> Users: @Html.Encode(Model.PageInfo.TotalItems)</i>

@@ -1,7 +1,9 @@
 ﻿.detailBox {
-    width:320px;
     border:1px solid #bbb;
-    margin:50px;
+    margin-top:50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 95%;
 }
 .titleBox {
     background-color:#fdfdfd;

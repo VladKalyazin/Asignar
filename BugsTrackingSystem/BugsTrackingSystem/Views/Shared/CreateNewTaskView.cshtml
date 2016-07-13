@@ -1,0 +1,69 @@
+﻿@model BugsTrackingSystem.Models.NewDefectViewModel
+
+@{
+    var projects = new List<SelectListItem>();
+    foreach (var project in Model.Projects)
+    {
+        projects.Add(new SelectListItem() {Text = project.Text, Value = project.Value});
+    }
+
+    var users = new List<SelectListItem>();
+    foreach (var user in Model.Users)
+    {
+        users.Add(new SelectListItem() { Text = user.Text, Value = user.Value });
+    }
+
+    var priority = new List<SelectListItem>();
+    foreach (var priorities in Model.Priority)
+    {
+        priority.Add(new SelectListItem() { Text = priorities.Text, Value = priorities.Value });
+    }
+
+    var status = new List<SelectListItem>();
+    foreach (var stat in Model.Status)
+    {
+        status.Add(new SelectListItem() { Text = stat.Text, Value = stat.Value });
+    }
+}
+
+<div id="add_task" title="Create new project">
+    @using (Html.BeginForm("AddNewTask", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-10">
+                    @Html.TextBox("Name", null, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Task name", required = true })
+                </div>
+            </div>
+            <div class="form-group" style="margin-left: 35px;">
+                <div class="col-xs-5">
+                    @Html.DropDownList("Project", projects, new { @class = "btnDropTask", placeholder = "Project" })
+                </div>
+                <div class="col-xs-5" style="margin-left: 20px;">
+                    @Html.DropDownList("Owner", users, new { @class = "btnDropTask", placeholder = "Owner" })
+                </div>
+            </div>
+            <div class="form-group" style="margin-left: 35px;">
+                <div class="col-xs-5">
+                    @Html.DropDownList("Priority", priority, new { @class = "btnDropTask", placeholder = "Priority" })
+                </div>
+                <div class="col-xs-5" style="margin-left: 20px;">
+                    @Html.DropDownList("Status", status, new { @class = "btnDropTask", placeholder = "Status" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-10">
+                    @Html.TextArea("Description", new { rows = 5, @class = "form-control descInput", placeholder = "Description", required = true })
+                </div>
+            </div>
+            <hr style="width: 500px">
+            <div class="attachments">
+                @Html.Label("Attachments")
+                <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="text-right">
+            <input type="submit" class="btn-pop btn-default" value="Create" />
+        </div>
+    }
+</div>

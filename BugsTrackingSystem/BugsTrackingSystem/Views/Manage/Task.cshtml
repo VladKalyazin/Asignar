@@ -24,73 +24,95 @@
     };
 }
 
-<div class="container">
+<div class="container top">
 
-    <div class="row top">
+    <div class="row">
 
         <div class="text-right">
             <i class="fa fa-pencil taskIcon" aria-hidden="true"></i>
             <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
             <i class="fa fa-trash taskIcon" aria-hidden="true"></i>
         </div>
+    </div>
 
-        <div class="top-buffer">
-            <div class="col-md-8 col-xs-12">
-                <div id="currentTask">
-                    <div class="col-md-8 text-left">
-                        <span class="taskPriority"><b>Priority:</b></span>
-                        <img src="~/images/icon_up.png"/>
-                        <span id="statusMajor">Major</span>
-                    </div>
-                    <div class="col-md-4 text-right">
-                        <span class="taskPriority"><b>Status:</b></span>
-                        @Html.DropDownList("drop-down", items, new { @class = "btnDropTaskPage" })
-                    </div>
-                    <br><hr>
-                    <div class="taskText">
-                        <p>Steps to reproduce:<br>
-                            1. Log in to the Cloud Universe app<br>
-                            2. Tap on the volume information button<br>
-                            3. Tap the 'Get Link' button on the 'Information' screen<br>
-                            <br>
-                            Actual result:<br>
-                            The 'Request failed: forbidden (403)' error message was displayed (Please see screenshot<br>
-                            attached)<br>
-                            <br>
-                            Expected result:<br>
-                            The 'Get Link' screen is displayed<br>
-                        </p>
+    <div class="top-buffer">
+        <div class="col-md-12 col-xs-12">
+            
+            <div class="row">
+                <div class="col-md-8 col-xs-12" style="padding: 15px;">
+                    <div id="currentTask">
+                        <div class="col-md-8 text-left">
+                            <span class="taskPriority"><b>Priority:</b></span>
+                            <img src="~/images/icon_up.png"/>
+                            <span id="statusMajor">Major</span>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <span class="taskPriority"><b>Status:</b></span>
+                            @Html.DropDownList("drop-down", items, new {@class = "btnDropTaskPage"})
+                        </div>
+                        <br><hr>
+                        <div class="taskText">
+                            <p>
+                                Steps to reproduce:<br>
+                                1. Log in to the Cloud Universe app<br>
+                                2. Tap on the volume information button<br>
+                                3. Tap the 'Get Link' button on the 'Information' screen<br>
+                                <br>
+                                Actual result:<br>
+                                The 'Request failed: forbidden (403)' error message was displayed (Please see screenshot<br>
+                                attached)<br>
+                                <br>
+                                Expected result:<br>
+                                The 'Get Link' screen is displayed<br>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4 col-xs-12">
-                <div id="currentProfile">
-                    <div class="top-buffer">
-                        <div class="col-md-6 text-left">
-                            <span class="taskPriority"><b>Assignee:</b></span>
+                <div class="col-md-4 col-xs-12" style="padding: 15px;">
+                    <div id="currentProfile" style="padding-left: 20px">
+                        <div class="top-buffer">
+                            <ul class="list-inline">
+                                <li>
+                                    <span class="taskPriority"><b>Assignee:</b></span>
+                                </li>
+                                <li style="float: right !important;">
+                                    <a class="taskAssignee" href="#">Assign to me</a>
+                                </li>
+                            </ul>
+
+                            <a href="@Url.Action("Profile", "Manage")" class="projectsPage">
+                                <ul class="list-inline">
+                                    <li>
+                                        <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50" style="margin-top: -10px;"/>
+                                    </li>
+                                    <li>
+                                        <span>George Orwell</span><br>
+                                        <span>george-owell@@email.com</span>
+                                    </li>
+                                </ul>
+                            </a>
+
+                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: </b></i><br>
+                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: </b></i>
+                            <div style="margin-top: 10px;">
+                                @Html.Label("Attachments")
+                                <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
+                            </div>
                         </div>
-                        <div class="col-md-6 text-right">
-                            <a class="taskAssignee" href="#">Assign to me</a>
-                        </div>
-                        <div class="text-left">
-                            <img src="~/images/orwell.jpg" class="img-circle" height="50" width="50" alt="no image"/>
-                            <p>George Orwell</p>
-                            <p>george-owell@@email.com</p>
-                        </div>
-                        <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: </b></i><br>
-                        <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: </b></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<div class="container">
     <div class="detailBox">
         <div class="actionBox">
             <ul class="commentList">
                 @foreach (var comment in Model)
-                {
+            {
                     <li>
                         <div class="commenterImage">
                             <img src="http://lorempixel.com/50/50/people/6" />
@@ -111,6 +133,5 @@
             </form>
         </div>
     </div>
-
 </div>
 
