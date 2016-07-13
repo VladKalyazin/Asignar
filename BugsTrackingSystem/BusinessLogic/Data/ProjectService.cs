@@ -90,6 +90,19 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public void EditProject(int projectId, string name)
+        {
+            try
+            {
+                _databaseModel.Projects.First((p) => p.ProjectID == projectId).ProjectName = name;
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
         public int GetCountOfProjects() =>
             _databaseModel.Projects.Count();
 

@@ -70,7 +70,7 @@ namespace AsignarServices.AzureStorage
                     CommentText = entity.CommentText,
                     CreationDate = DateTime.ParseExact(entity.RowKey, CommentEntity.RowKeyFormat, CultureInfo.InvariantCulture).ToLocalTime(),
                     UserPhoto = db.Users.First((u) => u.UserID == entity.UsedID).PhotoLink,
-                    UserName = db.Users.First((u) => u.UserID == entity.UsedID).FirstName +
+                    UserName = db.Users.First((u) => u.UserID == entity.UsedID).FirstName + " " +
                         db.Users.First((u) => u.UserID == entity.UsedID).Surname
                 });
 

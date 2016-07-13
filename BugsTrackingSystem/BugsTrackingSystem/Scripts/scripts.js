@@ -1,8 +1,9 @@
 ﻿$(document).ready(function ($) {
     $(".clickable-row").click(function () {
         window.document.location = $(this).data("href");
-    });
+    });    
 });
+
 
 $("input[type='checkbox']").change(function () {
     if ($(this).is(":checked")) {
@@ -48,6 +49,7 @@ $("#opener").click(function () {
 $("#open_user").click(function () {
     $("#add_user").css({ 'display': "inline" });
     $("#add_user").dialog("open");
+    activatePlaceholders();
 });
 
 $(function () {
@@ -182,3 +184,30 @@ $("#open_edit").click(function () {
     $("#edit_project").css({ 'display': "inline" });
     $("#edit_project").dialog("open");
 });
+
+
+function activatePlaceholders() {
+    $('[placeholder]').parents('form').submit(function () {
+        $(this).find('[placeholder]').each(function () {
+            var input = $(this);
+            if (input.val() == input.attr('placeholder')) {
+                input.val('');
+            }
+        })
+    });
+
+    $('[placeholder]').focus(function () {
+        var input = $(this);
+        if (input.val() == input.attr('placeholder')) {
+            input.val('');
+            input.removeClass('placeholder');
+        }
+    }).blur(function () {
+        var input = $(this);
+        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+            input.addClass('placeholder');
+            input.val(input.attr('placeholder'));
+        }
+    }).blur();
+}
+
