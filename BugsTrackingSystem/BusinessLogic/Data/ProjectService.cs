@@ -191,5 +191,65 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public ProjectExtendedViewModel GetFullProjectInfo(int projectId, int countOfSet, int page,
+                    DefectSortProperty sortProp = DefectSortProperty.Title, 
+                    SortOrder sortOrder = SortOrder.Ascending)
+        {
+            try
+            {
+                string sortPropName = sortProp == DefectSortProperty.Title ? "Subject" :
+                                        sortProp == DefectSortProperty.Status ? "DefectStatusID" :
+                                        sortProp == DefectSortProperty.Date ? "CreationDate" :
+                                        "AssigneeUserID";
+
+                var defects = _databaseModel.Defects.Where((d) => d.ProjectID == projectId).
+                            OrderBy(sortPropName, sortOrder == SortOrder.Descending ? true : false).
+                            Skip(page * countOfSet).Take(countOfSet).
+                            Select((defect) => new DefectViewModel
+                            {
+                                DefectId = defect.DefectID,
+                                Subject = defect.Subject,
+                                AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                                Status = defect.DefectStatus.StatusName,
+                                PriorityPhoto = defect.DefectPriority.PhotoLink,
+                                AssigneeUserPhoto = defect.User.PhotoLink,
+                                CreationDate = defect.CreationDate,
+                                ModificationDate = defect.ModificationDate
+                            }).ToList();
+
+                var result = (from project in _databaseModel.Projects
+                              where project.ProjectID == projectId
+                              select new ProjectExtendedViewModel
+                              {
+                                  ProjectId = project.ProjectID,
+                                  Name = project.ProjectName,
+                                  Prefix = project.Prefix,
+                                  UsersCount = project.Users.Count,
+                                  DefectsCount = project.Defects.Count,
+                                  Users = (from user in project.Users
+                                           select new UserSimpleViewModel
+                                           {
+                                               UserId = user.UserID,
+                                               FirstName = user.FirstName,
+                                               Surname = user.Surname,
+                                               Email = user.Email,
+                                               DefectsCount = user.Defects.Count,
+                                               ProjectsCount = user.Projects.Count,
+                                               UserPhoto = user.PhotoLink
+                                           }).ToList()
+                              }).FirstOrDefault();
+
+                result.Defects = defects;
+
+                return result;
+            }
+            catch
+            {
+                //TODO exceptions
+            }
+
+            return null;
+        }
+
     }
 }

@@ -10,6 +10,14 @@ using System.Security.Cryptography;
 
 namespace AsignarServices.Data
 {
+    public enum UserSortProperty
+    {
+        Name,
+        Email,
+        Projects,
+        Defects
+    }
+
     public partial class AsignarDataService : IDisposable
     {
         private const string _hashSalt = "wFZXS7z35VAh9NwfyBoM";

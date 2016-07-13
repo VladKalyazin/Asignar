@@ -6,53 +6,54 @@ using System.Threading.Tasks;
 using AsignarDBEntities;
 using AsignarServices.AzureStorage;
 using BugsTrackingSystem.Models;
+using System.Web.Mvc;
 
 namespace AsignarServices.Data
 {
     public partial class AsignarDataService : IDisposable
     {
-        public IEnumerable<DropdownItem> GetProjectNames()
+        public IEnumerable<SelectListItem> GetProjectNames()
         {
-            return _databaseModel.Projects.Select((p) => new DropdownItem
+            return _databaseModel.Projects.Select((p) => new SelectListItem
             {
-                Id = p.ProjectID,
-                Name = p.ProjectName
+                Value = p.ProjectID.ToString(),
+                Text = p.ProjectName
             }).ToList();
         }
 
-        public IEnumerable<DropdownItem> GetUserNames()
+        public IEnumerable<SelectListItem> GetUserNames()
         {
-            return _databaseModel.Users.Select((u) => new DropdownItem
+            return _databaseModel.Users.Select((u) => new SelectListItem
             {
-                Id = u.UserID,
-                Name = u.FirstName + " " + u.Surname
+                Value = u.UserID.ToString(),
+                Text = u.FirstName + " " + u.Surname
             }).ToList();
         }
 
-        public IEnumerable<DropdownItem> GetPrioritiesNames()
+        public IEnumerable<SelectListItem> GetPrioritiesNames()
         {
-            return _databaseModel.DefectPriorities.Select((dp) => new DropdownItem
+            return _databaseModel.DefectPriorities.Select((dp) => new SelectListItem
             {
-                Id = dp.DefectPriorityID,
-                Name = dp.PriorityName
+                Value = dp.DefectPriorityID.ToString(),
+                Text = dp.PriorityName
             }).ToList();
         }
 
-        public IEnumerable<DropdownItem> GetStatusNames()
+        public IEnumerable<SelectListItem> GetStatusNames()
         {
-            return _databaseModel.DefectStatuses.Select((s) => new DropdownItem
+            return _databaseModel.DefectStatuses.Select((s) => new SelectListItem
             {
-                Id = s.DefectStatusID,
-                Name = s.StatusName
+                Value = s.DefectStatusID.ToString(),
+                Text = s.StatusName
             }).ToList();
         }
 
-        public IEnumerable<DropdownItem> GetRoleNames()
+        public IEnumerable<SelectListItem> GetRoleNames()
         {
-            return _databaseModel.Roles.Select((r) => new DropdownItem
+            return _databaseModel.Roles.Select((r) => new SelectListItem
             {
-                Id = r.RoleID,
-                Name = r.RoleName
+                Value = r.RoleID.ToString(),
+                Text = r.RoleName
             }).ToList();
         }
     }
