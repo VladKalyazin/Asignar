@@ -7,7 +7,6 @@ using AsignarDBEntities;
 using AsignarServices.AzureStorage;
 using BugsTrackingSystem.Models;
 
-
 namespace AsignarServices.Data
 {
     public partial class AsignarDataService : IDisposable
@@ -66,6 +65,41 @@ namespace AsignarServices.Data
                             CreationDate = defect.CreationDate,
                             ModificationDate = defect.ModificationDate
                         }).Skip(page * countOfSet).Take(countOfSet).ToList();
+            }
+            catch (Exception)
+            {
+                //TODO exceptions
+            }
+
+            return null;
+        }
+
+        public DefectExtendedViewModel GetDefectExtendedInfo(int defectId)
+        {
+            try
+            {
+                var result = (from defect in _databaseModel.Defects
+                              where defect.DefectID == defectId
+                              select new DefectExtendedViewModel
+                              {
+                                  DefectId = defect.DefectID,
+                                  Subject = defect.Subject,
+                                  AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                                  StatusId = defect.DefectStatusID,
+                                  PriorityPhoto = defect.DefectPriority.PhotoLink,
+                                  AssigneeUserPhoto = defect.User.PhotoLink,
+                                  AssigneeUserEmail = defect.User.Email,
+                                  CreationDate = defect.CreationDate,
+                                  ModificationDate = defect.ModificationDate,
+                                  Description = defect.Description,
+                              }).SingleOrDefault();
+
+                result.StatusesList = GetStatusNames();
+
+                TableStorageHelper tableHelper = new TableStorageHelper();
+                result.Comments = tableHelper.GetDefectComments(defectId);
+
+                return result;
             }
             catch (Exception)
             {

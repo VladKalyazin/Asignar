@@ -13,10 +13,12 @@ namespace AsignarServices.AzureStorage
 {
     public class CommentEntity : TableEntity
     {
+        public const string RowKeyFormat = "yyyyMMddHHmmssffff";
+
         public CommentEntity(DateTime creationDate, string commentText, int userId, int defectId)
         {
             this.PartitionKey = defectId.ToString();
-            this.RowKey = creationDate.ToString("yyyy-MM-dd HH:mm:ss");
+            this.RowKey = creationDate.ToString(RowKeyFormat);
             this.UsedID = userId;
             this.CommentText = commentText;
         }
@@ -43,26 +45,12 @@ namespace AsignarServices.AzureStorage
             _tableClient = _storageAccount.CreateCloudTableClient();
         }
 
-        public void InsertComments()
+        public void InsertComments(int defectId, int userId, string text)
         {
             CloudTable table = _tableClient.GetTableReference("DefectComments");
 
-            TableOperation insertOperation0 = TableOperation.Insert(new CommentEntity(DateTime.UtcNow.AddHours(-5), "I write a first comment", 2, 1));
-            TableOperation insertOperation1 = TableOperation.Insert(new CommentEntity(DateTime.UtcNow.AddHours(-4), "I write a second comment", 3, 1));
-            TableOperation insertOperation2 = TableOperation.Insert(new CommentEntity(DateTime.UtcNow.AddHours(-3), "I write a third comment", 4, 1));
-            TableOperation insertOperation3 = TableOperation.Insert(new CommentEntity(DateTime.UtcNow.AddHours(-2), "I write a fourth comment", 2, 1));
-            TableOperation insertOperation4 = TableOperation.Insert(new CommentEntity(DateTime.UtcNow.AddHours(-1), "I write a fifth comment", 1, 1));
-            TableOperation insertOperation5 = TableOperation.Insert(new CommentEntity(DateTime.UtcNow.AddHours(0), "I write a sixth comment", 2, 1));
-
-            TableBatchOperation batchOperation = new TableBatchOperation();
-            batchOperation.Insert(0, insertOperation0);
-            batchOperation.Insert(0, insertOperation1);
-            batchOperation.Insert(0, insertOperation2);
-            batchOperation.Insert(0, insertOperation3);
-            batchOperation.Insert(0, insertOperation4);
-            batchOperation.Insert(0, insertOperation5);
-
-            table.ExecuteBatch(batchOperation);
+            TableOperation insertOperation = TableOperation.Insert(new CommentEntity(DateTime.UtcNow, text, userId, defectId));
+            table.Execute(insertOperation);
         }
 
         public IEnumerable<CommentViewModel> GetDefectComments(int defectId)
@@ -74,7 +62,7 @@ namespace AsignarServices.AzureStorage
             IEnumerable<CommentViewModel> result = table.ExecuteQuery(query).Select(entity => new CommentViewModel
             {
                 CommentText = entity.CommentText,
-                CreationDate = DateTime.ParseExact(entity.RowKey, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture).ToLocalTime()
+                CreationDate = DateTime.ParseExact(entity.RowKey, CommentEntity.RowKeyFormat, CultureInfo.InvariantCulture).ToLocalTime()
             });
 
             return result;
