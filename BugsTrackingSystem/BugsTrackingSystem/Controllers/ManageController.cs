@@ -107,6 +107,12 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Projects");
         }
 
+        [ChildActionOnly]
+        public ActionResult MakePartialView()
+        {
+            return PartialView("CreateNewTaskView");
+        }
+
         public ActionResult Users(int page = 1)
 		{
             var usersPerPages = _dataService.Value.GetAllUsers(_pageSize, page - 1).ToList();
