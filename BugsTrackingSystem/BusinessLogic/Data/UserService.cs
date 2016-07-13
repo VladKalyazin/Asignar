@@ -97,8 +97,8 @@ namespace AsignarServices.Data
                            Email = user.Email,
                            DefectsCount = user.Defects.Count,
                            ProjectsCount = user.Projects.Count,
-                           UserPhoto = user.PhotoLink
-                           //Role = user.Role
+                           UserPhoto = user.PhotoLink,
+                           Role = user.Role.RoleName
                        };
             }
             catch
@@ -133,6 +133,59 @@ namespace AsignarServices.Data
 
             return null;
         }
+
+        public UserSimpleViewModel GetUserInfo(int userId)
+        {
+            try
+            {
+                return _databaseModel.Users.Where((u) => u.UserID == userId).
+                        Select((u) => new UserSimpleViewModel
+                        {
+                            UserId = u.UserID,
+                            FirstName = u.FirstName,
+                            Surname = u.Surname,
+                            Email = u.Email,
+                            Role = u.Role.RoleName,
+                            UserPhoto = u.PhotoLink,
+                            ProjectsCount = u.Projects.Count,
+                            DefectsCount = u.Defects.Count
+                        }).FirstOrDefault();
+            }
+            catch
+            {
+                //TODO
+            }
+
+            return null;
+        }
+
+        public void EditUser(EditUserViewModel user)
+        {
+            try
+            {
+                var editEntity = _databaseModel.Users.First((u) => u.UserID == user.UserId);
+                editEntity.FirstName = user.FirstName;
+                editEntity.Surname = user.Surname;
+                editEntity.RoleID = user.RoleId;
+                editEntity.Email = user.Email;
+
+                _databaseModel.Users.Attach(editEntity);
+
+                var entry = _databaseModel.Entry(editEntity);
+                entry.Property((u) => u.FirstName).IsModified = true;
+                entry.Property((u) => u.Surname).IsModified = true;
+                entry.Property((u) => u.RoleID).IsModified = true;
+                entry.Property((u) => u.Email).IsModified = true;
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
+
 
         public static string CalculateMD5HashWithSalt(string input)
             => _CalculateMD5Hash(_CalculateMD5Hash(input) + _hashSalt);
