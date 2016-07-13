@@ -13,6 +13,8 @@ namespace BugsTrackingSystem.Models
 
         public string Subject { get; set; }
 
+        public int ProjectId { get; set; }
+
         public string ProjectName { get; set; }
 
         public string Prefix { get; set; }

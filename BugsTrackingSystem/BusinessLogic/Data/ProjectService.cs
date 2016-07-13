@@ -119,7 +119,7 @@ namespace AsignarServices.Data
             var newProject = new AsignarDBEntities.Project
             {
                 ProjectName = projectModel.Name,
-                Prefix = projectModel.Prefix,
+                Prefix = projectModel.Prefix.ToUpper(),
                 CreationDate = DateTime.UtcNow
             };
 
@@ -127,6 +127,8 @@ namespace AsignarServices.Data
             {
                 _databaseModel.Projects.Add(newProject);
                 _databaseModel.SaveChanges();
+
+                projectModel.ProjectId = newProject.ProjectID;
             }
             catch
             {

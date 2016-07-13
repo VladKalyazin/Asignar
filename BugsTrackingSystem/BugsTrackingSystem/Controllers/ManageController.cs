@@ -103,7 +103,7 @@ namespace BugsTrackingSystem.Controllers
 
             _dataService.Value.AddProject(newProject);
 
-            return RedirectToAction("Projects");
+            return RedirectToAction("Project", new {id = newProject.ProjectId});
         }
 
         [ChildActionOnly]

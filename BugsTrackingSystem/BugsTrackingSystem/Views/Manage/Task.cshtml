@@ -4,22 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var items = new List<SelectListItem>();
-    foreach(var status in Model.StatusesList)
+    foreach (var status in Model.StatusesList)
     {
-        items.Add(new SelectListItem() {Text = status.Text, Value = status.Value});
+        items.Add(new SelectListItem() { Text = status.Text, Value = status.Value });
     }
 }
 
 <div class="container top">
 
     <div style="margin-left: 20px;">
-        <a href="Manage/Project/" class="project_link">Project</a>
-        <span style="font-size: 15px"> / TDT-13</span>
-        <p style="font-size: 20px"><b>@Model.Subject</b></p>
+        <a href="@Url.Action("Project", "Manage", new {id = Model.ProjectId})" class="project_link">@Model.ProjectName</a>
+        <span style="font-size: 15px"> / @Model.Prefix</span>
+        <p style="font-size: 20px">
+            <b>@Model.Subject</b>
+        </p>
     </div>
-
+    
     <div class="row">
-
         <div class="text-right">
             <i class="fa fa-pencil taskIcon" aria-hidden="true"></i>
             <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
@@ -36,7 +37,18 @@
                         <div class="col-md-8 text-left">
                             <span class="taskPriority"><b>Priority:</b></span>
                             <img src="@Model.PriorityPhoto"/>
-                            <span id="statusMajor"></span>
+                            @if (Model.PriorityName == "Major")
+                            {
+                                <span style="color: #F69C00;"><b>@Model.PriorityName</b></span>
+                            }
+                            else if (Model.PriorityName == "Minor")
+                            {
+                                <span style="color: #B3ABA8;"><b>@Model.PriorityName</b></span>
+                            }
+                            else
+                            {
+                                <span style="color: #CD4C24;"><b>@Model.PriorityName</b></span>
+                            }
                         </div>
                         <div class="col-md-4 text-right">
                             <span class="taskPriority"><b>Status:</b></span>

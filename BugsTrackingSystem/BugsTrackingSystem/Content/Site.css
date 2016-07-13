@@ -572,10 +572,6 @@ input[type=checkbox]:checked {
     font-size: 15px;
 }
 
-#statusMajor {
-    color: #F69C00;
-}
-
 .btnDrop {
     background-color: white;
     border: solid 1px;

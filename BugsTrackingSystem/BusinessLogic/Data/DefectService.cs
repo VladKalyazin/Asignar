@@ -68,6 +68,7 @@ namespace AsignarServices.Data
                                   DefectId = defect.DefectID,
                                   Subject = defect.Subject,
                                   Prefix = defect.Project.Prefix + "-" + defect.DefectID,
+                                  ProjectId = defect.ProjectID,
                                   ProjectName = defect.Project.ProjectName,
                                   AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                   StatusId = defect.DefectStatusID,
@@ -99,7 +100,7 @@ namespace AsignarServices.Data
         {
             try
             {
-                _databaseModel.Defects.Add(new Defect
+                var newDefect = new Defect
                 {
                     Subject = defect.Name,
                     ProjectID = defect.ProjectId,
@@ -108,9 +109,11 @@ namespace AsignarServices.Data
                     DefectStatusID = defect.StatusId,
                     Description = defect.Description,
                     CreationDate = DateTime.UtcNow
-                });
-
+                };
+                _databaseModel.Defects.Add(newDefect);
                 _databaseModel.SaveChanges();
+
+                defect.DefectId = newDefect.DefectID;
             }
             catch (Exception)
             {
