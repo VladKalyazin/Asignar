@@ -185,6 +185,18 @@ namespace AsignarServices.Data
             }
         }
 
+        public void ChangeUserPassword(int userId, string newPassword)
+        {
+            try
+            {
+                _databaseModel.Users.First((u) => u.UserID == userId).Password = CalculateMD5HashWithSalt(newPassword);
+            }
+            catch
+            {
+
+            }
+        }
+
 
 
         public static string CalculateMD5HashWithSalt(string input)
