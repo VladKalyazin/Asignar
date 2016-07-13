@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugsTrackingSystem.Models;
 using AsignarServices.Data;
+using BugsTrackingSystem.Filters;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -47,14 +48,15 @@ namespace BugsTrackingSystem.Controllers
                 int? userId = _dataService.Value.ValidateUser(model);
                 if (userId != null)
                 {
-                    var userToken = new FormsAuthenticationTicket(1, userId.Value.ToString(), DateTime.Now, DateTime.Now.AddMinutes(10),
+                    var userToken = new FormsAuthenticationTicket(1, userId.Value.ToString(), DateTime.Now,
+                        model.RememberMe ? DateTime.Now.AddMonths(1) : DateTime.Now.AddMinutes(10),
                         model.RememberMe, _dataService.Value.GetRoleByUserId(userId.Value));
                     var headerToken = FormsAuthentication.Encrypt(userToken);
 
                     if (!string.IsNullOrEmpty(headerToken))
                     {
                         var authCookie = new HttpCookie("Auth", headerToken);
-                        authCookie.Expires = DateTime.Now.AddMonths(1);
+                        authCookie.Expires = model.RememberMe ? DateTime.Now.AddMonths(1) : DateTime.Now.AddMinutes(10);
                         Response.Cookies.Add(authCookie);
                         return RedirectToAction("Home", "Manage");
                     }
@@ -70,6 +72,15 @@ namespace BugsTrackingSystem.Controllers
             }
 
             return View(model);
+        }
+
+        [AsignarAuthenticate]
+        [AsignarAuthorize]
+        public ActionResult Logout()
+        {
+            Response.Cookies.Add(new HttpCookie("Auth", null));
+            Session.Abandon();
+            return RedirectToAction("Home", "Manage");
         }
 
         protected override void Dispose(bool disposing)

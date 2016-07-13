@@ -149,6 +149,7 @@ namespace AsignarServices.Data
                             {
                                 DefectId = defect.DefectID,
                                 Subject = defect.Subject,
+                                Prefix = defect.Project.Prefix + "-" + defect.DefectID,
                                 AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                 Status = defect.DefectStatus.StatusName,
                                 PriorityPhoto = defect.DefectPriority.PhotoLink,
@@ -209,6 +210,7 @@ namespace AsignarServices.Data
                             {
                                 DefectId = defect.DefectID,
                                 Subject = defect.Subject,
+                                Prefix = defect.Project.Prefix + "-" + defect.DefectID,
                                 AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                 Status = defect.DefectStatus.StatusName,
                                 PriorityPhoto = defect.DefectPriority.PhotoLink,

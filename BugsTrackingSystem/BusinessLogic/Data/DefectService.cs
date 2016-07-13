@@ -11,23 +11,6 @@ namespace AsignarServices.Data
 {
     public partial class AsignarDataService : IDisposable
     {
-        public DefectViewModel GetDefect(int defectId)
-        {
-            return (from defect in _databaseModel.Defects
-                    where defect.DefectID == defectId
-                    select new DefectViewModel
-                    {
-                        DefectId = defect.DefectID,
-                        Subject = defect.Subject,
-                        AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
-                        Status = defect.DefectStatus.StatusName,
-                        PriorityPhoto = defect.DefectPriority.PhotoLink,
-                        AssigneeUserPhoto = defect.User.PhotoLink,
-                        CreationDate = defect.CreationDate,
-                        ModificationDate = defect.ModificationDate
-                    }).SingleOrDefault();
-        }
-
         public IEnumerable<DefectViewModel> GetUserDefects(int userId)
         {
             return (from defect in _databaseModel.Defects
@@ -84,8 +67,11 @@ namespace AsignarServices.Data
                               {
                                   DefectId = defect.DefectID,
                                   Subject = defect.Subject,
+                                  Prefix = defect.Project.Prefix + "-" + defect.DefectID,
+                                  ProjectName = defect.Project.ProjectName,
                                   AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                   StatusId = defect.DefectStatusID,
+                                  PriorityName = defect.DefectPriority.PriorityName,
                                   PriorityPhoto = defect.DefectPriority.PhotoLink,
                                   AssigneeUserPhoto = defect.User.PhotoLink,
                                   AssigneeUserEmail = defect.User.Email,
