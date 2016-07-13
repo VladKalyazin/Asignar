@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugsTrackingSystem.Models;
 using AsignarServices.Data;
+using BugsTrackingSystem.Filters;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -71,6 +72,15 @@ namespace BugsTrackingSystem.Controllers
             }
 
             return View(model);
+        }
+
+        [AsignarAuthenticate]
+        [AsignarAuthorize]
+        public ActionResult Logout()
+        {
+            Response.Cookies.Add(new HttpCookie("Auth", null));
+            Session.Abandon();
+            return RedirectToAction("Home", "Manage");
         }
 
         protected override void Dispose(bool disposing)
