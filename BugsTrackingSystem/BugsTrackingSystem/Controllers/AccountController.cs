@@ -48,12 +48,14 @@ namespace BugsTrackingSystem.Controllers
                 if (userId != null)
                 {
                     var userToken = new FormsAuthenticationTicket(1, userId.Value.ToString(), DateTime.Now, DateTime.Now.AddMinutes(10),
-                        false, _dataService.Value.GetRoleByUserId(userId.Value));
+                        model.RememberMe, _dataService.Value.GetRoleByUserId(userId.Value));
                     var headerToken = FormsAuthentication.Encrypt(userToken);
 
                     if (!string.IsNullOrEmpty(headerToken))
                     {
-                        Response.Cookies.Add(new HttpCookie("Auth", headerToken));
+                        var authCookie = new HttpCookie("Auth", headerToken);
+                        authCookie.Expires = DateTime.Now.AddMonths(1);
+                        Response.Cookies.Add(authCookie);
                         return RedirectToAction("Home", "Manage");
                     }
                     else

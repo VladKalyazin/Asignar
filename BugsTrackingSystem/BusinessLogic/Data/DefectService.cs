@@ -97,7 +97,7 @@ namespace AsignarServices.Data
                 result.StatusesList = GetStatusNames();
 
                 TableStorageHelper tableHelper = new TableStorageHelper();
-                result.Comments = tableHelper.GetDefectComments(defectId);
+                result.Comments = tableHelper.GetDefectComments(defectId, _databaseModel);
 
                 return result;
             }

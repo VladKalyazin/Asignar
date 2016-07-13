@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Transactions;
 using System.Globalization;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using BugsTrackingSystem.Models;
+using AsignarDBEntities;
 
 namespace AsignarServices.AzureStorage
 {
@@ -53,19 +57,28 @@ namespace AsignarServices.AzureStorage
             table.Execute(insertOperation);
         }
 
-        public IEnumerable<CommentViewModel> GetDefectComments(int defectId)
+        public IEnumerable<CommentViewModel> GetDefectComments(int defectId, AsignarDatabaseModel db)
         {
             CloudTable table = _tableClient.GetTableReference("DefectComments");
             string filter = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, defectId.ToString());
             TableQuery<CommentEntity> query = new TableQuery<CommentEntity>().Where(filter);
 
-            IEnumerable<CommentViewModel> result = table.ExecuteQuery(query).Select(entity => new CommentViewModel
+            using (var dbContextTransaction = db.Database.BeginTransaction())
             {
-                CommentText = entity.CommentText,
-                CreationDate = DateTime.ParseExact(entity.RowKey, CommentEntity.RowKeyFormat, CultureInfo.InvariantCulture).ToLocalTime()
-            });
+                IEnumerable<CommentViewModel> result = table.ExecuteQuery(query).Select(entity => new CommentViewModel
+                {
+                    CommentText = entity.CommentText,
+                    CreationDate = DateTime.ParseExact(entity.RowKey, CommentEntity.RowKeyFormat, CultureInfo.InvariantCulture).ToLocalTime(),
+                    UserPhoto = db.Users.First((u) => u.UserID == entity.UsedID).PhotoLink,
+                    UserName = db.Users.First((u) => u.UserID == entity.UsedID).FirstName +
+                        db.Users.First((u) => u.UserID == entity.UsedID).Surname
+                });
 
-            return result;
+                dbContextTransaction.Commit();
+
+                return result;
+            }
+
         }
     }
 }

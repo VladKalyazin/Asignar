@@ -13,7 +13,6 @@ using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
 using BugsTrackingSystem.Filters;
-using System.Web.Security;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -181,9 +180,7 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Task()
 		{
-            var tableHelper = new TableStorageHelper();
-            var comments = tableHelper.GetDefectComments(1);
-			return View(comments);
+			return View();
 		}
 
         protected override void Dispose(bool disposing)
