@@ -10,6 +10,8 @@ namespace BugsTrackingSystem.Models
     {
         public int DefectId { get; set; }
 
+        public string Prefix { get; set; }
+
         public string Subject { get; set; }
 
         public string AssigneeUserName { get; set; }
