@@ -13,7 +13,6 @@ using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
 using BugsTrackingSystem.Filters;
-using System.Web.Security;
 
 namespace BugsTrackingSystem.Controllers
 {
