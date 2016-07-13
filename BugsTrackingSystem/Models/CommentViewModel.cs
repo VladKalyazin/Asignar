@@ -11,5 +11,9 @@ namespace BugsTrackingSystem.Models
         public DateTime CreationDate { get; set; }
 
         public string CommentText { get; set; }
+
+        public string UserPhoto { get; set; }
+
+        public string UserName { get; set; }
     }
 }

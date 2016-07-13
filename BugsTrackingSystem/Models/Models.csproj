@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AddNewUserToProjectViewModel.cs" />
     <Compile Include="CommentViewModel.cs" />
+    <Compile Include="DefectExtendedViewModel.cs" />
     <Compile Include="DefectViewModel.cs" />
     <Compile Include="DropdownItem.cs" />
     <Compile Include="EditUserViewModel.cs" />
