@@ -208,12 +208,14 @@ function activatePlaceholders() {
         if (input.val() == input.attr('placeholder')) {
             input.val('');
             input.removeClass('placeholder');
+            input.css({ 'color': 'black', 'font-size': '100%' });
         }
     }).blur(function () {
         var input = $(this);
         if (input.val() == '' || input.val() == input.attr('placeholder')) {
             input.addClass('placeholder');
             input.val(input.attr('placeholder'));
+            input.css({ 'color': 'rgba(0, 0, 0, 0.5)', 'font-size': '80%' });
         }
     }).blur();
 }
