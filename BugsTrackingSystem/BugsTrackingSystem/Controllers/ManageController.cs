@@ -226,6 +226,16 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Project", new {id = projId, sortOrder = selected});
         }
 
+        [HttpPost]
+        public ActionResult EditProjectName()
+        {
+            int Id = Convert.ToInt32(Request.Form["Id"]);
+            string newName = Request.Form["NewName"];
+
+            _dataService.Value.EditProject(Id, newName);
+
+            return RedirectToAction("Project", new { id = Id });
+        }
 
         public ActionResult Task(int id)
         {

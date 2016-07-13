@@ -39,11 +39,13 @@ $(function () {
 $(".open").click(function () {
     $("#add_task").css({ 'display': "inline" });
     $("#add_task").dialog("open");
+    activatePlaceholders();
 });
 
 $("#opener").click(function () {
     $("#add_project").css({ 'display': "inline" });
     $("#add_project").dialog("open");
+    activatePlaceholders();
 });
 
 $("#open_user").click(function () {
@@ -77,6 +79,7 @@ $(function () {
 $("#open_add_user").click(function () {
     $("#add_user_to_project").css({ 'display': "inline" });
     $("#add_user_to_project").dialog("open");
+    activatePlaceholders();
 });
 
 $(function () {
@@ -104,6 +107,7 @@ $(function () {
 $("#open_filter").click(function () {
     $("#add_filter").css({ 'display': "inline" });
     $("#add_filter").dialog("open");
+    activatePlaceholders();
 });
 
 $(function () {
@@ -130,6 +134,7 @@ $(function () {
 $("#open_change").click(function () {
     $("#change_password").css({ 'display': "inline" });
     $("#change_password").dialog("open");
+    activatePlaceholders();
 });
 
 $(function () {
@@ -156,6 +161,7 @@ $(function () {
 $("#open_edit_user").click(function () {
     $("#edit_user").css({ 'display': "inline" });
     $("#edit_user").dialog("open");
+    activatePlaceholders();
 });
 
 $(function () {
@@ -183,6 +189,7 @@ $(function () {
 $("#open_edit").click(function () {
     $("#edit_project").css({ 'display': "inline" });
     $("#edit_project").dialog("open");
+    activatePlaceholders();
 });
 
 
