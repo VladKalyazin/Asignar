@@ -10,6 +10,9 @@
     sorting.Add(new SelectListItem { Text = "Date", Value = "Date", Selected = Model.SelectedItem == "Date" });
     sorting.Add(new SelectListItem { Text = "Users", Value = "Users", Selected = Model.SelectedItem == "Users" });
     sorting.Add(new SelectListItem { Text = "Priority", Value = "Priority", Selected = Model.SelectedItem == "Priority" });
+
+    string sort = ViewBag.sortOrder;
+    @Html.Hidden("Selected", sort)
 }
 
 <div class="container">
@@ -66,7 +69,7 @@
             <li>
                 @using (Html.BeginForm("SortDefects", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                 {
-                    string sort = ViewBag.sortOrder;
+                    sort = ViewBag.sortOrder;
                     @Html.DropDownList("drop-down", sorting, sort, new {@class = "dropdown_sorting selectpicker", onchange = "this.form.submit()", selected = Model.SelectedItem})
                 }
             </li>
