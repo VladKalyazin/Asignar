@@ -39,7 +39,7 @@
         <b>Search</b>
     </h1>
 
-@using (Html.BeginForm("Search", "Manage", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Search", "Manage", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "searchForm" }))
 {
     <div class="col-md-12 col-xs-12 searchBox">
         <ul class="list-inline">

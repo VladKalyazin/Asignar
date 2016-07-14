@@ -238,6 +238,19 @@ $("#projectSelect").change(function () {
     });
 });
 
+$('#searchForm').find('.btn-pagin').each(function () {
+    var link = $(this);
+    link.click(function (event) {
+        event.preventDefault();
+        var pageNumber = link.text();
+        var input = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "page").val(pageNumber);
+        $('#searchForm').append($(input));
+        $('#searchForm').submit();
+    });
+});
+
 function activatePlaceholders() {
     $("[placeholder]").parents("form").submit(function () {
         $(this).find("[placeholder]").each(function () {

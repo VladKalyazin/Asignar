@@ -197,6 +197,55 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public int CountOfDefects(FilterViewModel filter)
+        {
+            try
+            {
+                bool filterIsNull = false;
+
+                if (filter == null)
+                {
+                    filterIsNull = true;
+                    filter = new FilterViewModel();
+                }
+
+                if (filter.ProjectIDs == null)
+                    filter.ProjectIDs = new List<int>();
+                if (filter.UserIDs == null)
+                    filter.UserIDs = new List<int>();
+                if (filter.PriorityIDs == null)
+                    filter.PriorityIDs = new List<int>();
+                if (filter.StatusIDs == null)
+                    filter.StatusIDs = new List<int>();
+
+                if (filter.Search == null)
+                    filter.Search = String.Empty;
+
+                using (var dbContextTransaction = _databaseModel.Database.BeginTransaction())
+                {
+                    var result = _databaseModel.Defects.
+                    Where(defect => filterIsNull ||
+                                    (filter.Search.Length == 0 || defect.Subject.ToUpper().Contains(filter.Search.ToUpper())) &&
+                                    (filter.ProjectIDs.Count() == 0 || filter.ProjectIDs.Any(id => id == defect.ProjectID)) &&
+                                    (filter.UserIDs.Count() == 0 || filter.UserIDs.Any(id => id == defect.AssigneeUserID)) &&
+                                    (filter.PriorityIDs.Count() == 0 || filter.PriorityIDs.Any(id => id == defect.DefectPriorityID)) &&
+                                    (filter.StatusIDs.Count() == 0 || filter.StatusIDs.Any(id => id == defect.DefectStatusID))).
+                    Count();
+
+                    dbContextTransaction.Commit();
+
+                    return result;
+                }
+            }
+            catch
+            {
+
+            }
+
+            return 0;
+        }
+
+
 
     }
 }

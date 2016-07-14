@@ -466,7 +466,7 @@ namespace BugsTrackingSystem.Controllers
             {
                 PageNumber = page,
                 PageSize = _pageSize,
-                TotalItems = _dataService.Value.GetDefectsCount()
+                TotalItems = _dataService.Value.CountOfDefects(filter)
             };
 
             var model = new SearchViewModel
