@@ -293,5 +293,28 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public void AddUsersToProject(int projectId, IEnumerable<int> users)
+        {
+            try
+            {
+                using (var dbContextTransaction = _databaseModel.Database.BeginTransaction())
+                {
+                    foreach (var userId in users)
+                    {
+                        _databaseModel.Projects.Single(p => p.ProjectID == projectId).Users.
+                            Add(_databaseModel.Users.First(u => u.UserID == userId));
+                    }
+
+                    _databaseModel.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
     }
 }
