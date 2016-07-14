@@ -2,6 +2,14 @@
     background-color: #F8FEFE;
 }
 
+body, input, textarea, button, select, option, label, h1, h2, h3 {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif!important;
+}
+
+.text {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif!important;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -720,7 +728,7 @@ input[type=checkbox]:checked {
 
 .ui-dialog-titlebar {
     width: 600px;
-    margin-left: -4px;
+    margin-left: -3px;
     margin-top: -4px;
 }
 
