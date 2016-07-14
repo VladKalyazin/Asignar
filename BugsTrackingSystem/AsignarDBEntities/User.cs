@@ -36,6 +36,7 @@ namespace AsignarDBEntities
 
         public int RoleID { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime RegistrationDate { get; set; }
 
         [StringLength(250)]
@@ -44,10 +45,10 @@ namespace AsignarDBEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Defect> Defects { get; set; }
 
+        public virtual Role Role { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Filter> Filters { get; set; }
-
-        public virtual Role Role { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Projects { get; set; }

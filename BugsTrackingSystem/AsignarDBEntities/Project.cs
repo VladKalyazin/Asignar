@@ -26,9 +26,9 @@ namespace AsignarDBEntities
         [StringLength(3)]
         public string Prefix { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime CreationDate { get; set; }
 
-        [Required]
         public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
