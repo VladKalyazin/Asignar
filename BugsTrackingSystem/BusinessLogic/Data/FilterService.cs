@@ -121,8 +121,14 @@ namespace AsignarServices.Data
                                         sortProp == DefectSortProperty.Status ? "DefectStatusID" :
                                         sortProp == DefectSortProperty.Date ? "CreationDate" :
                                         "AssigneeUserID";
+                bool filterIsNull = false;
 
-                bool filterIsNull = filter == null;
+                if (filter == null)
+                {
+                    filterIsNull = true;
+                    filter = new FilterViewModel();
+                }
+
                 if (filter.ProjectIDs == null)
                     filter.ProjectIDs = new List<int>();
                 if (filter.UserIDs == null)
@@ -132,7 +138,9 @@ namespace AsignarServices.Data
                 if (filter.StatusIDs == null)
                     filter.StatusIDs = new List<int>();
 
-                var result = _databaseModel.Defects.
+                using (var dbContextTransaction = _databaseModel.Database.BeginTransaction())
+                {
+                    var result = _databaseModel.Defects.
                     Where(defect => filterIsNull ||
                                     (filter.Search.Length == 0 || defect.Subject.ToUpper().Contains(filter.Search.ToUpper())) &&
                                     (filter.ProjectIDs.Count() == 0 || filter.ProjectIDs.Any(id => id == defect.ProjectID)) &&
@@ -154,7 +162,10 @@ namespace AsignarServices.Data
                         ProjectName = defect.Project.ProjectName
                     }).ToList();
 
-                return result;
+                    dbContextTransaction.Commit();
+
+                    return result;
+                }
             }
             catch
             {
