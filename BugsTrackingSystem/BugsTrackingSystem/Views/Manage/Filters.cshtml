@@ -1,93 +1,8 @@
-﻿
+﻿@using BugsTrackingSystem.Helpers
+@model BugsTrackingSystem.Models.FiltersPageViewModel
+
 @{
     ViewBag.Title = "Filters";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var projects = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "project1",
-            Value = "0"
-        },
-        new SelectListItem
-        {
-            Text = "project2",
-            Value = "1"
-        }
-    };
-
-    var users = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "user1",
-            Value = "0"
-        },
-        new SelectListItem
-        {
-            Text = "user2",
-            Value = "1"
-        }
-    };
-
-    var priority = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "Minor",
-            Value = "0"
-        },
-        new SelectListItem
-        {
-            Text = "Major",
-            Value = "1"
-        }
-    };
-
-    var status = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "To do",
-            Value = "0",
-            Selected = true
-        },
-        new SelectListItem
-        {
-            Text = "Done",
-            Value = "1"
-        },
-        new SelectListItem
-        {
-            Text = "In Process",
-            Value = "2"
-        }
-    };
-
-    var sorting = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "Project",
-            Value = "Project"
-        },
-        new SelectListItem
-        {
-            Text = "Priority",
-            Value = "Priority"
-        },
-        new SelectListItem
-        {
-            Text = "Assignee",
-            Value = "Assignee"
-        },
-        new SelectListItem
-        {
-            Text = "Status",
-            Value = "Status"
-        }
-    };
 }
 
 <div class="container">
@@ -115,19 +30,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-xs-5">
-                                    @Html.DropDownList("Priority", priority, new {@class = "btnDropTask", placeholder = "Priority"})
+                                <div class="col-xs-5" style="margin-left: 50px;">
+                                    @Html.DropDownList("Priority", Model.Select.Priority, new {@class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
                                 </div>
-                                <div class="col-xs-5">
-                                    @Html.DropDownList("Status", status, new {@class = "btnDropTask", placeholder = "Status"})
+                                <div class="col-xs-5" style="margin-left: 20px;">
+                                    @Html.DropDownList("Status", Model.Select.Status, new {@class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-xs-5">
-                                    @Html.DropDownList("Project", projects, new {@class = "btnDropTask", placeholder = "Project"})
+                                <div class="col-xs-5" style="margin-left: 50px;">
+                                    @Html.DropDownList("Project", Model.Select.Projects, new {@class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
                                 </div>
-                                <div class="col-xs-5">
-                                    @Html.DropDownList("Assignee", users, new {@class = "btnDropTask", placeholder = "Assignee"})
+                                <div class="col-xs-5" style="margin-left: 20px;">
+                                    @Html.DropDownList("Assignee", Model.Select.Users, new {@class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
                                 </div>
                             </div>
                         </div>
@@ -154,28 +69,10 @@
             </li>
         </ul>
 
-        <ul class="list-inline" style="margin-top: 30px">
-            <li>
-                <div class="col-md-12 col-xs-12">
-                    <ul class="list-inline">
-                        <li>
-                            <span class="sort_by"><b>Sort by: </b></span>
-                        </li>
-                        <li>
-                            @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.DropDownList("drop-down", sorting, "Select", new { @class = "dropdown_sorting", onchange = "this.form.submit()" })
-                            }
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li style="float: right !important">
-                <div class="text-right col-md-12 col-xs-12">
-                    @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))*@
-                </div>
-            </li>
-        </ul>
+
+        <div class="text-right col-md-12 col-xs-12" style="float: right !important; margin-top: 10px">
+            @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))*@
+        </div>
 
         <div class="col-md-3 col-xs-6 MyFilters">
             <h3 class="projName">Financier Filter</h3>

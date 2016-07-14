@@ -57,14 +57,14 @@ namespace BugsTrackingSystem.Controllers
                 TotalItems = _dataService.Value.GetCountUserDefects(id)
             };
 
-            var userProjects = _dataService.Value.GetUserProjects(id);
+            var userProjects = _dataService.Value.GetUserProjects(id, 4, 0);
 
             var model = new UserProfileViewModel()
 		    {
                 UserDefects = defectsPerPages,
                 Paged = pageInfo,
                 User = _dataService.Value.GetUserInfo(id),
-                Projects = userProjects.Take(4),
+                Projects = userProjects,
                 Roles = _dataService.Value.GetRoleNames()
             };
             
@@ -124,9 +124,11 @@ namespace BugsTrackingSystem.Controllers
                 TotalItems = _dataService.Value.GetCountUserDefects(UserId)
             };
 
+            var userProjects = _dataService.Value.GetUserProjects(id, 4, 0);
+
             var model = new UserProfileHomeViewModel()
             {
-                Projects = _dataService.Value.GetSetOfProjects(_projectsCountOnHomePage, 0).ToList(),
+                Projects = userProjects,
                 Defects = defectsPerPages,
                 Paged = pageInfo
             };
@@ -135,14 +137,32 @@ namespace BugsTrackingSystem.Controllers
 
 		public ActionResult Projects(int page = 1)
 	    {
-            var projectsPerPages = _dataService.Value.GetSetOfProjects(_pageSize, page - 1).ToList();
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            IEnumerable<ProjectViewModel> userProjects;
+
+            if (User.IsInRole("Admin"))
+		    {
+                userProjects = _dataService.Value.GetSetOfProjects(_pageSize, page - 1).ToList();
+		    }
+		    else
+		    {
+                userProjects = _dataService.Value.GetUserProjects(id, _pageSize, page - 1);
+            }
+
             PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
                 PageSize = _pageSize,
                 TotalItems = _dataService.Value.GetCountOfProjects()
             };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Projects = projectsPerPages };
+            IndexViewModel ivm = new IndexViewModel
+            {
+                PageInfo = pageInfo,
+                Projects = userProjects
+            };
             return View(ivm);
         }
 
@@ -225,7 +245,20 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Filters()
 		{
-			return View();
+            var multipleChoice = new NewDefectViewModel
+            {
+                Projects = _dataService.Value.GetProjectNames(),
+                Users = _dataService.Value.GetUserNames(),
+                Priority = _dataService.Value.GetPrioritiesNames(),
+                Status = _dataService.Value.GetStatusNames()
+            };
+
+            var filter = new FiltersPageViewModel
+            {
+                Select = multipleChoice
+            };
+
+            return View(filter);
 		}
         
         public ActionResult Project(int id, string sortOrder, bool direction = true)

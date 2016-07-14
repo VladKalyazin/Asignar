@@ -32,10 +32,12 @@
                     </div>
                 </a>
             }
+            @if (Model.Projects != null && (Model.Projects.Count() > 0))
+            {
                 <a href="/Manage/Projects" style="margin-left: 20px">Show all
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                 </a>
-
+            }
         </div>
     </div>
     <div class="row">

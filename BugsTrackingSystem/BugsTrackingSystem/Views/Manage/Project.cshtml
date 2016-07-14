@@ -26,6 +26,8 @@
         <li>
             <i class="open fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
         </li>
+        @if (User.IsInRole("Admin"))
+        {
         <li>
             <div id="edit_project">
                 @using (Html.BeginForm("EditProjectName", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
@@ -34,7 +36,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-xs-10">
-                                @Html.TextBox("NewName", Model.Project.Name, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Project Name" })
+                                @Html.TextBox("NewName", Model.Project.Name, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Project Name"})
                             </div>
                         </div>
                     </div>
@@ -51,6 +53,9 @@
         <li>
             <i class="fa fa-times taskIcon" aria-hidden="true"></i>
         </li>
+        }
+
+        
         <li style="float: right !important">
             <div>
                 @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -88,53 +93,57 @@
                                 </li>
                                 <i class="fa fa-times close_user text-right" aria-hidden="true"></i>
                             </ul>
-                            
+
                         </li>
                     }
                 </ul>
             </div>
         </li>
-        <li>
-            <div id="add_user_to_project">
-                @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
+@if (User.IsInRole("Admin"))
+{
+    <li>
+        <div id="add_user_to_project">
+            @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+            {
+                @Html.AntiForgeryToken()
 
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-xs-10 users_to_project">
-                                @foreach (var user in Model.Users)
-                                {
-                                    <div class="user_line">
-                                        <ul class="list-inline">
-                                            <input type="checkbox" value="@user.UserId"/>
-                                            <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50"/></li>
-                                            <li>
-                                                <div class="col-xs-4 user_line_data">
-                                                    <ul class="list-inline">
-                                                        <li style="width: 150px">@user.FirstName @user.Surname</li>
-                                                        <li style="width: 150px">@user.Email</li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="user_line_top">
-                                                Role
-                                            </li>
-                                        </ul>
-                                    </div>
-                                }
-                            </div>
+                @Html.ValidationSummary("", new {@class = "text-danger"})
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-10 users_to_project">
+                            @foreach (var user in Model.Users)
+                            {
+                                <div class="user_line">
+                                    <ul class="list-inline">
+                                        <input type="checkbox" value="@user.UserId"/>
+                                        <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50"/></li>
+                                        <li style="width: 300px">
+                                            <div class="col-xs-4 user_line_data">
+                                                <ul class="list-inline">
+                                                    <li style="width: 150px">@user.FirstName @user.Surname</li>
+                                                    <li style="width: 150px">@user.Email</li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="user_line_top">
+                                            @user.Role
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
                         </div>
                     </div>
-                    <div class="col-md-4 user_count"><b>Users: @Model.Users.Count()</b></div>
-                        <div class="text-right">
-                            <input type="submit" class="btn-pop btn-default" value="Add user" />
-                        </div>
-                }
-            </div>
-            <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
-        </li>
+                </div>
+                <div class="col-md-4 user_count"><b>Users: @Model.Users.Count()</b>
+                </div>
+                <div class="text-right">
+                    <input type="submit" class="btn-pop btn-default" value="Add user"/>
+                </div>
+            }
+        </div>
+        <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
+    </li>
+}
     </ul>
 
     <div class="col-md-12 col-xs-12">
@@ -147,7 +156,7 @@
                 {
                     @Html.Hidden("Id", Model.Project.ProjectId)
                     string sort = ViewBag.sortOrder;
-                    @Html.DropDownList("drop-down", sorting, sort, new {@class = "dropdown_sorting", onchange = "this.form.submit()", selected=Model.SelectedItem})
+                    @Html.DropDownList("drop-down", sorting, sort, new {@class = "dropdown_sorting selectpicker", onchange = "this.form.submit()", selected=Model.SelectedItem})
                 }
             </li>
         </ul>

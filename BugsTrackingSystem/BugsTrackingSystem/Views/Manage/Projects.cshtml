@@ -5,29 +5,6 @@
 
 @{
     ViewBag.Title = "Projects";
-    var sorting = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "Title",
-            Value = "Title"
-        },
-        new SelectListItem
-        {
-            Text = "Prefix",
-            Value = "Prefix"
-        },
-        new SelectListItem
-        {
-            Text = "Defects",
-            Value = "Defects"
-        },
-        new SelectListItem
-        {
-            Text = "Users",
-            Value = "Users"
-        }
-    };
 }
 
 <div class="container">
@@ -75,60 +52,44 @@
                             </button>
                         </div>
                     }
-                    <a href="@Url.Action("Search", "Manage")" class="search_link" style="float: right !important">Advanced search</a>
                 </div>
             </li>
         </ul>
 
-        <ul class="list-inline" style="margin-top: 30px">
-            <li>
-                <div class="col-md-12 col-xs-12">
-                    <ul class="list-inline">
-                        <li>
-                            <span class="sort_by"><b>Sort by: </b></span>
-                        </li>
-                        <li>
-                            @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.DropDownList("drop-down", sorting, "Select", new { @class = "dropdown_sorting", onchange = "this.form.submit()" })
-                            }
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li style="float: right !important">
-                <div class="text-right col-md-12 col-xs-12">
-                    @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new { page = x }))
-                </div>
-            </li>
-        </ul>
-        
-        @foreach (var project in Model.Projects)
-            {
-                <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
-                    <div class="col-md-3 col-xs-6 MyProjects">
-                        @Html.Hidden("Id", project.ProjectId)
-                        <h3 class="projName">@project.Name</h3>
-                        <p class="projPref">@project.Prefix</p>
-                        <div class="text-right">
-                            <ul class="list-inline icons">
-                                <li>
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-            }
+        <div class="text-right col-md-12 col-xs-12" style="float: right !important; margin-top: 10px">
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Projects", new {page = x}))
         </div>
-</div>
-<div class="container">
-    <div class="col-xs-6">
-        <br>
-        <p><i class="underContent fa fa-th-list" aria-hidden="true"> @Html.Encode(Model.PageInfo.TotalItems)</i>
-        </p>
+
+        @foreach (var project in Model.Projects)
+        {
+            <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
+                <div class="col-md-3 col-xs-6 MyProjects">
+                    @Html.Hidden("Id", project.ProjectId)
+                    <h3 class="projName">@project.Name</h3>
+                    <p class="projPref">@project.Prefix</p>
+                    <div class="text-right">
+                        <ul class="list-inline icons">
+                            <li>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        }
     </div>
 </div>
+
+@if (Model.Projects != null && (Model.Projects.Count() > 0))
+{
+    <div class="container">
+        <div class="col-xs-6">
+            <br>
+            <p><i class="underContent fa fa-th-list" aria-hidden="true"> @Html.Encode(Model.PageInfo.TotalItems)</i>
+            </p>
+        </div>
+    </div>
+}

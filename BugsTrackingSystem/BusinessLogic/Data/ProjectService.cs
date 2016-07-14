@@ -94,7 +94,7 @@ namespace AsignarServices.Data
         {
             try
             {
-                return _databaseModel.Projects.Where(project => project.Users.Any((u) => u.UserID == userId)).
+                return _databaseModel.Projects.Where(project => project.Users.Any((u) => u.UserID == userId)).OrderBy(p => p.ProjectName).       
                        Skip(page * countOfSet).Take(countOfSet).
                        Select(project => new ProjectViewModel
                        {
@@ -133,7 +133,7 @@ namespace AsignarServices.Data
         {
             try
             {
-                return from project in _databaseModel.Projects.OrderBy((p) => p.CreationDate).Skip(page * countOfSet).Take(countOfSet)
+                return from project in _databaseModel.Projects.OrderBy((p) => p.ProjectName).Skip(page * countOfSet).Take(countOfSet)
                         select new ProjectViewModel
                         {
                             ProjectId = project.ProjectID,
