@@ -1,4 +1,6 @@
-﻿@model BugsTrackingSystem.Models.SearchViewModel
+﻿@using System.Web.Mvc.Html
+@using BugsTrackingSystem.Helpers
+@model BugsTrackingSystem.Models.SearchViewModel
 
 @{
     ViewBag.Title = "Search";
@@ -78,6 +80,9 @@
         </ul>
     </div>
 
+    <div class="text-right col-md-12 col-xs-12" style="float: right !important; margin-top: 10px">
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Search", new { page = x }))
+    </div>
 
     <div class="col-md-12 col-xs-12">
         <ul class="list-inline">
@@ -94,7 +99,7 @@
         <tbody>
         @foreach (var data in Model.Defects)
         {
-            <tr class="clickable-row" data-href="@Url.Action("Task", "Manage", new {id = data.DefectId})">
+            <tr>
                 <td style="width: 5%;">
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>

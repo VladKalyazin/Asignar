@@ -181,6 +181,13 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Project", new {id = newProject.ProjectId});
         }
 
+        [HttpPost]
+        public ActionResult DeleteProject(int projectId)
+        {
+            _dataService.Value.DeleteProject(projectId);
+            return RedirectToAction("Projects");
+        }
+
         [ChildActionOnly]
         public ActionResult CreateNewTaskView()
         {
@@ -287,6 +294,13 @@ namespace BugsTrackingSystem.Controllers
 		}
 
         [HttpPost]
+        public ActionResult DeleteUser(int userId)
+        {
+            _dataService.Value.DeleteUser(userId);
+            return RedirectToAction("Users");
+        }
+
+        [HttpPost]
         public ActionResult AddNewFilter()
         {
             var authCookie = Request.Cookies["Auth"];
@@ -317,6 +331,13 @@ namespace BugsTrackingSystem.Controllers
 
             _dataService.Value.AddFilter(id, filter);
 
+            return RedirectToAction("Filters");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFilter(int filterId)
+        {
+            _dataService.Value.DeleteFilter(filterId);
             return RedirectToAction("Filters");
         }
 
@@ -441,12 +462,20 @@ namespace BugsTrackingSystem.Controllers
 
             var defects = _dataService.Value.FindDefects(filter, _pageSizeHome, page - 1, sortSelected);
 
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = _pageSize,
+                TotalItems = _dataService.Value.GetDefectsCount()
+            };
+
             var model = new SearchViewModel
             {
                 Select = changeDefect,
                 SelectedItem = sortOrder,
                 Defects = defects,
-                Filter = filter
+                Filter = filter,
+                PageInfo = pageInfo
             };
 
             return View(model);

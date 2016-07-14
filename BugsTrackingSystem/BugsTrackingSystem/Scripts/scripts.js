@@ -219,48 +219,48 @@ $("#open_edit_task").click(function () {
     activatePlaceholders();
 });
 
-$('#projectSelect').change(function () {
+$("#projectSelect").change(function () {
     $.ajax({
         dataType: "json",
-        url: '/Manage/GetUsersFromProject',
+        url: "/Manage/GetUsersFromProject",
         data: { projectId: this.value },
     }).success(function (result) {
-        var ddl = $('#userSelect');
-        ddl.find('option').remove();
-        ddl.selectpicker('refresh');
+        var ddl = $("#userSelect");
+        ddl.find("option").remove();
+        ddl.selectpicker("refresh");
         $(result).each(function () {
-            $(document.createElement('option'))
-                .attr('value', this.Value)
+            $(document.createElement("option"))
+                .attr("value", this.Value)
                 .text(this.Text)
                 .appendTo(ddl);
         });
-        ddl.selectpicker('refresh');
+        ddl.selectpicker("refresh");
     });
 });
 
 function activatePlaceholders() {
-    $('[placeholder]').parents('form').submit(function () {
-        $(this).find('[placeholder]').each(function () {
+    $("[placeholder]").parents("form").submit(function () {
+        $(this).find("[placeholder]").each(function () {
             var input = $(this);
-            if (input.val() == input.attr('placeholder')) {
-                input.val('');
+            if (input.val() == input.attr("placeholder")) {
+                input.val("");
             }
         });
     });
 
-    $('[placeholder]').focus(function () {
+    $("[placeholder]").focus(function () {
         var input = $(this);
-        if (input.val() == input.attr('placeholder')) {
-            input.val('');
-            input.removeClass('placeholder');
-            input.css({ 'color': 'black', 'font-size': '100%' });
+        if (input.val() == input.attr("placeholder")) {
+            input.val("");
+            input.removeClass("placeholder");
+            input.css({ 'color': "black", 'font-size': "100%" });
         }
     }).blur(function () {
         var input = $(this);
-        if (input.val() == '' || input.val() == input.attr('placeholder')) {
-            input.addClass('placeholder');
-            input.val(input.attr('placeholder'));
-            input.css({ 'color': 'rgba(0, 0, 0, 0.5)', 'font-size': '80%' });
+        if (input.val() == "" || input.val() == input.attr("placeholder")) {
+            input.addClass("placeholder");
+            input.val(input.attr("placeholder"));
+            input.css({ 'color': "rgba(0, 0, 0, 0.5)", 'font-size': "80%" });
         }
     }).blur();
 }
@@ -271,18 +271,18 @@ function validatePassword() {
     if (password.value != confirm_password.value) {
         confirm_password.setCustomValidity("Passwords Don't Match");
     } else {
-        confirm_password.setCustomValidity('');
+        confirm_password.setCustomValidity("");
     }
 }
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 
-$('body').on('click', '.hasicon > i', function () {
+$("body").on("click", ".hasicon > i", function () {
     $.ajax({
-        url: '/Manage/Home',
+        url: "/Manage/Home",
         data: { filterId: filterId },
-        method: 'POST'
+        method: "POST"
     })
    .success(function () {
        $(el).parent().hide();
@@ -294,9 +294,9 @@ $('body').on('click', '.hasicon > i', function () {
 
 function hideFilter(el, filterId) {
     $.ajax({
-        url: '/Manage/DeleteFilter',
+        url: "/Manage/DeleteFilter/",
         data: { filterId: filterId },
-        method: 'POST'
+        method: "POST"
     })
     .success(function () {
         $(el).parent().hide();
@@ -304,4 +304,32 @@ function hideFilter(el, filterId) {
     .error(function (mess) {
         alert(mess);
         });
+}
+
+function hideUser(el, userId) {
+    $.ajax({
+        url: "/Manage/DeleteUser/",
+        data: { userId: userId },
+        method: "POST"
+    })
+    .success(function () {
+        $(el).parent().hide();
+    })
+    .error(function (mess) {
+        alert(mess);
+    });
+}
+
+function hideProject(el, projectId) {
+    $.ajax({
+        url: "/Manage/DeleteProject/",
+        data: { projectId: projectId },
+        method: "POST"
+    })
+    .success(function () {
+        $(el).parent().hide();
+    })
+    .error(function (mess) {
+        alert(mess);
+    });
 }

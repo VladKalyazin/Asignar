@@ -323,10 +323,6 @@ input:-ms-input-placeholder {
 
 /*Projects Page*/
 
-.projectsPage {
-    color: black;
-}
-
 .MyProjects:hover {
     border: solid 2px #A3C2C6;
 }
@@ -969,5 +965,51 @@ input[type=checkbox]:checked {
 }
 
 .MyFilters:hover .hide-button {
+    display: inline-block !important;
+}
+
+.hide_user {
+    position: relative;
+    display: none;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: #4D868D;
+    font-size: 25px;
+    border: solid 2px #4D868D;
+    border-radius: 50%;
+    padding: 1px 4px;
+    float: right;
+    margin-right: -25px;
+    margin-top: -115px;
+    background-color: white;
+}
+
+.MyProjects:hover .hide_user {
+    display: inline-block !important;
+}
+
+.hide_project {
+    position: relative;
+    display: none;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: #4D868D;
+    font-size: 25px;
+    border: solid 2px #4D868D;
+    border-radius: 50%;
+    padding: 1px 4px;
+    float: right;
+    margin-right: -25px;
+    margin-top: -120px;
+    background-color: white;
+}
+
+.MyProjects:hover .hide_project {
     display: inline-block !important;
 }
