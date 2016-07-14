@@ -90,6 +90,29 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public IEnumerable<ProjectViewModel> GetUserProjects(int userId, int countOfSet, int page)
+        {
+            try
+            {
+                return _databaseModel.Projects.Where(project => project.Users.Any((u) => u.UserID == userId)).
+                       Skip(page * countOfSet).Take(countOfSet).
+                       Select(project => new ProjectViewModel
+                       {
+                           ProjectId = project.ProjectID,
+                           Name = project.ProjectName,
+                           Prefix = project.Prefix,
+                           UsersCount = project.Users.Count,
+                           DefectsCount = project.Defects.Count
+                       });
+            }
+            catch
+            {
+                //TODO exceptions
+            }
+
+            return null;
+        }
+
         public void EditProject(int projectId, string name)
         {
             try
