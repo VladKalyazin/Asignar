@@ -3,14 +3,6 @@
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var roles = new List<SelectListItem>();
-    foreach (var role in Model.Roles)
-    {
-        roles.Add(new SelectListItem { Text = role.Text, Value = role.Value});
-    }
-
-    roles.Remove(new SelectListItem {Text = Model.User.Role});
 }
 
 <div class="container">
@@ -77,17 +69,8 @@
                     <li>
                         <div id="edit_user">
                             @using (Html.BeginForm("EditUserViewModel", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-                            {
+                            { 
                                 @Html.Hidden("Id", Model.User.UserId)
-                                if (Model.User.Role == "Admin")
-                                {
-                                    @Html.Hidden("oldRole", "1")
-                                }
-                                else
-                                {
-                                    @Html.Hidden("oldRole", "2")
-                                }
-                                
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <div style="margin-left: 40px">
@@ -103,7 +86,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-4">
-                                        @Html.DropDownList("Role", roles, Model.User.Role, new {@class = "btnDropRole"})
+                                        @Html.DropDownList("Role", Model.Roles, new {@class = "btnDropRole"})
                                     </div>
                                 </div>
                                 <div class="form-group">
