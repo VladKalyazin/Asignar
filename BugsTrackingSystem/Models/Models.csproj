@@ -51,6 +51,7 @@
     <Compile Include="DropdownItem.cs" />
     <Compile Include="EditUserViewModel.cs" />
     <Compile Include="FilterViewModel.cs" />
+    <Compile Include="FilterSimpleViewModel.cs" />
     <Compile Include="GetHomePageViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="DefectAddEditViewModel.cs" />

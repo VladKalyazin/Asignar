@@ -7,14 +7,13 @@
 
     var sorting = new List<SelectListItem>();
 
-    sorting.Add(new SelectListItem { Text = "Title", Value = "Title" });
-    sorting.Add(new SelectListItem { Text = "Status", Value = "Status" });
-    sorting.Add(new SelectListItem { Text = "Date", Value = "Date" });
-    sorting.Add(new SelectListItem { Text = "Users", Value = "Users" });
-    sorting.Add(new SelectListItem { Text = "Priority", Value = "Priority" });
+    sorting.Add(new SelectListItem { Text = "Title", Value = "Title", Selected = Model.SelectedItem == "Title" });
+    sorting.Add(new SelectListItem { Text = "Status", Value = "Status", Selected = Model.SelectedItem == "Status" });
+    sorting.Add(new SelectListItem { Text = "Date", Value = "Date", Selected = Model.SelectedItem == "Date" });
+    sorting.Add(new SelectListItem { Text = "Users", Value = "Users", Selected = Model.SelectedItem == "Users" });
+    sorting.Add(new SelectListItem { Text = "Priority", Value = "Priority", Selected = Model.SelectedItem == "Priority" });
 
     string sortChoosed = ViewBag.sortOrder;
-    sorting.Remove(new SelectListItem { Text = sortChoosed, Value = sortChoosed });
 }
 
 <div class="container">
@@ -147,7 +146,7 @@
                 {
                     @Html.Hidden("Id", Model.Project.ProjectId)
                     string sort = ViewBag.sortOrder;
-                    @Html.DropDownList("drop-down", sorting, sort, new {@class = "dropdown_sorting", onchange = "this.form.submit()", selected=Model.SelectedItem})
+                    @Html.DropDownList("drop-down", sorting, new {@class = "dropdown_sorting", onchange = "this.form.submit()" })
                 }
             </li>
         </ul>

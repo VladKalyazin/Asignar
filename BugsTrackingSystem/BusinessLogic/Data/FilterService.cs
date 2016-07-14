@@ -51,22 +51,25 @@ namespace AsignarServices.Data
             }
         }
 
-        public IEnumerable<FilterViewModel> GetFilters(int userId, int countOfSet, int page)
+        public int GetFiltersCount(int userId)
+            => _databaseModel.Filters.Where(f => f.UserID == userId).Count();
+
+        public IEnumerable<FilterSimpleViewModel> GetFilters(int userId, int countOfSet, int page)
         {
             try
             {
                 var result = _databaseModel.Filters.OrderBy((f) => f.Title).
                         Where(f => f.UserID == userId).
                         Skip(page * countOfSet).Take(countOfSet).
-                        Select(f => new FilterViewModel()
+                        Select(f => new FilterSimpleViewModel()
                         {
                             FilterId = f.FilterID,
                             Title = f.Title,
                             Search = f.Search,
-                            ProjectIDs = f.Projects.Select(p => p.ProjectID),
-                            UserIDs = f.Users.Select(u => u.UserID),
-                            StatusIDs = f.DefectStatuses.Select(s => s.DefectStatusID),
-                            PriorityIDs = f.DefectPriorities.Select(dp => dp.DefectPriorityID)
+                            Projects = f.Projects.Select(p => p.ProjectName),
+                            Users = f.Users.Select(u => u.FirstName + " " + u.Surname),
+                            Statuses = f.DefectStatuses.Select(s => s.StatusName),
+                            Priorities = f.DefectPriorities.Select(dp => dp.PriorityName)
                         }).ToList();
 
                 return result;
