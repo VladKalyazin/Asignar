@@ -72,6 +72,8 @@ namespace AsignarServices.Data
                                   ProjectName = defect.Project.ProjectName,
                                   AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                   StatusId = defect.DefectStatusID,
+                                  UserId = defect.AssigneeUserID,
+                                  PriorityId = defect.DefectPriorityID,
                                   PriorityName = defect.DefectPriority.PriorityName,
                                   PriorityPhoto = defect.DefectPriority.PhotoLink,
                                   AssigneeUserPhoto = defect.User.PhotoLink,

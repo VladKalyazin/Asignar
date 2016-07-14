@@ -192,6 +192,33 @@ $("#open_edit").click(function () {
     activatePlaceholders();
 });
 
+$(function () {
+    $("#edit_task").dialog
+    ({
+        modal: true,
+        width: 600,
+        height: 300,
+        draggable: true,
+        resizable: false,
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "blind",
+            duration: 500
+        }
+    });
+    $(".ui-dialog-title").html("<i class=\"fa fa-pencil close_popup\" aria-hidden=\"true\"> Edit task</i>");
+    $(".ui-dialog-titlebar-close").append("<i class=\"fa fa-times close_popup\" aria-hidden=\"true\"></i>");
+});
+
+$("#open_edit_task").click(function () {
+    $("#edit_task").css({ 'display': "inline" });
+    $("#edit_task").dialog("open");
+    activatePlaceholders();
+});
 
 function activatePlaceholders() {
     $('[placeholder]').parents('form').submit(function () {
@@ -220,8 +247,7 @@ function activatePlaceholders() {
     }).blur();
 }
 
-var password = document.getElementById("password")
-  , confirm_password = document.getElementById("confirm_password");
+var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
 function validatePassword() {
     if (password.value != confirm_password.value) {

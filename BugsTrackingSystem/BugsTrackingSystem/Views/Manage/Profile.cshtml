@@ -2,15 +2,6 @@
 @model BugsTrackingSystem.Models.UserProfileViewModel
 @{
     ViewBag.Title = "Profile";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var roles = new List<SelectListItem>();
-    foreach (var role in Model.Roles)
-    {
-        roles.Add(new SelectListItem { Text = role.Text, Value = role.Value});
-    }
-
-    roles.Remove(new SelectListItem {Text = Model.User.Role});
 }
 
 <div class="container">
@@ -103,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-4">
-                                        @Html.DropDownList("Role", roles, Model.User.Role, new {@class = "btnDropRole"})
+                                        @Html.DropDownList("Role", Model.Roles, Model.User.Role, new {@class = "btnDropRole"})
                                     </div>
                                 </div>
                                 <div class="form-group">

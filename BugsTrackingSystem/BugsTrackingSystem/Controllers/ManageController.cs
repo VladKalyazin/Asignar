@@ -194,6 +194,12 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Task", new { id = newTask.DefectId});
         }
 
+        [HttpPost]
+        public ActionResult EditTask()
+        {
+            return RedirectToAction("Task");
+        }
+
         public ActionResult Users(int page = 1)
 		{
             var usersPerPages = _dataService.Value.GetAllUsers(_pageSize, page - 1).ToList();
@@ -280,9 +286,21 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Task(int id)
         {
-            DefectExtendedViewModel defectInfo = _dataService.Value.GetDefectExtendedInfo(id);
+            var changeDefect = new NewDefectViewModel
+            {
+                Projects = _dataService.Value.GetProjectNames(),
+                Users = _dataService.Value.GetUserNames(),
+                Priority = _dataService.Value.GetPrioritiesNames(),
+                Status = _dataService.Value.GetStatusNames()
+            };
+
+            var defect = new TaskViewModel
+            {
+                DefectInfo = _dataService.Value.GetDefectExtendedInfo(id),
+                ChangeDefect = changeDefect
+            };
             
-            return View(defectInfo);
+            return View(defect);
 		}
 
         public ActionResult Search()

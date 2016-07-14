@@ -56,9 +56,10 @@
     <Compile Include="NewDefectViewModel.cs" />
     <Compile Include="PageInfo.cs" />
     <Compile Include="ProjectExtendedViewModel.cs" />
-    <Compile Include="ProjectsViewModel.cs" />
+    <Compile Include="ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetPasswordViewModel.cs" />
+    <Compile Include="TaskViewModel.cs" />
     <Compile Include="UserProfileViewModel.cs" />
     <Compile Include="UserQueueModel.cs" />
     <Compile Include="UserRegistrationViewModel.cs" />

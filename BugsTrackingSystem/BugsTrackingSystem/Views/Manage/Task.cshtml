@@ -1,28 +1,67 @@
-﻿@model BugsTrackingSystem.Models.DefectExtendedViewModel
+﻿@model BugsTrackingSystem.Models.TaskViewModel
 @{
     ViewBag.Title = "Task";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var items = new List<SelectListItem>();
-    foreach (var status in Model.StatusesList)
-    {
-        items.Add(new SelectListItem() { Text = status.Text, Value = status.Value });
-    }
+    Model.ChangeDefect.Projects.First(p => p.Value == Model.DefectInfo.ProjectId.ToString()).Selected = true;
+    Model.ChangeDefect.Priority.First(p => p.Value == Model.DefectInfo.PriorityId.ToString()).Selected = true;
+    Model.ChangeDefect.Users.First(p => p.Value == Model.DefectInfo.UserId.ToString()).Selected = true;
+    Model.ChangeDefect.Status.First(p => p.Value == Model.DefectInfo.StatusId.ToString()).Selected = true;
 }
 
 <div class="container top">
 
     <div style="margin-left: 20px;">
-        <a href="@Url.Action("Project", "Manage", new {id = Model.ProjectId})" class="project_link">@Model.ProjectName</a>
-        <span style="font-size: 15px"> / @Model.Prefix</span>
+        <a href="@Url.Action("Project", "Manage", new {id = Model.DefectInfo.ProjectId})" class="project_link">@Model.DefectInfo.ProjectName</a>
+        <span style="font-size: 15px"> / @Model.DefectInfo.Prefix</span>
         <p style="font-size: 20px">
-            <b>@Model.Subject</b>
+            <b>@Model.DefectInfo.Subject</b>
         </p>
     </div>
     
     <div class="row">
         <div class="text-right">
-            <i class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+            <div id="edit_task" title="Create new project">
+                @using (Html.BeginForm("EditTask", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-10">
+                                @Html.TextBox("Name", Model.DefectInfo.Subject, "", htmlAttributes: new { @class = "form-control projInput", @placeholder = "Task name", required = true })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 35px;">
+                            <div class="col-xs-5">
+                                @Html.DropDownList("Project", Model.ChangeDefect.Projects, new { @class = "btnDropTask", placeholder = "Project" })
+                            </div>
+                            <div class="col-xs-5" style="margin-left: 20px;">
+                                @Html.DropDownList("Owner", Model.ChangeDefect.Users, new { @class = "btnDropTask", placeholder = "Owner" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 35px;">
+                            <div class="col-xs-5">
+                                @Html.DropDownList("Priority", Model.ChangeDefect.Priority, new { @class = "btnDropTask", placeholder = "Priority" })
+                            </div>
+                            <div class="col-xs-5" style="margin-left: 20px;">
+                                @Html.DropDownList("Status", Model.ChangeDefect.Status, new { @class = "btnDropTask", placeholder = "Status" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-10">
+                                @Html.TextArea("Description", Model.DefectInfo.Description, new { rows = 5, @class = "form-control descInput", @placeholder = "Description", required = true })
+                            </div>
+                        </div>
+                        <hr style="width: 500px">
+                        <div class="attachments">
+                            @Html.Label("Attachments")
+                            <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn-pop btn-default" value="Create" />
+                    </div>
+                }
+            </div>
+            <i id="open_edit_task" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
             <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
             <i class="fa fa-trash taskIcon" aria-hidden="true"></i>
         </div>
@@ -36,27 +75,27 @@
                     <div id="currentTask">
                         <div class="col-md-8 text-left">
                             <span class="taskPriority"><b>Priority:</b></span>
-                            <img src="@Model.PriorityPhoto"/>
-                            @if (Model.PriorityName == "Major")
+                            <img src="@Model.DefectInfo.PriorityPhoto"/>
+                            @if (Model.DefectInfo.PriorityName == "Major")
                             {
-                                <span style="color: #F69C00;"><b>@Model.PriorityName</b></span>
+                                <span style="color: #F69C00;"><b>@Model.DefectInfo.PriorityName</b></span>
                             }
-                            else if (Model.PriorityName == "Minor")
+                            else if (Model.DefectInfo.PriorityName == "Minor")
                             {
-                                <span style="color: #B3ABA8;"><b>@Model.PriorityName</b></span>
+                                <span style="color: #B3ABA8;"><b>@Model.DefectInfo.PriorityName</b></span>
                             }
                             else
                             {
-                                <span style="color: #CD4C24;"><b>@Model.PriorityName</b></span>
+                                <span style="color: #CD4C24;"><b>@Model.DefectInfo.PriorityName</b></span>
                             }
                         </div>
                         <div class="col-md-4 text-right">
                             <span class="taskPriority"><b>Status:</b></span>
-                            @Html.DropDownList("drop-down", items, new {@class = "btnDropTaskPage"})
+                            @Html.DropDownList("drop-down", Model.DefectInfo.StatusesList, new {@class = "btnDropTaskPage"})
                         </div>
                         <br><hr>
                         <div class="taskText">
-                            <p>@Model.Description</p>
+                            <p>@Model.DefectInfo.Description</p>
                         </div>
                     </div>
                 </div>
@@ -75,18 +114,18 @@
 
                             <ul class="list-inline">
                                 <li>
-                                    <img class="img-circle" src="@Model.AssigneeUserPhoto" width="50" height="50" style="margin-top: -10px;"/>
+                                    <img class="img-circle" src="@Model.DefectInfo.AssigneeUserPhoto" width="50" height="50" style="margin-top: -10px;"/>
                                 </li>
                                 <li>
-                                    <span>@Model.AssigneeUserName</span><br>
-                                    <span>@Model.AssigneeUserEmail</span>
+                                    <span>@Model.DefectInfo.AssigneeUserName</span><br>
+                                    <span>@Model.DefectInfo.AssigneeUserEmail</span>
                                 </li>
                             </ul>
 
-                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: @Model.CreationDate</b></i><br>
-                            @if (Model.ModificationDate != null)
+                            <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Created: @Model.DefectInfo.CreationDate</b></i><br>
+                            @if (Model.DefectInfo.ModificationDate != null)
                             {
-                                <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: @Model.ModificationDate</b></i>
+                                <i class="fa fa-calendar taskCalend" aria-hidden="true"> <b>Updated: @Model.DefectInfo.ModificationDate</b></i>
                             }
                             else
                             {
@@ -109,7 +148,7 @@
     <div class="detailBox">
         <div class="actionBox">
             <ul class="commentList">
-                @foreach (var comment in Model.Comments)
+                @foreach (var comment in Model.DefectInfo.Comments)
             {
                     <li>
                         <div class="commenterImage">
