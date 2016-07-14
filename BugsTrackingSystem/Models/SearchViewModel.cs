@@ -18,5 +18,6 @@ namespace BugsTrackingSystem.Models
 
         public PageInfo PageInfo { get; set; }
 
+        public FilterViewModel Filter { get; set; }
     }
 }

@@ -416,7 +416,7 @@ namespace BugsTrackingSystem.Controllers
             return View(defect);
 		}
 
-        public ActionResult Search(string sortOrder, FilterViewModel filter, int page = 1)
+        public ActionResult Search(string sortOrder = "Title", int page = 1)
         {
             if (string.IsNullOrEmpty(sortOrder))
             {
@@ -434,55 +434,25 @@ namespace BugsTrackingSystem.Controllers
                 Status = _dataService.Value.GetStatusNames()
             };
 
-
             IEnumerable<int> priority;
             IEnumerable<int> projects;
             IEnumerable<int> statuses;
             IEnumerable<int> users;
 
-            string s = Request.Form["Priority"];
-            if (s == null)
-            {
-                priority = null;
-            }
-            else
-            {
-                priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
-            }
-            
-            string r = Request.Form["Projects"];
-            if (r == null)
-            {
-                projects = null;
-            }
-            else
-            {
-                projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
-            }
-            
-            string q = Request.Form["Status"];
-            if (r == null)
-            {
-                statuses = null;
-            }
-            else
-            {
-                statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
-            }
+            string priorityStr = Request.Form["Priorities"];
+            priority = !string.IsNullOrEmpty(priorityStr) ? Array.ConvertAll(priorityStr.Split(','), int.Parse) : Enumerable.Empty<int>();
 
-            string t = Request.Form["Users"];
-            if (r == null)
-            {
-                users = null;
-            }
-            else
-            {
-                users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
-            }
+            string projectsStr = Request.Form["Projects"];
+            projects = !string.IsNullOrEmpty(projectsStr) ? Array.ConvertAll(projectsStr.Split(','), int.Parse) : Enumerable.Empty<int>();
 
-            filter = new FilterViewModel
+            string statusStr = Request.Form["Statuses"];
+            statuses = !string.IsNullOrEmpty(statusStr) ? Array.ConvertAll(statusStr.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string usersStr = Request.Form["Assignees"];
+            users = !string.IsNullOrEmpty(usersStr) ? Array.ConvertAll(usersStr.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            var filter = new FilterViewModel
             {
-                Title = Request.Form["Name"],
                 Search = Request.Form["Search"],
                 PriorityIDs = priority,
                 StatusIDs = statuses,
@@ -504,6 +474,7 @@ namespace BugsTrackingSystem.Controllers
                 Select = changeDefect,
                 SelectedItem = sortOrder,
                 Defects = defects,
+                Filter = filter
                 PageInfo = pageInfo
             };
 
@@ -523,44 +494,6 @@ namespace BugsTrackingSystem.Controllers
             _dataService.Value.AddUsersToProject(projectId, userIds);
 
             return RedirectToAction("Project", new { id = projectId });
-        }
-
-        [HttpPost]
-        public ActionResult SortDefects()
-        {
-            string selected = Request.Form["drop-down"];
-
-            return RedirectToAction("Search", new { sortOrder = selected });
-        }
-
-        [HttpPost]
-        public ActionResult SearchDefects()
-        {
-            string s = Request.Form["Priority"];
-            IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            string r = Request.Form["Projects"];
-            IEnumerable<int> projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            string q = Request.Form["Status"];
-            IEnumerable<int> statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            string t = Request.Form["Users"];
-            IEnumerable<int> users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            var selected = Request.Form["Selected"];
-
-            var Filters = new FilterViewModel
-            {
-                Title = Request.Form["Name"],
-                Search = Request.Form["Search"],
-                PriorityIDs = priority,
-                StatusIDs = statuses,
-                ProjectIDs = projects,
-                UserIDs = users
-            };
-
-            return RedirectToAction("Search", new {  sortOrder = selected, filter = Filters});
         }
 
         protected override void Dispose(bool disposing)
