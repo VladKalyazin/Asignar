@@ -243,8 +243,12 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Users");
         }
 
-        public ActionResult Filters()
+        public ActionResult Filters(int page = 1)
 		{
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
             var multipleChoice = new NewDefectViewModel
             {
                 Projects = _dataService.Value.GetProjectNames(),
@@ -253,9 +257,18 @@ namespace BugsTrackingSystem.Controllers
                 Status = _dataService.Value.GetStatusNames()
             };
 
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = _pageSize,
+                TotalItems = _dataService.Value.GetCountOfUsers()
+            };
+
             var filter = new FiltersPageViewModel
             {
-                Select = multipleChoice
+                Select = multipleChoice,
+                FilterInfo = _dataService.Value.GetFilters(id, _pageSize, page - 1).ToList(),
+                PageInfo = pageInfo
             };
 
             return View(filter);
@@ -338,7 +351,20 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            var changeDefect = new NewDefectViewModel
+            {
+                Projects = _dataService.Value.GetProjectNames(),
+                Users = _dataService.Value.GetUserNames(),
+                Priority = _dataService.Value.GetPrioritiesNames(),
+                Status = _dataService.Value.GetStatusNames()
+            };
+
+            var model = new SearchViewModel
+            {
+                Select = changeDefect
+            };
+
+            return View(model);
         }
 
         protected override void Dispose(bool disposing)

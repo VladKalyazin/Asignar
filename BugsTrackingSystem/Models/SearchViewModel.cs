@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace BugsTrackingSystem.Models
 {
-    public class FiltersPageViewModel
+    public class SearchViewModel
     {
         public NewDefectViewModel Select { get; set; }
-
-        public IEnumerable<FilterViewModel> FilterInfo { get; set; }
-
-        public PageInfo PageInfo { get; set; }
     }
 }

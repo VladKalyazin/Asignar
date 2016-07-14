@@ -904,3 +904,19 @@ input[type=checkbox]:checked {
     height: 34px;
     border: 2px solid #D9DDDD;
 }
+
+/*Search*/
+.searchBox {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    margin: 15px;
+    padding: 10px;
+    margin-left: 30px;
+}
+
+.searchInput {
+    font-size: 20px;
+    height: 34px;
+    color: black;
+}

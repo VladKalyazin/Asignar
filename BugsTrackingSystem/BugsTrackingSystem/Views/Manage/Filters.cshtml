@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Filters";
+
+    
 }
 
 <div class="container">
@@ -64,102 +66,54 @@
                             </button>
                         </div>
                     }
-                    <a href="@Url.Action("Search", "Manage")" class="search_link" style="float: right !important">Advanced search</a>
                 </div>
             </li>
         </ul>
 
-
         <div class="text-right col-md-12 col-xs-12" style="float: right !important; margin-top: 10px">
-            @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))*@
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))
         </div>
 
+        @foreach(var filter in Model.FilterInfo)
+        { 
         <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">Financier Filter</h3>
+            <h3 class="projName">@filter.Title</h3>
             <ul class="list-inline icons filtersStat" style="list-style-type: none">
                 <li>
                     <span class="projText">Search:</span>
-                    <span>invalid</span>
+                    <span>@filter.Search</span>
                 </li>
                 <li>
                     <span class="projText">Status:</span>
-                    <span>Done, To do...</span>
+                    <span>@filter.StatusIDs</span>
                 </li>
                 <li>
                     <span class="projText">Priority:</span>
-                    <span>Major, Minor...</span>
+                    <span>@filter.PriorityIDs</span>
                 </li>
                 <li>
                     <span class="projText">Project:</span>
-                    <span>The Titan, T...</span>
+                    <span>@filter.ProjectIDs</span>
                 </li>
                 <li>
                     <span class="projText">Assignee:</span>
-                    <span>George Or...</span>
+                    <span>@filter.UserIDs</span>
                 </li>
             </ul>
         </div>
-        <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">Titan Filter</h3>
-            <ul class="list-inline icons filtersStat" style="list-style-type: none">
-                <li>
-                    <span class="projText">Search:</span>
-                    <span>invalid</span>
-                </li>
-                <li>
-                    <span class="projText">Status:</span>
-                    <span>Done, To do...</span>
-                </li>
-                <li>
-                    <span class="projText">Priority:</span>
-                    <span>Major, Minor...</span>
-                </li>
-                <li>
-                    <span class="projText">Project:</span>
-                    <span>The Titan, T...</span>
-                </li>
-                <li>
-                    <span class="projText">Assignee:</span>
-                    <span>George Or...</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">Titan Filter</h3>
-            <ul class="list-inline icons filtersStat" style="list-style-type: none">
-                <li>
-                    <span class="projText">Search:</span>
-                    <span>invalid</span>
-                </li>
-                <li>
-                    <span class="projText">Status:</span>
-                    <span>Done, To do...</span>
-                </li>
-                <li>
-                    <span class="projText">Priority:</span>
-                    <span>Major, Minor...</span>
-                </li>
-                <li>
-                    <span class="projText">Project:</span>
-                    <span>The Titan, T...</span>
-                </li>
-                <li>
-                    <span class="projText">Assignee:</span>
-                    <span>George Or...</span>
-                </li>
-            </ul>
-        </div>
+        }
+        
     </div>
 </div>
 
-
-<div class="container">
-    <div class="col-xs-6">
-        <br>
-        <p>
-            <i class="fa fa-filter underContent" aria-hidden="true"> Filters: 35</i>
-        </p>
+@if (Model.FilterInfo != null && (Model.FilterInfo.Count() > 0))
+{
+    <div class="container">
+        <div class="col-xs-6">
+            <br>
+            <p>
+                <i class="fa fa-filter underContent" aria-hidden="true"> Filters: @Model</i>
+            </p>
+        </div>
     </div>
-</div>
-
+}
