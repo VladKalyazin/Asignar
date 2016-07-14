@@ -77,6 +77,10 @@
                             </li>
                         </ul>
                     </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <i class="fa fa-times hide_project" aria-hidden="true" onclick="hideProject(this, @project.ProjectId)"></i>
+                    }
                 </div>
             </a>
         }
