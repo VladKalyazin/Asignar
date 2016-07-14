@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BugsTrackingSystem.Models
 {
@@ -15,5 +16,7 @@ namespace BugsTrackingSystem.Models
         public PageInfo Paged { get; set; }
         
         public IEnumerable<ProjectViewModel> Projects { get; set; }
+
+        public IEnumerable<SelectListItem> Roles { get; set; }
     }
 }

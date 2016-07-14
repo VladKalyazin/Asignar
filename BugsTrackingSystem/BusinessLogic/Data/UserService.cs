@@ -68,7 +68,6 @@ namespace AsignarServices.Data
                     Surname = newUser.Surname,
                     Email = newUser.Email,
                     Password = CalculateMD5HashWithSalt(newUser.Password),
-                    //RoleID = newUser.RoleId
                     RoleID = _databaseModel.Roles.First().RoleID,
                     RegistrationDate = DateTime.UtcNow
                 });

@@ -5,34 +5,16 @@
 @{
     ViewBag.Title = "Project";
 
-    var sorting = new List<SelectListItem>
-    {
-        new SelectListItem
-        {
-            Text = "Title",
-            Value = "Title"
-        },
-        new SelectListItem
-        {
-            Text = "Status",
-            Value = "Status"
-        },
-        new SelectListItem
-        {
-            Text = "Date",
-            Value = "Date"
-        },
-        new SelectListItem
-        {
-            Text = "Users",
-            Value = "Users"
-        },
-        new SelectListItem
-        {
-            Text = "Priority",
-            Value = "Priority"
-        }
-    };
+    var sorting = new List<SelectListItem>();
+
+    sorting.Add(new SelectListItem { Text = "Title", Value = "Title" });
+    sorting.Add(new SelectListItem { Text = "Status", Value = "Status" });
+    sorting.Add(new SelectListItem { Text = "Date", Value = "Date" });
+    sorting.Add(new SelectListItem { Text = "Users", Value = "Users" });
+    sorting.Add(new SelectListItem { Text = "Priority", Value = "Priority" });
+
+    string sortChoosed = ViewBag.sortOrder;
+    sorting.Remove(new SelectListItem { Text = sortChoosed, Value = sortChoosed });
 }
 
 <div class="container">
@@ -80,7 +62,7 @@
                         </button>
                     </div>
                 }
-                @Html.ActionLink("Advanced search", "", "", new {@class = "search_link", style = "float: right !important"})
+                <a href="@Url.Action("Search", "Manage")" class="search_link" style="float: right !important">Advanced search</a>
             </div>
         </li>
     </ul>
