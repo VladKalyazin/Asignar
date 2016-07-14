@@ -49,7 +49,7 @@ namespace AsignarServices.AzureStorage
             _tableClient = _storageAccount.CreateCloudTableClient();
         }
 
-        public void InsertComments(int defectId, int userId, string text)
+        public void InsertComment(int defectId, int userId, string text)
         {
             CloudTable table = _tableClient.GetTableReference("DefectComments");
 

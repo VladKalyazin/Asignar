@@ -432,7 +432,19 @@ namespace BugsTrackingSystem.Controllers
 
             return RedirectToAction("Search", new { sortOrder = selected });
         }
-        
+
+        [HttpPost]
+        public ActionResult AddComment(int defectId, string text)
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            TableStorageHelper azureHelper = new TableStorageHelper();
+            azureHelper.InsertComment(defectId, userId, text);
+
+            return RedirectToAction("Task", new { id = defectId });
+        }
 
         protected override void Dispose(bool disposing)
         {
