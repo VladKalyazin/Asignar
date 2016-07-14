@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Web.Security;
+using System.Web.UI.DataVisualization.Charting;
 using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
@@ -273,7 +274,41 @@ namespace BugsTrackingSystem.Controllers
 
             return View(filter);
 		}
-        
+
+        [HttpPost]
+        public ActionResult AddNewFilter()
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            string s = Request.Form["Priorities"];
+            IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string r = Request.Form["Projects"];
+            IEnumerable<int> projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string q = Request.Form["Statuses"];
+            IEnumerable<int> statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string t = Request.Form["Assignees"];
+            IEnumerable<int> users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            var filter = new FilterViewModel
+            {
+                Title = Request.Form["Name"],
+                Search = Request.Form["Search"],
+                PriorityIDs = priority,
+                StatusIDs = statuses,
+                ProjectIDs = projects,
+                UserIDs = users
+            };
+
+            _dataService.Value.AddFilter(id, filter);
+
+            return RedirectToAction("Filters");
+        }
+
         public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
             int projId = id;

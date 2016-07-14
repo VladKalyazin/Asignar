@@ -18,7 +18,7 @@
             <li>
 
                 <div id="add_filter">
-                    @using (Html.BeginForm("Filters", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    @using (Html.BeginForm("AddNewFilter", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                     {
                         <div class="row">
                             <div class="form-group">
@@ -33,18 +33,18 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5" style="margin-left: 50px;">
-                                    @Html.DropDownList("Priority", Model.Select.Priority, new {@class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
+                                    @Html.DropDownList("Priorities", Model.Select.Priority, new {@class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
                                 </div>
                                 <div class="col-xs-5" style="margin-left: 20px;">
-                                    @Html.DropDownList("Status", Model.Select.Status, new {@class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
+                                    @Html.DropDownList("Statuses", Model.Select.Status, new {@class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5" style="margin-left: 50px;">
-                                    @Html.DropDownList("Project", Model.Select.Projects, new {@class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
+                                    @Html.DropDownList("Projects", Model.Select.Projects, new {@class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
                                 </div>
                                 <div class="col-xs-5" style="margin-left: 20px;">
-                                    @Html.DropDownList("Assignee", Model.Select.Users, new {@class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
+                                    @Html.DropDownList("Assignees", Model.Select.Users, new {@class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
                                 </div>
                             </div>
                         </div>
@@ -78,26 +78,26 @@
         { 
         <div class="col-md-3 col-xs-6 MyFilters">
             <h3 class="projName" style="margin-left: 30px;">@filter.Title</h3>
-            <ul class="icons filtersStat" style="list-style-type: none">
+            <ul class="icons filtersStat" style="list-style-type: none; margin-left: -25px;">
                 <li>
                     <span class="projText">Search:</span>
-                    <span>@filter.Search</span>
+                    <span class="over">@filter.Search</span>
                 </li>
                 <li>
                     <span class="projText">Status:</span>
-                    <span>@string.Join(", ", filter.Statuses)</span>
+                    <span class="over">@string.Join(", ", filter.Statuses)</span>
                 </li>
                 <li>
                     <span class="projText">Priority:</span>
-                    <span>@string.Join(", ", filter.Priorities)</span>
+                    <span class="over">@string.Join(", ", filter.Priorities)</span>
                 </li>
                 <li>
                     <span class="projText">Project:</span>
-                    <span>@string.Join(", ", filter.Projects)</span>
+                    <span class="over">@string.Join(", ", filter.Projects)</span>
                 </li>
                 <li>
                     <span class="projText">Assignee:</span>
-                    <span>@string.Join(", ", filter.Users)</span>
+                    <span class="over">@string.Join(", ", filter.Users)</span>
                 </li>
             </ul>
         </div>

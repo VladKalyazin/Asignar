@@ -654,7 +654,7 @@ input[type=checkbox]:checked {
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     border: 1px;
     margin: 15px;
-    height: 170px;
+    height: 180px;
     width: 300px;
     padding: 10px;
     text-overflow: ellipsis;
@@ -920,4 +920,17 @@ input[type=checkbox]:checked {
     font-size: 20px;
     height: 34px;
     color: black;
+}
+
+.over {
+    display:inline-block;
+    width:180px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+
+.    {
+    display:inline-block;
+    white-space: nowrap;
 }
