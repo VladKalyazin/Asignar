@@ -25,6 +25,9 @@ namespace AsignarDBEntities
 
         public int UserID { get; set; }
 
+        [StringLength(50)]
+        public string Search { get; set; }
+
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
