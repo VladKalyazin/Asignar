@@ -83,6 +83,20 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public void DeleteFilter(int filterId)
+        {
+            try
+            {
+                _databaseModel.Filters.Remove(_databaseModel.Filters.First(f => f.FilterID == filterId));
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
         public IEnumerable<FilterViewModel> GetFiltersWithIds(int userId, int countOfSet, int page)
         {
             try
