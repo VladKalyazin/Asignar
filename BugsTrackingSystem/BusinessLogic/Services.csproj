@@ -98,6 +98,7 @@
     <Compile Include="AzureStorage\TableStorageHelper.cs" />
     <Compile Include="Data\DefectService.cs" />
     <Compile Include="Data\DictionariesService.cs" />
+    <Compile Include="Data\FilterService.cs" />
     <Compile Include="Data\UserService.cs" />
     <Compile Include="AzureStorage\BlobStorageHelper.cs" />
     <Compile Include="Data\AsignarDataService.cs" />

@@ -8,6 +8,12 @@ namespace AsignarDBEntities
 
     public partial class Defect
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Defect()
+        {
+            DefectAttachments = new HashSet<DefectAttachment>();
+        }
+
         public int DefectID { get; set; }
 
         [Required]
@@ -30,6 +36,9 @@ namespace AsignarDBEntities
 
         [StringLength(500)]
         public string Description { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DefectAttachment> DefectAttachments { get; set; }
 
         public virtual DefectPriority DefectPriority { get; set; }
 

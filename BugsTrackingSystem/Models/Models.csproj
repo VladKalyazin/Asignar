@@ -50,6 +50,7 @@
     <Compile Include="DefectViewModel.cs" />
     <Compile Include="DropdownItem.cs" />
     <Compile Include="EditUserViewModel.cs" />
+    <Compile Include="FilterViewModel.cs" />
     <Compile Include="FiltersPageViewModel.cs" />
     <Compile Include="GetHomePageViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />

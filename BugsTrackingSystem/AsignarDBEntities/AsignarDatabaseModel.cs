@@ -12,6 +12,7 @@ namespace AsignarDBEntities
         {
         }
 
+        public virtual DbSet<DefectAttachment> DefectAttachments { get; set; }
         public virtual DbSet<DefectPriority> DefectPriorities { get; set; }
         public virtual DbSet<Defect> Defects { get; set; }
         public virtual DbSet<DefectStatus> DefectStatuses { get; set; }
@@ -22,9 +23,18 @@ namespace AsignarDBEntities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DefectAttachment>()
+                .Property(e => e.Link)
+                .IsFixedLength();
+
             modelBuilder.Entity<DefectPriority>()
                 .HasMany(e => e.Defects)
                 .WithRequired(e => e.DefectPriority)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Defect>()
+                .HasMany(e => e.DefectAttachments)
+                .WithRequired(e => e.Defect)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DefectStatus>()
@@ -49,7 +59,7 @@ namespace AsignarDBEntities
 
             modelBuilder.Entity<Filter>()
                 .HasMany(e => e.Users)
-                .WithMany(e => e.Filters)
+                .WithMany(e => e.Filters1)
                 .Map(m => m.ToTable("FilterUsers").MapLeftKey("FilterID").MapRightKey("UserID"));
 
             modelBuilder.Entity<Project>()
@@ -75,6 +85,12 @@ namespace AsignarDBEntities
                 .HasMany(e => e.Defects)
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.AssigneeUserID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Filters)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.UserID)
                 .WillCascadeOnDelete(false);
         }
     }

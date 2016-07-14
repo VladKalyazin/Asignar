@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AsignarDatabaseModel.cs" />
     <Compile Include="Defect.cs" />
+    <Compile Include="DefectAttachment.cs" />
     <Compile Include="DefectPriority.cs" />
     <Compile Include="DefectStatus.cs" />
     <Compile Include="Filter.cs" />

@@ -91,4 +91,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PriorityID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="c5cc438d-1057-47e9-ae2c-5261a5fb2bf2" ChangeDateTime="07/14/2016 11:06:47">
+    <Property Name="ElementName" Value="[dbo].[DefectAttachments].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DefectAttachments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AttachmentId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="25ce7dab-fe86-4d10-ba7e-57bb73205fe0" ChangeDateTime="07/14/2016 11:06:54">
+    <Property Name="ElementName" Value="[dbo].[DefectAttachments].[AttachmentId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DefectAttachments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AttachmentID" />
+  </Operation>
 </Operations>
