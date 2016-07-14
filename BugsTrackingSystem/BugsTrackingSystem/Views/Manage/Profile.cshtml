@@ -68,17 +68,8 @@
                     <li>
                         <div id="edit_user">
                             @using (Html.BeginForm("EditUserViewModel", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-                            {
+                            { 
                                 @Html.Hidden("Id", Model.User.UserId)
-                                if (Model.User.Role == "Admin")
-                                {
-                                    @Html.Hidden("oldRole", "1")
-                                }
-                                else
-                                {
-                                    @Html.Hidden("oldRole", "2")
-                                }
-                                
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <div style="margin-left: 40px">
@@ -94,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-4">
-                                        @Html.DropDownList("Role", Model.Roles, Model.User.Role, new {@class = "btnDropRole"})
+                                        @Html.DropDownList("Role", Model.Roles, new {@class = "btnDropRole"})
                                     </div>
                                 </div>
                                 <div class="form-group">

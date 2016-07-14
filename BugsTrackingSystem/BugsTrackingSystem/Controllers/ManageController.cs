@@ -76,10 +76,7 @@ namespace BugsTrackingSystem.Controllers
         {
             int Id = Convert.ToInt32(Request.Form["Id"]);
             string role = Request.Form["Role"];
-            if (role == "")
-            {
-                role = Request.Form["oldRole"];
-            }
+
             var newUser = new EditUserViewModel
             {
                 UserId = Id,
