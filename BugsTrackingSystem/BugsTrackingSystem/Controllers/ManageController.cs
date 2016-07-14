@@ -474,7 +474,7 @@ namespace BugsTrackingSystem.Controllers
                 Select = changeDefect,
                 SelectedItem = sortOrder,
                 Defects = defects,
-                Filter = filter
+                Filter = filter,
                 PageInfo = pageInfo
             };
 
