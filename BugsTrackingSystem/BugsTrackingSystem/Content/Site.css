@@ -911,9 +911,9 @@ input[type=checkbox]:checked {
     background-color:white;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     border: 1px;
-    margin: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     padding: 10px;
-    margin-left: 30px;
 }
 
 .searchInput {
@@ -935,4 +935,31 @@ input[type=checkbox]:checked {
     width: 60px;
     white-space: nowrap;
     overflow:hidden !important;
+}
+
+.hide-button {
+    position: relative;
+    display: none;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: #4D868D;
+    font-size: 25px;
+    border: solid 2px #4D868D;
+    border-radius: 50%;
+    padding: 1px 4px;
+    float: right;
+    margin-right: -25px;
+    margin-top: -195px;
+    background-color: white;
+}
+
+.MyFilters:hover {
+    border: solid 2px #A3C2C6;
+}
+
+.MyFilters:hover .hide-button {
+    display: inline-block !important;
 }

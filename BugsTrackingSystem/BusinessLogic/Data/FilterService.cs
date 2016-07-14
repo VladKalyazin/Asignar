@@ -125,7 +125,10 @@ namespace AsignarServices.Data
             return null;
         }
 
-        public IEnumerable<DefectViewModel> FindDefects(FilterViewModel filter, int countOfSet, int page,
+        public int GetDefectsCount()
+            => _databaseModel.Defects.Count();
+
+        public IEnumerable<DefectViewModel> FindDefects(FilterViewModel filter,/* int countOfSet, int page,*/
                     DefectSortProperty sortProp,
                     SortOrder sortOrder = SortOrder.Ascending)
         {
@@ -167,7 +170,7 @@ namespace AsignarServices.Data
                                     (filter.PriorityIDs.Count() == 0 || filter.PriorityIDs.Any(id => id == defect.DefectPriorityID)) &&
                                     (filter.StatusIDs.Count() == 0 || filter.StatusIDs.Any(id => id == defect.DefectStatusID))).
                     OrderBy(sortPropName, sortOrder == SortOrder.Descending ? true : false).
-                    Skip(page * countOfSet).Take(countOfSet).
+                    //Skip(page * countOfSet).Take(countOfSet).
                     Select(defect => new DefectViewModel()
                     {
                         DefectId = defect.DefectID,
