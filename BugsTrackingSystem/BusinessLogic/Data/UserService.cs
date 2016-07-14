@@ -130,7 +130,8 @@ namespace AsignarServices.Data
                            Email = user.Email,
                            DefectsCount = user.Defects.Count,
                            ProjectsCount = user.Projects.Count,
-                           UserPhoto = user.PhotoLink
+                           UserPhoto = user.PhotoLink,
+                           Role = user.Role.RoleName
                        };
             }
             catch

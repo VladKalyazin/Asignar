@@ -16,7 +16,7 @@
             <div class="col-md-3 col-xs-6 MyProfile">
                 <ul class="list-inline">
                     <li>
-                        <img class="img-circle" src="@Model.User.UserPhoto" width="50" height="50" style="margin-top: -10px;" />
+                        <img class="img-circle" src="@Model.User.UserPhoto" width="50" height="50" style="margin-top: -10px;"/>
                     </li>
                     <li>
                         <span><b>@Model.User.FirstName</b></span><br>
@@ -53,7 +53,7 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <input type="password" id="password" name="Password" class="form-control projInput" placeholder = "Password" required/>
+                                            <input type="password" id="password" name="Password" class="form-control projInput" placeholder="Password" required/>
                                         </div>
                                         <div class="col-xs-5">
                                             <input type="password" id="confirm_password" name="RepeatPassword" class="form-control projInput" placeholder="Repeat password" required/>
@@ -70,7 +70,7 @@
                     <li>
                         <div id="edit_user">
                             @using (Html.BeginForm("EditUserViewModel", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-                            { 
+                            {
                                 @Html.Hidden("Id", Model.User.UserId)
                                 <div class="form-group">
                                     <div class="col-xs-6">
@@ -89,7 +89,7 @@
                                     @if (Model.User.Role == "Admin")
                                     {
                                         <div class="col-xs-4">
-                                            @Html.DropDownList("Role", Model.Roles, new {@class = "btnDropRole"})
+                                            @Html.DropDownList("Role", Model.Roles, new {@class = "btnDropRole selectpicker" })
                                         </div>
                                     }
                                 </div>
@@ -115,20 +115,25 @@
                     </li>
                 </ul>
             </div>
-            </div>
-            <div class="row">
-            <h1>
-                <b>My Projects</b>
-            </h1>
-            <div class="col-md-3 col-xs-6 MyProjectsProfile">
-                <ul>
-                    @foreach(var project in Model.Projects)
-                    {
-                        <li><a class="linkMyProject" href="/Manage/Project/@project.ProjectId">@project.Name</a></li>
-                    }
-                </ul>
-            </div>
         </div>
+
+        @if (Model.Projects != null && (Model.Projects.Count() > 0))
+        {
+            <div class="row">
+                <h1>
+                    <b>My Projects</b>
+                </h1>
+                <div class="col-md-3 col-xs-6 MyProjectsProfile">
+                    <ul>
+                        @foreach (var project in Model.Projects)
+                        {
+                            <li><a class="linkMyProject" href="/Manage/Project/@project.ProjectId">@project.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+        
     </div>
 
 

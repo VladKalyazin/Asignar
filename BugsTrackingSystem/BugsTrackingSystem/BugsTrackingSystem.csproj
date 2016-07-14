@@ -228,6 +228,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DefectComments.css" />
@@ -258,6 +260,8 @@
     <Content Include="images\project_plus.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -283,6 +287,7 @@
     <Content Include="less\stacked.less" />
     <Content Include="less\variables.less" />
     <Content Include="Properties\webjobs-list.json" />
+    <Content Include="less\bootstrap-select.less" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP.pubxml" />
@@ -351,6 +356,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\ProfilePartial.cshtml" />
     <Content Include="Views\Shared\CreateNewTaskView.cshtml" />
+    <Content Include="scss\bootstrap-select.scss" />
     <None Include="Views\Manage\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@ namespace BugsTrackingSystem
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap*",
                       "~/Content/font-awesome.css",
                       "~/Content/site.css",
                       "~/Content/DefectComments.css",
