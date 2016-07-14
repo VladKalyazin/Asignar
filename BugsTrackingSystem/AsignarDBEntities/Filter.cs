@@ -8,26 +8,31 @@ namespace AsignarDBEntities
 
     public partial class Filter
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Filter()
+        {
+            DefectPriorities = new HashSet<DefectPriority>();
+            Projects = new HashSet<Project>();
+            DefectStatuses = new HashSet<DefectStatus>();
+            Users = new HashSet<User>();
+        }
+
         public int FilterID { get; set; }
 
         [Required]
         [StringLength(30)]
         public string Title { get; set; }
 
-        public int ProjectID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DefectPriority> DefectPriorities { get; set; }
 
-        public int AssigneeUserID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> Projects { get; set; }
 
-        public int DefectPriorityID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DefectStatus> DefectStatuses { get; set; }
 
-        public int DefectStatusID { get; set; }
-
-        public virtual DefectPriority DefectPriority { get; set; }
-
-        public virtual DefectStatus DefectStatus { get; set; }
-
-        public virtual Project Project { get; set; }
-
-        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

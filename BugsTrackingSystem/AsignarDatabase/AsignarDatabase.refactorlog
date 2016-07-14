@@ -35,4 +35,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="FilterProjectID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9e8d407f-cca6-4f15-af90-3244edc83fd1" ChangeDateTime="07/14/2016 09:42:45">
+    <Property Name="ElementName" Value="[dbo].[Filters].[FilterProjectID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Filters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FilterProjectsID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="29d0350a-1bcf-4ce4-ab15-36b8dd96a103" ChangeDateTime="07/14/2016 09:42:54">
+    <Property Name="ElementName" Value="[dbo].[Filters].[AssigneeUserID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Filters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FilterUsersID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="75676300-a92e-4767-ad0a-69ff4d832309" ChangeDateTime="07/14/2016 09:43:05">
+    <Property Name="ElementName" Value="[dbo].[Filters].[DefectPriorityID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Filters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FilterDefectPrioritiesID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="626ebfcc-792e-4eb1-8b40-7f7707963630" ChangeDateTime="07/14/2016 09:43:16">
+    <Property Name="ElementName" Value="[dbo].[Filters].[DefectStatusID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Filters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FilterDefectStatusesID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="01cfc35f-8119-4cff-bb38-2f6e72dfe658" ChangeDateTime="07/14/2016 09:45:02">
+    <Property Name="ElementName" Value="[dbo].[FilterProjects].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FilterProjects]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FilterID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0b482dce-813e-4dcd-b51a-59afd1c01d0e" ChangeDateTime="07/14/2016 10:07:46">
+    <Property Name="ElementName" Value="[dbo].[FilterUsers].[ProjectID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FilterUsers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7259bb87-a063-47a3-99f6-303c4f92e1b1" ChangeDateTime="07/14/2016 10:13:28">
+    <Property Name="ElementName" Value="[dbo].[FilterStatuses].[UserID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FilterStatuses]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b7d60192-3580-4411-8501-a2b8875cb81a" ChangeDateTime="07/14/2016 10:14:57">
+    <Property Name="ElementName" Value="[dbo].[FilterPriorities].[StatusID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FilterPriorities]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PriorityID" />
+  </Operation>
 </Operations>

@@ -27,20 +27,30 @@ namespace AsignarDBEntities
                 .WithRequired(e => e.DefectPriority)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<DefectPriority>()
-                .HasMany(e => e.Filters)
-                .WithRequired(e => e.DefectPriority)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<DefectStatus>()
                 .HasMany(e => e.Defects)
                 .WithRequired(e => e.DefectStatus)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<DefectStatus>()
-                .HasMany(e => e.Filters)
-                .WithRequired(e => e.DefectStatus)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Filter>()
+                .HasMany(e => e.DefectPriorities)
+                .WithMany(e => e.Filters)
+                .Map(m => m.ToTable("FilterPriorities").MapLeftKey("FilterID").MapRightKey("PriorityID"));
+
+            modelBuilder.Entity<Filter>()
+                .HasMany(e => e.Projects)
+                .WithMany(e => e.Filters)
+                .Map(m => m.ToTable("FilterProjects").MapLeftKey("FilterID").MapRightKey("ProjectID"));
+
+            modelBuilder.Entity<Filter>()
+                .HasMany(e => e.DefectStatuses)
+                .WithMany(e => e.Filters)
+                .Map(m => m.ToTable("FilterStatuses").MapLeftKey("FilterID").MapRightKey("StatusID"));
+
+            modelBuilder.Entity<Filter>()
+                .HasMany(e => e.Users)
+                .WithMany(e => e.Filters)
+                .Map(m => m.ToTable("FilterUsers").MapLeftKey("FilterID").MapRightKey("UserID"));
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.Prefix)
@@ -48,11 +58,6 @@ namespace AsignarDBEntities
 
             modelBuilder.Entity<Project>()
                 .HasMany(e => e.Defects)
-                .WithRequired(e => e.Project)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Project>()
-                .HasMany(e => e.Filters)
                 .WithRequired(e => e.Project)
                 .WillCascadeOnDelete(false);
 
@@ -67,17 +72,7 @@ namespace AsignarDBEntities
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .Property(e => e.PhotoLink)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
                 .HasMany(e => e.Defects)
-                .WithRequired(e => e.User)
-                .HasForeignKey(e => e.AssigneeUserID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Filters)
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.AssigneeUserID)
                 .WillCascadeOnDelete(false);

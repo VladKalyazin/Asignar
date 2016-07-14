@@ -22,8 +22,10 @@ namespace AsignarDBEntities
 
         public int DefectStatusID { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime CreationDate { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime? ModificationDate { get; set; }
 
         [StringLength(500)]
