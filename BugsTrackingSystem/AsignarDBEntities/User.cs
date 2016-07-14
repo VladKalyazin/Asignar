@@ -13,6 +13,7 @@ namespace AsignarDBEntities
         {
             Defects = new HashSet<Defect>();
             Filters = new HashSet<Filter>();
+            Filters1 = new HashSet<Filter>();
             Projects = new HashSet<Project>();
         }
 
@@ -45,10 +46,13 @@ namespace AsignarDBEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Defect> Defects { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Filter> Filters { get; set; }
+
         public virtual Role Role { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
+        public virtual ICollection<Filter> Filters1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Projects { get; set; }
