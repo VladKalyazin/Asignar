@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AsignarDBEntities;
 using AsignarServices.AzureStorage;
 using BugsTrackingSystem.Models;
+using System.Data.Objects.SqlClient;
 
 namespace AsignarServices.Data
 {
@@ -81,6 +82,88 @@ namespace AsignarServices.Data
 
             return null;
         }
+
+        public IEnumerable<FilterViewModel> GetFiltersWithIds(int userId, int countOfSet, int page)
+        {
+            try
+            {
+                var result = _databaseModel.Filters.OrderBy((f) => f.Title).
+                        Where(f => f.UserID == userId).
+                        Skip(page * countOfSet).Take(countOfSet).
+                        Select(f => new FilterViewModel()
+                        {
+                            FilterId = f.FilterID,
+                            Title = f.Title,
+                            Search = f.Search,
+                            ProjectIDs = f.Projects.Select(p => p.ProjectID),
+                            UserIDs = f.Users.Select(u => u.UserID),
+                            StatusIDs = f.DefectStatuses.Select(s => s.DefectStatusID),
+                            PriorityIDs = f.DefectPriorities.Select(dp => dp.DefectPriorityID)
+                        }).ToList();
+
+                return result;
+            }
+            catch
+            {
+
+            }
+
+            return null;
+        }
+
+        public IEnumerable<DefectViewModel> FindDefects(FilterViewModel filter, int countOfSet, int page,
+                    DefectSortProperty sortProp = DefectSortProperty.Title,
+                    SortOrder sortOrder = SortOrder.Ascending)
+        {
+            try
+            {
+                string sortPropName = sortProp == DefectSortProperty.Title ? "Subject" :
+                                        sortProp == DefectSortProperty.Status ? "DefectStatusID" :
+                                        sortProp == DefectSortProperty.Date ? "CreationDate" :
+                                        "AssigneeUserID";
+
+                bool filterIsNull = filter == null;
+                if (filter.ProjectIDs == null)
+                    filter.ProjectIDs = new List<int>();
+                if (filter.UserIDs == null)
+                    filter.UserIDs = new List<int>();
+                if (filter.PriorityIDs == null)
+                    filter.PriorityIDs = new List<int>();
+                if (filter.StatusIDs == null)
+                    filter.StatusIDs = new List<int>();
+
+                var result = _databaseModel.Defects.
+                    Where(defect => filterIsNull ||
+                                    (filter.Search.Length == 0 || defect.Subject.ToUpper().Contains(filter.Search.ToUpper())) &&
+                                    (filter.ProjectIDs.Count() == 0 || filter.ProjectIDs.Any(id => id == defect.ProjectID)) &&
+                                    (filter.UserIDs.Count() == 0 || filter.UserIDs.Any(id => id == defect.AssigneeUserID)) &&
+                                    (filter.PriorityIDs.Count() == 0 || filter.PriorityIDs.Any(id => id == defect.DefectPriorityID)) &&
+                                    (filter.StatusIDs.Count() == 0 || filter.StatusIDs.Any(id => id == defect.DefectStatusID))).
+                    OrderBy(sortPropName, sortOrder == SortOrder.Descending ? true : false).
+                    Skip(page * countOfSet).Take(countOfSet).
+                    Select(defect => new DefectViewModel()
+                    {
+                        DefectId = defect.DefectID,
+                        Subject = defect.Subject,
+                        AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
+                        Status = defect.DefectStatus.StatusName,
+                        PriorityPhoto = defect.DefectPriority.PhotoLink,
+                        AssigneeUserPhoto = defect.User.PhotoLink,
+                        CreationDate = defect.CreationDate,
+                        ModificationDate = defect.ModificationDate,
+                        ProjectName = defect.Project.ProjectName
+                    }).ToList();
+
+                return result;
+            }
+            catch
+            {
+
+            }
+
+            return null;
+        }
+
 
     }
 }

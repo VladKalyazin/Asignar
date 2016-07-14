@@ -379,7 +379,6 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult SortDefects()
         {
-            //int projId = Convert.ToInt32(Request.Form["Id"]);
             string selected = Request.Form["drop-down"];
 
             return RedirectToAction("Search", new { sortOrder = selected });

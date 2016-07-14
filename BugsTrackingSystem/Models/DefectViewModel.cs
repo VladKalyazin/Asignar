@@ -25,5 +25,7 @@ namespace BugsTrackingSystem.Models
         public DateTime? CreationDate { get; set; }
 
         public DateTime? ModificationDate { get; set; }
+
+        public string ProjectName { get; set; }
     }
 }
