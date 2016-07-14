@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Web.Security;
+using System.Web.UI.DataVisualization.Charting;
 using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
@@ -243,8 +244,12 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Users");
         }
 
-        public ActionResult Filters()
+        public ActionResult Filters(int page = 1)
 		{
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
             var multipleChoice = new NewDefectViewModel
             {
                 Projects = _dataService.Value.GetProjectNames(),
@@ -253,14 +258,57 @@ namespace BugsTrackingSystem.Controllers
                 Status = _dataService.Value.GetStatusNames()
             };
 
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = _pageSize,
+                TotalItems = _dataService.Value.GetCountOfUsers()
+            };
+
             var filter = new FiltersPageViewModel
             {
-                Select = multipleChoice
+                Select = multipleChoice,
+                FilterInfo = _dataService.Value.GetFilters(id, _pageSize, page - 1).ToList(),
+                PageInfo = pageInfo
             };
 
             return View(filter);
 		}
-        
+
+        [HttpPost]
+        public ActionResult AddNewFilter()
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            string s = Request.Form["Priorities"];
+            IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string r = Request.Form["Projects"];
+            IEnumerable<int> projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string q = Request.Form["Statuses"];
+            IEnumerable<int> statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string t = Request.Form["Assignees"];
+            IEnumerable<int> users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            var filter = new FilterViewModel
+            {
+                Title = Request.Form["Name"],
+                Search = Request.Form["Search"],
+                PriorityIDs = priority,
+                StatusIDs = statuses,
+                ProjectIDs = projects,
+                UserIDs = users
+            };
+
+            _dataService.Value.AddFilter(id, filter);
+
+            return RedirectToAction("Filters");
+        }
+
         public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
             int projId = id;
@@ -336,6 +384,35 @@ namespace BugsTrackingSystem.Controllers
             return View(defect);
 		}
 
+        public ActionResult Search(string sortOrder)
+        {
+            if (string.IsNullOrEmpty(sortOrder))
+            {
+                sortOrder = "Title";
+            }
+
+            DefectSortProperty sortSelected;
+            sortSelected = (DefectSortProperty)Enum.Parse(typeof(DefectSortProperty), sortOrder, true);
+            
+            var changeDefect = new NewDefectViewModel
+            {
+                Projects = _dataService.Value.GetProjectNames(),
+                Users = _dataService.Value.GetUserNames(),
+                Priority = _dataService.Value.GetPrioritiesNames(),
+                Status = _dataService.Value.GetStatusNames()
+            };
+
+            var model = new SearchViewModel
+            {
+                Select = changeDefect,
+                SelectedItem = sortOrder
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SortDefects()
         [HttpPost]
         public ActionResult AddUsersToProject()
         {
@@ -344,8 +421,11 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            string selected = Request.Form["drop-down"];
+
+            return RedirectToAction("Search", new { sortOrder = selected });
         }
+        
 
         protected override void Dispose(bool disposing)
         {

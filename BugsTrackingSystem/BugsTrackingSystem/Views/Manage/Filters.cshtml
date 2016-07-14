@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Filters";
+
+    
 }
 
 <div class="container">
@@ -15,34 +17,34 @@
             </li>
             <li>
 
-                <div id="add_filter" title="Create new project">
-                    @using (Html.BeginForm("Project", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                <div id="add_filter">
+                    @using (Html.BeginForm("AddNewFilter", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                     {
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-xs-10">
-                                    @Html.TextBox("Name", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Filter Name", required = true})
+                                    @Html.TextBox("Name", null, "", new {@class = "form-control projInput", placeholder = "Filter Name", required = true})
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-10">
-                                    @Html.TextBox("Search", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Search", required = true})
+                                    @Html.TextBox("Search", null, "", new {@class = "form-control projInput", placeholder = "Search", required = true})
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5" style="margin-left: 50px;">
-                                    @Html.DropDownList("Priority", Model.Select.Priority, new {@class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
+                                    @Html.DropDownList("Priorities", Model.Select.Priority, new {@class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
                                 </div>
                                 <div class="col-xs-5" style="margin-left: 20px;">
-                                    @Html.DropDownList("Status", Model.Select.Status, new {@class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
+                                    @Html.DropDownList("Statuses", Model.Select.Status, new {@class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5" style="margin-left: 50px;">
-                                    @Html.DropDownList("Project", Model.Select.Projects, new {@class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
+                                    @Html.DropDownList("Projects", Model.Select.Projects, new {@class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
                                 </div>
                                 <div class="col-xs-5" style="margin-left: 20px;">
-                                    @Html.DropDownList("Assignee", Model.Select.Users, new {@class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
+                                    @Html.DropDownList("Assignees", Model.Select.Users, new {@class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
                                 </div>
                             </div>
                         </div>
@@ -64,102 +66,54 @@
                             </button>
                         </div>
                     }
-                    <a href="@Url.Action("Search", "Manage")" class="search_link" style="float: right !important">Advanced search</a>
                 </div>
             </li>
         </ul>
 
-
         <div class="text-right col-md-12 col-xs-12" style="float: right !important; margin-top: 10px">
-            @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))*@
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))
         </div>
 
+        @foreach(var filter in Model.FilterInfo)
+        { 
         <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">Financier Filter</h3>
-            <ul class="list-inline icons filtersStat" style="list-style-type: none">
+            <h3 class="projName" style="margin-left: 30px;">@filter.Title</h3>
+            <ul class="icons filtersStat" style="list-style-type: none; margin-left: -25px;">
                 <li>
                     <span class="projText">Search:</span>
-                    <span>invalid</span>
+                    <span class="over">@filter.Search</span>
                 </li>
                 <li>
                     <span class="projText">Status:</span>
-                    <span>Done, To do...</span>
+                    <span class="over">@string.Join(", ", filter.Statuses)</span>
                 </li>
                 <li>
                     <span class="projText">Priority:</span>
-                    <span>Major, Minor...</span>
+                    <span class="over">@string.Join(", ", filter.Priorities)</span>
                 </li>
                 <li>
                     <span class="projText">Project:</span>
-                    <span>The Titan, T...</span>
+                    <span class="over">@string.Join(", ", filter.Projects)</span>
                 </li>
                 <li>
                     <span class="projText">Assignee:</span>
-                    <span>George Or...</span>
+                    <span class="over">@string.Join(", ", filter.Users)</span>
                 </li>
             </ul>
         </div>
-        <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">Titan Filter</h3>
-            <ul class="list-inline icons filtersStat" style="list-style-type: none">
-                <li>
-                    <span class="projText">Search:</span>
-                    <span>invalid</span>
-                </li>
-                <li>
-                    <span class="projText">Status:</span>
-                    <span>Done, To do...</span>
-                </li>
-                <li>
-                    <span class="projText">Priority:</span>
-                    <span>Major, Minor...</span>
-                </li>
-                <li>
-                    <span class="projText">Project:</span>
-                    <span>The Titan, T...</span>
-                </li>
-                <li>
-                    <span class="projText">Assignee:</span>
-                    <span>George Or...</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">Titan Filter</h3>
-            <ul class="list-inline icons filtersStat" style="list-style-type: none">
-                <li>
-                    <span class="projText">Search:</span>
-                    <span>invalid</span>
-                </li>
-                <li>
-                    <span class="projText">Status:</span>
-                    <span>Done, To do...</span>
-                </li>
-                <li>
-                    <span class="projText">Priority:</span>
-                    <span>Major, Minor...</span>
-                </li>
-                <li>
-                    <span class="projText">Project:</span>
-                    <span>The Titan, T...</span>
-                </li>
-                <li>
-                    <span class="projText">Assignee:</span>
-                    <span>George Or...</span>
-                </li>
-            </ul>
-        </div>
+        }
+        
     </div>
 </div>
 
-
-<div class="container">
-    <div class="col-xs-6">
-        <br>
-        <p>
-            <i class="fa fa-filter underContent" aria-hidden="true"> Filters: 35</i>
-        </p>
+@if (Model.FilterInfo != null && (Model.FilterInfo.Count() > 0))
+{
+    <div class="container">
+        <div class="col-xs-6">
+            <br>
+            <p>
+                <i class="fa fa-filter underContent" aria-hidden="true"> Filters: @Model.FilterInfo.Count()</i>
+            </p>
+        </div>
     </div>
-</div>
-
+}
