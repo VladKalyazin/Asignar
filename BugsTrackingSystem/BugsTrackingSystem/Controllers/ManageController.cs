@@ -402,36 +402,61 @@ namespace BugsTrackingSystem.Controllers
                 Status = _dataService.Value.GetStatusNames()
             };
 
-            if (filter == null)
-            {
-                IEnumerable<int> priority;
-                IEnumerable<int> projects;
-                IEnumerable<int> statuses;
-                IEnumerable<int> users;
 
-                string s = Request.Form["Priorities"];
-                priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
-                
-            
-                string r = Request.Form["Projects"];
-                projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
-                
-                string q = Request.Form["Statuses"];
-                statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
-               
-                string t = Request.Form["Assignees"];
-                users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
-                
-                filter = new FilterViewModel
-                {
-                    Title = Request.Form["Name"],
-                    Search = Request.Form["Search"],
-                    PriorityIDs = priority,
-                    StatusIDs = statuses,
-                    ProjectIDs = projects,
-                    UserIDs = users
-                };
+            IEnumerable<int> priority;
+            IEnumerable<int> projects;
+            IEnumerable<int> statuses;
+            IEnumerable<int> users;
+
+            string s = Request.Form["Priorities"];
+            if (s == null)
+            {
+                priority = null;
             }
+            else
+            {
+                priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+            
+            string r = Request.Form["Projects"];
+            if (r == null)
+            {
+                projects = null;
+            }
+            else
+            {
+                projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+            
+            string q = Request.Form["Statuses"];
+            if (r == null)
+            {
+                statuses = null;
+            }
+            else
+            {
+                statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+
+            string t = Request.Form["Assignees"];
+            if (r == null)
+            {
+                users = null;
+            }
+            else
+            {
+                users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+
+            filter = new FilterViewModel
+            {
+                Title = Request.Form["Name"],
+                Search = Request.Form["Search"],
+                PriorityIDs = priority,
+                StatusIDs = statuses,
+                ProjectIDs = projects,
+                UserIDs = users
+            };
 
             var defects = _dataService.Value.FindDefects(filter, _pageSizeHome, page, sortSelected);
 
@@ -468,18 +493,6 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Search", new { sortOrder = selected });
         }
 
-        [HttpPost]
-        public ActionResult AddComment(int defectId, string text)
-        {
-            var authCookie = Request.Cookies["Auth"];
-            var enc = authCookie.Value;
-            int userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
-
-            TableStorageHelper azureHelper = new TableStorageHelper();
-            azureHelper.InsertComment(defectId, userId, text);
-
-            return RedirectToAction("Task", new { id = defectId });
-        }
         [HttpPost]
         public ActionResult SearchDefects()
         {
