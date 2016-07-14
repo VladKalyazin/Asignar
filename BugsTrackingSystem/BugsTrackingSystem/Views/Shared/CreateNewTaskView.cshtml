@@ -12,10 +12,10 @@
             </div>
             <div class="form-group" style="margin-left: 35px;">
                 <div class="col-xs-5">
-                    @Html.DropDownList("Project", Model.Projects, new { @class = "btnDropTask selectpicker", placeholder = "Project" })
+                    @Html.DropDownList("Project", Model.Projects, new { @class = "btnDropTask selectpicker", placeholder = "Project", id = "projectSelect" })
                 </div>
                 <div class="col-xs-5" style="margin-left: 35px;">
-                    @Html.DropDownList("Owner", Model.Users, new { @class = "btnDropTask selectpicker", placeholder = "Owner" })
+                    @Html.DropDownList("Owner", Model.Users, new { @class = "btnDropTask selectpicker", placeholder = "Owner", id = "userSelect" })
                 </div>
             </div>
             <div class="form-group" style="margin-left: 35px;">

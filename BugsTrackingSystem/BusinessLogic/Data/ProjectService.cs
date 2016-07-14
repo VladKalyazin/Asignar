@@ -173,6 +173,20 @@ namespace AsignarServices.Data
             }
         }
 
+        public void DeleteProject(int projectId)
+        {
+            try
+            {
+                _databaseModel.Projects.Remove(_databaseModel.Projects.First(p => p.ProjectID == projectId));
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
         public ProjectExtendedViewModel GetFullProjectInfo(int projectId, DefectSortProperty sortProp = DefectSortProperty.Title, SortOrder sortOrder = SortOrder.Ascending)
         {
             try

@@ -184,14 +184,25 @@ namespace BugsTrackingSystem.Controllers
         [ChildActionOnly]
         public ActionResult CreateNewTaskView()
         {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
             var addDefect = new NewDefectViewModel
             {
-                Projects = _dataService.Value.GetProjectNames(),
+                Projects = _dataService.Value.GetProjectNames(userId),
                 Users = _dataService.Value.GetUserNames(),
                 Priority = _dataService.Value.GetPrioritiesNames(),
                 Status = _dataService.Value.GetStatusNames()
             };
             return PartialView(addDefect);
+        }
+
+        public ActionResult GetUsersFromProject(int projectId)
+        {
+            var Users = _dataService.Value.GetUserNames(projectId);
+
+            return Json(Users, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

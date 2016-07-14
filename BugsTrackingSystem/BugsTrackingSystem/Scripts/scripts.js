@@ -219,6 +219,25 @@ $("#open_edit_task").click(function () {
     activatePlaceholders();
 });
 
+$('#projectSelect').change(function () {
+    $.ajax({
+        dataType: "json",
+        url: '/Manage/GetUsersFromProject',
+        data: { projectId: this.value },
+    }).success(function (result) {
+        var ddl = $('#userSelect');
+        ddl.find('option').remove();
+        ddl.selectpicker('refresh');
+        $(result).each(function () {
+            $(document.createElement('option'))
+                .attr('value', this.Value)
+                .text(this.Text)
+                .appendTo(ddl);
+        });
+        ddl.selectpicker('refresh');
+    });
+});
+
 function activatePlaceholders() {
     $('[placeholder]').parents('form').submit(function () {
         $(this).find('[placeholder]').each(function () {

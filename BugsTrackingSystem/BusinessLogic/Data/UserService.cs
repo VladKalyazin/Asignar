@@ -53,6 +53,20 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public void DeleteUser(int userId)
+        {
+            try
+            {
+                _databaseModel.Users.Remove(_databaseModel.Users.First(u => u.UserID == userId));
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
         public string GetRoleByUserId(int userId)
         {
             return _databaseModel.Users.Where((u) => u.UserID == userId).Select((user) => user.Role.RoleName).SingleOrDefault();
