@@ -206,17 +206,20 @@ namespace BugsTrackingSystem.Controllers
                 PageSize = _pageSize,
                 TotalItems = _dataService.Value.GetCountOfUsers()
             };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Users = usersPerPages };
+            IndexViewModel ivm = new IndexViewModel
+            {
+                PageInfo = pageInfo,
+                Users = usersPerPages,
+                Roles = _dataService.Value.GetRoleNames()
+            };
             return View(ivm);
 		}
 
         [HttpPost]
         public ActionResult AddUser(UserRegistrationViewModel newUser)
         {
-            if (ModelState.IsValid)
-            {
-                _dataService.Value.AddUser(newUser);
-            }
+            newUser.RoleId = Request.Form["Role"];
+            _dataService.Value.AddUser(newUser);
             return RedirectToAction("Users");
         }
 

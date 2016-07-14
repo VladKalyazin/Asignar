@@ -2,6 +2,8 @@
 @model BugsTrackingSystem.Models.UserProfileViewModel
 @{
     ViewBag.Title = "Profile";
+
+    Model.Roles.First(p => p.Value == Model.User.RoleId.ToString()).Selected = true;
 }
 
 <div class="container">
@@ -84,9 +86,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-4">
-                                        @Html.DropDownList("Role", Model.Roles, new {@class = "btnDropRole"})
-                                    </div>
+                                    @if (Model.User.Role == "Admin")
+                                    {
+                                        <div class="col-xs-4">
+                                            @Html.DropDownList("Role", Model.Roles, new {@class = "btnDropRole"})
+                                        </div>
+                                    }
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-4">

@@ -26,7 +26,10 @@
                     <ul class="nav navbar-nav linkItemMenu">
                         <li id="mainLogo" class="menuLink"><a href="~/Manage/Home"><img src="~/images/logo.png"></a></li>
                         <li><a href="/Manage/Projects">Projects</a></li>
-                        <li><a href="/Manage/Users">Users</a></li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><a href="/Manage/Users">Users</a></li>
+                        }
                         <li><a href="/Manage/Filters">Filters</a></li>
                     </ul>
                     <ul class="nav navbar-nav">

@@ -134,6 +134,7 @@ $(function () {
 $("#open_change").click(function () {
     $("#change_password").css({ 'display': "inline" });
     $("#change_password").dialog("open");
+    activatePlaceholders();
 });
 
 $(function () {
@@ -181,8 +182,7 @@ $(function () {
             duration: 500
         }
     });
-    $(".ui-dialog-title").html("<i class=\"fa fa-list close_popup\" aria-hidden=\"true\"> Edit project</i>");
-    $(".ui-dialog-titlebar-close").append("<i class=\"fa fa-times close_popup\" aria-hidden=\"true\"></i>");
+    $(".ui-dialog-title").replaceWith("<i class=\"fa fa-list close_popup\" aria-hidden=\"true\"> Edit project</i>");
 });
 
 $("#open_edit").click(function () {

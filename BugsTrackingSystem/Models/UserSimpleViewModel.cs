@@ -23,5 +23,7 @@ namespace BugsTrackingSystem.Models
         public string UserPhoto { get; set; }
 
         public string Role { get; set; }
+
+        public int RoleId { get; set; }
     }
 }

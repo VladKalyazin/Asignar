@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BugsTrackingSystem.Models
 {
@@ -24,5 +25,6 @@ namespace BugsTrackingSystem.Models
         public IEnumerable<DefectViewModel> Defects { get; set; }
         public IEnumerable<ProjectViewModel> Projects { get; set; }
         public PageInfo PageInfo { get; set; }
+        public IEnumerable<SelectListItem> Roles { get; set; }
     }
 }

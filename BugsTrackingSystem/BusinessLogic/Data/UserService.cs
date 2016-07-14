@@ -68,7 +68,7 @@ namespace AsignarServices.Data
                     Surname = newUser.Surname,
                     Email = newUser.Email,
                     Password = CalculateMD5HashWithSalt(newUser.Password),
-                    RoleID = _databaseModel.Roles.First().RoleID,
+                    RoleID = Convert.ToInt32(newUser.RoleId),
                     RegistrationDate = DateTime.UtcNow
                 });
 
@@ -153,6 +153,7 @@ namespace AsignarServices.Data
                             Surname = u.Surname,
                             Email = u.Email,
                             Role = u.Role.RoleName,
+                            RoleId = u.Role.RoleID,
                             UserPhoto = u.PhotoLink,
                             ProjectsCount = u.Projects.Count,
                             DefectsCount = u.Defects.Count

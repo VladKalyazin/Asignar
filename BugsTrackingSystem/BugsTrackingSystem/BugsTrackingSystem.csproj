@@ -211,6 +211,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Error\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Filters\AsignarAuthenticateAttribute.cs" />
     <Compile Include="Filters\AsignarAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,6 +240,7 @@
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Error\404.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
