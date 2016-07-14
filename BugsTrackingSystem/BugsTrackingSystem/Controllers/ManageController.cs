@@ -384,7 +384,7 @@ namespace BugsTrackingSystem.Controllers
             return View(defect);
 		}
 
-        public ActionResult Search(string sortOrder)
+        public ActionResult Search(string sortOrder, int page = 1)
         {
             if (string.IsNullOrEmpty(sortOrder))
             {
@@ -402,10 +402,68 @@ namespace BugsTrackingSystem.Controllers
                 Status = _dataService.Value.GetStatusNames()
             };
 
+            IEnumerable<int> priority;
+            IEnumerable<int> projects;
+            IEnumerable<int> statuses;
+            IEnumerable<int> users;
+
+            string s = Request.Form["Priorities"];
+            if (s == null)
+            {
+                priority = null;
+            }
+            else
+            {
+                priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+            
+            string r = Request.Form["Projects"];
+            if (r == null)
+            {
+                projects = null;
+            }
+            else
+            {
+                projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+            
+            string q = Request.Form["Statuses"];
+            if (r == null)
+            {
+                statuses = null;
+            }
+            else
+            {
+                statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+
+            string t = Request.Form["Assignees"];
+            if (r == null)
+            {
+                users = null;
+            }
+            else
+            {
+                users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
+            }
+
+            var filter = new FilterViewModel
+            {
+                Title = Request.Form["Name"],
+                Search = Request.Form["Search"],
+                PriorityIDs = priority,
+                StatusIDs = statuses,
+                ProjectIDs = projects,
+                UserIDs = users
+            };
+
+            var defects = _dataService.Value.FindDefects(filter, _pageSizeHome, page, sortSelected);
+
             var model = new SearchViewModel
             {
                 Select = changeDefect,
-                SelectedItem = sortOrder
+                SelectedItem = sortOrder,
+                Defects = defects
             };
 
             return View(model);

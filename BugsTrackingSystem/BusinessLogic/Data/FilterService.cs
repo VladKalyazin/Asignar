@@ -112,7 +112,7 @@ namespace AsignarServices.Data
         }
 
         public IEnumerable<DefectViewModel> FindDefects(FilterViewModel filter, int countOfSet, int page,
-                    DefectSortProperty sortProp = DefectSortProperty.Title,
+                    DefectSortProperty sortProp,
                     SortOrder sortOrder = SortOrder.Ascending)
         {
             try

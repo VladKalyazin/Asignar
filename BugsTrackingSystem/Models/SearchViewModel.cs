@@ -14,5 +14,7 @@ namespace BugsTrackingSystem.Models
 
         public string SelectedItem { get; set; }
 
+        public IEnumerable<DefectViewModel> Defects { get; set; }
+
     }
 }

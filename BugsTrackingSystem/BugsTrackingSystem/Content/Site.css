@@ -930,13 +930,9 @@ input[type=checkbox]:checked {
     text-overflow: ellipsis;
 }
 
-.    {
+.overspan {
     display:inline-block;
+    width: 60px;
     white-space: nowrap;
-}
-
-.boxsizingBorder {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    overflow:hidden !important;
 }
