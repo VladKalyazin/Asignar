@@ -226,7 +226,7 @@ function activatePlaceholders() {
             if (input.val() == input.attr('placeholder')) {
                 input.val('');
             }
-        })
+        });
     });
 
     $('[placeholder]').focus(function () {
@@ -258,3 +258,31 @@ function validatePassword() {
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
+
+$('body').on('click', '.hasicon > i', function () {
+    $.ajax({
+        url: '/Manage/Home',
+        data: { filterId: filterId },
+        method: 'POST'
+    })
+   .success(function () {
+       $(el).parent().hide();
+   })
+   .error(function (mess) {
+       alert(mess);
+        });
+});
+
+function hideFilter(el, filterId) {
+    $.ajax({
+        url: '/Manage/DeleteFilter',
+        data: { filterId: filterId },
+        method: 'POST'
+    })
+    .success(function () {
+        $(el).parent().hide();
+    })
+    .error(function (mess) {
+        alert(mess);
+        });
+}

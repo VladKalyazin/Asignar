@@ -309,6 +309,13 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Filters");
         }
 
+        [HttpPost]
+        public ActionResult DeleteFilter(int filterId)
+        {
+
+            return null;
+        }
+
         public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
             int projId = id;
@@ -458,13 +465,21 @@ namespace BugsTrackingSystem.Controllers
                 UserIDs = users
             };
 
-            var defects = _dataService.Value.FindDefects(filter, _pageSizeHome, page, sortSelected);
+            var defects = _dataService.Value.FindDefects(filter, sortSelected);
+
+            //PageInfo pageInfo = new PageInfo
+            //{
+            //    PageNumber = page,
+            //    PageSize = _pageSize,
+            //    TotalItems = _dataService.Value.GetDefectsCount()
+            //};
 
             var model = new SearchViewModel
             {
                 Select = changeDefect,
                 SelectedItem = sortOrder,
-                Defects = defects
+                Defects = defects,
+                //PageInfo = pageInfo
             };
 
             return View(model);
