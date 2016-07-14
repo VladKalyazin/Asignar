@@ -138,6 +138,9 @@ namespace AsignarServices.Data
                 if (filter.StatusIDs == null)
                     filter.StatusIDs = new List<int>();
 
+                if (filter.Search == null)
+                    filter.Search = String.Empty;
+
                 using (var dbContextTransaction = _databaseModel.Database.BeginTransaction())
                 {
                     var result = _databaseModel.Defects.
