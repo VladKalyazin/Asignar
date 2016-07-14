@@ -4,20 +4,13 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var roles = new List<SelectListItem>
-        {
-            new SelectListItem
-            {
-                Text = "Common User",
-                Value = "0",
-                Selected = true
-            },
-            new SelectListItem
-            {
-                Text = "Admin",
-                Value = "1"
-            }
-        };
+    var roles = new List<SelectListItem>();
+    foreach (var role in Model.Roles)
+    {
+        roles.Add(new SelectListItem { Text = role.Text, Value = role.Value});
+    }
+
+    roles.Remove(new SelectListItem {Text = Model.User.Role});
 }
 
 <div class="container">
@@ -58,23 +51,24 @@
                 <ul class="list-inline col-xs-12" style="width: 220px">
                     <li>
                         <div id="change_password">
-                            @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                            @using (Html.BeginForm("ChangePassword", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                             {
                                 @Html.AntiForgeryToken()
+                                @Html.Hidden("Id", Model.User.UserId)
 
                                 @Html.ValidationSummary("", new {@class = "text-danger"})
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            @Html.TextBox("Password", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Password", required = true})
+                                            <input type="password" id="password" name="Password" class="form-control projInput" placeholder = "Password" required/>
                                         </div>
                                         <div class="col-xs-5">
-                                            @Html.TextBox("RepeatPassword", null, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Repeat password", required = true})
+                                            <input type="password" id="confirm_password" name="RepeatPassword" class="form-control projInput" placeholder="Repeat password" required/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <input type="submit" class="btn-pop btn-default" value="Change"/>
+                                    <button type="submit" class="btn-pop btn-default pure-button pure-button-primary">Change</button>
                                 </div>
                             }
                         </div>
@@ -82,37 +76,47 @@
                     </li>
                     <li>
                         <div id="edit_user">
-                            @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                            @using (Html.BeginForm("EditUserViewModel", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                             {
+                                @Html.Hidden("Id", Model.User.UserId)
+                                if (Model.User.Role == "Admin")
+                                {
+                                    @Html.Hidden("oldRole", "1")
+                                }
+                                else
+                                {
+                                    @Html.Hidden("oldRole", "2")
+                                }
+                                
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <div style="margin-left: 40px">
                                             <div class="col-xs-3">
-                                                <img class="img-circle" src="~/images/orwell.jpg" width="50" height="50"/>
+                                                <img class="img-circle" src="@Model.User.UserPhoto" width="50" height="50"/>
                                             </div>
                                             <div class="col-xs-4">
                                                 <ul class="list-inline">
                                                     <li style="width: 100px"><a href="#">Edit photo</a></li>
-                                                    <li style="width: 100px"><a href="#">Change photo</a></li>
+                                                    <li style="width: 150px"><a href="#">Change photo</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-4">
-                                        @Html.DropDownList("Role", roles, new {@class = "btnDropRole"})
+                                        @Html.DropDownList("Role", roles, Model.User.Role, new {@class = "btnDropRole"})
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-4">
-                                        @Html.TextBox("Name", null, "George", htmlAttributes: new {@class = "form-control projInput", placeholder = "Name", required = true})
+                                        @Html.TextBox("Name", Model.User.FirstName, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Name", required = true})
                                     </div>
                                     <div class="col-xs-6">
-                                        @Html.TextBox("Surname", null, "Orwell", htmlAttributes: new {@class = "form-control projInput", placeholder = "Surname", required = true})
+                                        @Html.TextBox("Surname", Model.User.Surname, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Surname", required = true})
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-10">
-                                        @Html.TextBox("Email", null, "george-orwell@email.com", htmlAttributes: new {@class = "form-control projInput", placeholder = "Email", required = true})
+                                        @Html.TextBox("Email", Model.User.Email, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Email", required = true})
                                     </div>
                                 </div>
                                 <div class="text-right">

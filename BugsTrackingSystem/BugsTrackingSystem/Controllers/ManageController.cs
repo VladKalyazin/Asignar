@@ -64,13 +64,54 @@ namespace BugsTrackingSystem.Controllers
                 UserDefects = defectsPerPages,
                 Paged = pageInfo,
                 User = _dataService.Value.GetUserInfo(id),
-                Projects = userProjects.Take(4)
+                Projects = userProjects.Take(4),
+                Roles = _dataService.Value.GetRoleNames()
             };
             
             return View(model);
 		}
 
-		public ActionResult Home(int page = 1)
+        [HttpPost]
+        public ActionResult EditUserViewModel()
+        {
+            int Id = Convert.ToInt32(Request.Form["Id"]);
+            string role = Request.Form["Role"];
+            if (role == "")
+            {
+                role = Request.Form["oldRole"];
+            }
+            var newUser = new EditUserViewModel
+            {
+                UserId = Id,
+                FirstName = Request.Form["Name"],
+                Surname = Request.Form["Surname"],
+                Email = Request.Form["Email"],
+                RoleId = Convert.ToInt32(role)
+            };
+
+            _dataService.Value.EditUser(newUser);
+
+            return RedirectToAction("Profile", new { id = Id });
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword()
+        {
+            int Id = Convert.ToInt32(Request.Form["Id"]);
+            string Password = Request.Form["Password"];
+            string RepeatPassword = Request.Form["RepeatPassword"];
+
+            if (Password != RepeatPassword)
+            {
+                return RedirectToAction("Profile", new { id = Id });
+            }
+
+            _dataService.Value.ChangeUserPassword(Id, Password);
+
+            return RedirectToAction("Profile", new { id = Id });
+        }
+
+        public ActionResult Home(int page = 1)
 		{
             var authCookie = Request.Cookies["Auth"];
             var enc = authCookie.Value;
@@ -243,6 +284,11 @@ namespace BugsTrackingSystem.Controllers
             
             return View(defectInfo);
 		}
+
+        public ActionResult Search()
+        {
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
