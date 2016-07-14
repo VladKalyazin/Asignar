@@ -95,7 +95,7 @@
         </li>
         <li>
             <div id="add_user_to_project">
-                @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("AddUsersToProject", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -107,7 +107,7 @@
                                 {
                                     <div class="user_line">
                                         <ul class="list-inline">
-                                            <input type="checkbox" value="@user.UserId"/>
+                                            @Html.CheckBox("userIds", new { value = user.UserId })
                                             <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50"/></li>
                                             <li>
                                                 <div class="col-xs-4 user_line_data">
@@ -118,7 +118,7 @@
                                                 </div>
                                             </li>
                                             <li class="user_line_top">
-                                                Role
+                                                @user.Role
                                             </li>
                                         </ul>
                                     </div>

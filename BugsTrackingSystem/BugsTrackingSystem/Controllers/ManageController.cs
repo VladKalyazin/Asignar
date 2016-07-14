@@ -336,6 +336,12 @@ namespace BugsTrackingSystem.Controllers
             return View(defect);
 		}
 
+        [HttpPost]
+        public ActionResult AddUsersToProject()
+        {
+            return RedirectToAction("Projects");
+        }
+
         public ActionResult Search()
         {
             return View();
