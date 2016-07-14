@@ -134,7 +134,9 @@ namespace AsignarServices.Data
                 string sortPropName = sortProp == DefectSortProperty.Title ? "Subject" :
                                         sortProp == DefectSortProperty.Status ? "DefectStatusID" :
                                         sortProp == DefectSortProperty.Date ? "CreationDate" :
+                                        sortProp == DefectSortProperty.Priority ? "DefectPriorityID" :
                                         "AssigneeUserID";
+
                 bool filterIsNull = false;
 
                 if (filter == null)

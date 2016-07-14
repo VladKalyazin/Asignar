@@ -16,5 +16,6 @@ namespace BugsTrackingSystem.Models
 
         public IEnumerable<DefectViewModel> Defects { get; set; }
 
+        public FilterViewModel Filter { get; set; }
     }
 }
