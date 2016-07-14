@@ -412,11 +412,18 @@ namespace BugsTrackingSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult SortDefects()
-        [HttpPost]
         public ActionResult AddUsersToProject()
         {
-            return RedirectToAction("Projects");
+            int projectId = Convert.ToInt32(Request.Form["Id"]);
+
+            string s = Request.Form["userIds"];
+            s = s.Replace("false,", "");
+            s = s.Replace("false", "");
+            s = s.Trim(',');
+            IEnumerable<int> userIds = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
+            _dataService.Value.AddUsersToProject(projectId, userIds);
+
+            return RedirectToAction("Project", new { id = projectId });
         }
 
         public ActionResult Search()
