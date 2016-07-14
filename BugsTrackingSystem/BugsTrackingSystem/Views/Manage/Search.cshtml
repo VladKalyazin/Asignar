@@ -20,36 +20,36 @@
         <b>Search</b>
     </h1>
 
+@using (Html.BeginForm("SearchDefects", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
     <div class="col-md-12 col-xs-12 searchBox">
-        @using (Html.BeginForm("Filters", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-        {
-            <ul class="list-inline">
-                <li class="col-md-4 col-xs-4">
-                    @Html.TextBox("Input", null, "", htmlAttributes: new {@class = "form-control searchInput", placeholder = "Type here...", required = true})
-                </li>
-                <li>
-                    @Html.DropDownList("Priority", Model.Select.Priority, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
-                </li>
-                <li>
-                    @Html.DropDownList("Status", Model.Select.Status, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
-                </li>
-                <li>
-                    @Html.DropDownList("Projects", Model.Select.Projects, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
-                </li>
-                <li>
-                    @Html.DropDownList("Users", Model.Select.Users, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
-                </li>
-            </ul>
-        }
+        <ul class="list-inline">
+            <li class="col-md-4 col-xs-4">
+                @Html.TextBox("Input", null, "", htmlAttributes: new {@class = "form-control searchInput", placeholder = "Type here...", required = true})
+            </li>
+            <li>
+                @Html.DropDownList("Priority", Model.Select.Priority, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+            </li>
+            <li>
+                @Html.DropDownList("Status", Model.Select.Status, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+            </li>
+            <li>
+                @Html.DropDownList("Projects", Model.Select.Projects, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+            </li>
+            <li>
+                @Html.DropDownList("Users", Model.Select.Users, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+            </li>
+        </ul>
     </div>
+
 
     <div class="col-md-12 col-xs-12">
         <ul class="list-inline" style="margin-left: 20px;">
             <li>
-                <a href="#"><i class="fa fa-search taskIcon projPlus" aria-hidden="true"></i></a>
+                <button type="submit"><i class="fa fa-search taskIcon projPlus" aria-hidden="true"></i></button>
             </li>
             <li>
-                <i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true"></i>
+                <button type="reset"><i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true"></i></button>
             </li>
             <li>
                 <i class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
@@ -59,7 +59,7 @@
             </li>
         </ul>
     </div>
-
+}
 
     <div class="col-md-12 col-xs-12">
         <ul class="list-inline">
