@@ -408,7 +408,7 @@ namespace BugsTrackingSystem.Controllers
             IEnumerable<int> statuses;
             IEnumerable<int> users;
 
-            string s = Request.Form["Priorities"];
+            string s = Request.Form["Priority"];
             if (s == null)
             {
                 priority = null;
@@ -428,7 +428,7 @@ namespace BugsTrackingSystem.Controllers
                 projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
             }
             
-            string q = Request.Form["Statuses"];
+            string q = Request.Form["Status"];
             if (r == null)
             {
                 statuses = null;
@@ -438,7 +438,7 @@ namespace BugsTrackingSystem.Controllers
                 statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
             }
 
-            string t = Request.Form["Assignees"];
+            string t = Request.Form["Users"];
             if (r == null)
             {
                 users = null;
@@ -496,16 +496,16 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult SearchDefects()
         {
-            string s = Request.Form["Priorities"];
+            string s = Request.Form["Priority"];
             IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
 
             string r = Request.Form["Projects"];
             IEnumerable<int> projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
 
-            string q = Request.Form["Statuses"];
+            string q = Request.Form["Status"];
             IEnumerable<int> statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
 
-            string t = Request.Form["Assignees"];
+            string t = Request.Form["Users"];
             IEnumerable<int> users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
 
             var selected = Request.Form["Selected"];
