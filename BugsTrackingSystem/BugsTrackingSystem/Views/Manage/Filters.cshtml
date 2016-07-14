@@ -18,7 +18,7 @@
             <li>
 
                 <div id="add_filter" title="Create new project">
-                    @using (Html.BeginForm("Project", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    @using (Html.BeginForm("Filters", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                     {
                         <div class="row">
                             <div class="form-group">
@@ -77,27 +77,27 @@
         @foreach(var filter in Model.FilterInfo)
         { 
         <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName">@filter.Title</h3>
-            <ul class="list-inline icons filtersStat" style="list-style-type: none">
+            <h3 class="projName" style="margin-left: 30px;">@filter.Title</h3>
+            <ul class="icons filtersStat" style="list-style-type: none">
                 <li>
                     <span class="projText">Search:</span>
                     <span>@filter.Search</span>
                 </li>
                 <li>
                     <span class="projText">Status:</span>
-                    <span>@filter.StatusIDs</span>
+                    <span>@string.Join(", ", filter.Statuses)</span>
                 </li>
                 <li>
                     <span class="projText">Priority:</span>
-                    <span>@filter.PriorityIDs</span>
+                    <span>@string.Join(", ", filter.Priorities)</span>
                 </li>
                 <li>
                     <span class="projText">Project:</span>
-                    <span>@filter.ProjectIDs</span>
+                    <span>@string.Join(", ", filter.Projects)</span>
                 </li>
                 <li>
                     <span class="projText">Assignee:</span>
-                    <span>@filter.UserIDs</span>
+                    <span>@string.Join(", ", filter.Users)</span>
                 </li>
             </ul>
         </div>
@@ -112,7 +112,7 @@
         <div class="col-xs-6">
             <br>
             <p>
-                <i class="fa fa-filter underContent" aria-hidden="true"> Filters: @Model</i>
+                <i class="fa fa-filter underContent" aria-hidden="true"> Filters: @Model.FilterInfo.Count()</i>
             </p>
         </div>
     </div>

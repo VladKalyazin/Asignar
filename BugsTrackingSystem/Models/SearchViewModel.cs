@@ -9,5 +9,10 @@ namespace BugsTrackingSystem.Models
     public class SearchViewModel
     {
         public NewDefectViewModel Select { get; set; }
+
+        public ProjectExtendedViewModel Project { get; set; }
+
+        public string SelectedItem { get; set; }
+
     }
 }

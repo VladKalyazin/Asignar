@@ -10,7 +10,7 @@ namespace BugsTrackingSystem.Models
     {
         public NewDefectViewModel Select { get; set; }
 
-        public IEnumerable<FilterViewModel> FilterInfo { get; set; }
+        public IEnumerable<FilterSimpleViewModel> FilterInfo { get; set; }
 
         public PageInfo PageInfo { get; set; }
     }

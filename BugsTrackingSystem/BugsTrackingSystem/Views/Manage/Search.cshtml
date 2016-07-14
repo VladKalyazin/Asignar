@@ -2,6 +2,14 @@
 
 @{
     ViewBag.Title = "Search";
+
+    var sorting = new List<SelectListItem>();
+
+    sorting.Add(new SelectListItem { Text = "Title", Value = "Title", Selected = Model.SelectedItem == "Title" });
+    sorting.Add(new SelectListItem { Text = "Status", Value = "Status", Selected = Model.SelectedItem == "Status" });
+    sorting.Add(new SelectListItem { Text = "Date", Value = "Date", Selected = Model.SelectedItem == "Date" });
+    sorting.Add(new SelectListItem { Text = "Users", Value = "Users", Selected = Model.SelectedItem == "Users" });
+    sorting.Add(new SelectListItem { Text = "Priority", Value = "Priority", Selected = Model.SelectedItem == "Priority" });
 }
 
 <div class="container">
@@ -10,37 +18,54 @@
     </h1>
 
     <div class="col-md-12 col-xs-12 searchBox">
-        @using (Html.BeginForm("Filters", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+        @using (Html.BeginForm("Filters", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             <ul class="list-inline">
                 <li class="col-md-4 col-xs-4">
-                    @Html.TextBox("Input", null, "", htmlAttributes: new {@class = "form-control searchInput", placeholder = "Type here...", required = true})
+                    @Html.TextBox("Input", null, "", htmlAttributes: new { @class = "form-control searchInput", placeholder = "Type here...", required = true })
                 </li>
                 <li>
-                    @Html.DropDownList("Priority", Model.Select.Priority, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+                    @Html.DropDownList("Priority", Model.Select.Priority, new { @class = "selectpicker", placeholder = "Priority", multiple = "multiple" })
                 </li>
                 <li>
-                    @Html.DropDownList("Status", Model.Select.Status, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+                    @Html.DropDownList("Status", Model.Select.Status, new { @class = "selectpicker", placeholder = "Priority", multiple = "multiple" })
                 </li>
                 <li>
-                    @Html.DropDownList("Projects", Model.Select.Projects, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+                    @Html.DropDownList("Projects", Model.Select.Projects, new { @class = "selectpicker", placeholder = "Priority", multiple = "multiple" })
                 </li>
                 <li>
-                    @Html.DropDownList("Users", Model.Select.Users, new {@class = "selectpicker", placeholder = "Priority", multiple = "multiple"})
+                    @Html.DropDownList("Users", Model.Select.Users, new { @class = "selectpicker", placeholder = "Priority", multiple = "multiple" })
                 </li>
             </ul>
         }
     </div>
-    
+
+    <div class="col-md-12 col-xs-12">
+        <ul class="list-inline" style="margin-left: 20px;">
+            <li>
+                <a href="#"><i class="fa fa-search taskIcon projPlus" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true"></i>
+            </li>
+            <li>
+                <i class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
+            </li>
+            <li>
+                <i class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true"></i>
+            </li>
+        </ul>
+    </div>
+
+
     <div class="col-md-12 col-xs-12">
         <ul class="list-inline">
             <li>
                 <span class="sort_by"><b>Sort by: </b></span>
             </li>
             <li>
-                @using (Html.BeginForm("SortProject", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("SortDefects", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    @Html.Hidden("Id", Model.Project.ProjectId)
                     string sort = ViewBag.sortOrder;
                     @Html.DropDownList("drop-down", sorting, sort, new { @class = "dropdown_sorting selectpicker", onchange = "this.form.submit()", selected = Model.SelectedItem })
                 }
@@ -48,7 +73,7 @@
         </ul>
     </div>
 
-    <table class="table projectTable">
+    @*<table class="table projectTable">
         <tbody>
             @foreach (var data in Model.Project.Defects)
             {
@@ -98,7 +123,8 @@
                 </tr>
             }
         </tbody>
-    </table>
+    </table>*@
 
-</div>
+
+    </div>
 

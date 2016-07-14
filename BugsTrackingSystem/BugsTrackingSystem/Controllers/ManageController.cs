@@ -349,8 +349,16 @@ namespace BugsTrackingSystem.Controllers
             return View(defect);
 		}
 
-        public ActionResult Search()
+        public ActionResult Search(string sortOrder)
         {
+            if (string.IsNullOrEmpty(sortOrder))
+            {
+                sortOrder = "Title";
+            }
+
+            DefectSortProperty sortSelected;
+            sortSelected = (DefectSortProperty)Enum.Parse(typeof(DefectSortProperty), sortOrder, true);
+            
             var changeDefect = new NewDefectViewModel
             {
                 Projects = _dataService.Value.GetProjectNames(),
@@ -361,11 +369,22 @@ namespace BugsTrackingSystem.Controllers
 
             var model = new SearchViewModel
             {
-                Select = changeDefect
+                Select = changeDefect,
+                SelectedItem = sortOrder
             };
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult SortDefects()
+        {
+            //int projId = Convert.ToInt32(Request.Form["Id"]);
+            string selected = Request.Form["drop-down"];
+
+            return RedirectToAction("Search", new { sortOrder = selected });
+        }
+        
 
         protected override void Dispose(bool disposing)
         {
