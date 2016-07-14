@@ -134,7 +134,6 @@ $(function () {
 $("#open_change").click(function () {
     $("#change_password").css({ 'display': "inline" });
     $("#change_password").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
