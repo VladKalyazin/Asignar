@@ -44,27 +44,27 @@ namespace BugsTrackingSystem.Controllers
             return PartialView(currentUser);
         }
 
-        public ActionResult Profile(int page = 1)
+        public ActionResult Profile(int userId, int page = 1)
 		{
-            var authCookie = Request.Cookies["Auth"];
+            /*var authCookie = Request.Cookies["Auth"];
             var enc = authCookie.Value;
-            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);*/
 
-            var defectsPerPages = _dataService.Value.GetUserSetOfDefects(id, _pageSizeHome, page - 1).ToList();
+            var defectsPerPages = _dataService.Value.GetUserSetOfDefects(userId, _pageSizeHome, page - 1).ToList();
             PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
                 PageSize = _pageSizeHome,
-                TotalItems = _dataService.Value.GetCountUserDefects(id)
+                TotalItems = _dataService.Value.GetCountUserDefects(userId)
             };
 
-            var userProjects = _dataService.Value.GetUserProjects(id, 4, 0);
+            var userProjects = _dataService.Value.GetUserProjects(userId, 4, 0);
 
             var model = new UserProfileViewModel()
 		    {
                 UserDefects = defectsPerPages,
                 Paged = pageInfo,
-                User = _dataService.Value.GetUserInfo(id),
+                User = _dataService.Value.GetUserInfo(userId),
                 Projects = userProjects,
                 Roles = _dataService.Value.GetRoleNames()
             };
@@ -84,12 +84,13 @@ namespace BugsTrackingSystem.Controllers
                 FirstName = Request.Form["Name"],
                 Surname = Request.Form["Surname"],
                 Email = Request.Form["Email"],
-                RoleId = Convert.ToInt32(role)
             };
+
+            newUser.RoleId = !string.IsNullOrEmpty(role) ? Convert.ToInt32(role) : 0;
 
             _dataService.Value.EditUser(newUser);
 
-            return RedirectToAction("Profile", new { id = Id });
+            return RedirectToAction("Profile", new { userId = Id });
         }
 
         [HttpPost]
@@ -101,12 +102,12 @@ namespace BugsTrackingSystem.Controllers
 
             if (Password != RepeatPassword)
             {
-                return RedirectToAction("Profile", new { id = Id });
+                return RedirectToAction("Profile", new { userId = Id });
             }
 
             _dataService.Value.ChangeUserPassword(Id, Password);
 
-            return RedirectToAction("Profile", new { id = Id });
+            return RedirectToAction("Profile", new { userId = Id });
         }
 
         public ActionResult Home(int page = 1)
@@ -157,7 +158,7 @@ namespace BugsTrackingSystem.Controllers
             {
                 PageNumber = page,
                 PageSize = _pageSize,
-                TotalItems = _dataService.Value.GetCountOfProjects()
+                TotalItems = User.IsInRole("Admin") ? _dataService.Value.GetCountOfProjects() : _dataService.Value.GetUserProjectsCount(id)
             };
             IndexViewModel ivm = new IndexViewModel
             {
@@ -256,6 +257,9 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Users(int page = 1)
 		{
+            if (!User.IsInRole("Admin"))
+                return View("Error");
+
             var usersPerPages = _dataService.Value.GetAllUsers(_pageSize, page - 1).ToList();
             PageInfo pageInfo = new PageInfo
             {
@@ -368,6 +372,14 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int _userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+            if (!User.IsInRole("Admin") && !_dataService.Value.IsUserInProject(_userId, id))
+            {
+                return View("Error");
+            }
+
             int projId = id;
             
             if (string.IsNullOrEmpty(sortOrder))

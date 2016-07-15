@@ -11,7 +11,7 @@
     </ul>
     <ul class="dropdown-menu">
         <li>
-            <a href="/Manage/Profile" style="color: #E7F1F0; padding-top: 7px" class="drop_profile">Profile</a>
+            <a href=@Url.Action("Profile", "Manage", new { userId = Model.UserId}) style="color: #E7F1F0; padding-top: 7px" class="drop_profile">Profile</a>
         </li>
         <li>
             <a href=@Url.Action("Logout", "Account") style="color: #E7F1F0; padding-top: 7px" class="drop_profile">Sign out</a>

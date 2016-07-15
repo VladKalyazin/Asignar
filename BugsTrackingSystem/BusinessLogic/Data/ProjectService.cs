@@ -67,6 +67,15 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public bool IsUserInProject(int userId, int projectId)
+        {
+            return _databaseModel.Projects.First(p => p.ProjectID == projectId).
+                Users.Any(u => u.UserID == userId);
+        }
+
+        public int GetUserProjectsCount(int userId) =>
+            _databaseModel.Projects.Where(p => p.Users.Any((u) => u.UserID == userId)).Count();
+
         public IEnumerable<ProjectViewModel> GetUserProjects(int userId)
         {
             try

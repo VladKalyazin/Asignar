@@ -73,33 +73,34 @@
         
         @foreach (var user in Model.Users)
         {
-            <div class="col-md-3 col-xs-6 MyProjects">
-                <ul class="list-inline">
-                    <li>
-                        <img class="img-circle" src="@user.UserPhoto" width="50" height="50" style="margin-top: -10px;"/>
-                    </li>
-                    <li>
-                        <span>@user.FirstName @user.Surname</span><br>
-                        <span>@user.Email</span>
-                    </li>
-                </ul>
-
-                <ul class="list-inline icons">
-                    <li style="margin-top: -15px; margin-left: -15px">
-                        @if (user.Role == "Admin")
-                        {
-                            <h5><span class="project_todo">Admin</span></h5>
-                        }
-                    </li>
-                    <li style="float: right !important">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"> @user.DefectsCount</i>
-                    </li>
-                    <li style="float: right !important">
-                        <i class="fa fa-list" aria-hidden="true"> @user.ProjectsCount</i>
-                    </li>
-                </ul>
-                <i class="fa fa-times hide_user" aria-hidden="true" onclick="hideUser(this, @user.UserId)"></i>
-            </div>
+            <a href="@Url.Action("Profile", "Manage", new { userId = user.UserId })">
+                <div class="col-md-3 col-xs-6 MyProjects">
+                    <ul class="list-inline">
+                        <li>
+                            <img class="img-circle" src="@user.UserPhoto" width="50" height="50" style="margin-top: -10px;" />
+                        </li>
+                        <li>
+                            <span>@user.FirstName @user.Surname</span><br>
+                            <span>@user.Email</span>
+                        </li>
+                    </ul>
+                    <ul class="list-inline icons">
+                        <li style="margin-top: -15px; margin-left: -15px">
+                            @if (user.Role == "Admin")
+                            {
+                                <h5><span class="project_todo">Admin</span></h5>
+                            }
+                        </li>
+                        <li style="float: right !important">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"> @user.DefectsCount</i>
+                        </li>
+                        <li style="float: right !important">
+                            <i class="fa fa-list" aria-hidden="true"> @user.ProjectsCount</i>
+                        </li>
+                    </ul>
+                    <i class="fa fa-times hide_user" aria-hidden="true" onclick="hideUser(this, @user.UserId)"></i>
+                </div>
+            </a>
         }
     </div>
 </div>

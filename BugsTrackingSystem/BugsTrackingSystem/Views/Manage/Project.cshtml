@@ -24,8 +24,10 @@
             <i class="open fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
         </li>
         <li>
+            @if (User.IsInRole("Admin"))
+            {
             <div id="edit_project">
-                @using (Html.BeginForm("EditProjectName", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                @using (Html.BeginForm("EditProjectName", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.Hidden("Id", Model.Project.ProjectId)
                     <div class="row">
@@ -40,6 +42,7 @@
                     </div>
                 }
             </div>
+            }
             <i id="open_edit" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
         </li>
         <li>
@@ -92,6 +95,8 @@
             </div>
         </li>
         <li>
+            @if (User.IsInRole("Admin"))
+            {
             <div id="add_user_to_project">
                 @using (Html.BeginForm("AddUsersToProject", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -133,6 +138,7 @@
                         </div>
                 }
             </div>
+            }
             <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
         </li>
     </ul>
