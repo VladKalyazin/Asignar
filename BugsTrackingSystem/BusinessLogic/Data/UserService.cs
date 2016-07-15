@@ -189,7 +189,10 @@ namespace AsignarServices.Data
                 var editEntity = _databaseModel.Users.First((u) => u.UserID == user.UserId);
                 editEntity.FirstName = user.FirstName;
                 editEntity.Surname = user.Surname;
-                editEntity.RoleID = user.RoleId;
+                if (user.RoleId > 0)
+                {
+                    editEntity.RoleID = user.RoleId;
+                }
                 editEntity.Email = user.Email;
 
                 _databaseModel.Users.Attach(editEntity);
@@ -197,7 +200,10 @@ namespace AsignarServices.Data
                 var entry = _databaseModel.Entry(editEntity);
                 entry.Property((u) => u.FirstName).IsModified = true;
                 entry.Property((u) => u.Surname).IsModified = true;
-                entry.Property((u) => u.RoleID).IsModified = true;
+                if (user.RoleId > 0)
+                {
+                    entry.Property((u) => u.RoleID).IsModified = true;
+                }
                 entry.Property((u) => u.Email).IsModified = true;
 
                 _databaseModel.SaveChanges();
