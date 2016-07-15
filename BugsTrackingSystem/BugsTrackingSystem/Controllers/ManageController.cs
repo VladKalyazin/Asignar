@@ -436,6 +436,10 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Search(string sortOrder = "Title", int page = 1)
         {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
             if (string.IsNullOrEmpty(sortOrder))
             {
                 sortOrder = "Title";
@@ -493,7 +497,8 @@ namespace BugsTrackingSystem.Controllers
                 SelectedItem = sortOrder,
                 Defects = defects,
                 Filter = filter,
-                PageInfo = pageInfo
+                PageInfo = pageInfo,
+                FilterInfo = _dataService.Value.GetAllFilters(id).ToList()
             };
 
             return View(model);

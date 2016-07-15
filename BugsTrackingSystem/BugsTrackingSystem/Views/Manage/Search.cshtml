@@ -71,13 +71,38 @@
                 <i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true" onclick="resetAll()"></i>
             </li>
             <li>
-                <i class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
+                <div id="select_filter">
+                    @using (Html.BeginForm("AddUsersToProject", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+
+                        @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-10 users_to_project">
+                                @foreach (var filter in Model.FilterInfo)
+                                {
+                                    @Html.Hidden("filterId", filter.FilterId)
+
+                                    <div class="col-md-12 col-xs-12">
+                                        @filter.Title
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn-pop btn-default" value="Open" />
+                    </div>
+                    }
+                </div>
+                <i id="open_filter" class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
             </li>
             <li>
                 <div id="save_filter">
-                    @*@{Html.Partial("SaveFilterView");}*@
+                    @*@{Html.RenderAction("SaveFilterView");}*@
                 </div>
-                <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" onclick="saveFilter()"></i>
+                <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" ></i>
             </li>
         </ul>
     </div>
