@@ -286,13 +286,13 @@ $("#open_edit_task").click(function () {
     activatePlaceholders();
 });
 
-$("#projectSelect").change(function () {
+$("#projectEditSelect").change(function () {
     $.ajax({
         dataType: "json",
         url: "/Manage/GetUsersFromProject",
         data: { projectId: this.value },
     }).success(function (result) {
-        var ddl = $("#userSelect");
+        var ddl = $("#userEditSelect");
         ddl.find("option").remove();
         ddl.selectpicker("refresh");
         $(result).each(function () {
@@ -345,18 +345,8 @@ function activatePlaceholders() {
     }).blur();
 }
 
-var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
-function validatePassword() {
-    if (password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-        confirm_password.setCustomValidity("");
-    }
-}
 
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
 
 $("body").on("click", ".hasicon > i", function () {
     $.ajax({
@@ -368,7 +358,7 @@ $("body").on("click", ".hasicon > i", function () {
        $(el).parent().hide();
    })
    .error(function (mess) {
-       alert(mess);
+       //alert(mess);
         });
 });
 
@@ -382,7 +372,7 @@ function hideFilter(el, filterId) {
         $(el).parent().hide();
     })
     .error(function (mess) {
-        alert(mess);
+        //alert(mess);
         });
 }
 
@@ -410,7 +400,7 @@ function hideProject(el, projectId) {
         $(el).parent().hide();
     })
     .error(function (mess) {
-        alert(mess);
+        //alert(mess);
     });
 }
 
@@ -428,4 +418,20 @@ function resetAll() {
             $('li').siblings().removeClass("selected");
             $('.filter-option').html("Nothing selected");
         });
+}
+
+
+var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
+function validatePassword() {
+    if (password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+        confirm_password.setCustomValidity("");
+    }
+}
+
+if (password != null && password != undefined) {
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
 }

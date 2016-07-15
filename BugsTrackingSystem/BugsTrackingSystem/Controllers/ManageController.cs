@@ -534,6 +534,21 @@ namespace BugsTrackingSystem.Controllers
         }
 
         [HttpPost]
+        public ActionResult AddComment()
+        {
+            int defectId = Convert.ToInt32(Request.Form["defectId"]);
+            string text = Request.Form["text"];
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            var commentHelper = new TableStorageHelper();
+            commentHelper.InsertComment(defectId, userId, text);
+
+            return RedirectToAction("Task", new { id = defectId });
+        }
+
+        [HttpPost]
         public ActionResult AddUsersToProject()
         {
             int projectId = Convert.ToInt32(Request.Form["Id"]);
@@ -546,6 +561,16 @@ namespace BugsTrackingSystem.Controllers
             _dataService.Value.AddUsersToProject(projectId, userIds);
 
             return RedirectToAction("Project", new { id = projectId });
+        }
+
+        public ActionResult AssignDefectToUser(int defectId)
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+            _dataService.Value.AssignDefect(defectId, userId);
+
+            return RedirectToAction("Task", new { id = defectId });
         }
 
         protected override void Dispose(bool disposing)

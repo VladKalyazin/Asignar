@@ -157,6 +157,31 @@ namespace AsignarServices.Data
             }
         }
 
+        public void AssignDefect(int defectId, int userId)
+        {
+            try
+            {
+                var editEntity = _databaseModel.Defects.First((d) => d.DefectID == defectId);
+                if (!_databaseModel.Users.First(u => u.UserID == userId).Projects.
+                    Any(p => p.ProjectID == editEntity.ProjectID))
+                {
+                    throw new Exception();
+                }
+
+                editEntity.AssigneeUserID = userId;
+
+                _databaseModel.Defects.Attach(editEntity);
+                var entry = _databaseModel.Entry(editEntity);
+                entry.Property((d) => d.AssigneeUserID).IsModified = true;
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
         public void DeleteDefect(int defectId)
         {
             try
