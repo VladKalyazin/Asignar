@@ -111,6 +111,40 @@ $("#open_filter").click(function () {
 });
 
 $(function () {
+    $("#save_filter").dialog
+    ({
+        modal: true,
+        width: 600,
+        height: 300,
+        draggable: true,
+        resizable: false,
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "blind",
+            duration: 500
+        }
+    });
+
+    $(".ui-dialog-title").replaceWith("<i class=\"fa fa-filter close_popup\" aria-hidden=\"true\"> Save filter</i>");
+});
+
+$("#open_save_filter").click(function () {
+    $("#save_filter").css({ 'display': "inline" });
+    $("#save_filter").dialog("open");
+    activatePlaceholders();
+});
+
+$(document).ready(function() {
+    function saveFilter() {
+        
+    }
+});
+
+$(function () {
     $("#change_password").dialog
     ({
         modal: true,
@@ -345,4 +379,20 @@ function hideProject(el, projectId) {
     .error(function (mess) {
         alert(mess);
     });
+}
+
+function resetAll() {
+    $.ajax({
+            type: "POST",
+            url: "/Manage/Search"
+        })
+        .done(function() {
+            // Clear the form
+            $('input[type=text], textarea').val('');
+            $('select').find('option').prop("selected", false);
+            $('input[type=radio]').prop("checked", false);
+            $('.dropdown-toggle').val('');
+            $('li').siblings().removeClass("selected");
+            $('.filter-option').html("Nothing selected");
+        });
 }

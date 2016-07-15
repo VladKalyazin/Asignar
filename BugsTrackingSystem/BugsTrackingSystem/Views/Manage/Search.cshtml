@@ -66,16 +66,18 @@
         <ul class="list-inline" style="margin-left: 20px;">
             <li>
                 <input type="submit" class="btn-pop btn-default" value="Find" />
-                @*<button type="submit"><i class="fa fa-search taskIcon projPlus" aria-hidden="true"></i></button>*@
             </li>
             <li>
-                <button type="reset"><i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true"></i></button>
+                <i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true" onclick="resetAll()"></i>
             </li>
             <li>
                 <i class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
             </li>
             <li>
-                <i class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true"></i>
+                <div id="save_filter">
+                    @*@{Html.Partial("SaveFilterView");}*@
+                </div>
+                <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" onclick="saveFilter()"></i>
             </li>
         </ul>
     </div>

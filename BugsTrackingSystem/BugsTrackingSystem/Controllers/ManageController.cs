@@ -233,7 +233,25 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult EditTask()
         {
-            return RedirectToAction("Task");
+            var defect = new DefectAddEditViewModel
+            {
+                DefectId = Convert.ToInt32(Request.Form["DefectId"]),
+                Name = Request.Form["Name"],
+                ProjectId = Convert.ToInt32(Request.Form["Project"]),
+                UserId = Convert.ToInt32(Request.Form["Owner"]),
+                PriorityId = Convert.ToInt32(Request.Form["Priority"]),
+                StatusId = Convert.ToInt32(Request.Form["Status"]),
+                Description = Request.Form["Description"]
+            };
+
+            _dataService.Value.EditDefect(defect);
+            return RedirectToAction("Task", new {id = defect.DefectId});
+        }
+
+        public ActionResult DeleteDefect(int defId, int projId)
+        {
+            _dataService.Value.DeleteDefect(defId);
+            return RedirectToAction("Project", new {id = projId});
         }
 
         public ActionResult Users(int page = 1)
@@ -479,6 +497,35 @@ namespace BugsTrackingSystem.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SaveFilterView()
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            string s = Request.Form["Priorities"];
+            IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string r = Request.Form["Projects"];
+            IEnumerable<int> projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string q = Request.Form["Statuses"];
+            IEnumerable<int> statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            string t = Request.Form["Assignees"];
+            IEnumerable<int> users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+            var filter = new FilterViewModel
+            {
+                PriorityIDs = priority,
+                StatusIDs = statuses,
+                ProjectIDs = projects,
+                UserIDs = users
+            };
+            return PartialView(filter);
         }
 
         [HttpPost]

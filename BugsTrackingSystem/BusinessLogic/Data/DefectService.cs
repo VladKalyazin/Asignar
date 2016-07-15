@@ -72,6 +72,7 @@ namespace AsignarServices.Data
                                   ProjectName = defect.Project.ProjectName,
                                   AssigneeUserName = defect.User.FirstName + " " + defect.User.Surname,
                                   StatusId = defect.DefectStatusID,
+                                  //Status = defect.DefectStatus,
                                   UserId = defect.AssigneeUserID,
                                   PriorityId = defect.DefectPriorityID,
                                   PriorityName = defect.DefectPriority.PriorityName,
@@ -156,5 +157,18 @@ namespace AsignarServices.Data
             }
         }
 
+        public void DeleteDefect(int defectId)
+        {
+            try
+            {
+                _databaseModel.Defects.Remove(_databaseModel.Defects.First(d => d.DefectID == defectId));
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

@@ -675,7 +675,7 @@ input[type=checkbox]:checked {
     font-size: 15px;
 }
 
-#change_password, #edit_user, #edit_task {
+#change_password, #edit_user, #edit_task, #save_filter {
     display: none;
     font-size: 15px;
 }
@@ -724,7 +724,7 @@ input[type=checkbox]:checked {
 
 .ui-dialog-titlebar {
     width: 600px;
-    margin-left: -3px;
+    margin-left: -4px;
     margin-top: -4px;
 }
 

@@ -69,6 +69,12 @@
     <Compile Include="UserRegistrationViewModel.cs" />
     <Compile Include="UserSimpleViewModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AsignarDBEntities\AsignarDBEntities.csproj">
+      <Project>{190CE266-51B2-409C-A801-0ADE9EB55357}</Project>
+      <Name>AsignarDBEntities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AsignarDBEntities;
 
 namespace BugsTrackingSystem.Models
 {
@@ -30,6 +31,8 @@ namespace BugsTrackingSystem.Models
         public string AssigneeUserPhoto { get; set; }
 
         public int StatusId { get; set; }
+
+        //public DefectStatus Status { get; set; }
 
         public int PriorityId { get; set; }
 

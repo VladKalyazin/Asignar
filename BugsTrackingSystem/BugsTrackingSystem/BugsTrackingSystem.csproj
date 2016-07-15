@@ -359,6 +359,7 @@
     <Content Include="Views\Shared\CreateNewTaskView.cshtml" />
     <Content Include="scss\bootstrap-select.scss" />
     <None Include="Views\Manage\Search.cshtml" />
+    <Content Include="Views\Shared\SaveFilterView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

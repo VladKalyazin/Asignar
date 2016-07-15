@@ -1,0 +1,37 @@
+﻿@model BugsTrackingSystem.Models.FilterViewModel
+
+    @using (Html.BeginForm("AddNewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-10">
+                    @Html.TextBox("Name", null, "", new { @class = "form-control projInput", placeholder = "Filter Name", required = true })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-10">
+                    @Html.TextBox("Search", null, "", new { @class = "form-control projInput", placeholder = "Search", required = true })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-5" style="margin-left: 50px;">
+                    @Html.TextBox("Priorities", Model.PriorityIDs, new { @class = "btnDropTask selectpicker", placeholder = "Priority", disabled = "disabled" })
+                </div>
+                <div class="col-xs-5" style="margin-left: 20px;">
+                    @Html.TextBox("Statuses", Model.StatusIDs, new { @class = "btnDropTask selectpicker", placeholder = "Status", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-5" style="margin-left: 50px;">
+                    @Html.TextBox("Projects", Model.ProjectIDs, new { @class = "btnDropTask selectpicker", placeholder = "Project", disabled = "disabled" })
+                </div>
+                <div class="col-xs-5" style="margin-left: 20px;">
+                    @Html.TextBox("Assignees", Model.UserIDs, new { @class = "btnDropTask selectpicker", placeholder = "Assignee", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <input type="submit" class="btn-pop btn-default" value="Add" />
+        </div>
+    }
+
