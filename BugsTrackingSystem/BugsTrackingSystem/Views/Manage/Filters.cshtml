@@ -73,39 +73,40 @@
             @Html.PageLinks(Model.PageInfo, x => Url.Action("Filters", new { page = x }))
         </div>
 
-        @foreach(var filter in Model.FilterInfo)
-        { 
-        <div class="col-md-3 col-xs-6 MyFilters">
-            <h3 class="projName" style="margin-left: 30px;">@filter.Title</h3>
-            <ul class="icons filtersStat" style="list-style-type: none; margin-left: -25px;">
-                <li>
-                    <span class="projText overspan">Search:</span>
-                    <span class="over">@filter.Search</span>
-                </li>
-                <li>
-                    <span class="projText overspan" style="margin-top: -5px !important;">Status:</span>
-                    <span class="over">@string.Join(", ", filter.Statuses)</span>
-                </li>
-                <li>
-                    <span class="projText overspan">Priority:</span>
-                    <span class="over">@string.Join(", ", filter.Priorities)</span>
-                </li>
-                <li>
-                    <span class="projText overspan">Project:</span>
-                    <span class="over">@string.Join(", ", filter.Projects)</span>
-                </li>
-                <li>
-                    <span class="projText overspan">Assignee:</span>
-                    <span class="over">@string.Join(", ", filter.Users)</span>
-                </li>
-            </ul>
-            @if (User.IsInRole("Admin"))
-            {
-                <i class="fa fa-times hide-button" aria-hidden="true" onclick="hideFilter(this, @filter.FilterId)"></i>
-            }
-        </div>
+        @foreach (var filter in Model.FilterInfo)
+        {
+            <a href="@Url.Action("Search", "Manage", new {filterId = filter.FilterId})">
+                <div class="col-md-3 col-xs-6 MyFilters">
+                    <h3 class="projName" style="margin-left: 30px;">@filter.Title</h3>
+                    <ul class="icons filtersStat" style="list-style-type: none; margin-left: -25px;">
+                        <li>
+                            <span class="projText overspan">Search:</span>
+                            <span class="over">@filter.Search</span>
+                        </li>
+                        <li>
+                            <span class="projText overspan" style="margin-top: -5px !important;">Status:</span>
+                            <span class="over">@string.Join(", ", filter.Statuses)</span>
+                        </li>
+                        <li>
+                            <span class="projText overspan">Priority:</span>
+                            <span class="over">@string.Join(", ", filter.Priorities)</span>
+                        </li>
+                        <li>
+                            <span class="projText overspan">Project:</span>
+                            <span class="over">@string.Join(", ", filter.Projects)</span>
+                        </li>
+                        <li>
+                            <span class="projText overspan">Assignee:</span>
+                            <span class="over">@string.Join(", ", filter.Users)</span>
+                        </li>
+                    </ul>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <i class="fa fa-times hide-button" aria-hidden="true" onclick="hideFilter(this, @filter.FilterId)"></i>
+                    }
+                </div>
+            </a>
         }
-        
     </div>
 </div>
 

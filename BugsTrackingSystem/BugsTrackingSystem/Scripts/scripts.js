@@ -417,6 +417,7 @@ function resetAll() {
             $('.dropdown-toggle').val('');
             $('li').siblings().removeClass("selected");
             $('.filter-option').html("Nothing selected");
+            $('#searchForm').submit();
         });
 }
 

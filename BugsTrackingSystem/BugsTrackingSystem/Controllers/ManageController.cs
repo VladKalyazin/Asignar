@@ -359,6 +359,13 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Filters");
         }
 
+        public ActionResult OpenFilter(int filterId)
+        {
+            FilterViewModel openfilter = _dataService.Value.GetFilter(filterId);
+
+            return RedirectToAction("Search", "Manage", new {exsitingFilter = openfilter});
+        }
+
         public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
             int projId = id;
@@ -434,7 +441,7 @@ namespace BugsTrackingSystem.Controllers
             return View(defect);
 		}
 
-        public ActionResult Search(string sortOrder = "Title", int page = 1)
+        public ActionResult Search(string sortOrder = "Title", int page = 1, int? filterId = null)
         {
             var authCookie = Request.Cookies["Auth"];
             var enc = authCookie.Value;
@@ -456,31 +463,41 @@ namespace BugsTrackingSystem.Controllers
                 Status = _dataService.Value.GetStatusNames()
             };
 
-            IEnumerable<int> priority;
-            IEnumerable<int> projects;
-            IEnumerable<int> statuses;
-            IEnumerable<int> users;
+            FilterViewModel filter;
 
-            string priorityStr = Request.Form["Priorities"];
-            priority = !string.IsNullOrEmpty(priorityStr) ? Array.ConvertAll(priorityStr.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            string projectsStr = Request.Form["Projects"];
-            projects = !string.IsNullOrEmpty(projectsStr) ? Array.ConvertAll(projectsStr.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            string statusStr = Request.Form["Statuses"];
-            statuses = !string.IsNullOrEmpty(statusStr) ? Array.ConvertAll(statusStr.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            string usersStr = Request.Form["Assignees"];
-            users = !string.IsNullOrEmpty(usersStr) ? Array.ConvertAll(usersStr.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-            var filter = new FilterViewModel
+            if (filterId == null)
             {
-                Search = Request.Form["Search"],
-                PriorityIDs = priority,
-                StatusIDs = statuses,
-                ProjectIDs = projects,
-                UserIDs = users
-            };
+                IEnumerable<int> priority;
+                IEnumerable<int> projects;
+                IEnumerable<int> statuses;
+                IEnumerable<int> users;
+
+                string priorityStr = Request.Form["Priorities"];
+                priority = !string.IsNullOrEmpty(priorityStr) ? Array.ConvertAll(priorityStr.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+                string projectsStr = Request.Form["Projects"];
+                projects = !string.IsNullOrEmpty(projectsStr) ? Array.ConvertAll(projectsStr.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+                string statusStr = Request.Form["Statuses"];
+                statuses = !string.IsNullOrEmpty(statusStr) ? Array.ConvertAll(statusStr.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+                string usersStr = Request.Form["Assignees"];
+                users = !string.IsNullOrEmpty(usersStr) ? Array.ConvertAll(usersStr.Split(','), int.Parse) : Enumerable.Empty<int>();
+
+                filter = new FilterViewModel
+                {
+                    Search = Request.Form["Search"],
+                    PriorityIDs = priority,
+                    StatusIDs = statuses,
+                    ProjectIDs = projects,
+                    UserIDs = users
+                };
+            }
+            else
+            {
+                filter = _dataService.Value.GetFilter(filterId.Value);
+            }
+
 
             var defects = _dataService.Value.FindDefects(filter, _pageSizeHome, page - 1, sortSelected);
 
@@ -507,10 +524,6 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult SaveFilterView()
         {
-            var authCookie = Request.Cookies["Auth"];
-            var enc = authCookie.Value;
-            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
-
             string s = Request.Form["Priorities"];
             IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
 

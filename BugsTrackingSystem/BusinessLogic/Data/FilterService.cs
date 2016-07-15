@@ -55,6 +55,34 @@ namespace AsignarServices.Data
         public int GetFiltersCount(int userId)
             => _databaseModel.Filters.Where(f => f.UserID == userId).Count();
 
+        public FilterViewModel GetFilter(int filterId)
+        {
+            try
+            {
+                using (var dbContextTransaction = _databaseModel.Database.BeginTransaction())
+                {
+                    var entity = _databaseModel.Filters.First(f => f.FilterID == filterId);
+
+                    return new FilterViewModel()
+                    {
+                        FilterId = filterId,
+                        Title = entity.Title,
+                        Search = entity.Search,
+                        PriorityIDs = entity.DefectPriorities.Select(dp => dp.DefectPriorityID).ToList(),
+                        ProjectIDs = entity.Projects.Select(dp => dp.ProjectID).ToList(),
+                        UserIDs = entity.Users.Select(dp => dp.UserID).ToList(),
+                        StatusIDs = entity.DefectStatuses.Select(dp => dp.DefectStatusID).ToList()
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            return null;
+        }
+
         public IEnumerable<FilterSimpleViewModel> GetFilters(int userId, int countOfSet, int page)
         {
             try

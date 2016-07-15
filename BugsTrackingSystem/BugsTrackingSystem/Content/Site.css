@@ -1013,3 +1013,25 @@ input[type=checkbox]:checked {
 .MyProjects:hover .hide_project {
     display: inline-block !important;
 }
+
+.choosing_filter {
+    overflow-y: scroll;
+    width: 550px;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.filter_line {
+    text-decoration: none;
+    width: 400px;
+    margin-left: -15px;
+    padding-top: -20px;
+    font-size: 20px;
+}
+
+input[type=radio]:checked {
+    background-position: left -32px;
+    color: #4D868D;
+}
