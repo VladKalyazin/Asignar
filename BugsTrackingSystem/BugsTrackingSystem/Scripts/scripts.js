@@ -133,9 +133,15 @@ $(function () {
 });
 
 $("#open_save_filter").click(function () {
-    $("#save_filter").css({ 'display': "inline" });
-    $("#save_filter").dialog("open");
-    activatePlaceholders();
+    alert(11);
+    $("#searchForm")
+        .ajaxSubmit({ url: "/Manage/SaveFilterView", type: "post" })
+        .success(function () {
+            alert('success');
+        });
+    //$("#save_filter").css({ 'display': "inline" });
+    //$("#save_filter").dialog("open");
+    //activatePlaceholders();
 });
 
 $(document).ready(function() {
@@ -222,6 +228,33 @@ $(function () {
 $("#open_edit").click(function () {
     $("#edit_project").css({ 'display': "inline" });
     $("#edit_project").dialog("open");
+    activatePlaceholders();
+});
+
+$(function () {
+    $("#select_filter").dialog
+    ({
+        modal: true,
+        width: 600,
+        height: 300,
+        draggable: true,
+        resizable: false,
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "blind",
+            duration: 500
+        }
+    });
+    $(".ui-dialog-title").replaceWith("<i class=\"fa fa-filter close_popup\" aria-hidden=\"true\"> Choose filter</i>");
+});
+
+$("#open_filter").click(function () {
+    $("#select_filter").css({ 'display': "inline" });
+    $("#select_filter").dialog("open");
     activatePlaceholders();
 });
 

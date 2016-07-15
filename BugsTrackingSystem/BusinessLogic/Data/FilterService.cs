@@ -83,6 +83,33 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public IEnumerable<FilterSimpleViewModel> GetAllFilters(int userId)
+        {
+            try
+            {
+                var result = _databaseModel.Filters.OrderBy((f) => f.Title).
+                        Where(f => f.UserID == userId).
+                        Select(f => new FilterSimpleViewModel()
+                        {
+                            FilterId = f.FilterID,
+                            Title = f.Title,
+                            Search = f.Search,
+                            Projects = f.Projects.Select(p => p.ProjectName),
+                            Users = f.Users.Select(u => u.FirstName + " " + u.Surname),
+                            Statuses = f.DefectStatuses.Select(s => s.StatusName),
+                            Priorities = f.DefectPriorities.Select(dp => dp.PriorityName)
+                        }).ToList();
+
+                return result;
+            }
+            catch
+            {
+
+            }
+
+            return null;
+        }
+
         public void DeleteFilter(int filterId)
         {
             try
