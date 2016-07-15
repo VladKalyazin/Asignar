@@ -157,7 +157,7 @@ namespace BugsTrackingSystem.Controllers
             {
                 PageNumber = page,
                 PageSize = _pageSize,
-                TotalItems = _dataService.Value.GetCountOfProjects()
+                TotalItems = User.IsInRole("Admin") ? _dataService.Value.GetCountOfProjects() : _dataService.Value.GetUserProjectsCount(id)
             };
             IndexViewModel ivm = new IndexViewModel
             {
@@ -361,6 +361,14 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Project(int id, string sortOrder, bool direction = true)
         {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int _userId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+            if (!User.IsInRole("Admin") && !_dataService.Value.IsUserInProject(_userId, id))
+            {
+                return View("Error");
+            }
+
             int projId = id;
             
             if (string.IsNullOrEmpty(sortOrder))
