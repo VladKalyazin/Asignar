@@ -805,7 +805,7 @@ input[type=checkbox]:checked {
     font-size: small;
     border-color: #D9DDDD;
     height: 35px;
-    width: 220px;
+    width: 220px !important;
     color: #3F4747;
 }
 
@@ -1031,7 +1031,19 @@ input[type=checkbox]:checked {
     font-size: 20px;
 }
 
-input[type=radio]:checked {
-    background-position: left -32px;
-    color: #4D868D;
+.project_subject {
+    margin-top: 10px;
+    display:inline-block;
+    width:660px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+
+.project_search {
+    display:inline-block;
+    width:385px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
 }
