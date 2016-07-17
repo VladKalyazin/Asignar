@@ -324,6 +324,44 @@ $("#projectSelect").change(function () {
     });
 });
 
+$("#userSelect").change(function () {
+    $.ajax({
+        dataType: "json",
+        url: "/Manage/GetProjectsFromUser",
+        data: { userId: this.value },
+    }).success(function (result) {
+        var ddl = $("#projectSelect");
+        ddl.find("option").remove();
+        ddl.selectpicker("refresh");
+        $(result).each(function () {
+            $(document.createElement("option"))
+                .attr("value", this.Value)
+                .text(this.Text)
+                .appendTo(ddl);
+        });
+        ddl.selectpicker("refresh");
+    });
+});
+
+$("#userEditSelect").change(function () {
+    $.ajax({
+        dataType: "json",
+        url: "/Manage/GetProjectsFromUser",
+        data: { userId: this.value },
+    }).success(function (result) {
+        var ddl = $("#projectEditSelect");
+        ddl.find("option").remove();
+        ddl.selectpicker("refresh");
+        $(result).each(function () {
+            $(document.createElement("option"))
+                .attr("value", this.Value)
+                .text(this.Text)
+                .appendTo(ddl);
+        });
+        ddl.selectpicker("refresh");
+    });
+});
+
 $('#searchForm').find('.btn-pagin').each(function () {
     var link = $(this);
     link.click(function (event) {

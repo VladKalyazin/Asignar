@@ -30,6 +30,15 @@ namespace AsignarServices.Data
             }).ToList();
         }
 
+        public IEnumerable<SelectListItem> GetProjectNames(int firstUserId, int secondUserId)
+        {
+            return _databaseModel.Projects.Where(p => p.Users.Any(u => u.UserID == firstUserId) && p.Users.Any(u => u.UserID == secondUserId)).Select((p) => new SelectListItem
+            {
+                Value = p.ProjectID.ToString(),
+                Text = p.ProjectName
+            }).ToList();
+        }
+
         public IEnumerable<SelectListItem> GetUserNames()
         {
             return _databaseModel.Users.Select((u) => new SelectListItem

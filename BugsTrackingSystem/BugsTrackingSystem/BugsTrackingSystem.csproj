@@ -289,6 +289,10 @@
     <Content Include="less\variables.less" />
     <Content Include="Properties\webjobs-list.json" />
     <Content Include="less\bootstrap-select.less" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\gothic.eot" />
+    <Content Include="fonts\gothic.ttf" />
+    <Content Include="fonts\gothic.woff" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

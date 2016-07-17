@@ -213,6 +213,17 @@ namespace BugsTrackingSystem.Controllers
             return Json(Users, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetProjectsFromUser(int userId)
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int loginId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            var Projects = _dataService.Value.GetProjectNames(userId, loginId);
+
+            return Json(Projects, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult AddNewTask()
         {
