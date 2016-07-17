@@ -69,7 +69,7 @@
             <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
                 <div class="col-md-3 col-xs-6 MyProjects">
                     @Html.Hidden("Id", project.ProjectId)
-                    <h3 class="projName">@project.Name</h3>
+                    <h3 class="projName user_overline">@project.Name</h3>
                     <p class="projPref">@project.Prefix</p>
                     <div class="text-right">
                         <ul class="list-inline icons">

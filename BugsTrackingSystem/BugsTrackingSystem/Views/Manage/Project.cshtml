@@ -27,8 +27,9 @@
             {
                 <li>
                     <div id="edit_project">
-                        @using (Html.BeginForm("EditProjectName", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                        @using (Html.BeginForm("EditProjectName", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "new_project_name", onsubmit = "return validate_new_projectname()" }))
                         {
+                            <p id="validation_new_projectname" style="color: Red; text-align: center;"></p>
                             @Html.Hidden("Id", Model.Project.ProjectId)
                             <div class="row">
                                 <div class="form-group">

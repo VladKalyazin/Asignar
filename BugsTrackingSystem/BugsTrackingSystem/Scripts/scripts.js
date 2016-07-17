@@ -643,3 +643,13 @@ function validate_new_user() {
     }
     return submitFlag;
 }
+
+function validate_new_projectname() {
+    var submitFlag = true;
+    var x = document.forms["new_project_name"]["NewName"].value;
+    if (x.length > 30) {
+        submitFlag = false;
+        document.getElementById("validation_new_projectname").innerHTML = "The name of project has to be less than 30 characters!";
+    }
+    return submitFlag;
+}

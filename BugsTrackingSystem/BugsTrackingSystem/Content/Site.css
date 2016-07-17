@@ -473,7 +473,6 @@ i {
 
 .user_line_top {
     position: absolute;
-    margin-top: 15px
 }
 
 .user_count {
@@ -506,6 +505,7 @@ tr {
 
 .list_users_project > li:hover .close_user {
     display: inline-block !important;
+    cursor: pointer;
 }
 
 
