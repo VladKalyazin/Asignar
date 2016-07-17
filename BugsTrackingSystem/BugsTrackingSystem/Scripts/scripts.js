@@ -483,11 +483,10 @@ function validate() {
     var x = document.forms["form2"]["text"].value;
     if (x.length >= 200) {
         submitFlag = false;
-        alert("Ivalid length - no more than 200 characters!");
+        document.getElementById("validation_comment").innerHTML = "Ivalid length - no more than 200 characters!";
     }
     return submitFlag;
 }
-
 
 function validate_task() {
     submitFlag = true;
@@ -495,11 +494,27 @@ function validate_task() {
     var y = document.forms["form_edit_task"]["Description"].value;
     if (x.length >= 200) {
         submitFlag = false;
-        alert("The name of task has to be less than 200 characters!");
+        document.getElementById("validation").innerHTML = "The name of task has to be less than 200 characters!";
     }
     if (y.length >= 500) {
         submitFlag = false;
-        alert("The description has to be less than 500 characters!");
+        document.getElementById("validation").innerHTML = "The description has to be less than 500 characters!";
+    }
+    return submitFlag;
+}
+
+function validate_new_project() {
+    submitFlag = true;
+    var letters = /^[A-Z]+$/;
+    var x = document.forms["form_new_project"]["Key"].value;
+    var y = document.forms["form_new_project"]["Name"].value;
+    if (y.length >= 30) {
+        document.getElementById("validation_new_project").innerHTML = "Name has to be less than 30 characters";
+        submitFlag = false;
+    }
+    if (x.length !== 3 || x.match(letters) == null) {
+        submitFlag = false;
+        document.getElementById("validation_new_project").innerHTML = "Key has to be uppercase and contain only 3 letters";
     }
     return submitFlag;
 }
