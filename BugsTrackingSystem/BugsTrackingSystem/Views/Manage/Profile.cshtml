@@ -144,7 +144,7 @@
             </h1>
 
             <div class="text-right col-md-12 col-xs-12">
-                @Html.PageLinks(Model.Paged, x => Url.Action("Profile", new {page = x}))
+                @Html.PageLinks(Model.Paged, x => Url.Action("Profile", new { page = x, userId = Model.User.UserId }))
             </div>
 
             <table class="table projectTableHome">

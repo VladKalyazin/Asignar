@@ -305,6 +305,25 @@ $("#projectEditSelect").change(function () {
     });
 });
 
+$("#projectSelect").change(function () {
+    $.ajax({
+        dataType: "json",
+        url: "/Manage/GetUsersFromProject",
+        data: { projectId: this.value },
+    }).success(function (result) {
+        var ddl = $("#userSelect");
+        ddl.find("option").remove();
+        ddl.selectpicker("refresh");
+        $(result).each(function () {
+            $(document.createElement("option"))
+                .attr("value", this.Value)
+                .text(this.Text)
+                .appendTo(ddl);
+        });
+        ddl.selectpicker("refresh");
+    });
+});
+
 $('#searchForm').find('.btn-pagin').each(function () {
     var link = $(this);
     link.click(function (event) {
