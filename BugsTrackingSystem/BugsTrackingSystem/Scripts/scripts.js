@@ -440,6 +440,15 @@ function resetAll() {
         });
 }
 
+function validate() {
+    submitFlag = true;
+    var x = document.forms["form2"]["text"].value;
+    if (x.length >= 200) {
+        submitFlag = false;
+        alert("Ivalid length - no more than 200 characters!");
+    }
+    return submitFlag;
+}
 
 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 

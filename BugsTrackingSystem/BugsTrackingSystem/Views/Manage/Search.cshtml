@@ -111,29 +111,33 @@
         {
             <tr>
                 <td style="width: 5%;">
-                    <img class="projectIcon" src="@data.PriorityPhoto">
+                    <img class="projectIcon" style="margin-top: 15px;" src="@data.PriorityPhoto">
                 </td>
                 <td>
                     <label>@data.Prefix</label>
                     @if (data.Status == "Open" || data.Status == "Done" || data.Status == "Closed")
                     {
-                        <span class="project_done">@data.Status</span>
+                        <p class="project_done">@data.Status</p>
                     }
                     else if (data.Status == "In Progress" || data.Status == "In Testing")
                     {
-                        <span class="project_progress">@data.Status</span>
+                        <p class="project_progress">@data.Status</p>
                     }
                     else
                     {
-                        <span class="project_todo">@data.Status</span>
+                        <p class="project_todo">@data.Status</p>
                     }
-                    <p> @data.Subject</p>
                 </td>
+
+                <td>
+                    <p class="project_search" style="margin-top: 20px;"> @data.Subject</p>
+                </td>
+
                 <td style="text-align:center; padding: 30px">
                     <p>@data.ProjectName</p>
                 </td>
                 <td>
-                    <p>
+                    <p style="margin-top: 7px;">
                         <span class="projText">Created:</span> @data.CreationDate
                     </p>
                     <p>
@@ -150,10 +154,10 @@
                     </p>
                 </td>
                 <td>
-                    <img class="img-responsive img-circle" height="50" width="50" src="@data.AssigneeUserPhoto">
+                    <img class="img-responsive img-circle" height="50" width="50" src="@data.AssigneeUserPhoto" style="margin-top: 10px;">
                 </td>
                 <td>
-                    <p style="margin-top: 15px; position: relative">@data.AssigneeUserName</p>
+                    <p style="margin-top: 20px; position: relative">@data.AssigneeUserName</p>
                 </td>
             </tr>
         }

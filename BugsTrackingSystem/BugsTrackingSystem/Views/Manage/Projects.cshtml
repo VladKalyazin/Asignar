@@ -16,6 +16,8 @@
                 </h1>
             </li>
             <li>
+                @if (User.IsInRole("Admin"))
+                { 
                 <div id="add_project" class="popUpTitle">
                     @using (Html.BeginForm("RecieveForm", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                     {
@@ -40,6 +42,7 @@
                     }
                 </div>
                 <i id="opener" class="fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
+                }
             </li>
             <li style="float: right !important">
                 <div>
