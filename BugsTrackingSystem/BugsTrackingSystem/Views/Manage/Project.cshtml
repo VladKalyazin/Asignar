@@ -23,34 +23,37 @@
         <li>
             <i class="open fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
         </li>
-        <li>
-            @if (User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin"))
             {
-            <div id="edit_project">
-                @using (Html.BeginForm("EditProjectName", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.Hidden("Id", Model.Project.ProjectId)
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-xs-10">
-                                @Html.TextBox("NewName", Model.Project.Name, "", htmlAttributes: new { @class = "form-control projInput", placeholder = "Project Name" })
+                <li>
+                    <div id="edit_project">
+                        @using (Html.BeginForm("EditProjectName", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                        {
+                            @Html.Hidden("Id", Model.Project.ProjectId)
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-10">
+                                        @Html.TextBox("NewName", Model.Project.Name, "", htmlAttributes: new {@class = "form-control projInput", placeholder = "Project Name"})
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="text-right">
+                                <input type="submit" class="btn-pop btn-default" value="Save"/>
+                            </div>
+                        }
                     </div>
-                    <div class="text-right">
-                        <input type="submit" class="btn-pop btn-default" value="Save"/>
-                    </div>
-                }
-            </div>
+
+                    <i id="open_edit" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+                </li>
+
+                <li>
+                    <i class="fa fa-pause taskIcon" aria-hidden="true"></i>
+                </li>
+
+                <li>
+                    <i class="fa fa-times taskIcon" aria-hidden="true"></i>
+                </li>
             }
-            <i id="open_edit" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
-        </li>
-        <li>
-            <i class="fa fa-pause taskIcon" aria-hidden="true"></i>
-        </li>
-        <li>
-            <i class="fa fa-times taskIcon" aria-hidden="true"></i>
-        </li>
         <li style="float: right !important">
             <div>
                 @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -88,22 +91,24 @@
                                 </li>
                                 <i class="fa fa-times close_user text-right" aria-hidden="true"></i>
                             </ul>
-                            
+
                         </li>
                     }
                 </ul>
             </div>
         </li>
-        <li>
-            @if (User.IsInRole("Admin"))
-            {
+@if (User.IsInRole("Admin"))
+{
+    <li>
+        @if (User.IsInRole("Admin"))
+        {
             <div id="add_user_to_project">
-                @using (Html.BeginForm("AddUsersToProject", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("AddUsersToProject", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                 {
 
                     @Html.AntiForgeryToken()
 
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.ValidationSummary("", new {@class = "text-danger"})
 
                     @Html.Hidden("Id", Model.Project.ProjectId)
                     <div class="row">
@@ -113,7 +118,7 @@
                                 {
                                     <div class="user_line">
                                         <ul class="list-inline">
-                                            @Html.CheckBox("userIds", new { value = user.UserId })
+                                            @Html.CheckBox("userIds", new {value = user.UserId})
                                             <li><img src="@user.UserPhoto" class="img-responsive img-circle" height="50" width="50"/></li>
                                             <li>
                                                 <div class="col-xs-4 user_line_data">
@@ -132,15 +137,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 user_count"><b>Users: @Model.Users.Count()</b></div>
-                        <div class="text-right">
-                            <input type="submit" class="btn-pop btn-default" value="Add user" />
-                        </div>
+                    <div class="col-md-4 user_count"><b>Users: @Model.Users.Count()</b>
+                    </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn-pop btn-default" value="Add user"/>
+                    </div>
                 }
             </div>
-            }
-            <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
-        </li>
+        }
+        <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
+    </li>
+}
     </ul>
 
     <div class="col-md-12 col-xs-12">
@@ -166,7 +173,7 @@
                 <td style="width: 5%;">
                     <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
-                <td>
+                <td style="width: 45%;">
                     <label>@Model.Project.Prefix</label>
                     @if (data.Status == "Open" || data.Status == "Done" || data.Status == "Closed")
                     {
@@ -180,7 +187,7 @@
                     {
                         <span class="project_todo">@data.Status</span>
                     }
-                    <p> @data.Subject</p>
+                    <p class="project_page_subject"> @data.Subject</p>
                 </td>
                 <td>
                     <p>

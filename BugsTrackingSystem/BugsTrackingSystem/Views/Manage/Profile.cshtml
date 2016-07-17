@@ -44,24 +44,25 @@
                 <ul class="list-inline col-xs-12" style="width: 220px">
                     <li>
                         <div id="change_password">
-                            @using (Html.BeginForm("ChangePassword", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                            @using (Html.BeginForm("ChangePassword", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "form_change_password", onsubmit = "return validate_password()" }))
                             {
+                                <p id="validation_pasword" style="color: Red; text-align: center;"></p>
+
                                 @Html.AntiForgeryToken()
                                 @Html.Hidden("Id", Model.User.UserId)
-
-                                @Html.ValidationSummary("", new {@class = "text-danger"})
+                                
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <input type="password" id="password" name="Password" class="form-control projInput" placeholder="Password" required/>
+                                            <input type="password" name="Password" class="form-control projInput" placeholder="Password" required title="Minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character"/>
                                         </div>
                                         <div class="col-xs-5">
-                                            <input type="password" id="confirm_password" name="RepeatPassword" class="form-control projInput" placeholder="Repeat password" required/>
+                                            <input type="password" name="RepeatPassword" class="form-control projInput" placeholder="Repeat password" required/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn-pop btn-default pure-button pure-button-primary">Change</button>
+                                    <input type="submit" class="btn-pop btn-default pure-button pure-button-primary" value="Change"/>
                                 </div>
                             }
                         </div>
@@ -69,8 +70,9 @@
                     </li>
                     <li>
                         <div id="edit_user">
-                            @using (Html.BeginForm("EditUserViewModel", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                            @using (Html.BeginForm("EditUserViewModel", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "form_edit_profile", onsubmit = "return validate_profile()" }))
                             {
+                                <p id="validation_edit_profile" style="color: Red; text-align: center;"></p>
                                 @Html.Hidden("Id", Model.User.UserId)
                                 <div class="form-group">
                                     <div class="col-xs-6">

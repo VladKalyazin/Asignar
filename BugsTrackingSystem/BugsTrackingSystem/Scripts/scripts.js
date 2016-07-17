@@ -479,7 +479,7 @@ function resetAll() {
 }
 
 function validate() {
-    submitFlag = true;
+    var submitFlag = true;
     var x = document.forms["form2"]["text"].value;
     if (x.length >= 200) {
         submitFlag = false;
@@ -489,14 +489,14 @@ function validate() {
 }
 
 function validate_task() {
-    submitFlag = true;
+    var submitFlag = true;
     var x = document.forms["form_edit_task"]["Name"].value;
     var y = document.forms["form_edit_task"]["Description"].value;
-    if (x.length >= 200) {
+    if (x.length > 200) {
         submitFlag = false;
         document.getElementById("validation").innerHTML = "The name of task has to be less than 200 characters!";
     }
-    if (y.length >= 500) {
+    if (y.length > 500) {
         submitFlag = false;
         document.getElementById("validation").innerHTML = "The description has to be less than 500 characters!";
     }
@@ -504,11 +504,11 @@ function validate_task() {
 }
 
 function validate_new_project() {
-    submitFlag = true;
+    var submitFlag = true;
     var letters = /^[A-Z]+$/;
     var x = document.forms["form_new_project"]["Key"].value;
     var y = document.forms["form_new_project"]["Name"].value;
-    if (y.length >= 30) {
+    if (y.length > 30) {
         document.getElementById("validation_new_project").innerHTML = "Name has to be less than 30 characters";
         submitFlag = false;
     }
@@ -519,17 +519,52 @@ function validate_new_project() {
     return submitFlag;
 }
 
-var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
-
-function validatePassword() {
-    if (password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-        confirm_password.setCustomValidity("");
+function validate_profile() {
+    var submitFlag = true;
+    var letters = /^[A-Za-z]+$/;
+    var email = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
+    var x = document.forms["form_edit_profile"]["Name"].value;
+    var y = document.forms["form_edit_profile"]["Surname"].value;
+    var z = document.forms["form_edit_profile"]["Email"].value;
+    if (x.length > 30) {
+        document.getElementById("validation_edit_profile").innerHTML = "Name has to contain less than 30 letters";
+        submitFlag = false;
     }
+    if (x.match(letters) == null) {
+        document.getElementById("validation_edit_profile").innerHTML = "Name has to contain letters";
+        submitFlag = false;
+    }
+    if (y.length > 30) {
+        document.getElementById("validation_edit_profile").innerHTML = "Surname has to contain less than 30 letters";
+        submitFlag = false;
+    }
+    if (y.match(letters) == null) {
+        document.getElementById("validation_edit_profile").innerHTML = "Surname has to contain letters";
+        submitFlag = false;
+    }
+    if (z.match(email) == null) {
+        submitFlag = false;
+        document.getElementById("validation_edit_profile").innerHTML = "Email is not valid";
+    }
+    if (z.length > 35) {
+        submitFlag = false;
+        document.getElementById("validation_edit_profile").innerHTML = "Email has t contain less than 35 characters";
+    }
+    return submitFlag;
 }
 
-if (password != null && password != undefined) {
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
+function validate_password() {
+    var submitFlag = true;
+    var password = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    var x = document.forms["form_change_password"]["Password"].value;
+    var y = document.forms["form_change_password"]["RepeatPassword"].value;
+    if (x.match(password) == null) {
+        submitFlag = false;
+        document.getElementById("validation_pasword").innerHTML = "The password is invalid!";
+    }
+    if (y !== x) {
+        submitFlag = false;
+        document.getElementById("validation_pasword").innerHTML = "The passwords doesn't match!";
+    }
+    return submitFlag;
 }

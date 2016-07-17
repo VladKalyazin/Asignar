@@ -1053,3 +1053,12 @@ input[type=checkbox]:checked {
     overflow:hidden !important;
     text-overflow: ellipsis;
 }
+
+.project_page_subject {
+    margin-top: 10px;
+    display: inline-block;
+    width: 620px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
