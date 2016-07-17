@@ -488,6 +488,22 @@ function validate() {
     return submitFlag;
 }
 
+
+function validate_task() {
+    submitFlag = true;
+    var x = document.forms["form_edit_task"]["Name"].value;
+    var y = document.forms["form_edit_task"]["Description"].value;
+    if (x.length >= 200) {
+        submitFlag = false;
+        alert("The name of task has to be less than 200 characters!");
+    }
+    if (y.length >= 500) {
+        submitFlag = false;
+        alert("The description has to be less than 500 characters!");
+    }
+    return submitFlag;
+}
+
 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
 function validatePassword() {
