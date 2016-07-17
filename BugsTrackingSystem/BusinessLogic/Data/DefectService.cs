@@ -169,10 +169,12 @@ namespace AsignarServices.Data
                 }
 
                 editEntity.AssigneeUserID = userId;
+                editEntity.ModificationDate = DateTime.UtcNow;
 
                 _databaseModel.Defects.Attach(editEntity);
                 var entry = _databaseModel.Entry(editEntity);
                 entry.Property((d) => d.AssigneeUserID).IsModified = true;
+                entry.Property((d) => d.ModificationDate).IsModified = true;
 
                 _databaseModel.SaveChanges();
             }
