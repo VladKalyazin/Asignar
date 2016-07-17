@@ -17,8 +17,9 @@
             </li>
             <li>
                 <div id="add_filter">
-                    @using (Html.BeginForm("AddNewFilter", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    @using (Html.BeginForm("AddNewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "form_add_filter", onsubmit = "return validate_new_filter()" }))
                     {
+                        <p id="validation_filter" style="color: Red; text-align: center"></p>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-xs-10">

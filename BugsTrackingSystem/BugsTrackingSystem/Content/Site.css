@@ -1062,3 +1062,11 @@ input[type=checkbox]:checked {
     overflow: hidden !important;
     text-overflow: ellipsis;
 }
+
+.user_overline {
+    display: inline-block;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}

@@ -25,12 +25,12 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-xs-10">
-                                    @Html.TextBox("Name", null, "", new {@class = "form-control projInput", placeholder = "Project Name"})
+                                    @Html.TextBox("Name", null, "", new {@class = "form-control projInput", placeholder = "Project Name", required = "required" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5">
-                                    @Html.TextBox("Key", null, "", new {@class = "form-control projInput", placeholder = "Key"})
+                                    @Html.TextBox("Key", null, "", new {@class = "form-control projInput", placeholder = "Key", required = "required" })
                                 </div>
                                 <div class="col-xs-5">
                                     <span class="popUpText">Three letters for description</span>

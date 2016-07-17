@@ -503,6 +503,21 @@ function validate_task() {
     return submitFlag;
 }
 
+function validate_new_task() {
+    var submitFlag = true;
+    var x = document.forms["form_new_task"]["Name"].value;
+    var y = document.forms["form_new_task"]["Description"].value;
+    if (x.length > 200) {
+        submitFlag = false;
+        document.getElementById("validation_new_task").innerHTML = "The name of task has to be less than 200 characters!";
+    }
+    if (y.length > 500) {
+        submitFlag = false;
+        document.getElementById("validation_new_task").innerHTML = "The description has to be less than 500 characters!";
+    }
+    return submitFlag;
+}
+
 function validate_new_project() {
     var submitFlag = true;
     var letters = /^[A-Z]+$/;
@@ -565,6 +580,66 @@ function validate_password() {
     if (y !== x) {
         submitFlag = false;
         document.getElementById("validation_pasword").innerHTML = "The passwords doesn't match!";
+    }
+    return submitFlag;
+}
+
+function validate_new_filter() {
+    var submitFlag = true;
+    var x = document.forms["form_add_filter"]["Name"].value;
+    var y = document.forms["form_add_filter"]["Search"].value;
+    if (x.length > 30) {
+        submitFlag = false;
+        document.getElementById("validation_filter").innerHTML = "The Name should be shorter than 30 symbols";
+    }
+    if (y.length > 50) {
+        submitFlag = false;
+        document.getElementById("validation_filter").innerHTML = "The Search should be shorter than 50 symbols";
+    }
+    return submitFlag;
+}
+
+function validate_new_user() {
+    var submitFlag = true;
+    var letters = /^[A-Za-z]+$/;
+    var email = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
+    var password = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    var x = document.forms["form_new_user"]["FirstName"].value;
+    var y = document.forms["form_new_user"]["Surname"].value;
+    var z = document.forms["form_new_user"]["Email"].value;
+    var p = document.forms["form_new_user"]["Password"].value;
+    var q = document.forms["form_new_user"]["ConfirmPassword"].value;
+    if (x.length > 30) {
+        document.getElementById("validation_adding_user").innerHTML = "Name has to contain less than 30 letters";
+        submitFlag = false;
+    }
+    if (x.match(letters) == null) {
+        document.getElementById("validation_adding_user").innerHTML = "Name has to contain letters";
+        submitFlag = false;
+    }
+    if (y.length > 30) {
+        document.getElementById("validation_adding_user").innerHTML = "Surname has to contain less than 30 letters";
+        submitFlag = false;
+    }
+    if (y.match(letters) == null) {
+        document.getElementById("validation_adding_user").innerHTML = "Surname has to contain letters";
+        submitFlag = false;
+    }
+    if (z.match(email) == null) {
+        submitFlag = false;
+        document.getElementById("validation_adding_user").innerHTML = "Email is not valid";
+    }
+    if (z.length > 35) {
+        submitFlag = false;
+        document.getElementById("validation_adding_user").innerHTML = "Email has t contain less than 35 characters";
+    }
+    if (p.match(password) == null) {
+        submitFlag = false;
+        document.getElementById("validation_adding_user").innerHTML = "The password is invalid!";
+    }
+    if (p !== q) {
+        submitFlag = false;
+        document.getElementById("validation_adding_user").innerHTML = "The passwords doesn't match!";
     }
     return submitFlag;
 }

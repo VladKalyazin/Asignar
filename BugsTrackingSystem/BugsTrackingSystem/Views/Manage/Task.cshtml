@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-xs-10">
-                                @Html.TextBox("Name", Model.DefectInfo.Subject, "", new { @class = "form-control projInput", placeholder = "Task name", required = true })
+                                @Html.TextBox("Name", Model.DefectInfo.Subject, "", new { @class = "form-control projInput", placeholder = "Task name", required = "required" })
                             </div>
                         </div>
                         <div class="form-group" style="margin-left: 35px;">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-xs-10">
-                                @Html.TextArea("Description", Model.DefectInfo.Description, new { rows = 5, @class = "form-control descInput", placeholder = "Description", required = true })
+                                @Html.TextArea("Description", Model.DefectInfo.Description, new { rows = 5, @class = "form-control descInput", placeholder = "Description", required = "required" })
                             </div>
                         </div>
                         <hr style="width: 500px">
@@ -168,7 +168,7 @@
             {
                 @Html.Hidden("defectId", Model.DefectInfo.DefectId)
                 <div class="form-group" style="width: 89%">
-                    @Html.TextBox("text", "", htmlAttributes: new {@class = "form-control", placeholder = "Your comments", style = "color: black; width: 100%", name = "t"})
+                    @Html.TextBox("text", "", new {@class = "form-control", placeholder = "Your comments", style = "color: black; width: 100%", name = "t", required = "required" })
                 </div>
                 <div class="form-group" style="width: 10%">
                     <input type="submit" class="btn btn-default" value="Add" style="min-width: 66px;"/>
