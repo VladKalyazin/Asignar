@@ -55,6 +55,18 @@ namespace AsignarServices.AzureStorage
 
             TableOperation insertOperation = TableOperation.Insert(new CommentEntity(DateTime.UtcNow, text, userId, defectId));
             table.Execute(insertOperation);
+
+            using (var db = new AsignarDatabaseModel())
+            {
+                var editEntity = db.Defects.First((d) => d.DefectID == defectId);
+                editEntity.ModificationDate = DateTime.UtcNow;
+
+                db.Defects.Attach(editEntity);
+                var entry = db.Entry(editEntity);
+                entry.Property((d) => d.ModificationDate).IsModified = true;
+
+                db.SaveChanges();
+            }
         }
 
         public IEnumerable<CommentViewModel> GetDefectComments(int defectId, AsignarDatabaseModel db)
