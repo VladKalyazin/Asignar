@@ -206,20 +206,22 @@ namespace BugsTrackingSystem.Controllers
             return PartialView(addDefect);
         }
 
-        public ActionResult GetUsersFromProject(int projectId)
+        public ActionResult GetUsersFromProject(int projectId, int selectedUserId)
         {
             var Users = _dataService.Value.GetUserNames(projectId);
+            Users.First(u => u.Value == selectedUserId.ToString()).Selected = true;
 
             return Json(Users, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetProjectsFromUser(int userId)
+        public ActionResult GetProjectsFromUser(int userId, int selectedProjectId)
         {
             var authCookie = Request.Cookies["Auth"];
             var enc = authCookie.Value;
             int loginId = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
 
             var Projects = _dataService.Value.GetProjectNames(userId, loginId);
+            Projects.First(p => p.Value == selectedProjectId.ToString()).Selected = true;
 
             return Json(Projects, JsonRequestBehavior.AllowGet);
         }

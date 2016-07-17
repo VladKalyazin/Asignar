@@ -287,10 +287,14 @@ $("#open_edit_task").click(function () {
 });
 
 $("#projectEditSelect").change(function () {
+    var selectedId = $('#userEditSelect option:selected').val();
     $.ajax({
         dataType: "json",
         url: "/Manage/GetUsersFromProject",
-        data: { projectId: this.value },
+        data: {
+            projectId: this.value,
+            selectedUserId: selectedId,
+        },
     }).success(function (result) {
         var ddl = $("#userEditSelect");
         ddl.find("option").remove();
@@ -299,6 +303,7 @@ $("#projectEditSelect").change(function () {
             $(document.createElement("option"))
                 .attr("value", this.Value)
                 .text(this.Text)
+                .prop("selected", this.Selected)
                 .appendTo(ddl);
         });
         ddl.selectpicker("refresh");
@@ -306,10 +311,14 @@ $("#projectEditSelect").change(function () {
 });
 
 $("#projectSelect").change(function () {
+    var selectedId = $('#userSelect option:selected').val();
     $.ajax({
         dataType: "json",
         url: "/Manage/GetUsersFromProject",
-        data: { projectId: this.value },
+        data: {
+            projectId: this.value,
+            selectedUserId: selectedId,
+        },
     }).success(function (result) {
         var ddl = $("#userSelect");
         ddl.find("option").remove();
@@ -317,6 +326,7 @@ $("#projectSelect").change(function () {
         $(result).each(function () {
             $(document.createElement("option"))
                 .attr("value", this.Value)
+                .prop("selected", this.Selected)
                 .text(this.Text)
                 .appendTo(ddl);
         });
@@ -325,10 +335,14 @@ $("#projectSelect").change(function () {
 });
 
 $("#userSelect").change(function () {
+    var selectedId = $('#projectSelect option:selected').val();
     $.ajax({
         dataType: "json",
         url: "/Manage/GetProjectsFromUser",
-        data: { userId: this.value },
+        data: {
+            userId: this.value,
+            selectedProjectId: selectedId
+        },
     }).success(function (result) {
         var ddl = $("#projectSelect");
         ddl.find("option").remove();
@@ -336,6 +350,7 @@ $("#userSelect").change(function () {
         $(result).each(function () {
             $(document.createElement("option"))
                 .attr("value", this.Value)
+                .prop("selected", this.Selected)
                 .text(this.Text)
                 .appendTo(ddl);
         });
@@ -344,10 +359,14 @@ $("#userSelect").change(function () {
 });
 
 $("#userEditSelect").change(function () {
+    var selectedId = $('#projectSelect option:selected').val();
     $.ajax({
         dataType: "json",
         url: "/Manage/GetProjectsFromUser",
-        data: { userId: this.value },
+        data: {
+            userId: this.value,
+            selectedProjectId: selectedId
+        },
     }).success(function (result) {
         var ddl = $("#projectEditSelect");
         ddl.find("option").remove();
@@ -355,6 +374,7 @@ $("#userEditSelect").change(function () {
         $(result).each(function () {
             $(document.createElement("option"))
                 .attr("value", this.Value)
+                .prop("selected", this.Selected)
                 .text(this.Text)
                 .appendTo(ddl);
         });
