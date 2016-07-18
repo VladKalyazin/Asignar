@@ -348,7 +348,7 @@ $("#userSelect").change(function () {
 });
 
 $("#userEditSelect").change(function () {
-    var selectedId = $('#projectEditSelect option:selected').val();
+    var selectedId = $('#projectSelect option:selected').val();
     $.ajax({
         dataType: "json",
         url: "/Manage/GetProjectsFromUser",
@@ -419,17 +419,7 @@ function resetAll() {
 function hideFilter(el, filterId) {
     var checkstr = confirm('Are you sure you want to delete this filter?');
     if (checkstr == true) {
-        $.ajax({
-            url: "/Manage/DeleteFilter/",
-            data: { filterId: filterId },
-            method: "POST"
-        })
-        .success(function () {
-            $(el).parent().hide();
-        })
-        .error(function (mess) {
-            //alert(mess);
-        });
+        window.location.href = "/Manage/DeleteFilter?filterId=" + filterId
     }
     else {
         return false;
@@ -468,38 +458,17 @@ function goto_project_home() {
 function hideUser(el, userId) {
     var checkstr = confirm('Are you sure you want to delete this user');
     if (checkstr == true) {
-        $.ajax({
-            url: "/Manage/DeleteUser/",
-            data: { userId: userId },
-            method: "POST"
-        })
-        .success(function () {
-            $(el).parent().hide();
-        })
-        .error(function (mess) {
-            alert(mess);
-        });
+        window.location.href = "/Manage/DeleteUser?userId=" + userId
     }
     else {
         return false;
     }
-    
 }
 
 function hideProject(el, projectId) {
     var checkstr = confirm('Are you sure you want to delete this project?');
     if (checkstr == true) {
-        $.ajax({
-            url: "/Manage/DeleteProject/",
-            data: { projectId: projectId },
-            method: "POST"
-        })
-        .success(function () {
-            $(el).parent().hide();
-        })
-        .error(function (mess) {
-            alert(mess);
-        });
+        window.location.href = "/Manage/DeleteProject?projectId=" + projectId
     }
     else {
         return false;
@@ -519,17 +488,7 @@ function deleteDefect() {
 function delete_user_from_project(el, projId, userId) {
     var checkstr = confirm('Are you sure you want to delete this user from project?');
     if (checkstr == true) {
-        $.ajax({
-            url: "/Manage/DeleteUserFromProject",
-            data: { projId: projId, userId: userId },
-            method: "POST"
-        })
-        .success(function () {
-            $(el).parent().hide();
-        })
-        .error(function (mess) {
-            //alert(mess);
-        });
+        window.location.href = "/Manage/DeleteUserFromProject?projId=" + projId + "&userId=" + userId
     }
     else {
         return false;

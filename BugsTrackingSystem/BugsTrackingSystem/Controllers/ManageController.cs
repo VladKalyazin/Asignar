@@ -326,8 +326,7 @@ namespace BugsTrackingSystem.Controllers
 
             return View(filter);
 		}
-
-        [HttpPost]
+        
         public ActionResult DeleteUser(int userId)
         {
             _dataService.Value.DeleteUser(userId);
@@ -367,8 +366,7 @@ namespace BugsTrackingSystem.Controllers
 
             return RedirectToAction("Filters");
         }
-
-        [HttpPost]
+        
         public ActionResult DeleteFilter(int filterId)
         {
             _dataService.Value.DeleteFilter(filterId);
@@ -445,11 +443,10 @@ namespace BugsTrackingSystem.Controllers
 
             return RedirectToAction("Project", new { id = Id });
         }
-
-        [HttpPost]
+        
         public ActionResult DeleteUserFromProject(int projId, int userId)
         {
-            //_dataService.Value
+            _dataService.Value.RemoveUserFromProject(userId, projId);
             return RedirectToAction("Project", new { id = projId });
         }
 
