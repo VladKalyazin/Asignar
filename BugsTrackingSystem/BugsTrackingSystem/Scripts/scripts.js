@@ -608,7 +608,7 @@ function validate_profile() {
 
 function validate_password() {
     var submitFlag = true;
-    var password = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    var password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     var x = document.forms["form_change_password"]["Password"].value;
     var y = document.forms["form_change_password"]["RepeatPassword"].value;
     if (x.match(password) == null) {
@@ -649,7 +649,7 @@ function validate_new_user() {
     var submitFlag = true;
     var letters = /^[A-Za-z]+$/;
     var email = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
-    var password = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    var password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     var x = document.forms["form_new_user"]["FirstName"].value;
     var y = document.forms["form_new_user"]["Surname"].value;
     var z = document.forms["form_new_user"]["Email"].value;

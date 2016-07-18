@@ -10,10 +10,11 @@ select.selectpicker {
   display: none !important;
 }
 .bootstrap-select {
-  width: 220px;
+  width: 220px \0;
   /*IE9 and below*/
 }
 .bootstrap-select > .dropdown-toggle {
+  width: 100%;
   padding-right: 25px;
   z-index: 1;
 }
@@ -277,5 +278,5 @@ select.selectpicker {
   margin-bottom: 0;
   width: 100%;
   float: none;
-}
+} 
 /*# sourceMappingURL=bootstrap-select.css.map */
