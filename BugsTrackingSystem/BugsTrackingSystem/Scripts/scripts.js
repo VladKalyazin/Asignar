@@ -348,7 +348,7 @@ $("#userSelect").change(function () {
 });
 
 $("#userEditSelect").change(function () {
-    var selectedId = $('#projectSelect option:selected').val();
+    var selectedId = $('#projectEditSelect option:selected').val();
     $.ajax({
         dataType: "json",
         url: "/Manage/GetProjectsFromUser",
@@ -498,7 +498,7 @@ function hideProject(el, projectId) {
             $(el).parent().hide();
         })
         .error(function (mess) {
-            //alert(mess);
+            alert(mess);
         });
     }
     else {

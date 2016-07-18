@@ -182,11 +182,10 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Project", new {id = newProject.ProjectId});
         }
 
-        [HttpPost]
-        public ActionResult DeleteProject(int projectId)
+        public ActionResult DeleteProject(int projectId, int selectedPage = 1)
         {
             _dataService.Value.DeleteProject(projectId);
-            return RedirectToAction("Projects");
+            return RedirectToAction("Projects", new { page = selectedPage } );
         }
 
         [ChildActionOnly]
