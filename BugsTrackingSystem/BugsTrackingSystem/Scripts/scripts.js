@@ -440,45 +440,94 @@ $("body").on("click", ".hasicon > i", function () {
 });
 
 function hideFilter(el, filterId) {
-    $.ajax({
-        url: "/Manage/DeleteFilter/",
-        data: { filterId: filterId },
-        method: "POST"
-    })
-    .success(function () {
-        $(el).parent().hide();
-    })
-    .error(function (mess) {
-        //alert(mess);
+    var checkstr = confirm('Are you sure you want to delete this filter?');
+    if (checkstr == true) {
+        $.ajax({
+            url: "/Manage/DeleteFilter/",
+            data: { filterId: filterId },
+            method: "POST"
+        })
+        .success(function () {
+            $(el).parent().hide();
+        })
+        .error(function (mess) {
+            //alert(mess);
         });
+    }
+    else {
+        return false;
+    }
+}
+
+function goto_filter() {
+    var param = $('.MyFilters').find("#close_filter_hover:hover").length;
+    if (param == 0 || param == null) {
+        window.location.href = "/Manage/Search?filterId=" + filterId
+    };
+};
+
+
+function goto_user() {
+    var param = $('.MyUsers').find("#close_user_hover:hover").length;
+    if(param == 0 || param == null) {
+        window.location.href = "/Manage/Profile?userId=" + userId
+    };
+};
+
+function goto_project() {
+    var param = $('.MyProjects').find("#close_project_hover:hover").length;
+    if (param == 0 || param == null) {
+        window.location.href = "/Manage/Project?id=" + projId
+    };
+};
+
+function goto_project_home() {
+    var param = $('.MyProjectsHome').find("#close_project_home_hover:hover").length;
+    if (param == 0 || param == null) {
+        window.location.href = "/Manage/Project?id=" + projId
+    };
 }
 
 function hideUser(el, userId) {
-    $.ajax({
-        url: "/Manage/DeleteUser/",
-        data: { userId: userId },
-        method: "POST"
-    })
-    .success(function () {
-        $(el).parent().hide();
-    })
-    .error(function (mess) {
-        alert(mess);
-    });
+    var checkstr = confirm('Are you sure you want to delete this user');
+    if (checkstr == true) {
+        $.ajax({
+            url: "/Manage/DeleteUser/",
+            data: { userId: userId },
+            method: "POST"
+        })
+        .success(function () {
+            $(el).parent().hide();
+        })
+        .error(function (mess) {
+            alert(mess);
+        });
+    }
+    else {
+        return false;
+    }
+    
 }
 
 function hideProject(el, projectId) {
-    $.ajax({
-        url: "/Manage/DeleteProject/",
-        data: { projectId: projectId },
-        method: "POST"
-    })
-    .success(function () {
-        $(el).parent().hide();
-    })
-    .error(function (mess) {
-        //alert(mess);
-    });
+    var checkstr = confirm('Are you sure you want to delete this project?');
+    if (checkstr == true) {
+        $.ajax({
+            url: "/Manage/DeleteProject/",
+            data: { projectId: projectId },
+            method: "POST"
+        })
+        .success(function () {
+            $(el).parent().hide();
+        })
+        .error(function (mess) {
+            //alert(mess);
+        });
+    }
+    else {
+        return false;
+    }
+    
 }
 
 function resetAll() {
@@ -505,6 +554,11 @@ function validate() {
         submitFlag = false;
         document.getElementById("validation_comment").innerHTML = "Ivalid length - no more than 200 characters!";
     }
+    if (x.length == 0)
+    {
+        submitFlag = false;
+        document.getElementById("validation_comment").innerHTML = "Fill the input first";
+    }
     return submitFlag;
 }
 
@@ -519,6 +573,10 @@ function validate_task() {
     if (y.length > 500) {
         submitFlag = false;
         document.getElementById("validation").innerHTML = "The description has to be less than 500 characters!";
+    }
+    if (x.length == 0 || y.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
     }
     return submitFlag;
 }
@@ -535,6 +593,10 @@ function validate_new_task() {
         submitFlag = false;
         document.getElementById("validation_new_task").innerHTML = "The description has to be less than 500 characters!";
     }
+    if (x.length == 0 || y.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
+    }
     return submitFlag;
 }
 
@@ -550,6 +612,10 @@ function validate_new_project() {
     if (x.length !== 3 || x.match(letters) == null) {
         submitFlag = false;
         document.getElementById("validation_new_project").innerHTML = "Key has to be uppercase and contain only 3 letters";
+    }
+    if (x.length == 0 || y.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
     }
     return submitFlag;
 }
@@ -583,7 +649,11 @@ function validate_profile() {
     }
     if (z.length > 35) {
         submitFlag = false;
-        document.getElementById("validation_edit_profile").innerHTML = "Email has t contain less than 35 characters";
+        document.getElementById("validation_edit_profile").innerHTML = "Email has to contain less than 35 characters";
+    }
+    if (x.length == 0 || y.length == 0 || z.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
     }
     return submitFlag;
 }
@@ -601,6 +671,10 @@ function validate_password() {
         submitFlag = false;
         document.getElementById("validation_pasword").innerHTML = "The passwords doesn't match!";
     }
+    if (x.length == 0 || y.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
+    }
     return submitFlag;
 }
 
@@ -615,6 +689,10 @@ function validate_new_filter() {
     if (y.length > 50) {
         submitFlag = false;
         document.getElementById("validation_filter").innerHTML = "The Search should be shorter than 50 symbols";
+    }
+    if (x.length == 0 || y.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
     }
     return submitFlag;
 }
@@ -661,6 +739,10 @@ function validate_new_user() {
         submitFlag = false;
         document.getElementById("validation_adding_user").innerHTML = "The passwords doesn't match!";
     }
+    if (x.length == 0 || y.length == 0 || z.length == 0 || p.length == 0 || q.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill all fields";
+    }
     return submitFlag;
 }
 
@@ -671,5 +753,19 @@ function validate_new_projectname() {
         submitFlag = false;
         document.getElementById("validation_new_projectname").innerHTML = "The name of project has to be less than 30 characters!";
     }
+    if (x.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation").innerHTML = "You have to fill the field";
+    }
     return submitFlag;
+}
+
+function deleteDefect() {
+    var checkstr = confirm('Are you sure you want to delete this defect?');
+    if (checkstr == true) {
+        window.location.href = "/Manage/DeleteDefect?defId=" + defId + "&projId=" + projId
+    }
+    else {
+        return false;
+    }
 }

@@ -14,27 +14,30 @@
 
             @foreach (var project in Model.Projects)
             {
-                <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
-                    <div class="col-md-3 col-xs-6 MyProjectsHome">
-                        @Html.Hidden("Id", project.ProjectId)
-                        <h3 class="projName">@project.Name</h3>
-                        <p class="projPref">@project.Prefix</p>
-                        <div class="text-right">
-                            <ul class="list-inline icons">
-                                <li>
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
-                                </li>
-                            </ul>
-                        </div>
+                <div class="col-md-3 col-xs-6 MyProjectsHome" onclick="goto_project_home(projId = @project.ProjectId)">
+                    @Html.Hidden("Id", project.ProjectId)
+                    <h3 class="projName">@project.Name</h3>
+                    <p class="projPref">@project.Prefix</p>
+                    <div class="text-right">
+                        <ul class="list-inline icons">
+                            <li>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"> @project.DefectsCount</i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users" aria-hidden="true"> @project.UsersCount</i>
+                            </li>
+                        </ul>
                     </div>
-                </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span id="close_project_home_hover" class="glyphicon glyphicon-remove-sign hide_project" aria-hidden="true" onclick="hideProject(this, @project.ProjectId)"></span>
+                    }
+                </div>
             }
             @if (Model.Projects != null && (Model.Projects.Count() > 0))
             {
-                <a href="/Manage/Projects" style="margin-left: 20px">Show all
+                <a href="/Manage/Projects" style="margin-left: 20px">
+                    Show all
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                 </a>
             }

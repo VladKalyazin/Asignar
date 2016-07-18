@@ -3,8 +3,7 @@
 
 @{
     ViewBag.Title = "Filters";
-
-    
+       
 }
 
 <div class="container">
@@ -76,8 +75,7 @@
 
         @foreach (var filter in Model.FilterInfo)
         {
-            <a href="@Url.Action("Search", "Manage", new {filterId = filter.FilterId})">
-                <div class="col-md-3 col-xs-6 MyFilters">
+                <div class="col-md-3 col-xs-6 MyFilters" onclick="goto_filter(filterId = @filter.FilterId)">
                     <h3 class="projName" style="margin-left: 30px;">@filter.Title</h3>
                     <ul class="icons filtersStat" style="list-style-type: none; margin-left: -25px;">
                         <li>
@@ -103,10 +101,9 @@
                     </ul>
                     @if (User.IsInRole("Admin"))
                     {
-                        <i class="fa fa-times hide-button" aria-hidden="true" onclick="hideFilter(this, @filter.FilterId)"></i>
+                        <span id="close_filter_hover" class="glyphicon glyphicon-remove-sign hide-button" aria-hidden="true" onclick="hideFilter(this, @filter.FilterId)"></span>
                     }
                 </div>
-            </a>
         }
     </div>
 </div>

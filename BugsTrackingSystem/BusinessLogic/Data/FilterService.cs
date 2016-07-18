@@ -78,7 +78,7 @@ namespace AsignarServices.Data
             catch (Exception)
             {
                 
-                throw;
+                //TO DO
             }
             return null;
         }

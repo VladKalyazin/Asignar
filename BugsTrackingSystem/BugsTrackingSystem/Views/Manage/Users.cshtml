@@ -74,8 +74,7 @@
         
         @foreach (var user in Model.Users)
         {
-            <a href="@Url.Action("Profile", "Manage", new { userId = user.UserId })">
-                <div class="col-md-3 col-xs-6 MyProjects">
+                <div class="col-md-3 col-xs-6 MyUsers" onclick="goto_user(userId = @user.UserId)">
                     <ul class="list-inline">
                         <li>
                             <img class="img-circle" src="@user.UserPhoto" width="50" height="50" style="margin-top: -30px;" />
@@ -99,9 +98,8 @@
                             <i class="fa fa-list" aria-hidden="true"> @user.ProjectsCount</i>
                         </li>
                     </ul>
-                    <i class="fa fa-times hide_user" aria-hidden="true" onclick="hideUser(this, @user.UserId)"></i>
+                    <span id="close_user_hover" class="glyphicon glyphicon-remove-sign hide_user" aria-hidden="true" onclick="hideUser(this, @user.UserId)"></span>
                 </div>
-            </a>
         }
     </div>
 </div>

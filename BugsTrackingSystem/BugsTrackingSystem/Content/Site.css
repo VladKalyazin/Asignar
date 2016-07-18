@@ -192,6 +192,10 @@ textarea {
     min-width: 250px;
 }
 
+.MyProjects:hover {
+    cursor: pointer;
+}
+
 h1 {
     margin-left: 20px;
 }
@@ -398,8 +402,18 @@ i {
     margin-left: 15px;
 }
 
+td {
+    padding-bottom: 0px !important;
+    padding-top: 13px !important;
+}
+
 .clickable-row {
     cursor: pointer;
+    padding-top: 5px;
+}
+
+.clickable-row:hover {
+    background-color: #F2FAFA;
 }
 
 .projectIcon {
@@ -952,22 +966,24 @@ input[type=checkbox]:checked {
     display: none;
     top: 0;
     right: 0;
-    width: 32px;
-    height: 32px;
     cursor: pointer;
-    color: #4D868D;
-    font-size: 25px;
-    border: solid 2px #4D868D;
+    color: #92C1BA;
+    font-size: 22px;
     border-radius: 50%;
-    padding: 1px 4px;
     float: right;
-    margin-right: -25px;
+    margin-right: -22px;
     margin-top: -195px;
     background-color: white;
 }
 
+.hide-button:hover {
+    color: #4D868D;
+    cursor: pointer;
+}
+
 .MyFilters:hover {
     border: solid 2px #A3C2C6;
+    cursor: pointer;
 }
 
 .MyFilters:hover .hide-button {
@@ -979,45 +995,66 @@ input[type=checkbox]:checked {
     display: none;
     top: 0;
     right: 0;
-    width: 32px;
-    height: 32px;
     cursor: pointer;
-    color: #4D868D;
-    font-size: 25px;
-    border: solid 2px #4D868D;
+    color: #92C1BA;
+    font-size: 22px;
     border-radius: 50%;
-    padding: 1px 4px;
     float: right;
-    margin-right: -25px;
+    margin-right: -22px;
     margin-top: -115px;
     background-color: white;
 }
 
-.MyProjects:hover .hide_user {
+.hide-user:hover {
+    color: #4D868D;
+    cursor: pointer;
+}
+
+.MyUsers {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px;
+    margin: 15px;
+    height: 110px;
+    padding: 10px;
+    width: 90%;
+    max-width: 320px;
+    min-width: 250px;
+}
+
+.MyUsers:hover {
+    border: solid 2px #A3C2C6;
+    cursor: pointer;
+}
+
+.MyUsers:hover .hide_user {
     display: inline-block !important;
 }
 
 .hide_project {
+    background-color: white;
     position: relative;
     display: none;
     top: 0;
     right: 0;
-    width: 32px;
-    height: 32px;
     cursor: pointer;
-    color: #4D868D;
-    font-size: 25px;
-    border: solid 2px #4D868D;
+    color: #92C1BA;
+    font-size: 22px;
     border-radius: 50%;
-    padding: 1px 4px;
     float: right;
-    margin-right: -25px;
+    margin-right: -22px;
     margin-top: -120px;
     background-color: white;
 }
 
+.hide_project:hover {
+    color: #4D868D;
+    cursor: pointer;
+}
+
 .MyProjects:hover .hide_project {
     display: inline-block !important;
+    cursor: pointer;
 }
 
 .choosing_filter {
@@ -1031,10 +1068,23 @@ input[type=checkbox]:checked {
 
 .filter_line {
     text-decoration: none;
-    width: 400px;
+    width: 533px;
     margin-left: -15px;
-    padding-top: -20px;
+        padding-bottom: 10px;
+    padding-top: 10px;
     font-size: 20px;
+}
+
+.filter_line:active {
+    text-decoration: none;
+}
+
+.filter_line:focus {
+    text-decoration: none;
+}
+.filter_line:hover {
+    text-decoration: none;
+    background-color: #F2FAFA;  
 }
 
 .project_subject {

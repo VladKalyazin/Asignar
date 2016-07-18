@@ -66,8 +66,7 @@
 
         @foreach (var project in Model.Projects)
         {
-            <a href="@Url.Action("Project", "Manage", new {id = project.ProjectId})" class="projectsPage">
-                <div class="col-md-3 col-xs-6 MyProjects">
+                <div class="col-md-3 col-xs-6 MyProjects" onclick="goto_project(projId = @project.ProjectId)">
                     @Html.Hidden("Id", project.ProjectId)
                     <h3 class="projName user_overline">@project.Name</h3>
                     <p class="projPref">@project.Prefix</p>
@@ -83,10 +82,9 @@
                     </div>
                     @if (User.IsInRole("Admin"))
                     {
-                        <i class="fa fa-times hide_project" aria-hidden="true" onclick="hideProject(this, @project.ProjectId)"></i>
+                        <span id="close_project_hover" class="glyphicon glyphicon-remove-sign hide_project" aria-hidden="true" onclick="hideProject(this, @project.ProjectId)"></span>
                     }
                 </div>
-            </a>
         }
     </div>
 </div>

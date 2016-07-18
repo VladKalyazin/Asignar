@@ -82,7 +82,7 @@
                     @foreach (var user in Model.Project.Users)
                     {
                         <li>
-                            <ul class="list-inline" style="width: 100%; margin-top: 10px;">
+                            <ul class="list-inline" style="margin-left:5px; margin-top: 10px;">
                                 <li>
                                     <img class="img-responsive img-circle" height="50" width="50" src="@user.UserPhoto"/>
                                 </li>
@@ -90,7 +90,10 @@
                                     <p>@user.FirstName @user.Surname</p>
                                     <p>@user.Email</p>
                                 </li>
-                                <i class="fa fa-times close_user text-right" aria-hidden="true"></i>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <i class="fa fa-times close_user text-right" aria-hidden="true"></i>
+                                }
                             </ul>
 
                         </li>
