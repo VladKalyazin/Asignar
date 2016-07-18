@@ -116,11 +116,11 @@
                 </td>
                 <td>
                     <label>@data.Prefix</label>
-                    @if (data.Status == "Open" || data.Status == "Done" || data.Status == "Closed")
+                    @if (data.Status == "Done" || data.Status == "Closed")
                     {
                         <p class="project_done" style="margin-top: -5px;">@data.Status</p>
                     }
-                    else if (data.Status == "In Progress" || data.Status == "In Testing")
+                    else if (data.Status == "Open")
                     {
                         <p class="project_progress" style="margin-top: -5px;">@data.Status</p>
                     }

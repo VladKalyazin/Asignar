@@ -28,10 +28,6 @@
                             </li>
                         </ul>
                     </div>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <span id="close_project_home_hover" class="glyphicon glyphicon-remove-sign hide_project" aria-hidden="true" onclick="hideProject(this, @project.ProjectId)"></span>
-                    }
                 </div>
             }
             @if (Model.Projects != null && (Model.Projects.Count() > 0))
