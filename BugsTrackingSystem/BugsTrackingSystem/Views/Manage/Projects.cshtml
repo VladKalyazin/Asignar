@@ -45,19 +45,6 @@
                 <i id="opener" class="fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
                 }
             </li>
-            <li style="float: right !important">
-                <div>
-                    @using (Html.BeginForm("", "", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-                    {
-                        <div class="input-append">
-                            <input type="text" class="form-control search_field" placeholder="Search"/>
-                            <button type="submit" class="search_btn">
-                                <i class="fa fa-search search_icon"></i>
-                            </button>
-                        </div>
-                    }
-                </div>
-            </li>
         </ul>
 
         <div class="text-right col-md-12 col-xs-12" style="float: right !important; margin-top: 10px">

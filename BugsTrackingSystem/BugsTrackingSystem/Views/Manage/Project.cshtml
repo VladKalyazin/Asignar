@@ -46,30 +46,11 @@
 
                     <i id="open_edit" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
                 </li>
-
                 <li>
-                    <i class="fa fa-pause taskIcon" aria-hidden="true"></i>
-                </li>
-
-                <li>
-                    <i class="fa fa-times taskIcon" aria-hidden="true"></i>
+                    <a href="@Url.Action("DeleteProject", "Manage", new { projectId = Model.Project.ProjectId })"><i class="fa fa-times taskIcon" aria-hidden="true"></i></a>
                 </li>
             }
-        <li style="float: right !important">
-            <div>
-                @using (Html.BeginForm("", "", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    <div class="input-append">
-                        <input type="text" class="form-control search_field" placeholder="Search"/>
-                        <button type="submit" class="search_btn">
-                            <i class="fa fa-search search_icon"></i>
-                        </button>
-                    </div>
-                }
-                <a href="@Url.Action("Search", "Manage")" class="search_link" style="float: right !important">Advanced search</a>
-            </div>
-        </li>
-    </ul>
+        </ul>
     <ul class="list-inline icons">
         <li>
             <i class="fa fa-pencil-square-o" aria-hidden="true"> @Model.Project.DefectsCount</i>
@@ -179,17 +160,17 @@
                 </td>
                 <td style="width: 45%;">
                     <label>@Model.Project.Prefix</label>
-                    @if (data.Status == "Open" || data.Status == "Done" || data.Status == "Closed")
+                    @if (data.Status == "Done" || data.Status == "Closed")
                     {
-                        <span class="project_done">@data.Status</span>
+                        <span class="project_done" style="margin-top: -5px;">@data.Status</span>
                     }
-                    else if (data.Status == "In Progress" || data.Status == "In Testing")
+                    else if (data.Status == "Open")
                     {
-                        <span class="project_progress">@data.Status</span>
+                        <span class="project_progress" style="margin-top: -5px;">@data.Status</span>
                     }
                     else
                     {
-                        <span class="project_todo">@data.Status</span>
+                        <span class="project_todo" style="margin-top: -5px;">@data.Status</span>
                     }
                     <p class="project_page_subject"> @data.Subject</p>
                 </td>

@@ -58,7 +58,18 @@
                             </td>
                             <td>
                                 <label>@defect.Prefix</label>
-                                <span class="project_todo">@defect.Status</span>
+                                @if (defect.Status == "Done" || defect.Status == "Closed")
+                                {
+                                    <span class="project_done" style="margin-top: -5px;">@defect.Status</span>
+                                }
+                                else if (defect.Status == "Open")
+                                {
+                                    <span class="project_progress" style="margin-top: -5px;">@defect.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="project_todo" style="margin-top: -5px;">@defect.Status</span>
+                                }
                                 <p class="project_subject">@defect.Subject</p>
                             </td>
                         </tr>

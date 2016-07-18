@@ -65,7 +65,9 @@
             </div>
             <i id="open_edit_task" class="fa fa-pencil taskIcon" aria-hidden="true" title="Edit"></i>
             <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
-            <a title="Delete" onclick="deleteDefect(defId = @Model.DefectInfo.DefectId, projId = @Model.DefectInfo.ProjectId)"><i class="fa fa-trash taskIcon" aria-hidden="true"></i></a>
+            @if (User.IsInRole("Admin")) {
+                <a title="Delete" onclick="deleteDefect(defId = @Model.DefectInfo.DefectId, projId = @Model.DefectInfo.ProjectId)"><i class="fa fa-trash taskIcon" aria-hidden="true"></i></a>
+            }
         </div>
     </div>
 
