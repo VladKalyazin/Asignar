@@ -51,11 +51,11 @@ namespace AsignarServices.Data
                 Text = u.FirstName + " " + u.Surname
             }).ToList();
 
-            var firstItem = result.FirstOrDefault();
-            if (firstItem != null)
-            {
-                firstItem.Selected = true;
-            }
+            //var firstItem = result.FirstOrDefault();
+            //if (firstItem != null)
+            //{
+            //    firstItem.Selected = true;
+            //}
 
             return result;
         }

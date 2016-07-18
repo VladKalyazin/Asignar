@@ -84,9 +84,8 @@
                 <i id="open_filter" class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
             </li>
             <li>
-                <div id="save_filter">
+                
                     @*@{Html.RenderAction("SaveFilterView");}*@
-                </div>
                 <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true"></i>
             </li>
         </ul>
@@ -113,21 +112,21 @@
         {
             <tr>
                 <td style="width: 5%;">
-                    <img class="projectIcon" style="margin-top: 15px;" src="@data.PriorityPhoto">
+                    <img class="projectIcon" src="@data.PriorityPhoto">
                 </td>
                 <td>
                     <label>@data.Prefix</label>
                     @if (data.Status == "Open" || data.Status == "Done" || data.Status == "Closed")
                     {
-                        <p class="project_done">@data.Status</p>
+                        <p class="project_done" style="margin-top: -5px;">@data.Status</p>
                     }
                     else if (data.Status == "In Progress" || data.Status == "In Testing")
                     {
-                        <p class="project_progress">@data.Status</p>
+                        <p class="project_progress" style="margin-top: -5px;">@data.Status</p>
                     }
                     else
                     {
-                        <p class="project_todo">@data.Status</p>
+                        <p class="project_todo" style="margin-top: -5px;">@data.Status</p>
                     }
                 </td>
 
@@ -135,8 +134,8 @@
                     <p class="project_search" style="margin-top: 20px;"> @data.Subject</p>
                 </td>
 
-                <td style="text-align:center; padding: 30px">
-                    <p>@data.ProjectName</p>
+                <td>
+                    <p style="margin-top:17px;">@data.ProjectName</p>
                 </td>
                 <td>
                     <p style="margin-top: 7px;">
@@ -156,7 +155,7 @@
                     </p>
                 </td>
                 <td>
-                    <img class="img-responsive img-circle" height="50" width="50" src="@data.AssigneeUserPhoto" style="margin-top: 10px;">
+                    <img class="img-responsive img-circle" height="50" width="50" src="@data.AssigneeUserPhoto" style="margin-top: 5px;">
                 </td>
                 <td>
                     <p style="margin-top: 20px; position: relative">@data.AssigneeUserName</p>

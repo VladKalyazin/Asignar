@@ -447,6 +447,13 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Project", new { id = Id });
         }
 
+        [HttpPost]
+        public ActionResult DeleteUserFromProject(int projId, int userId)
+        {
+            //_dataService.Value
+            return RedirectToAction("Project", new { id = projId });
+        }
+
         public ActionResult Task(int id)
         {
             var changeDefect = new NewDefectViewModel

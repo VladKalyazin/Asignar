@@ -39,19 +39,16 @@ $(function () {
 $(".open").click(function () {
     $("#add_task").css({ 'display': "inline" });
     $("#add_task").dialog("open");
-    activatePlaceholders();
 });
 
 $("#opener").click(function () {
     $("#add_project").css({ 'display': "inline" });
     $("#add_project").dialog("open");
-    activatePlaceholders();
 });
 
 $("#open_user").click(function () {
     $("#add_user").css({ 'display': "inline" });
     $("#add_user").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -79,7 +76,6 @@ $(function () {
 $("#open_add_user").click(function () {
     $("#add_user_to_project").css({ 'display': "inline" });
     $("#add_user_to_project").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -107,7 +103,6 @@ $(function () {
 $("#open_filter").click(function () {
     $("#add_filter").css({ 'display': "inline" });
     $("#add_filter").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -141,7 +136,6 @@ $("#open_save_filter").click(function () {
         });
     //$("#save_filter").css({ 'display': "inline" });
     //$("#save_filter").dialog("open");
-    //activatePlaceholders();
 });
 
 $(document).ready(function() {
@@ -174,7 +168,6 @@ $(function () {
 $("#open_change").click(function () {
     $("#change_password").css({ 'display': "inline" });
     $("#change_password").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -201,7 +194,6 @@ $(function () {
 $("#open_edit_user").click(function () {
     $("#edit_user").css({ 'display': "inline" });
     $("#edit_user").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -228,7 +220,6 @@ $(function () {
 $("#open_edit").click(function () {
     $("#edit_project").css({ 'display': "inline" });
     $("#edit_project").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -255,7 +246,6 @@ $(function () {
 $("#open_filter").click(function () {
     $("#select_filter").css({ 'display': "inline" });
     $("#select_filter").dialog("open");
-    activatePlaceholders();
 });
 
 $(function () {
@@ -283,7 +273,6 @@ $(function () {
 $("#open_edit_task").click(function () {
     $("#edit_task").css({ 'display': "inline" });
     $("#edit_task").dialog("open");
-    activatePlaceholders();
 });
 
 $("#projectEditSelect").change(function () {
@@ -395,36 +384,6 @@ $('#searchForm').find('.btn-pagin').each(function () {
     });
 });
 
-function activatePlaceholders() {
-    $("[placeholder]").parents("form").submit(function () {
-        $(this).find("[placeholder]").each(function () {
-            var input = $(this);
-            if (input.val() == input.attr("placeholder")) {
-                input.val("");
-            }
-        });
-    });
-
-    $("[placeholder]").focus(function () {
-        var input = $(this);
-        if (input.val() == input.attr("placeholder")) {
-            input.val("");
-            input.removeClass("placeholder");
-            input.css({ 'color': "black", 'font-size': "100%" });
-        }
-    }).blur(function () {
-        var input = $(this);
-        if (input.val() == "" || input.val() == input.attr("placeholder")) {
-            input.addClass("placeholder");
-            input.val(input.attr("placeholder"));
-            input.css({ 'color': "rgba(0, 0, 0, 0.5)", 'font-size': "80%" });
-        }
-    }).blur();
-}
-
-
-
-
 $("body").on("click", ".hasicon > i", function () {
     $.ajax({
         url: "/Manage/Home",
@@ -438,6 +397,24 @@ $("body").on("click", ".hasicon > i", function () {
        //alert(mess);
         });
 });
+
+
+function resetAll() {
+    $.ajax({
+        type: "POST",
+        url: "/Manage/Search"
+    })
+        .done(function () {
+            // Clear the form
+            $('input[type=text], textarea').val('');
+            $('select').find('option').prop("selected", false);
+            $('input[type=radio]').prop("checked", false);
+            $('.dropdown-toggle').val('');
+            $('li').siblings().removeClass("selected");
+            $('.filter-option').html("Nothing selected");
+            $('#searchForm').submit();
+        });
+}
 
 function hideFilter(el, filterId) {
     var checkstr = confirm('Are you sure you want to delete this filter?');
@@ -527,24 +504,36 @@ function hideProject(el, projectId) {
     else {
         return false;
     }
-    
 }
 
-function resetAll() {
-    $.ajax({
-            type: "POST",
-            url: "/Manage/Search"
+function deleteDefect() {
+    var checkstr = confirm('Are you sure you want to delete this defect?');
+    if (checkstr == true) {
+        window.location.href = "/Manage/DeleteDefect?defId=" + defId + "&projId=" + projId
+    }
+    else {
+        return false;
+    }
+}
+
+function delete_user_from_project(el, projId, userId) {
+    var checkstr = confirm('Are you sure you want to delete this user from project?');
+    if (checkstr == true) {
+        $.ajax({
+            url: "/Manage/DeleteUserFromProject",
+            data: { projId: projId, userId: userId },
+            method: "POST"
         })
-        .done(function() {
-            // Clear the form
-            $('input[type=text], textarea').val('');
-            $('select').find('option').prop("selected", false);
-            $('input[type=radio]').prop("checked", false);
-            $('.dropdown-toggle').val('');
-            $('li').siblings().removeClass("selected");
-            $('.filter-option').html("Nothing selected");
-            $('#searchForm').submit();
+        .success(function () {
+            $(el).parent().hide();
+        })
+        .error(function (mess) {
+            //alert(mess);
         });
+    }
+    else {
+        return false;
+    }
 }
 
 function validate() {
@@ -758,14 +747,4 @@ function validate_new_projectname() {
         document.getElementById("validation").innerHTML = "You have to fill the field";
     }
     return submitFlag;
-}
-
-function deleteDefect() {
-    var checkstr = confirm('Are you sure you want to delete this defect?');
-    if (checkstr == true) {
-        window.location.href = "/Manage/DeleteDefect?defId=" + defId + "&projId=" + projId
-    }
-    else {
-        return false;
-    }
 }

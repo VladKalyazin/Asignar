@@ -92,7 +92,7 @@
                                 </li>
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <i class="fa fa-times close_user text-right" aria-hidden="true"></i>
+                                    <i class="fa fa-times close_user text-right" aria-hidden="true" onclick="delete_user_from_project(projId = this, userId = @user.UserId)"></i>
                                 }
                             </ul>
 
