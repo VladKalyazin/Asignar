@@ -63,9 +63,9 @@
                     </div>
                 }
             </div>
-            <i id="open_edit_task" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+            <i id="open_edit_task" class="fa fa-pencil taskIcon" aria-hidden="true" title="Edit"></i>
             <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
-            <a href="@Url.Action("DeleteDefect", "Manage", new {defid = Model.DefectInfo.DefectId, projId = Model.DefectInfo.ProjectId})"><i class="fa fa-trash taskIcon" aria-hidden="true"></i></a>
+            <a href="@Url.Action("DeleteDefect", "Manage", new {defid = Model.DefectInfo.DefectId, projId = Model.DefectInfo.ProjectId})" title="Delete"><i class="fa fa-trash taskIcon" aria-hidden="true"></i></a>
         </div>
     </div>
 

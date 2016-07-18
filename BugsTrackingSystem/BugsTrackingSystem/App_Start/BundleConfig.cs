@@ -10,6 +10,7 @@ namespace BugsTrackingSystem
         {
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap*",
+                      "~/Scripts/tooltipster*",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -26,6 +27,7 @@ namespace BugsTrackingSystem
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap*",
                       "~/Content/font-awesome.css",
+                      "~/Content/tooltipster*",
                       "~/Content/site.css",
                       "~/Content/DefectComments.css",
                       "~/Content/jquery*"));
