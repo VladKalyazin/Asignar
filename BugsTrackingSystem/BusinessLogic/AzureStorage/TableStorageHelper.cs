@@ -90,7 +90,17 @@ namespace AsignarServices.AzureStorage
 
                 return result;
             }
-
         }
+
+        public void DeleteComments(int defectId)
+        {
+            CloudTable table = _tableClient.GetTableReference("DefectComments");
+            var entityPattern = new DynamicTableEntity();
+            entityPattern.PartitionKey = defectId.ToString();
+            entityPattern.ETag = "*";
+
+            table.Execute(TableOperation.Delete(entityPattern));
+        }
+
     }
 }

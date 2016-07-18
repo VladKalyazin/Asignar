@@ -191,6 +191,9 @@ namespace AsignarServices.Data
                 _databaseModel.Defects.Remove(_databaseModel.Defects.First(d => d.DefectID == defectId));
 
                 _databaseModel.SaveChanges();
+
+                var commentHelper = new AzureStorage.TableStorageHelper();
+                commentHelper.DeleteComments(defectId);
             }
             catch
             {
