@@ -23,38 +23,53 @@ namespace AsignarServices.Data
 
         public IEnumerable<SelectListItem> GetProjectNames(int userId)
         {
-            return _databaseModel.Projects.Where(p => p.Users.Any(u => u.UserID == userId)).Select((p) => new SelectListItem
+            var result = _databaseModel.Projects.Where(p => p.Users.Any(u => u.UserID == userId)).Select((p) => new SelectListItem
             {
                 Value = p.ProjectID.ToString(),
                 Text = p.ProjectName
             }).ToList();
+
+            return result;
         }
 
         public IEnumerable<SelectListItem> GetProjectNames(int firstUserId, int secondUserId)
         {
-            return _databaseModel.Projects.Where(p => p.Users.Any(u => u.UserID == firstUserId) && p.Users.Any(u => u.UserID == secondUserId)).Select((p) => new SelectListItem
+            var result = _databaseModel.Projects.Where(p => p.Users.Any(u => u.UserID == firstUserId) && p.Users.Any(u => u.UserID == secondUserId)).Select((p) => new SelectListItem
             {
                 Value = p.ProjectID.ToString(),
                 Text = p.ProjectName
             }).ToList();
+
+            return result;
         }
 
         public IEnumerable<SelectListItem> GetUserNames()
         {
-            return _databaseModel.Users.Select((u) => new SelectListItem
+            var result = _databaseModel.Users.Select((u) => new SelectListItem
             {
                 Value = u.UserID.ToString(),
                 Text = u.FirstName + " " + u.Surname
             }).ToList();
+
+            var firstItem = result.FirstOrDefault();
+            if (firstItem != null)
+            {
+                firstItem.Selected = true;
+            }
+
+            return result;
         }
 
         public IEnumerable<SelectListItem> GetUserNames(int projectId)
         {
-            return _databaseModel.Users.Where(u => u.Projects.Any(p => p.ProjectID == projectId)).Select((u) => new SelectListItem
+            var result = _databaseModel.Users.Where(u => u.Projects.Any(p => p.ProjectID == projectId)).Select((u) => new SelectListItem
             {
                 Value = u.UserID.ToString(),
                 Text = u.FirstName + " " + u.Surname
             }).ToList();
+
+
+            return result;
         }
 
         public IEnumerable<SelectListItem> GetPrioritiesNames()
