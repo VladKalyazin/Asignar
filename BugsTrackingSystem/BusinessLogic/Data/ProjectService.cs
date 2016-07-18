@@ -99,6 +99,21 @@ namespace AsignarServices.Data
             return null;
         }
 
+        public void RemoveUserFromProject(int userId, int projectId)
+        {
+            try
+            {
+                _databaseModel.Projects.First(p => p.ProjectID == projectId).
+                    Users.Remove(_databaseModel.Users.First(u => u.UserID == userId));
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
         public IEnumerable<ProjectViewModel> GetUserProjects(int userId, int countOfSet, int page)
         {
             try

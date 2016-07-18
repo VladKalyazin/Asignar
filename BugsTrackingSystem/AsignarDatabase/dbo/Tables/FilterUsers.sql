@@ -4,7 +4,7 @@
     [UserID] INT NOT NULL, 
 	CONSTRAINT [FK_FilterToUsersBindings_Filters] FOREIGN KEY ([FilterID]) REFERENCES [dbo].[Filters] ([FilterID])
 		ON DELETE CASCADE,
-    CONSTRAINT [FK_FilterToUsersBindings_Projects] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID])
+    CONSTRAINT [FK_FilterToUsersBindings_Users] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID])
 		ON DELETE CASCADE, 
     CONSTRAINT [PK_FilterUsers] PRIMARY KEY ([FilterID], [UserID])
 )
