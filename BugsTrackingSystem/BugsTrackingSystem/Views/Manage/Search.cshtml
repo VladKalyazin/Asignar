@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using BugsTrackingSystem.Helpers
+@using BugsTrackingSystem.Models
 @model BugsTrackingSystem.Models.SearchViewModel
 
 @{
@@ -44,19 +45,19 @@
     <div class="col-md-12 col-xs-12 searchBox">
         <ul class="list-inline">
             <li class="col-md-4 col-xs-4">
-                @Html.TextBox("Search", Model.Filter.Search, "", htmlAttributes: new { @class = "form-control searchInput", placeholder = "Type here...", })
+                @Html.TextBox("Search", Model.Filter.Search, "", htmlAttributes: new {@id = "save_search", @class = "form-control searchInput", placeholder = "Type here...", })
             </li>
             <li>
-                @Html.DropDownList("Priorities", Model.Select.Priority, new { @class = "selectpicker", placeholder = "Priority", multiple = "multiple" })
+                @Html.DropDownList("Priorities", Model.Select.Priority, new {@id = "save_priority", @class = "selectpicker", placeholder = "Priority", multiple = "multiple" })
             </li>
             <li>
-                @Html.DropDownList("Statuses", Model.Select.Status, new { @class = "selectpicker", placeholder = "Status", multiple = "multiple" })
+                @Html.DropDownList("Statuses", Model.Select.Status, new { @id = "save_status", @class = "selectpicker", placeholder = "Status", multiple = "multiple" })
             </li>
             <li>
-                @Html.DropDownList("Projects", Model.Select.Projects, new { @class = "selectpicker", placeholder = "Projects", multiple = "multiple" })
+                @Html.DropDownList("Projects", Model.Select.Projects, new { @id = "save_project", @class = "selectpicker", placeholder = "Projects", multiple = "multiple" })
             </li>
             <li>
-                @Html.DropDownList("Assignees", Model.Select.Users, new { @class = "selectpicker", placeholder = "Users", multiple = "multiple" })
+                @Html.DropDownList("Assignees", Model.Select.Users, new { @id = "save_assignee", @class = "selectpicker", placeholder = "Users", multiple = "multiple" })
             </li>
         </ul>
     </div>
@@ -82,14 +83,49 @@
                     </div>
                 </div>
                 <i id="open_filter" class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
-            </li>
             <li>
-                @{ 
-                    BugsTrackingSystem.Models.FilterViewModel fm = new BugsTrackingSystem.Models.FilterViewModel();
-                }
-                <div id="SaveFilterDiv">
-                    @Html.Partial("SaveFilterView", fm)
+
+                <!-- ====================== -->
+
+                <div id="save_filter">
+                    @using (Html.BeginForm("AddNewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "save-new-filter-form", @class = "form-horizontal", role = "form" }))
+                    {
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-10">
+                                    @Html.TextBox("Name", string.Empty, "", new { @class = "form-control projInput", placeholder = "Filter Name", required = true })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-10">
+                                    @Html.TextBox("Search", string.Empty, "", new { @class = "form-control projInput", placeholder = "Search", required = true })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-5" style="margin-left: 50px;">
+                                    @Html.DropDownList("Priorities", Model.Select.Priority, new { @class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
+                                </div>
+                                <div class="col-xs-5" style="margin-left: 20px;">
+                                    @Html.DropDownList("Statuses", Model.Select.Status, new { @class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-5" style="margin-left: 50px;">
+                                    @Html.DropDownList("Projects", Model.Select.Projects, new { @class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
+                                </div>
+                                <div class="col-xs-5" style="margin-left: 20px;">
+                                    @Html.DropDownList("Assignees", Model.Select.Users, new { @class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <input type="submit" class="btn-pop btn-default" value="Save" />
+                        </div>
+                    }
                 </div>
+
+                <!-- ===================================== -->
+
                 <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" onclick="open_save_filter_popup()"></i>
             </li>
         </ul>

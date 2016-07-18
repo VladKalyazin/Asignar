@@ -128,15 +128,53 @@ $(function () {
 });
 
 function open_save_filter_popup() {
-    $("#searchForm").ajaxSubmit({
-        url: "/Manage/SaveFilterView", type: "post",
-        success: function(result) { alert(result);
-            $('#SaveFilterDiv').html(result);
-            $("#save_filter").css({ 'display': "inline" });
-            $("#save_filter").dialog("open"); },
-        error: function (request, errordata, errorObject) { alert('error');},
-        dataType: 'json'
-    });
+    var search = document.getElementById("save_search").value;
+    var priorities = $("#save_priority").find("option:selected");
+    var statuses = $("#save_status").find("option:selected");
+    var projects = $("#save_project").find("option:selected");
+    var assignees = $("#save_assignee").find("option:selected");
+    
+    //document.getElementById("get_search").value = search;
+    $("#save_filter").css({ 'display': "inline" });
+    $("#save_filter").dialog("open");
+
+    var elemForm = $('#save_filter');
+    var searchInput = elemForm.find('[name="Search"]')[0];
+    var prioritiesDropDown = elemForm.find('[name="Priorities"]');
+    var statusesDropDown = elemForm.find('[name="Statuses"]');
+    var projectsDropDown = elemForm.find('[name="Projects"]');
+    var assigneesDropDown = elemForm.find('[name="Assignees"]');
+
+    var prioritiesArray = [];
+    var statusesArray = [];
+    var projectsArray = [];
+    var assigneesArray = [];
+    for (var i = 0; i < priorities.length; ++i) {
+        prioritiesArray.push(priorities[i].value);
+    }
+    for (var i = 0; i < statuses.length; ++i) {
+        statusesArray.push(statuses[i].value);
+    }
+    for (var i = 0; i < projects.length; ++i) {
+        projectsArray.push(projects[i].value);
+    }
+    for (var i = 0; i < assignees.length; ++i) {
+        assigneesArray.push(assignees[i].value);
+    }
+
+    searchInput.value = search;
+
+    prioritiesDropDown.val(prioritiesArray);
+    prioritiesDropDown.selectpicker('refresh');
+
+    statusesDropDown.val(statusesArray);
+    statusesDropDown.selectpicker('refresh');
+
+    projectsDropDown.val(projectsArray);
+    projectsDropDown.selectpicker('refresh');
+
+    assigneesDropDown.val(assigneesArray);
+    assigneesDropDown.selectpicker('refresh');
 };
 
 $(document).ready(function() {

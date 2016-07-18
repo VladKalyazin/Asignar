@@ -1,4 +1,4 @@
-﻿@model BugsTrackingSystem.Models.FilterViewModel
+﻿@model BugsTrackingSystem.Models.FilterSimpleViewModel
 
 <div id="save_filter">
     @using (Html.BeginForm("AddNewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -16,18 +16,18 @@
             </div>
             <div class="form-group">
                 <div class="col-xs-5" style="margin-left: 50px;">
-                    @Html.TextBox("Priorities", Model.PriorityIDs, new { @class = "btnDropTask selectpicker", placeholder = "Priority", disabled = "disabled" })
+                    @Html.DropDownList("Priorities", null , new { @class = "btnDropTask selectpicker", placeholder = "Priority", disabled = "disabled", multiple = "multiple" })
                 </div>
                 <div class="col-xs-5" style="margin-left: 20px;">
-                    @Html.TextBox("Statuses", Model.StatusIDs, new { @class = "btnDropTask selectpicker", placeholder = "Status", disabled = "disabled" })
+                    @Html.DropDownList("Statuses", null, new { @class = "btnDropTask selectpicker", placeholder = "Status", disabled = "disabled", multiple = "multiple" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-5" style="margin-left: 50px;">
-                    @Html.TextBox("Projects", Model.ProjectIDs, new { @class = "btnDropTask selectpicker", placeholder = "Project", disabled = "disabled" })
+                    @Html.DropDownList("Projects", null, new { @class = "btnDropTask selectpicker", placeholder = "Project", disabled = "disabled", multiple = "multiple" })
                 </div>
                 <div class="col-xs-5" style="margin-left: 20px;">
-                    @Html.TextBox("Assignees", Model.UserIDs, new { @class = "btnDropTask selectpicker", placeholder = "Assignee", disabled = "disabled" })
+                    @Html.DropDownList("Assignees", null, new { @class = "btnDropTask selectpicker", placeholder = "Assignee", disabled = "disabled", multiple = "multiple" })
                 </div>
             </div>
         </div>
