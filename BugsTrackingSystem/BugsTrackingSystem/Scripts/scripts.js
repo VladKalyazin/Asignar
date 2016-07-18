@@ -127,16 +127,17 @@ $(function () {
     $(".ui-dialog-title").replaceWith("<i class=\"fa fa-filter close_popup\" aria-hidden=\"true\"> Save filter</i>");
 });
 
-$("#open_save_filter").click(function () {
-    alert(11);
-    $("#searchForm")
-        .ajaxSubmit({ url: "/Manage/SaveFilterView", type: "post" })
-        .success(function () {
-            alert('success');
-        });
-    //$("#save_filter").css({ 'display': "inline" });
-    //$("#save_filter").dialog("open");
-});
+function open_save_filter_popup() {
+    $("#searchForm").ajaxSubmit({
+        url: "/Manage/SaveFilterView", type: "post",
+        success: function(result) { alert(result);
+            $('#SaveFilterDiv').html(result);
+            $("#save_filter").css({ 'display': "inline" });
+            $("#save_filter").dialog("open"); },
+        error: function (request, errordata, errorObject) { alert('error');},
+        dataType: 'json'
+    });
+};
 
 $(document).ready(function() {
     function saveFilter() {

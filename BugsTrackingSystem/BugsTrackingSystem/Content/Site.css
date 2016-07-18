@@ -402,6 +402,11 @@ i {
     margin-left: 15px;
 }
 
+.icons2 {
+    margin-left: 15px;
+    font-size: 20px;
+}
+
 td {
     padding-bottom: 0px !important;
     padding-top: 13px !important;
@@ -701,11 +706,11 @@ input[type=checkbox]:checked {
 }
 
 #open_add_user {
-    font-size: 15px;
+    font-size: 20px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 50%;
-    padding: 1px 3px;
+    padding: 1px 4px;
 }
 
 .ui-widget-header,.ui-state-default, ui-button{

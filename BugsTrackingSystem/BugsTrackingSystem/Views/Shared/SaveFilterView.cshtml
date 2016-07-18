@@ -1,4 +1,5 @@
 ﻿@model BugsTrackingSystem.Models.FilterViewModel
+
 <div id="save_filter">
     @using (Html.BeginForm("AddNewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {

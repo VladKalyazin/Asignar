@@ -75,7 +75,7 @@
                     <div class="col-xs-10 choosing_filter">
                         @foreach (var filter in Model.FilterInfo)
                         {
-                            <a class="col-md-12 col-xs-12 filter_line" href="@Url.Action("Search", "Manage", new {fsilterId = filter.FilterId})">
+                            <a class="col-md-12 col-xs-12 filter_line" href="@Url.Action("Search", "Manage", new {filterId = filter.FilterId})">
                                 @filter.Title
                             </a>
                         }
@@ -84,9 +84,13 @@
                 <i id="open_filter" class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
             </li>
             <li>
-                
-                    @*@{Html.RenderAction("SaveFilterView");}*@
-                <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true"></i>
+                @{ 
+                    BugsTrackingSystem.Models.FilterViewModel fm = new BugsTrackingSystem.Models.FilterViewModel();
+                }
+                <div id="SaveFilterDiv">
+                    @Html.Partial("SaveFilterView", fm)
+                </div>
+                <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" onclick="open_save_filter_popup()"></i>
             </li>
         </ul>
     </div>

@@ -571,6 +571,7 @@ namespace BugsTrackingSystem.Controllers
                 ProjectIDs = projects,
                 UserIDs = users
             };
+            HttpContext.Response.StatusCode = 200;
             return PartialView(filter);
         }
 
