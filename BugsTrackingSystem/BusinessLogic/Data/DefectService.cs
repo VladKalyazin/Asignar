@@ -251,5 +251,24 @@ namespace AsignarServices.Data
             }
         }
 
+        public IEnumerable<AttachmentViewModel> GetAttachments(int defectId)
+        {
+            try
+            {
+                return _databaseModel.DefectAttachments.Select(a => new AttachmentViewModel()
+                {
+                    AttachmentId = a.AttachmentID,
+                    Name = a.Name,
+                    Link = a.Link
+                }).ToList();
+            }
+            catch
+            {
+
+            }
+
+            return null;
+        }
+
     }
 }
