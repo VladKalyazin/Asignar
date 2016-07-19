@@ -195,14 +195,55 @@ namespace AsignarServices.Data
                 _databaseModel.Defects.Remove(_databaseModel.Defects.First(d => d.DefectID == defectId));
 
                 _databaseModel.SaveChanges();
-
-                var commentHelper = new AzureStorage.TableStorageHelper();
-                commentHelper.DeleteComments(defectId);
             }
             catch
             {
                 throw new Exception("Defect can not be deleted.");
             }
+
+            try
+            {
+                var commentHelper = new AzureStorage.TableStorageHelper();
+                commentHelper.DeleteComments(defectId);
+            }
+            catch
+            {
+
+            }
         }
+
+        public void AddAttachment(int defectId, string name, string link)
+        {
+            try
+            {
+                _databaseModel.DefectAttachments.Add(new DefectAttachment
+                {
+                    DefectID = defectId,
+                    Name = name,
+                    Link = link
+                });
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void DeleteAttachment(int attachmentId)
+        {
+            try
+            {
+                _databaseModel.DefectAttachments.Remove(_databaseModel.DefectAttachments.First(da => da.AttachmentID == attachmentId));
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
+
     }
 }

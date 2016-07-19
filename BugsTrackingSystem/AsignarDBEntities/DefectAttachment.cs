@@ -17,6 +17,9 @@ namespace AsignarDBEntities
 
         public int DefectID { get; set; }
 
+        [StringLength(100)]
+        public string Name { get; set; }
+
         public virtual Defect Defect { get; set; }
     }
 }
