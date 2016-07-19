@@ -190,9 +190,6 @@ namespace BugsTrackingSystem.Controllers
 
         public ActionResult Home(int page = 1)
 		{
-            var helper = new BlobStorageHelper();
-            var list = (helper.GetAttachmentsUrls(2));
-
             var authCookie = Request.Cookies["Auth"];
             var enc = authCookie.Value;
             int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);

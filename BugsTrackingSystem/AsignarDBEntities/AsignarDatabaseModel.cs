@@ -23,10 +23,6 @@ namespace AsignarDBEntities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DefectAttachment>()
-                .Property(e => e.Link)
-                .IsFixedLength();
-
             modelBuilder.Entity<DefectPriority>()
                 .HasMany(e => e.Defects)
                 .WithRequired(e => e.DefectPriority)
