@@ -180,6 +180,15 @@ textarea {
 
 /* Content */
 
+table {
+    width: 100%;
+}
+
+table td
+{
+    min-width: 50px;
+}
+
 .MyProjects {
     background-color:white;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -321,6 +330,7 @@ input:-ms-input-placeholder {
 
 .MyProjectsHome:hover {
     border: solid 2px #A3C2C6;
+    cursor: pointer;
 }
 
 .projectTableHome {
@@ -544,6 +554,22 @@ tr {
     cursor: pointer;
 }
 
+.close_attachment {
+    display: none;
+    color: #D2E1E2;
+    font-size: 25px;
+    float: right;
+    margin-right: 50px;
+}
+
+.list_attachments > li:hover .close_attachment {
+    display: inline-block !important;
+    cursor: pointer;
+}
+
+.list_attachments > li {
+    margin-top: 5px;
+}
 
 .adding_user {
     cursor: pointer;
@@ -712,7 +738,7 @@ input[type=checkbox]:checked {
 
 /*PopUp*/
 
-#add_project, #add_task, #add_user, #edit_project, #add_filter, #add_user_to_project {
+#add_project, #add_task, #add_user, #edit_project, #add_filter, #add_user_to_project, #attachmens_new {
     display: none;
     font-size: 15px;
 }
@@ -1123,7 +1149,7 @@ input[type=checkbox]:checked {
 .project_subject {
     margin-top: 10px;
     display:inline-block;
-    width:660px;
+    width: 100%;
     white-space: nowrap;
     overflow:hidden !important;
     text-overflow: ellipsis;

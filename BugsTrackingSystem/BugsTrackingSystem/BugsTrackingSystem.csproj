@@ -305,9 +305,11 @@
     <Content Include="fonts\gothic.eot" />
     <Content Include="fonts\gothic.ttf" />
     <Content Include="fonts\gothic.woff" />
+    <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - Web Deploy.pubxml" />
