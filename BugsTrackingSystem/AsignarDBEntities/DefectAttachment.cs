@@ -9,7 +9,6 @@ namespace AsignarDBEntities
     public partial class DefectAttachment
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AttachmentID { get; set; }
 
         [StringLength(250)]
@@ -17,6 +16,7 @@ namespace AsignarDBEntities
 
         public int DefectID { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Name { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿@model BugsTrackingSystem.Models.NewDefectViewModel
 
 <div id="add_task" title="Create new project">
-    @using (Html.BeginForm("AddNewTask", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "form_new_task", onsubmit = "return validate_new_task()" }))
+    @using (Html.BeginForm("AddNewTask", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "form_new_task", onsubmit = "return validate_new_task()", enctype = "multipart/form-data" }))
             {
         <p id="validation_new_task" style="color: Red; text-align: center;"></p>
         <div class="row">
