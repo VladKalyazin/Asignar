@@ -201,13 +201,22 @@ namespace AsignarServices.Data
         {
             try
             {
-                _databaseModel.Projects.Remove(_databaseModel.Projects.First(p => p.ProjectID == projectId));
+                var project = _databaseModel.Projects.First(p => p.ProjectID == projectId);
+                if (project.Users.Count > 0 || project.Defects.Count > 0)
+                {
+                    throw new MethodAccessException($"This project contains {project.Users.Count} users and {project.Defects.Count} tasks. Before deleting you have to clear this project");
+                }
+                _databaseModel.Projects.Remove(project);
 
                 _databaseModel.SaveChanges();
             }
+            catch (MethodAccessException e)
+            {
+                throw new Exception(e.Message);
+            }
             catch
             {
-
+                throw new Exception("Can not delete a project.");
             }
         }
 
