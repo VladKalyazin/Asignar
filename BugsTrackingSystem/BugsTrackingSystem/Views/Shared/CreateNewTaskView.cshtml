@@ -1,5 +1,17 @@
 ﻿@model BugsTrackingSystem.Models.NewDefectViewModel
 
+<div id="download_attachments">
+    @using (Html.BeginForm("AddNewAttachments", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <div id="multiple" style="margin-left: 20px;">
+            <input type="file" class="multiple" name="files" multiple />
+        </div>
+        <div class="text-right">
+            <input type="submit" class="btn-pop btn-default" value="Save" />
+        </div>
+    }
+</div>
+
 
 <div id="add_task" title="Create new project">
     @using (Html.BeginForm("AddNewTask", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "form_new_task", onsubmit = "return validate_new_task()" }))
@@ -35,7 +47,7 @@
             <hr style="width: 500px">
             <div class="attachments">
                 @Html.Label("Attachments")
-                <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
+                <i id="open_add_attachments" class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
             </div>
         </div>
         <div class="text-right">

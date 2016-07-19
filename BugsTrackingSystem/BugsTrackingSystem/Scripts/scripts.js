@@ -134,7 +134,6 @@ function open_save_filter_popup() {
     var projects = $("#save_project").find("option:selected");
     var assignees = $("#save_assignee").find("option:selected");
     
-    //document.getElementById("get_search").value = search;
     $("#save_filter").css({ 'display': "inline" });
     $("#save_filter").dialog("open");
 
@@ -318,6 +317,33 @@ $(function () {
 $("#open_edit_user_photo").click(function () {
     $("#edit_photo").css({ 'display': "inline" });
     $("#edit_photo").dialog("open");
+});
+
+$(function () {
+    $("#download_attachments").dialog
+    ({
+        modal: true,
+        width: 600,
+        height: 300,
+        draggable: true,
+        resizable: false,
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "blind",
+            duration: 500
+        }
+    });
+
+    $(".ui-dialog-title").replaceWith("<i class=\"fa fa-file close_popup\" aria-hidden=\"true\"> Add files</i>");
+});
+
+$("#open_add_attachments").click(function () {
+    $("#download_attachments").css({ 'display': "inline" });
+    $("#download_attachments").dialog("open");
 });
 
 $(function () {
