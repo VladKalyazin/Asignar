@@ -69,7 +69,9 @@
                 <input type="submit" class="btn-pop btn-default" value="Find" />
             </li>
             <li>
-                <i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true" onclick="resetAll()"></i>
+                <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Reset All">
+                    <i class="fa fa-repeat  taskIcon projPlus" aria-hidden="true" onclick="resetAll()"></i>
+                </span>
             </li>
             <li>
                 <div id="select_filter">
@@ -82,7 +84,9 @@
                         }
                     </div>
                 </div>
-                <i id="open_filter" class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
+                <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Load filter">
+                    <i id="open_filter" class="fa fa-filter  taskIcon projPlus" aria-hidden="true"></i>
+                </span>
             <li>
 
                 <!-- ====================== -->
@@ -126,8 +130,10 @@
                 </div>
 
                 <!-- ===================================== -->
-
-                <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" onclick="open_save_filter_popup()"></i>
+                <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Save filter">
+                    <i id="open_save_filter" class="fa fa-floppy-o  taskIcon projPlus" aria-hidden="true" onclick="open_save_filter_popup()"></i>
+                </span>
+                
             </li>
         </ul>
     </div>

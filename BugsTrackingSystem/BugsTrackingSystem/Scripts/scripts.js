@@ -4,6 +4,9 @@
     });    
 });
 
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});
 
 $("input[type='checkbox']").change(function () {
     if ($(this).is(":checked")) {

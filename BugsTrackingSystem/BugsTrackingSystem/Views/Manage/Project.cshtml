@@ -21,7 +21,10 @@
             </h1>
         </li>
         <li>
-            <i class="open fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
+            <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Add Defect">
+                <i class="open fa fa-plus taskIcon projPlus" aria-hidden="true"></i>
+            </span>
+            
         </li>
         @if (User.IsInRole("Admin"))
             {
@@ -44,10 +47,15 @@
                         }
                     </div>
 
-                    <i id="open_edit" class="fa fa-pencil taskIcon" aria-hidden="true"></i>
+                    <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Edit">
+                        <i id="open_edit" class="fa fa-pencil taskIcon" aria-hidden="true" ></i>
+                    </span>
                 </li>
                 <li>
-                    <a href="@Url.Action("DeleteProject", "Manage", new { projectId = Model.Project.ProjectId })"><i class="fa fa-times taskIcon" aria-hidden="true"></i></a>
+                    <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Delete Project">
+                        <a href="@Url.Action("DeleteProject", "Manage", new { projectId = Model.Project.ProjectId })"><i class="fa fa-times taskIcon" aria-hidden="true"></i></a>
+                    </span>
+                    
                 </li>
             }
         </ul>
@@ -73,7 +81,10 @@
                                 </li>
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <i class="fa fa-times close_user text-right" aria-hidden="true" onclick="delete_user_from_project(this, projId = @Model.Project.ProjectId, userId = @user.UserId)"></i>
+                                    <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Show users">
+                                        <i class="fa fa-times close_user text-right" aria-hidden="true" onclick="delete_user_from_project(this, projId = @Model.Project.ProjectId, userId = @user.UserId)"></i>
+                                    </span>
+                                    
                                 }
                             </ul>
 
@@ -130,7 +141,10 @@
                 }
             </div>
         }
-        <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
+        <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Add user to project">
+            <i id="open_add_user" class="fa fa-plus" aria-hidden="true"></i>
+        </span>
+        
     </li>
 }
     </ul>
