@@ -622,6 +622,16 @@ function delete_user_from_project(el, projId, userId) {
     }
 }
 
+function delete_user_from_project_profile(el, projId, userId) {
+    var checkstr = confirm('Are you sure you want to delete this user from project?');
+    if (checkstr == true) {
+        window.location.href = "/Manage/DeleteUserFromProjectProfile?projId=" + projId + "&userId=" + userId
+    }
+    else {
+        return false;
+    }
+}
+
 function validate() {
     var submitFlag = true;
     var x = document.forms["form2"]["text"].value;

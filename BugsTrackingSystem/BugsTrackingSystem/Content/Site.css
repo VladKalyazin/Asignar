@@ -527,6 +527,23 @@ tr {
     cursor: pointer;
 }
 
+.close_user_project {
+    display: none;
+    color: #D2E1E2;
+    font-size: 25px;
+    float: right;
+    margin-right: 10px;
+}
+
+.delete_from_project > li {
+    margin-top: 5px;
+}
+
+.delete_from_project > li:hover .close_user_project {
+    display: inline-block !important;
+    cursor: pointer;
+}
+
 
 .adding_user {
     cursor: pointer;

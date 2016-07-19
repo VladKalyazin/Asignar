@@ -579,6 +579,12 @@ namespace BugsTrackingSystem.Controllers
             return RedirectToAction("Project", new { id = projId });
         }
 
+        public ActionResult DeleteUserFromProjectProfile(int projId, int userId)
+        {
+            _dataService.Value.RemoveUserFromProject(userId, projId);
+            return RedirectToAction("Profile", new { userId = userId });
+        }
+
         public ActionResult Task(int id)
         {
             var changeDefect = new NewDefectViewModel
@@ -677,32 +683,6 @@ namespace BugsTrackingSystem.Controllers
 
             return View(model);
         }
-
-        //[HttpPost]
-        //public ActionResult SaveFilterView()
-        //{
-        //    string s = Request.Form["Priorities"];
-        //    IEnumerable<int> priority = !string.IsNullOrEmpty(s) ? Array.ConvertAll(s.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-        //    string r = Request.Form["Projects"];
-        //    IEnumerable<int> projects = !string.IsNullOrEmpty(r) ? Array.ConvertAll(r.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-        //    string q = Request.Form["Statuses"];
-        //    IEnumerable<int> statuses = !string.IsNullOrEmpty(q) ? Array.ConvertAll(q.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-        //    string t = Request.Form["Assignees"];
-        //    IEnumerable<int> users = !string.IsNullOrEmpty(t) ? Array.ConvertAll(t.Split(','), int.Parse) : Enumerable.Empty<int>();
-
-        //    var filter = new FilterViewModel
-        //    {
-        //        PriorityIDs = priority,
-        //        StatusIDs = statuses,
-        //        ProjectIDs = projects,
-        //        UserIDs = users
-        //    };
-        //    HttpContext.Response.StatusCode = 200;
-        //    return PartialView(filter);
-        //}
 
         [HttpPost]
         public ActionResult AddComment()
