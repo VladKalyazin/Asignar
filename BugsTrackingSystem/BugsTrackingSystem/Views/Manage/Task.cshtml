@@ -66,10 +66,18 @@
                     </div>
                 }
             </div>
-            <i id="open_edit_task" class="fa fa-pencil taskIcon" aria-hidden="true" title="Edit"></i>
-            <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
-            @if (User.IsInRole("Admin")) {
-                <a title="Delete" onclick="deleteDefect(defId = @Model.DefectInfo.DefectId, projId = @Model.DefectInfo.ProjectId)"><i class="fa fa-trash taskIcon" aria-hidden="true"></i></a>
+            <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Edit">
+                <i id="open_edit_task" class="fa fa-pencil taskIcon" aria-hidden="true" title="Edit"></i>
+            </span>
+            <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Copy">
+                <i class="fa fa-files-o taskIcon" aria-hidden="true"></i>
+            </span>
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <span class="popover_custom" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Delete">
+                    <a onclick="deleteDefect(defId = @Model.DefectInfo.DefectId, projId = @Model.DefectInfo.ProjectId)"><i class="fa fa-trash taskIcon" aria-hidden="true"></i></a>
+                </span>
             }
         </div>
     </div>

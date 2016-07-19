@@ -41,7 +41,7 @@
                         <ul class="list-inline">
                             <li>
                                 <div class="checkbox">
-                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { style = "position: absolute; margin-top: 0px;"})
                                     @Html.LabelFor(m => m.RememberMe, new {@class = "remember"})
                                 </div>
                             </li>

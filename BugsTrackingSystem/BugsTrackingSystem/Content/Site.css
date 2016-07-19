@@ -1182,3 +1182,12 @@ input[type=checkbox]:checked {
     overflow: hidden !important;
     text-overflow: ellipsis;
 }
+
+.popover {
+    background: #92C1BA;
+    color: #F2F8F8;
+}
+
+.popover.bottom .arrow:after {
+    border-bottom-color: #92C1BA;
+}
