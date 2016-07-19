@@ -79,7 +79,7 @@ namespace AsignarWorker
                 {
                     var blobHelper = new BlobStorageHelper();
 
-                    var attachments = blobHelper.GetDefectPriorityPhotos();
+                    var attachments = blobHelper.GetAttachments();
                     foreach (var attachment in attachments)
                     {
                         databaseModel.DefectAttachments.Where((d) => d.AttachmentID == attachment.Key).Single().Link = attachment.Value;
