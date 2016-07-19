@@ -72,7 +72,20 @@ namespace AsignarServices.Data
             }
             catch
             {
-                throw new Exception("Can not reassign the task.");
+                throw new Exception("Can not delete user.");
+            }
+
+            try
+            {
+                var tableHelper = new TableStorageHelper();
+                tableHelper.DeleteUserComments(userId);
+
+                var blobHelper = new BlobStorageHelper();
+                blobHelper.DeletePhoto(userId);
+            }
+            catch
+            {
+
             }
         }
 
@@ -262,6 +275,12 @@ namespace AsignarServices.Data
                 _databaseModel.Users.Where((u) => u.UserID == userId).Single().PhotoLink = link;
 
                 _databaseModel.SaveChanges();
+
+                if (link == null)
+                {
+                    var blobHelper = new BlobStorageHelper();
+                    blobHelper.DeletePhoto(userId);
+                }
             }
             catch
             {

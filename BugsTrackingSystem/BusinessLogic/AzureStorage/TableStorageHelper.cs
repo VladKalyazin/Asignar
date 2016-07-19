@@ -69,6 +69,18 @@ namespace AsignarServices.AzureStorage
             }
         }
 
+        public void DeleteUserComments(int userId)
+        {
+            CloudTable table = _tableClient.GetTableReference("DefectComments");
+            var entityPattern = new DynamicTableEntity();
+            entityPattern.Properties.Add("UsedID", new EntityProperty(userId));
+            entityPattern.PartitionKey = "*";
+            entityPattern.ETag = "*";
+            entityPattern.RowKey = "*";
+
+            table.Execute(TableOperation.Delete(entityPattern));
+        }
+
         public IEnumerable<CommentViewModel> GetDefectComments(int defectId, AsignarDatabaseModel db)
         {
             CloudTable table = _tableClient.GetTableReference("DefectComments");
@@ -77,18 +89,25 @@ namespace AsignarServices.AzureStorage
 
             using (var dbContextTransaction = db.Database.BeginTransaction())
             {
-                IEnumerable<CommentViewModel> result = table.ExecuteQuery(query).Select(entity => new CommentViewModel
+                try
                 {
-                    CommentText = entity.CommentText,
-                    CreationDate = DateTime.ParseExact(entity.RowKey, CommentEntity.RowKeyFormat, CultureInfo.InvariantCulture).ToLocalTime(),
-                    UserPhoto = db.Users.First((u) => u.UserID == entity.UsedID).PhotoLink,
-                    UserName = db.Users.First((u) => u.UserID == entity.UsedID).FirstName + " " +
-                        db.Users.First((u) => u.UserID == entity.UsedID).Surname
-                });
+                    IEnumerable<CommentViewModel> result = table.ExecuteQuery(query).Select(entity => new CommentViewModel
+                    {
+                        CommentText = entity.CommentText,
+                        CreationDate = DateTime.ParseExact(entity.RowKey, CommentEntity.RowKeyFormat, CultureInfo.InvariantCulture).ToLocalTime(),
+                        UserPhoto = db.Users.First((u) => u.UserID == entity.UsedID).PhotoLink,
+                        UserName = db.Users.First((u) => u.UserID == entity.UsedID).FirstName + " " +
+                            db.Users.First((u) => u.UserID == entity.UsedID).Surname
+                    });
 
-                dbContextTransaction.Commit();
+                    dbContextTransaction.Commit();
 
-                return result;
+                    return result.ToList();
+                }
+                catch
+                {
+                    return new List<CommentViewModel>();
+                }
             }
         }
 
@@ -98,6 +117,7 @@ namespace AsignarServices.AzureStorage
             var entityPattern = new DynamicTableEntity();
             entityPattern.PartitionKey = defectId.ToString();
             entityPattern.ETag = "*";
+            entityPattern.RowKey = "*";
 
             table.Execute(TableOperation.Delete(entityPattern));
         }

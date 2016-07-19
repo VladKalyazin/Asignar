@@ -450,8 +450,19 @@ namespace BugsTrackingSystem.Controllers
         
         public ActionResult DeleteUser(int userId)
         {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
             _dataService.Value.DeleteUser(userId);
-            return RedirectToAction("Users");
+            if (userId == id)
+            {
+                return RedirectToAction("Logout", "Account");
+            }
+            else
+            {
+                return RedirectToAction("Users");
+            }
         }
 
         [HttpPost]
