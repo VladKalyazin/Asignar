@@ -14,7 +14,8 @@ namespace AsignarServices.Data
         public IEnumerable<DefectViewModel> GetUserDefects(int userId)
         {
             return (from defect in _databaseModel.Defects
-                    where defect.AssigneeUserID == userId
+                    where defect.AssigneeUserID == userId && 
+                    _databaseModel.Users.FirstOrDefault(u => u.UserID == userId).Projects.Any(p => p.ProjectID == defect.ProjectID)
                     select new DefectViewModel
                     {
                         DefectId = defect.DefectID,
@@ -29,14 +30,16 @@ namespace AsignarServices.Data
         }
 
         public int GetCountUserDefects(int userId) =>
-            _databaseModel.Defects.Where((d) => d.AssigneeUserID == userId).Count();
+            _databaseModel.Defects.Where((d) => d.AssigneeUserID == userId &&
+            _databaseModel.Users.FirstOrDefault(u => u.UserID == userId).Projects.Any(p => p.ProjectID == d.ProjectID)).Count();
 
         public IEnumerable<DefectViewModel> GetUserSetOfDefects(int userId, int countOfSet, int page)
         {
             try
             {
                 return (from defect in _databaseModel.Defects.OrderBy((p) => p.CreationDate)
-                        where defect.AssigneeUserID == userId
+                        where defect.AssigneeUserID == userId &&
+                        _databaseModel.Users.FirstOrDefault(u => u.UserID == userId).Projects.Any(p => p.ProjectID == defect.ProjectID)
                         select new DefectViewModel
                         {
                             DefectId = defect.DefectID,
