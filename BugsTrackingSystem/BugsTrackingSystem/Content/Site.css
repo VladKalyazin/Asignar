@@ -502,6 +502,7 @@ td {
 
 .user_line_top {
     position: absolute;
+    margin-top: 15px;
 }
 
 .user_count {
@@ -610,7 +611,9 @@ input[type=checkbox] {
     background-repeat: no-repeat;
     line-height: 32px;
     cursor: pointer;
-     color: #F2FAFA;
+    color: #F2FAFA;
+    position: absolute;
+    margin-top: 15px;
 }
 
 input[type=checkbox]:checked {
