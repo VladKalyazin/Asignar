@@ -46,5 +46,7 @@ namespace BugsTrackingSystem.Models
         public IEnumerable<CommentViewModel> Comments { get; set; }
 
         public IEnumerable<SelectListItem> StatusesList { get; set; }
+
+        public IEnumerable<AttachmentViewModel> Attachments { get; set; }
     }
 }

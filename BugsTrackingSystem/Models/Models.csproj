@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNewUserToProjectViewModel.cs" />
+    <Compile Include="AttachmentViewModel.cs" />
     <Compile Include="CommentViewModel.cs" />
     <Compile Include="DefectExtendedViewModel.cs" />
     <Compile Include="DefectViewModel.cs" />

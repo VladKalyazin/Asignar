@@ -56,6 +56,11 @@
                         <div class="attachments">
                             @Html.Label("Attachments")
                             <i class="fa fa-plus-circle circle_attach" aria-hidden="true"></i>
+                            @foreach (var attachment in Model.DefectInfo.Attachments)
+                            {
+                                @Html.Hidden(attachment.AttachmentId.ToString());
+                                <a href=@attachment.Link>@attachment.Name</a>
+                            }
                         </div>
                     </div>
                     <div class="text-right">

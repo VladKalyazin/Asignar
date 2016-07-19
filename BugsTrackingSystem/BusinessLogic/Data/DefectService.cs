@@ -82,6 +82,12 @@ namespace AsignarServices.Data
                                   CreationDate = defect.CreationDate,
                                   ModificationDate = defect.ModificationDate,
                                   Description = defect.Description,
+                                  Attachments = defect.DefectAttachments.Select(a => new AttachmentViewModel()
+                                  {
+                                      AttachmentId = a.AttachmentID,
+                                      Name = a.Name,
+                                      Link = a.Link
+                                  }).ToList()
                               }).SingleOrDefault();
 
                 result.StatusesList = GetStatusNames();
