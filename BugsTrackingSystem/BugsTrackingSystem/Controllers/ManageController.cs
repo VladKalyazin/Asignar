@@ -346,7 +346,7 @@ namespace BugsTrackingSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTask()
+        public ActionResult EditTask(IEnumerable<HttpPostedFileBase> files)
         {
             var defect = new DefectAddEditViewModel
             {
@@ -360,6 +360,31 @@ namespace BugsTrackingSystem.Controllers
             };
 
             _dataService.Value.EditDefect(defect);
+
+            var blobHelper = new BlobStorageHelper();
+
+            foreach (var file in files)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    byte[] data;
+                    using (Stream inputStream = file.InputStream)
+                    {
+                        MemoryStream memoryStream = inputStream as MemoryStream;
+                        if (memoryStream == null)
+                        {
+                            memoryStream = new MemoryStream();
+                            inputStream.CopyTo(memoryStream);
+                        }
+                        data = memoryStream.ToArray();
+                    }
+
+                    blobHelper.UploadAttachment(defect.DefectId, data, file.FileName);
+                    string link = blobHelper.GetAttachmentUrl(defect.DefectId, file.FileName);
+                    _dataService.Value.AddAttachment(defect.DefectId, file.FileName, link);
+                }
+            }
+
             return RedirectToAction("Task", new {id = defect.DefectId});
         }
 
@@ -602,7 +627,13 @@ namespace BugsTrackingSystem.Controllers
             };
             
             return View(defect);
-		}
+        }
+
+        public ActionResult DeleteAttachment(int attachId, int defectId)
+        {
+            _dataService.Value.DeleteAttachment(attachId);
+            return RedirectToAction("Task", new { id = defectId });
+        }
 
         public ActionResult Search(string sortOrder = "Title", int page = 1, int? filterId = null)
         {

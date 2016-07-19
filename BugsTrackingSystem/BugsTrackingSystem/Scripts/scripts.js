@@ -450,6 +450,11 @@ $("#open_add_attachments").click(function () {
     $("#attachmens").css({ 'display': "inline" });
 });
 
+
+$("#open_new_attachments").click(function () {
+    $("#attachmens_new").css({ 'display': "inline" });
+});
+
 $("#userSelect").change(function () {
     var selectedId = $('#projectSelect option:selected').val();
     $.ajax({
@@ -626,6 +631,16 @@ function delete_user_from_project_profile(el, projId, userId) {
     var checkstr = confirm('Are you sure you want to delete this user from project?');
     if (checkstr == true) {
         window.location.href = "/Manage/DeleteUserFromProjectProfile?projId=" + projId + "&userId=" + userId
+    }
+    else {
+        return false;
+    }
+}
+
+function delete_attachment_task(el, id, taskId) {
+    var checkstr = confirm('Are you sure you want to delete this attachment?');
+    if (checkstr == true) {
+        window.location.href = "/Manage/DeleteAttachment?attachId=" + id + "&defectId=" + taskId
     }
     else {
         return false;

@@ -554,6 +554,22 @@ tr {
     cursor: pointer;
 }
 
+.close_attachment {
+    display: none;
+    color: #D2E1E2;
+    font-size: 25px;
+    float: right;
+    margin-right: 50px;
+}
+
+.list_attachments > li:hover .close_attachment {
+    display: inline-block !important;
+    cursor: pointer;
+}
+
+.list_attachments > li {
+    margin-top: 5px;
+}
 
 .adding_user {
     cursor: pointer;
@@ -722,7 +738,7 @@ input[type=checkbox]:checked {
 
 /*PopUp*/
 
-#add_project, #add_task, #add_user, #edit_project, #add_filter, #add_user_to_project {
+#add_project, #add_task, #add_user, #edit_project, #add_filter, #add_user_to_project, #attachmens_new {
     display: none;
     font-size: 15px;
 }
