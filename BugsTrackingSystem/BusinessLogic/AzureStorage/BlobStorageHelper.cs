@@ -79,6 +79,34 @@ namespace AsignarServices.AzureStorage
             return result;
         }
 
+        public string GetAttachmentUrl(int defectId, string name)
+        {
+            CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);          
+
+            foreach (IListBlobItem item in container.ListBlobs(null, false))
+            {
+                if (item.GetType() == typeof(CloudBlobDirectory))
+                {
+                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
+                    if (directory.Prefix.Replace("/", "") == defectId.ToString())
+                    {
+                        foreach (var dirItem in directory.ListBlobs())
+                        {
+                            if (dirItem.GetType() == typeof(CloudBlockBlob))
+                            {
+                                var blob = dirItem as CloudBlockBlob;
+                                if (new String(blob.Name.Reverse().TakeWhile(c => c != '\\' && c != '/').Reverse().ToArray()) == name)
+                                    return GetBlobSasUri(container, blob.Name);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public void UploadAttachment(int defectId, byte[] byteFile, string name)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);

@@ -309,15 +309,6 @@ namespace BugsTrackingSystem.Controllers
         [HttpPost]
         public ActionResult AddNewTask(IEnumerable<HttpPostedFileBase> files)
         {
-            foreach (var file in files)
-            {
-                if (file != null && file.ContentLength > 0)
-                {
-                    //file.SaveAs(Path.Combine(Server.MapPath("/uploads"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
-                    //save in cache
-                }
-            }
-
             var newTask = new DefectAddEditViewModel
             {
                 Name = Request.Form["Name"],
@@ -329,6 +320,30 @@ namespace BugsTrackingSystem.Controllers
             };
 
             _dataService.Value.AddDefect(newTask);
+
+            var blobHelper = new BlobStorageHelper();
+
+            foreach (var file in files)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    byte[] data;
+                    using (Stream inputStream = file.InputStream)
+                    {
+                        MemoryStream memoryStream = inputStream as MemoryStream;
+                        if (memoryStream == null)
+                        {
+                            memoryStream = new MemoryStream();
+                            inputStream.CopyTo(memoryStream);
+                        }
+                        data = memoryStream.ToArray();
+                    }
+
+                    blobHelper.UploadAttachment(newTask.DefectId, data, file.FileName);
+                    string link = blobHelper.GetAttachmentUrl(newTask.DefectId, file.FileName);
+                    _dataService.Value.AddAttachment(newTask.DefectId, file.FileName, link);
+                }
+            }
 
             return RedirectToAction("Task", new { id = newTask.DefectId});
         }
