@@ -90,36 +90,37 @@
                 <div id="save_filter">
                     @using (Html.BeginForm("AddNewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "save-new-filter-form", @class = "form-horizontal", role = "form" }))
                     {
+                        <p id="validation_search_filter_new" style="color: Red; text-align: center"></p>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-xs-10">
-                                    @Html.TextBox("Name", string.Empty, "", new { @class = "form-control projInput", placeholder = "Filter Name", required = true })
+                                    @Html.TextBox("Name", null, "", new { @id = "search_title", @class = "form-control projInput", placeholder = "Filter Name", required = true })
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group"  style="margin-top: 45px;">
                                 <div class="col-xs-10">
-                                    @Html.TextBox("Search", string.Empty, "", new { @class = "form-control projInput", placeholder = "Search", required = true })
+                                    @Html.TextBox("Search", null, "", new { @class = "form-control projInput", placeholder = "Search", required = true })
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group"style="margin-top: 90px;">
                                 <div class="col-xs-5" style="margin-left: 50px;">
                                     @Html.DropDownList("Priorities", Model.Select.Priority, new { @class = "btnDropTask selectpicker", placeholder = "Priority", multiple = "multiple" })
                                 </div>
-                                <div class="col-xs-5" style="margin-left: 20px;">
+                                <div class="col-xs-5" style="margin-left: 10px;">
                                     @Html.DropDownList("Statuses", Model.Select.Status, new { @class = "btnDropTask selectpicker", placeholder = "Status", multiple = "multiple" })
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: 125px;">
                                 <div class="col-xs-5" style="margin-left: 50px;">
                                     @Html.DropDownList("Projects", Model.Select.Projects, new { @class = "btnDropTask selectpicker", placeholder = "Project", multiple = "multiple" })
                                 </div>
-                                <div class="col-xs-5" style="margin-left: 20px;">
+                                <div class="col-xs-5" style="margin-left: 10px;">
                                     @Html.DropDownList("Assignees", Model.Select.Users, new { @class = "btnDropTask selectpicker", placeholder = "Assignee", multiple = "multiple" })
                                 </div>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <input type="submit" class="btn-pop btn-default" value="Save" />
+                        <div class="text-right" style="margin-top: 10px;">
+                            <input type="submit" class="btn-pop btn-default" value="Save" id="save_filter_search"/>
                         </div>
                     }
                 </div>

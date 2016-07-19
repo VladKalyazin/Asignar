@@ -177,9 +177,67 @@ function open_save_filter_popup() {
     assigneesDropDown.selectpicker('refresh');
 };
 
-$(document).ready(function() {
-    function saveFilter() {
-        
+$("#save_filter_search").click(function () {
+    var title = document.getElementById("search_title").value;
+    var search = document.getElementById("Search").value;
+    var priorities = $("#save_priority").find("option:selected");
+    var statuses = $("#save_status").find("option:selected");
+    var projects = $("#save_project").find("option:selected");
+    var assignees = $("#save_assignee").find("option:selected");
+
+    var prioritiesArray = [];
+    var statusesArray = [];
+    var projectsArray = [];
+    var assigneesArray = [];
+    for (var i = 0; i < priorities.length; ++i) {
+        prioritiesArray.push(priorities[i].value);
+    }
+    for (var i = 0; i < statuses.length; ++i) {
+        statusesArray.push(statuses[i].value);
+    }
+    for (var i = 0; i < projects.length; ++i) {
+        projectsArray.push(projects[i].value);
+    }
+    for (var i = 0; i < assignees.length; ++i) {
+        assigneesArray.push(assignees[i].value);
+    }
+
+    var submitFlag = true;
+    if (title.length > 30) {
+        submitFlag = false;
+        document.getElementById("validation_search_filter_new").innerHTML = "Title of filter has to be less than 30 characters!";
+    }
+    if (search.length > 50) {
+        submitFlag = false;
+        document.getElementById("validation_search_filter_new").innerHTML = "Search has to be less than 50 characters!";
+    }
+    if (title.length == 0 || search.length == 0) {
+        submitFlag = false;
+        document.getElementById("validation_search_filter_new").innerHTML = "Fill all inputs";
+    }
+
+    if (submitFlag) {
+        $.ajax({
+            url: "/Manage/AddNewFilterFromSearch",
+            method: "POST",
+            data: {
+                title: title,
+                search: search,
+                priorities: prioritiesArray,
+                statuses: statusesArray,
+                projects: projectsArray,
+                assignees: assigneesArray
+            }
+        })
+       .success(function () {
+           alert('Filter was successfully added');
+           $("#save_filter").css({ 'display': "none" });
+           $("#save_filter").dialog("close");
+           resetAll();
+       })
+       .error(function (mess) {
+           //alert(mess);
+       });
     }
 });
 

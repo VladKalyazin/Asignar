@@ -366,7 +366,34 @@ namespace BugsTrackingSystem.Controllers
 
             return RedirectToAction("Filters");
         }
-        
+
+        [HttpPost]
+        public ActionResult AddNewFilterFromSearch(string title, string search, string [] priorities, string[] statuses, string[] projects, string[] assignees)
+        {
+            var authCookie = Request.Cookies["Auth"];
+            var enc = authCookie.Value;
+            int id = Convert.ToInt32(FormsAuthentication.Decrypt(enc).Name);
+
+            IEnumerable<int> myPriorities = !(priorities == null) ? priorities.Select(int.Parse).ToArray() : Enumerable.Empty<int>();
+            IEnumerable <int> myStatuses = !(statuses == null) ? statuses.Select(int.Parse).ToArray() : Enumerable.Empty<int>();
+            IEnumerable<int> myProjects = !(projects == null) ? projects.Select(int.Parse).ToArray() : Enumerable.Empty<int>();
+            IEnumerable<int> myAssignees = !(assignees == null) ? assignees.Select(int.Parse).ToArray() : Enumerable.Empty<int>();
+            
+            var filter = new FilterViewModel
+            {
+                Title = title,
+                Search = search,
+                PriorityIDs = myPriorities,
+                StatusIDs = myStatuses,
+                ProjectIDs = myProjects,
+                UserIDs = myAssignees
+            };
+
+            _dataService.Value.AddFilter(id, filter);
+
+            return RedirectToAction("Filters");
+        }
+
         public ActionResult DeleteFilter(int filterId)
         {
             _dataService.Value.DeleteFilter(filterId);

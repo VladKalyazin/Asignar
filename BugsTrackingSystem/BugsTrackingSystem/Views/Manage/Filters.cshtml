@@ -86,10 +86,7 @@
                             <span class="over">@string.Join(", ", filter.Users)</span>
                         </li>
                     </ul>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <span id="close_filter_hover" class="glyphicon glyphicon-remove-sign hide-button" aria-hidden="true" onclick="hideFilter(this, @filter.FilterId)"></span>
-                    }
+                    <span id="close_filter_hover" class="glyphicon glyphicon-remove-sign hide-button" aria-hidden="true" onclick="hideFilter(this, @filter.FilterId)"></span>
                 </div>
         }
     </div>
