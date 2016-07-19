@@ -180,6 +180,15 @@ textarea {
 
 /* Content */
 
+table {
+    width: 100%;
+}
+
+table td
+{
+    min-width: 50px;
+}
+
 .MyProjects {
     background-color:white;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -321,6 +330,7 @@ input:-ms-input-placeholder {
 
 .MyProjectsHome:hover {
     border: solid 2px #A3C2C6;
+    cursor: pointer;
 }
 
 .projectTableHome {
@@ -1123,7 +1133,7 @@ input[type=checkbox]:checked {
 .project_subject {
     margin-top: 10px;
     display:inline-block;
-    width:660px;
+    width: 100%;
     white-space: nowrap;
     overflow:hidden !important;
     text-overflow: ellipsis;
