@@ -15,7 +15,9 @@
             <label for="file" class="control-label">Select an Image</label>
             <input type="file" name="file" id="file" />
             <br />
-            <input type="submit" value="Upload" class="btn btn-default" />
+            <div class="text-right" style="margin-right: 20px;">
+                <input type="submit" value="Upload" class="btn-pop btn-default" />
+            </div>
         </div>
     }
 </div>
@@ -141,10 +143,13 @@
                     <b>My Projects</b>
                 </h1>
                 <div class="col-md-3 col-xs-6 MyProjectsProfile">
-                    <ul>
+                    <ul class="delete_from_project">
                         @foreach (var project in Model.Projects)
                         {
-                            <li><a class="linkMyProject" href="/Manage/Project/@project.ProjectId">@project.Name</a></li>
+                            <li>
+                                <a class="linkMyProject" href="/Manage/Project/@project.ProjectId">@project.Name</a>
+                                <i class="fa fa-times close_user_project text-right" aria-hidden="true" onclick="delete_user_from_project_profile(this, projId = @project.ProjectId, userId = @Model.User.UserId)"></i>
+                            </li>
                         }
                     </ul>
                 </div>
