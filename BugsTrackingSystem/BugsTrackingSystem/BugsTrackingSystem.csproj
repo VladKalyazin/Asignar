@@ -305,6 +305,13 @@
     <Content Include="fonts\gothic.eot" />
     <Content Include="fonts\gothic.ttf" />
     <Content Include="fonts\gothic.woff" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\AsignarBugsTrackingSystem - FTP %284%29.pubxml" />
@@ -335,13 +342,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
