@@ -204,5 +204,7 @@ namespace AsignarServices.Data
                 throw new Exception("Defect can not be deleted.");
             }
         }
+
+
     }
 }
