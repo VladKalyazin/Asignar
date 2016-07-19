@@ -318,8 +318,6 @@ namespace BugsTrackingSystem.Controllers
 
             _dataService.Value.AddDefect(newTask);
 
-            var blobHelper = new BlobStorageHelper();
-
             foreach (var file in files)
             {
                 if (file != null && file.ContentLength > 0)
@@ -336,9 +334,7 @@ namespace BugsTrackingSystem.Controllers
                         data = memoryStream.ToArray();
                     }
 
-                    blobHelper.UploadAttachment(newTask.DefectId, data, file.FileName);
-                    string link = blobHelper.GetAttachmentUrl(newTask.DefectId, file.FileName);
-                    _dataService.Value.AddAttachment(newTask.DefectId, file.FileName, link);
+                    _dataService.Value.AddAttachment(newTask.DefectId, file.FileName, data);
                 }
             }
 

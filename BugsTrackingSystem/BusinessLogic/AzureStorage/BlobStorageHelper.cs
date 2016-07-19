@@ -50,12 +50,10 @@ namespace AsignarServices.AzureStorage
             return GetBlobSasUri(userPhotoContainer, blobName);
         }
 
-        public IEnumerable<string> GetAttachmentsUrls(int defectId)
+        public string GetAttachmentUrl(int defectId, int attachmentId)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);
 
-            List<string> result = new List<string>();
-
             foreach (IListBlobItem item in container.ListBlobs(null, false))
             {
                 if (item.GetType() == typeof(CloudBlobDirectory))
@@ -65,41 +63,19 @@ namespace AsignarServices.AzureStorage
                     {
                         foreach (var dirItem in directory.ListBlobs())
                         {
-                            if (dirItem.GetType() == typeof(CloudBlockBlob))
+                            if (dirItem.GetType() == typeof(CloudBlobDirectory))
                             {
-                                var blob = dirItem as CloudBlockBlob;
-                                result.Add(GetBlobSasUri(container, blob.Name));
+                                var subdir = (CloudBlobDirectory)dirItem;
+                                if (subdir.Prefix == defectId.ToString() + '/' + attachmentId.ToString() + '/')
+                                {
+                                    foreach (var subdirItem in subdir.ListBlobs())
+                                    {
+                                        var blob = subdirItem as CloudBlockBlob;
+                                        return GetBlobSasUri(container, blob.Name);
+                                    }
+                                }
                             }
                         }
-                        break;
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public string GetAttachmentUrl(int defectId, string name)
-        {
-            CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);          
-
-            foreach (IListBlobItem item in container.ListBlobs(null, false))
-            {
-                if (item.GetType() == typeof(CloudBlobDirectory))
-                {
-                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
-                    if (directory.Prefix.Replace("/", "") == defectId.ToString())
-                    {
-                        foreach (var dirItem in directory.ListBlobs())
-                        {
-                            if (dirItem.GetType() == typeof(CloudBlockBlob))
-                            {
-                                var blob = dirItem as CloudBlockBlob;
-                                if (new String(blob.Name.Reverse().TakeWhile(c => c != '\\' && c != '/').Reverse().ToArray()) == name)
-                                    return GetBlobSasUri(container, blob.Name);
-                            }
-                        }
-                        break;
                     }
                 }
             }
@@ -107,11 +83,11 @@ namespace AsignarServices.AzureStorage
             return null;
         }
 
-        public void UploadAttachment(int defectId, byte[] byteFile, string name)
+        public void UploadAttachment(int defectId, int attachmentId, byte[] byteFile, string name)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);
 
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Path.Combine(defectId.ToString(), name));
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Path.Combine(defectId.ToString(), attachmentId.ToString(), name));
             blockBlob.UploadFromByteArray(byteFile, 0, byteFile.Length);
         }
 
@@ -163,6 +139,35 @@ namespace AsignarServices.AzureStorage
                     string blobName = directory.ListBlobs().OfType<CloudBlockBlob>().Select(b => b.Name).FirstOrDefault();
 
                     result.Add(Convert.ToInt32(directory.Prefix.Replace("/", "")), GetBlobSasUri(container, blobName));
+                }
+            }
+
+            return result;
+        }
+
+        public Dictionary<int, string> GetAttachments()
+        {
+            Dictionary<int, string> result = new Dictionary<int, string>();
+
+            CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);
+
+            foreach (IListBlobItem item in container.ListBlobs(null, false))
+            {
+                if (item.GetType() == typeof(CloudBlobDirectory))
+                {
+                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
+                    foreach (var dirItem in directory.ListBlobs())
+                    {
+                        if (dirItem.GetType() == typeof(CloudBlobDirectory))
+                        {
+                            var subdir = (CloudBlobDirectory)dirItem;
+                            foreach (var subdirItem in subdir.ListBlobs())
+                            {
+                                var blob = subdirItem as CloudBlockBlob;
+                                result.Add(Convert.ToInt32(new String(subdir.Prefix.Reverse().TakeWhile(c => c!= '/').Reverse().ToArray())), GetBlobSasUri(container, blob.Name));
+                            }
+                        }
+                    }
                 }
             }
 

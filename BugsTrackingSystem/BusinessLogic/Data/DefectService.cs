@@ -218,16 +218,30 @@ namespace AsignarServices.Data
             }
         }
 
-        public void AddAttachment(int defectId, string name, string link)
+        public void AddAttachment(int defectId, string name, byte[] data)
         {
             try
             {
-                _databaseModel.DefectAttachments.Add(new DefectAttachment
+                var attachment = new DefectAttachment
                 {
                     DefectID = defectId,
-                    Name = name,
-                    Link = link
-                });
+                    Name = name
+                };
+
+                _databaseModel.DefectAttachments.Add(attachment);
+
+                _databaseModel.SaveChanges();
+
+                var blobHelper = new BlobStorageHelper();
+                blobHelper.UploadAttachment(defectId, attachment.AttachmentID, data, name);
+                string link = blobHelper.GetAttachmentUrl(defectId, attachment.AttachmentID);
+
+                attachment.Link = link;
+
+                _databaseModel.DefectAttachments.Attach(attachment);
+
+                var entry = _databaseModel.Entry(attachment);
+                entry.Property(e => e.Link).IsModified = true;
 
                 _databaseModel.SaveChanges();
             }
@@ -235,6 +249,7 @@ namespace AsignarServices.Data
             {
 
             }
+
         }
 
         public void DeleteAttachment(int attachmentId)

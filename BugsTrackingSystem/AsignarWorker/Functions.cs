@@ -46,24 +46,52 @@ namespace AsignarWorker
         {
             using (var databaseModel = new AsignarDatabaseModel())
             {
-                var blobHelper = new BlobStorageHelper();
-
-                var priorityPhotos = blobHelper.GetDefectPriorityPhotos();
-                foreach (var photo in priorityPhotos)
+                using (var dbContextTransaction = databaseModel.Database.BeginTransaction())
                 {
-                    databaseModel.DefectPriorities.Where((dp) => dp.DefectPriorityID == photo.Key).Single().PhotoLink = photo.Value;
+                    var blobHelper = new BlobStorageHelper();
+
+                    var priorityPhotos = blobHelper.GetDefectPriorityPhotos();
+                    foreach (var photo in priorityPhotos)
+                    {
+                        databaseModel.DefectPriorities.Where((dp) => dp.DefectPriorityID == photo.Key).Single().PhotoLink = photo.Value;
+                    }
+
+                    var userPhotos = blobHelper.GetUserPhotos();
+                    foreach (var photo in userPhotos)
+                    {
+                        databaseModel.Users.Where((u) => u.UserID == photo.Key).Single().PhotoLink = photo.Value;
+                    }
+
+                    databaseModel.SaveChanges();
+
+                    dbContextTransaction.Commit();
+
+                    log.WriteLine("Links to photos was successfully refreshed in SQL database.");
                 }
-
-                var userPhotos = blobHelper.GetUserPhotos();
-                foreach (var photo in userPhotos)
-                {
-                    databaseModel.Users.Where((u) => u.UserID == photo.Key).Single().PhotoLink = photo.Value;
-                }
-
-                databaseModel.SaveChanges();
-
-                log.WriteLine("Links to photos was successfully refreshed in SQL database.");
             }
+        }
+
+        public static void RefreshAttachmentsLinks([TimerTrigger(_refreshLinkTimerInterval, RunOnStartup = true)] TimerInfo timer, TextWriter log)
+        {
+            using (var databaseModel = new AsignarDatabaseModel())
+            {
+                using (var dbContextTransaction = databaseModel.Database.BeginTransaction())
+                {
+                    var blobHelper = new BlobStorageHelper();
+
+                    var attachments = blobHelper.GetDefectPriorityPhotos();
+                    foreach (var attachment in attachments)
+                    {
+                        databaseModel.DefectAttachments.Where((d) => d.AttachmentID == attachment.Key).Single().Link = attachment.Value;
+                    }
+
+                    databaseModel.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+            }
+
+            log.WriteLine("Links to attachments was successfully refreshed in SQL database.");
         }
     }
 }
