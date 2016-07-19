@@ -14,6 +14,8 @@ using AsignarServices.AzureStorage;
 using AsignarServices.Data;
 using BugsTrackingSystem.Models;
 using BugsTrackingSystem.Filters;
+using System.IO;
+using ImageResizer;
 
 namespace BugsTrackingSystem.Controllers
 {
@@ -89,6 +91,51 @@ namespace BugsTrackingSystem.Controllers
             newUser.RoleId = !string.IsNullOrEmpty(role) ? Convert.ToInt32(role) : 0;
 
             _dataService.Value.EditUser(newUser);
+
+            return RedirectToAction("Profile", new { userId = Id });
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            int Id = Convert.ToInt32(Request.Form["userId"]);
+
+            if (file != null)
+            {
+                //Declare a new dictionary to store the parameters for the image versions.
+                var versions = new Dictionary<string, string>();
+
+                var path = Server.MapPath("~/Images/");
+
+                //Define the versions to generate
+                versions.Add("_small", "maxwidth=600&maxheight=600&format=jpg");
+                versions.Add("_medium", "maxwidth=900&maxheight=900&format=jpg");
+                versions.Add("_large", "maxwidth=1200&maxheight=1200&format=jpg");
+
+                //Generate each version
+                foreach (var suffix in versions.Keys)
+                {
+                    file.InputStream.Seek(0, SeekOrigin.Begin);
+
+                    //Let the image builder add the correct extension based on the output file type
+                    ImageBuilder.Current.Build(
+                        new ImageJob(
+                            file.InputStream,
+                            path + file.FileName + suffix,
+                            new Instructions(versions[suffix]),
+                            false,
+                            true));
+                }
+                //_dataService.Value.UpdatePhoto(Id, file);
+
+                return RedirectToAction("Profile", new { userId = Id });
+            }
+            return RedirectToAction("Profile", new { userId = Id });
+        }
+        
+        public ActionResult ClearPhoto(int Id)
+        {            
+            //_dataService.Value.ClearPhoto(Id);
 
             return RedirectToAction("Profile", new { userId = Id });
         }

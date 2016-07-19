@@ -294,6 +294,33 @@ $("#open_edit_user").click(function () {
 });
 
 $(function () {
+    $("#edit_photo").dialog
+    ({
+        modal: true,
+        width: 600,
+        height: 300,
+        draggable: true,
+        resizable: false,
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "blind",
+            duration: 500
+        }
+    });
+
+    $(".ui-dialog-title").replaceWith("<i class=\"fa fa-pencil close_popup\" aria-hidden=\"true\"> Edit photo</i>");
+});
+
+$("#open_edit_user_photo").click(function () {
+    $("#edit_photo").css({ 'display': "inline" });
+    $("#edit_photo").dialog("open");
+});
+
+$(function () {
     $("#edit_project").dialog
     ({
         modal: true,

@@ -6,6 +6,21 @@
     Model.Roles.First(p => p.Value == Model.User.RoleId.ToString()).Selected = true;
 }
 
+<!-- ============================================== -->
+<div id="edit_photo">
+    @using (Html.BeginForm("Upload", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("userId", Model.User.UserId)
+        <div class="form-group" style="margin-left: 20px;">
+            <label for="file" class="control-label">Select an Image</label>
+            <input type="file" name="file" id="file" />
+            <br />
+            <input type="submit" value="Upload" class="btn btn-default" />
+        </div>
+    }
+</div>
+<!-- ============================================== -->
+
 <div class="container">
     <div class="col-md-3 col-xs-12">
         <div class="row">
@@ -82,8 +97,8 @@
                                             </div>
                                             <div class="col-xs-4">
                                                 <ul class="list-inline">
-                                                    <li style="width: 100px"><a href="#">Edit photo</a></li>
-                                                    <li style="width: 150px"><a href="#">Change photo</a></li>
+                                                    <li style="width: 100px"><span id="open_edit_user_photo" >Edit photo</span></li>
+                                                    <li style="width: 150px"><a href="@Url.Action("ClearPhoto", "Manage", new {Id = Model.User.UserId})">Clear photo</a></li>
                                                 </ul>
                                             </div>
                                         </div>
