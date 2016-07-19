@@ -259,6 +259,9 @@ namespace AsignarServices.Data
                 _databaseModel.DefectAttachments.Remove(_databaseModel.DefectAttachments.First(da => da.AttachmentID == attachmentId));
 
                 _databaseModel.SaveChanges();
+
+                var blobHelper = new BlobStorageHelper();
+                blobHelper.DeleteAttachment(attachmentId);
             }
             catch
             {

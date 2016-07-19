@@ -375,9 +375,7 @@ namespace BugsTrackingSystem.Controllers
                         data = memoryStream.ToArray();
                     }
 
-                    blobHelper.UploadAttachment(defect.DefectId, data, file.FileName);
-                    string link = blobHelper.GetAttachmentUrl(defect.DefectId, file.FileName);
-                    _dataService.Value.AddAttachment(defect.DefectId, file.FileName, link);
+                    _dataService.Value.AddAttachment(defect.DefectId, file.FileName, data);
                 }
             }
 

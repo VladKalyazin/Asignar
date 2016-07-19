@@ -107,6 +107,34 @@ namespace AsignarServices.AzureStorage
             blockBlob.Delete();
         }
 
+        public void DeleteAttachment(int attachmentId)
+        {
+            CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithAttachmentsName);
+
+            foreach (IListBlobItem item in container.ListBlobs(null, false))
+            {
+                if (item.GetType() == typeof(CloudBlobDirectory))
+                {
+                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
+                    foreach (var dirItem in directory.ListBlobs())
+                    {
+                        if (dirItem.GetType() == typeof(CloudBlobDirectory))
+                        {
+                            var subdir = (CloudBlobDirectory)dirItem;
+                            if (subdir.Prefix.Contains('/' + attachmentId.ToString() + '/'))
+                            {
+                                foreach (var subdirItem in subdir.ListBlobs())
+                                {
+                                    var blob = subdirItem as CloudBlockBlob;
+                                    blob.Delete();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public Dictionary<int, string> GetDefectPriorityPhotos()
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
