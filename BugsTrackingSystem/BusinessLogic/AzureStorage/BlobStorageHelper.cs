@@ -42,20 +42,27 @@ namespace AsignarServices.AzureStorage
         public string GetUserPhotoUrl(int userId)
         {
             CloudBlobContainer userPhotoContainer = _blobClient.GetContainerReference(_containerWithUserPhotosName);
-            string blobName = userPhotoContainer.ListBlobs(userId.ToString()).OfType<CloudBlockBlob>().Select(b => b.Name).FirstOrDefault();
+            //string blobName = userPhotoContainer.ListBlobs(Path.Combine(userId.ToString(), "photo.jpg")).OfType<CloudBlockBlob>().Select(b => b.Name).FirstOrDefault();
+            CloudBlockBlob blockBlob = userPhotoContainer.GetBlockBlobReference(Path.Combine(userId.ToString(), "photo.jpg"));
+            string blobName = blockBlob.Name;
 
             return GetBlobSasUri(userPhotoContainer, blobName);
         }
 
-        public void UploadPhoto(int userId, string path)
+        public void UploadPhoto(int userId, byte[] byteImage)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithUserPhotosName);
 
-            using (var fileStream = File.OpenRead(path))
-            {
-                CloudBlockBlob blockBlob = container.GetBlockBlobReference(Path.Combine(userId.ToString(), "photo.jpg"));
-                blockBlob.UploadFromStream(fileStream);
-            }
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Path.Combine(userId.ToString(), "photo.jpg"));
+            blockBlob.UploadFromByteArray(byteImage, 0, byteImage.Length);
+        }
+
+        public void DeletePhoto(int userId)
+        {
+            CloudBlobContainer container = _blobClient.GetContainerReference(_containerWithUserPhotosName);
+
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Path.Combine(userId.ToString(), "photo.jpg"));
+            blockBlob.Delete();
         }
 
         public Dictionary<int, string> GetDefectPriorityPhotos()

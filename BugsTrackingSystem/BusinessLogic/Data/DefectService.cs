@@ -120,7 +120,7 @@ namespace AsignarServices.Data
             }
             catch (Exception)
             {
-                //TODO exceptions
+                throw new Exception("Can not create a task with this parameters.");
             }
 
         }
@@ -153,7 +153,7 @@ namespace AsignarServices.Data
             }
             catch (Exception)
             {
-                //TODO exceptions
+                throw new Exception("Can not edit a task with this parameters.");
             }
         }
 
@@ -165,7 +165,7 @@ namespace AsignarServices.Data
                 if (!_databaseModel.Users.First(u => u.UserID == userId).Projects.
                     Any(p => p.ProjectID == editEntity.ProjectID))
                 {
-                    throw new Exception();
+                    throw new MethodAccessException("Firstly you have to assign to the project. Then you get permissions to reassign task.");
                 }
 
                 editEntity.AssigneeUserID = userId;
@@ -178,9 +178,13 @@ namespace AsignarServices.Data
 
                 _databaseModel.SaveChanges();
             }
+            catch (MethodAccessException e)
+            {
+                throw new Exception(e.Message);
+            }
             catch
             {
-
+                throw new Exception("Can not reassign the task.");
             }
         }
 
@@ -197,7 +201,7 @@ namespace AsignarServices.Data
             }
             catch
             {
-
+                throw new Exception("Defect can not be deleted.");
             }
         }
     }

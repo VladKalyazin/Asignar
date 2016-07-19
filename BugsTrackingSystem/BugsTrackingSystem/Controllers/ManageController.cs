@@ -5,6 +5,7 @@ using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -100,7 +101,7 @@ namespace BugsTrackingSystem.Controllers
         {
             int Id = Convert.ToInt32(Request.Form["userId"]);
 
-            if (file != null)
+            /*if (file != null)
             {
                 //Declare a new dictionary to store the parameters for the image versions.
                 var versions = new Dictionary<string, string>();
@@ -129,13 +130,43 @@ namespace BugsTrackingSystem.Controllers
                 //_dataService.Value.UpdatePhoto(Id, file);
 
                 return RedirectToAction("Profile", new { userId = Id });
+            }*/
+
+            if (file != null)
+            {
+                WebImage img = new WebImage(file.InputStream);
+
+                var width = img.Width;
+                var height = img.Height;
+
+                if (width > height)
+                {
+                    var leftRightCrop = (width - height) / 2;
+                    img.Crop(0, leftRightCrop, 0, leftRightCrop);
+                }
+                else if (height > width)
+                {
+                    var topBottomCrop = (height - width) / 2;
+                    img.Crop(topBottomCrop, 0, topBottomCrop, 0);
+                }
+
+                var byteImage = img.GetBytes();
+                var blobHelper = new BlobStorageHelper();
+                blobHelper.UploadPhoto(Id, byteImage);
+
+                string url = blobHelper.GetUserPhotoUrl(Id);
+                _dataService.Value.RefreshImageLink(Id, url);
             }
+
             return RedirectToAction("Profile", new { userId = Id });
         }
         
         public ActionResult ClearPhoto(int Id)
-        {            
-            //_dataService.Value.ClearPhoto(Id);
+        {
+            var blobHelper = new BlobStorageHelper();
+            blobHelper.DeletePhoto(Id);
+
+            _dataService.Value.RefreshImageLink(Id, null);
 
             return RedirectToAction("Profile", new { userId = Id });
         }

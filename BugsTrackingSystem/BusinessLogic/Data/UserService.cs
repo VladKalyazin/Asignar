@@ -57,13 +57,22 @@ namespace AsignarServices.Data
         {
             try
             {
-                _databaseModel.Users.Remove(_databaseModel.Users.First(u => u.UserID == userId));
+                var user = _databaseModel.Users.First(u => u.UserID == userId);
+                if (user.Defects.Count > 0)
+                {
+                    throw new MethodAccessException($"This user assigns to {user.Defects.Count} tasks. Please release user from assignes before deleting.");
+                }
+                _databaseModel.Users.Remove(user);
 
                 _databaseModel.SaveChanges();
             }
+            catch (MethodAccessException e)
+            {
+                throw new Exception(e.Message);
+            }
             catch
             {
-
+                throw new Exception("Can not reassign the task.");
             }
         }
 
@@ -246,5 +255,18 @@ namespace AsignarServices.Data
             return sb.ToString();
         }
 
+        public void RefreshImageLink(int userId, string link)
+        {
+            try
+            {
+                _databaseModel.Users.Where((u) => u.UserID == userId).Single().PhotoLink = link;
+
+                _databaseModel.SaveChanges();
+            }
+            catch
+            {
+
+            }
+        }
     }
 }
