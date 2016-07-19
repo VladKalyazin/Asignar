@@ -273,8 +273,17 @@ namespace BugsTrackingSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewTask()
+        public ActionResult AddNewTask(IEnumerable<HttpPostedFileBase> files)
         {
+            foreach (var file in files)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    //file.SaveAs(Path.Combine(Server.MapPath("/uploads"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
+                    //save in cache
+                }
+            }
+
             var newTask = new DefectAddEditViewModel
             {
                 Name = Request.Form["Name"],
@@ -288,20 +297,6 @@ namespace BugsTrackingSystem.Controllers
             _dataService.Value.AddDefect(newTask);
 
             return RedirectToAction("Task", new { id = newTask.DefectId});
-        }
-
-        [HttpPost]
-        public ActionResult AddNewAttachments(IEnumerable<HttpPostedFileBase> files)
-        {
-            foreach (var file in files)
-            {
-                if (file != null && file.ContentLength > 0)
-                {
-                    file.SaveAs(Path.Combine(Server.MapPath("/uploads"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
-                    //save in database
-                }
-            }
-            return null;
         }
 
         [HttpPost]
