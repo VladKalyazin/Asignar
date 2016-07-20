@@ -8,7 +8,8 @@
 </head>
 <body style="background-color: #4D868D">
     <form id="form1" runat="server">
-    <div style="text-align: center; vertical-align: middle; line-height: 600px; height: 600px;">
+    <div style="text-align: center; vertical-align: middle; height: 600px;">
+        <p style="font-size: 200px; color: #F8FEFE; display: inline-block;">404</p><br />
         <h1 style="color: #F8FEFE; display: inline-block;">Something went wrong :(</h1>
     </div>
     </form>
